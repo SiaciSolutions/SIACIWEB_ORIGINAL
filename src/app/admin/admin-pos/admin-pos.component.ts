@@ -535,8 +535,8 @@ export class AdminPosComponent implements OnInit {
 			
 			   
 		   
-		   this.iva_cant_new= data['iva_cantidad']
-		   this.total= data['total_pedido']
+		   this.iva_cant_new = data['iva_cantidad']
+		   this.total = data['total_pedido']
 		   this.desc_cant = data['descuento']
 		   if (data['descuento_pctje'] === null ){
 		       this.desc_porcentaje = 0
@@ -561,14 +561,17 @@ export class AdminPosComponent implements OnInit {
 		   console.log(data)
 			// this.elements_checkedList = data
 			// this.inserta_pedido()
+			
 		   this.articulos_pedido = data
 		   
-		   
+		  
 		   	this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.subtotal_art),0);
 			this.iva_cant = (this.subtotal*this.iva_porcentaje)/100
 			this.iva_cant_new = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0);
-			this.desc_cant = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.v_desc_art),0));
-			this.total_neto = this.subtotal + this.desc_cant
+			setTimeout(()=> {	
+				this.desc_cant = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.v_desc_art),0));
+				this.total_neto = this.subtotal + this.desc_cant
+			}, 500)
 			this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new
 
 			let lista_base_iva = this.articulos_pedido.filter(function(e) {return e['codiva'] == 'S';});
@@ -579,7 +582,13 @@ export class AdminPosComponent implements OnInit {
 			console.log ("########### TOTAL BASE CON IVA ###########")
 			console.log (lista_base_iva)
 			console.log (this.totalBaseIva)
+			console.log (this.desc_cant)
 			this.desc_porcentaje = this.redondear(this.desc_cant*100/this.total_neto)
+
+			
+			
+
+
 		   
 		  //pedido
 		  // campos = ['codart','nomart','coduni','codiva','cantid','preuni','poriva','cant_iva','totren','desren','num_docs','des_cant','numren']

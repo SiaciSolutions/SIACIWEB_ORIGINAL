@@ -749,7 +749,7 @@ def get_renglones_pedido():
 	totren,desren,num_docs,
 	round((((desren*preuni)/100) * cantid),2) as des_cant,
     numren,
-    round((totren - des_cant),2) as subtotal_art
+    totren
 	FROM renglonespedpro r
 	where numtra='{}' and codemp='{}' and tiptra = '{}' order by numren asc
 	""".format(numtra,codemp,tiptra)
@@ -9020,14 +9020,14 @@ def busqueda_pedido_razonsocial():
   print (datos)
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
-  campos = ['nomcli','rucced','tiptra','nombre_tiptra','numtra','codcli','codven','totnet','totalpedido']
+  campos = ['nomcli','rucced','tiptra','nombre_tiptra','numtra','codcli','codven','totnet','totalpedido','fectra']
   # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
   
   sql = """SELECT (select nomcli from clientes c1 where c1.codemp=e.codemp and c1.codcli =e.codcli),
   (select rucced from clientes c1 where c1.codemp=e.codemp and c1.codcli =e.codcli) ,
   tiptra,
   (CASE WHEN e.tiptra = 1 THEN 'PEDIDO' WHEN e.tiptra = 7 THEN 'ORDEN DE TRABAJO' WHEN e.tiptra = 2 THEN 'PROFORMA' END) AS nombre_tiptra
-  ,numtra,codcli,codven,round(totnet,2) as totnet, round(totnet+iva_cantidad,2) as totalpedido
+  ,numtra,codcli,codven,round(totnet,2) as totnet, round(totnet+iva_cantidad,2) as totalpedido,fectra
   FROM "DBA"."encabezadopedpro" e where e.codemp='{}' and 
   e.codcli in (select c2.codcli from clientes c2 where c2.codemp=e.codemp and c2.nomcli like '%{}%')
   and e.estado = 'P'

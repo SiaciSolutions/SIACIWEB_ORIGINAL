@@ -902,12 +902,13 @@
 								<table class="table table-striped table-bordered table-condensed table-hover dataTable">
 								   <thead>
 									  <tr class="active" role="row">
-									  	<th class="text-center">TipoTrans</th>
+									  	<th class="text-center">Selec</th>
 									     <th class="text-center">Numtrans</th>
+										 <th class="text-center">Fecha</th>
 										 <th>Razon Social</th>
 										  <th>Total</th>
 										 <!-- <th class="text-center">Num Identificacion</th> -->
-										 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+										 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >TipoTrans</th>
 									  </tr>
 								   </thead>
 								   <tbody>
@@ -917,6 +918,7 @@
 										  <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
 										</td>
 									  <td class="text-center">{{rz.numtra}}</td>
+									   <td class="text-center">{{rz.fectra}}</td>
 										 <td>{{rz.nomcli}}</td>
 										  <td>{{rz.totalpedido}}</td>
 										  <!-- <td class="text-center">{{rz.rucced}}</td> -->
