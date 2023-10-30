@@ -1,0 +1,510 @@
+<div  *ngIf="status_cambio_vista_cliente == 'false'" class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Ajustes generales sistema
+      <small>Editar parametros generales del sistema</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Ajustes</li>
+      <li class="active">Ajustes generales</li>
+    </ol>
+  </section>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- <div class="box box-primary"> -->
+			
+
+			
+				<!-- <div class="box-header"> -->
+					<!-- <h3 class="box-title">Por favor, rellene la siguiente información</h3> -->
+				<!-- </div> -->
+			
+				
+			<div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+			    <!-- <li id="facturacion"   class="active" #facturacion ><a href="#tab_facturacion" data-toggle="tab" style="font-weight:bold;color:red" (click)="cambio_vista_cliente('false')" >FACTURACIÓN</a></li> -->
+                <!-- <li id="crear_cliente" #crear_cliente ><a href="#tab_crear_cliente"  data-toggle="tab" style="font-weight:bold;color:blue" (click)="cambio_vista_cliente('true')" >CREACIÓN CLIENTE</a></li> -->
+				
+				<li id="datos_orden"   class="active" #datos_orden ><a href="#tab_datos_orden" data-toggle="tab" style="font-weight:bold;color:blue" >Envio de correos</a></li>
+            	<li *ngIf="tab_habilitar_lista_precio" id="datos_vehiculo"  #datos_vehiculo ><a href="#tab_datos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Secuencia Tributaria</a></li>
+				
+				<li *ngIf="tab_habilitar_datos_orden" id="datos_detalle_vehiculo"  #datos_detalle_vehiculo ><a href="#tab_datos_detalle_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Detalle Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="fotos_vehiculo"  #fotos_vehiculo ><a href="#tab_fotos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Fotos Vehiculo</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			<div class="tab-pane active" id="tab_datos_orden" #tab_datos_orden >
+				
+				
+				
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+						<input type="hidden" name="spos_token" value="81ab1394a6a5b62e98f47481fe9e15d6" style="display:none;" />
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Servidor de correos</label>
+							<input [(ngModel)]="servidor" type="text" name="servidor" value="" placeholder="Ingrese servidor de correos" class="form-control input-sm" id="servidor" />
+						</div>
+					<div class="form-group">
+							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
+							<label class="control-label">Encriptacion / Puerto de salida SMTP</label>
+							<table>
+								<tr>
+									<td>
+									<!-- <select #tipo_doc name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_doc(tipo_doc.value)" >{{e.nom_doc}}</option> -->
+									<!-- </select>  -->
+									
+									<select name="encriptacion" [(ngModel)]="encriptacion" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of encriptacion_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nomencrypt}}</option>
+									</select>
+									
+									
+									
+									</td>
+									<td class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese Puerto salida SMTP"  class="form-control input-sm" id="cf1" />
+									</td>
+								</tr>
+							</table>
+							<!-- <div class="col-md-3"> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+                            <!-- </div> -->
+							<!-- <div class="col-md-9"> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					        <!-- </div> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					</div>
+					<!-- <div class="form-group"> -->
+							<!-- <label class="control-label">Tipo de cliente</label> -->
+							<!-- <!-- <select #tipo_cliente name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> --> 
+							<!-- <!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_cliente(tipo_cliente.value)" >{{e.nom_tipo_cli}}</option> --> 
+							<!-- <!-- </select>  --> 
+							
+							<!-- <select name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;"> -->
+							<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option> -->
+							<!-- </select> -->
+							
+					<!-- </div> -->
+					<div class="form-group">
+							<label class="control-label"></label>
+							<input [(ngModel)]="dircli" type="text" name="cf2" value="" placeholder="Ingrese dirección del proveedor"   class="form-control input-sm" id="cf2" />
+					</div>
+					<div class="form-group">
+							<label class="control-label">Teléfono (Ejm: 023108666)</label>
+							<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli" type="text" name="phone" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone" />
+					</div>
+					<!-- <div class="form-group"> -->
+							<!-- <label class="control-label" >Teléfono Móvil (Ejm: 0995160423)</label> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli2" type="text" name="phone" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone" /> -->
+					<!-- </div> -->
+					<!-- <div class="form-group"> -->
+							<!-- <label class="control-label" >Ciudad</label> -->
+							<!-- <!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> --> 
+							<!-- <!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> --> 
+							<!-- <!-- </select> --> 
+							
+							<!-- <select name="city" [(ngModel)]="ciudad" class="form-control select2 tip" style="width:100%;"> -->
+							<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo">{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+					<!-- </div> -->
+					<div class="form-group">
+							<label class="control-label" >Dirección de e-mail</label>
+							<input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese email válido"  class="form-control input-sm" id="email_address" />
+					</div>
+					
+					<div class="form-group">
+							
+							<!-- <div class="col-md-5"> -->
+							<div class="row">
+							<div class="col-md-8">
+							<label class="control-label" >Porcentaje merma promedio proveedor % (0 al 100)</label>
+							</div>
+							
+							<div class="col-md-2">
+							<input (keypress)='validaNumericos($event)' [(ngModel)]="porc_merma" type="text" name="porc_merma" class="form-control input-sm" id="merma" />
+							</div>
+							</div>
+							
+					</div>
+					
+					<!-- <div class="form-group" style="border:1px solid black; background-color: #52E396" > -->
+					<div class="form-group" style="background-color: #CAF2A3" >
+							<label class="control-label" >Comisionista</label>
+							<!-- <input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese email válido"  class="form-control input-sm" id="email_address" /> -->
+							<select name="comisionista" [(ngModel)]="comisionista" class="form-control select2 tip fondo" required style="width:100%;">
+							<option [ngValue]="undefined"  selected> Por favor seleccione </option>
+							<option *ngFor="let e of comisionista_lista; let i = index;" [value]="e.com_id">{{e.nombre_comisionista}}</option>
+							</select>
+					<!-- </div> -->
+					<!-- <div class="form-group"> -->
+							
+							<!-- <div class="col-md-5"> -->
+							<div class="row">
+							<div class="col-md-8">
+							<label class="control-label" >Comision en USD (por cada kilo de recibo entrante)</label>
+							</div>
+							
+							<div class="col-md-2">
+							<input (keypress)='validaNumericos($event)' [(ngModel)]="porc_comision" type="text" name="porc_comision" class="form-control input-sm" id="porc_comision" />
+							</div>
+							</div>
+							
+					</div>
+							<div class="form-group" style="background-color: #F2E6A3" >
+							<label class="control-label" >Nombre del banco</label>
+							<!-- <input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese email válido"  class="form-control input-sm" id="email_address" /> -->
+							<select name="cod_banco" [(ngModel)]="cod_banco" class="form-control select2 tip fondo" required style="width:100%;">
+							<option [ngValue]="undefined"  selected> Por favor seleccione </option>
+							<option *ngFor="let e of banco_lista; let i = index;" [value]="e.COD_BANCO">{{e.NOMBRE_BANCO}}</option>
+							</select>
+							<label class="control-label"></label>
+					<!-- </div> -->
+					<!-- <div class="form-group"> -->
+							
+							<!-- <div class="col-md-5"> -->
+							<!-- <div class="row"> -->
+							<!-- <div class="col-md-8"> -->
+							<!-- <label class="control-label" >Comision en USD (por cada kilo de recibo entrante)</label> -->
+							<!-- </div> -->
+							
+							<!-- <div class="col-md-2"> -->
+							<!-- <input (keypress)='validaNumericos($event)' [(ngModel)]="porc_comision" type="text" name="porc_comision" class="form-control input-sm" id="porc_comision" /> -->
+							<!-- </div> -->
+							
+							<!-- <div class="form-group"> -->
+							<label class="control-label">Numero de cuenta</label>
+							<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="numero_cuenta" type="text" name="numero_cuenta" value="" placeholder="Ingrese número de cuenta"   class="form-control input-sm" id="numero_cuenta" />
+							<!-- </div> -->
+							<label class="control-label"></label>
+							
+							<label class="control-label">Tipo de cuenta</label>
+							<select name="tipo_cuenta" [(ngModel)]="tipo_cuenta" class="form-control select2 tip fondo" required style="width:100%;">
+							<option [ngValue]="undefined"  selected> Por favor seleccione </option>
+							<option *ngFor="let e of tipo_cuenta_lista; let i = index;" [value]="e.tipo">{{e.nom_cta}}</option>
+							</select>
+							<label class="control-label"></label>
+							
+							<!-- </div> -->
+							
+					
+					
+					
+					</div>
+					
+
+
+					<div class="form-group">
+							<!-- <input *ngIf=" srv.getRol()!= 'INGREC'"  type="submit" name="add_customer" value="Actualizar proveedor"  class="btn btn-primary" (click)="actualizar_proveedor()" /> -->
+							<input routerLink="/admin/lista_proveedores" type="submit"  name="add_purchase" value="Ir a lista de proveedores" class="btn btn-danger">
+						</div>
+					</div>
+					</form>				
+				</div>
+				
+				</div> <!-- /.FIN tab-pane 1 -->
+			
+
+	<!--########################################## PESTAÑA 2  	#######################################################	 -->
+			<div class="tab-pane"  id="tab_datos_vehiculo" #tab_datos_vehiculo>
+			    <div class="row">
+                            <!-- <div class="col-md-12"> -->
+                                <!-- <div class="table-responsive"> -->
+								
+                                   <!-- <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable"> -->
+                                        <!-- <thead> -->
+                                            <!-- <tr class="active" role="row"> -->
+												<!-- <th>Código</th> -->
+                                                <!-- <th>Producto</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Peso GR.</th> -->
+												<!-- <!-- <th>Observación</th> --> 
+                                                <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Precio KG(USD)</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Precio Max KG(USD)</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Comisiona producto</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Comision USD</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="2">Lista de ciudades donde comisiona</th> -->
+                                                <!-- <!-- <th class="col-xs-1 text-center" (click)="delete_art_todo()" style="width:25px;"><i class="fa fa-trash-o" title="Remover todos" ></i></th> --> 
+												<!-- <th class="col-xs-1 text-center"  style="width:25px;">Acciones</th> -->
+                                            <!-- </tr> -->
+                                        <!-- </thead> -->
+										
+										<!-- <tbody *ngIf="articulos_proveedor.length > 0"> -->
+											<!-- <tr *ngFor="let el of articulos_proveedor;"> -->
+												<!-- <td>{{el.id}}</td> -->
+												<!-- <td style="min-width:100px;">{{el.nomart}}</td> -->
+												<!-- <td>{{el.peso_gr}}</td> -->
+												<!-- <!-- <td> --> 
+													<!-- <!-- <!-- {{el.exiact}} -->  
+													<!-- <!-- <input *ngIf="((el.observ) && (el.observ =='Puede agregar detalles del artículo'))" #observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="{{el.observ}}"    --> 
+													<!-- <!-- value=""  (keyup.enter)="update_observ(el.id,el.index,observacion.value)" (blur)="update_observ(el.id,el.index,observacion.value)"> -->
+													<!-- <!-- <input *ngIf="((el.observ) && (el.observ !='Puede agregar detalles del artículo'))"#observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="Puede agregar detalles del artículo"    --> 
+													<!-- <!-- value="{{el.observ}}"  (keyup.enter)="update_observ(el.id,el.index,observacion.value)" (blur)="update_observ(el.id,el.index,observacion.value)"> --> 
+													
+													<!-- <!-- <input *ngIf="!el.observ" #observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="Puede agregar detalles del artículo"    --> 
+													<!-- <!-- value=""  (keyup.enter)="update_observ(el.id,el.index,observacion.value)" (blur)="update_observ(el.id,el.index,observacion.value)"> --> 
+												<!-- <!-- </td> --> 
+				
+												<!-- <td style="padding:2px;"> -->
+													
+													<!-- <!-- <input #prec class="form-control input-sm kb-pad text-center rquantity" name="cantidad" type="text"   --> 
+													<!-- <!-- value="{{el.prec}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.id,el.index,prec.value)" (blur)="update_precio(el.id,el.index,prec.value)"> --> 
+													<!-- <input #prec class="form-control input-sm kb-pad text-center rquantity" name="cantidad_{{el.index}}" type="text"  id="cantidad_{{el.index}}" -->
+													<!-- value="{{el.prec}}" (keypress)='validaNumericos($event,prec.value)' (change)="update_precio(el.id,el.index,prec.value)" (keyup.enter)="update_precio(el.id,el.index,prec.value)"> -->
+										
+												<!-- </td> -->
+												<!-- <td class="text-center">{{el.precio_max_kilo}}</td> -->
+												
+												<!-- <td> -->
+												<!-- <tr> -->
+							
+												<!-- <td> -->
+												<!-- <label  class="switch"> -->
+													 
+												<!-- <!-- <input #comisiona type="checkbox" [checked] = "el.comisiona == 'SI'" (click)="update_comision_articulo(el.id,el.index,comisiona.value)"><span class="slider round"></span>  --> 
+												<!-- <!-- <input type="checkbox" [checked] = "el.comisiona == 'SI'" (change)="update_comision_articulo(el.id,el.index,$event)"><span class="slider round"></span>  -->
+												<!-- <input type="checkbox" [checked] = "el.comisiona == 'SI'" (change)="update_comision_articulo(el.id,el.index,el.comisiona)"><span class="slider round"></span>  -->
+								
+												
+												<!-- <!-- <input type="checkbox" [(ngModel)]="comisiona_producto"><span class="slider round"></span> --> 
+												
+												<!-- </label> -->
+												<!-- </td> -->
+												<!-- <td> -->
+												<!-- <!-- <span style="color:black;font-weight: bold;" *ngIf="!comisiona_producto">NO</span> --> 
+												<!-- <!-- <span style="color:black;font-weight: bold;" *ngIf="comisiona_producto">SI</span> --> 
+												
+												<!-- <span style="color:black;font-weight: bold;" >{{el.comisiona}}</span> -->
+												<!-- <!-- <span style="color:black;font-weight: bold;" *ngIf="comisiona_producto">SI</span> --> 
+												<!-- </td> -->
+												<!-- </tr> -->
+												
+
+												
+												
+												
+												
+												<!-- </td> -->
+												
+												<!-- <td> -->
+												
+													
+													<!-- <input #com class="form-control input-sm kb-pad text-center rquantity" name="comision" type="text"   -->
+													<!-- value="{{el.monto_comision}}" (keypress)='validaNumericos($event,com.value)' (keyup.enter)="update_comision_renglon(el.id,el.index,com.value)" (blur)="update_comision_renglon(el.id,el.index,com.value)"> -->
+										
+												
+												<!-- </td> -->
+												<!-- <td colspan="2"> -->
+												
+														<!-- <ul *ngFor="let ciudad of el.lista_ciudades_comisiona.split(',');" > -->
+													  <!-- <li> -->
+														<!-- {{ciudad}} -->
+																	 <!-- <a (click)="delete_ciudad_lista_precio(el.id,el.index,ciudad)"  class="tip btn btn-danger btn-xs" ><i class="fa fa-remove " title="Eliminar ciudad" ></i></a> -->
+													  <!-- </li> -->
+													<!-- </ul> -->
+
+													
+													<!-- <div *ngIf="el== edit_articulos" class="input-group">	 -->
+													
+													<!-- <!-- (keyup.enter)="busca_ciudad()" [(ngModel)]="patron_ciudad" --> 
+													<!-- <input   type="text" name="search_customer" id="search_customer" (keyup.enter)="busca_ciudad(el.id)"  [(ngModel)]="patron_ciudad"  class="form-control ui-autocomplete-input" placeholder="Ingrese la ciudad a agregar" autocomplete="off"> -->
+												     <!-- <div (click)="busca_ciudad(el.id)" class="input-group-addon no-print" style="padding: 2px 5px;"> -->
+														<!-- <a id="add-customer" class="external" ><i class="fa fa-2x fa-search" id="searchIcon"></i></a> -->
+												    <!-- </div> -->
+													<!-- <div (click)="inserta_ciudad_renglon(el.index,'C')" class="input-group-addon no-print" style="padding: 2px 5px;"> -->
+														<!-- <a id="add-customer" class="external" ><i class="fa fa-2x fa-remove" id="searchIcon"></i></a> -->
+												    <!-- </div> -->
+													<!-- </div> -->
+													
+													<!-- <tr *ngIf="searching_ciudad && el== edit_articulos"> -->
+															<!-- <td class="text-center" colspan="12"><h4>BUSCANDO CIUDAD POR FAVOR ESPERE...!!!!</h4></td> -->
+													<!-- </tr> -->
+													
+													<!-- <div *ngIf="this.exist_ciudad && el== edit_articulos" class="table-responsive-pedidos"> -->
+													 <!-- <tr class="active" role="row"> -->
+														 <!-- <th>ciudad</th> -->
+														 <!-- <!-- <!-- <!-- <th>Nombre</th> -->   
+														 <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+													  <!-- </tr> -->
+												  
+													<!-- <tr *ngFor="let el of ciudad_lista;"> -->
+												  
+													 <!-- <td class="">{{el.ciudad}}</td> -->
+													 <!-- <!-- <!-- <!-- <td class="">{{articulos.nomart}}</td> -->   
+													 <!-- <td class="">  -->
+
+													  <!-- <input  type="checkbox" [(ngModel)]="el.isSelected" name="list_name" value="{{el.ciudad}}" (change)="isAllSelected_ciudad()"/> -->
+													 <!-- </td> -->
+													 <!-- </tr> -->
+													 <!-- <input *ngIf="ciudad_lista.length > 0" type="submit" name="inserta_ciudad" value="Insertar a Lista" class="btn btn-info" (click)="inserta_ciudad_renglon(el.index,'I')"> -->
+													 <!-- <input *ngIf="ciudad_lista.length > 0" type="submit" name="cancelar_insercion" value="Cancelar" class="btn btn-danger" (click)="inserta_ciudad_renglon(el.index,'C')"> -->
+													<!-- </div> -->
+
+												<!-- </td> -->
+						
+												<!-- <td  class="text-center"> -->
+													<!-- <i (click)="delete_art(el.nomart,el.index)" class="fa fa-2x fa-trash-o tip pointer spodel" title="Remover artículo"></i> -->
+													<!-- <a (click)="edit_articulos=el"  class="tip btn btn-warning btn-xs" ><i class="fa fa-plus" title="Agregar ciudad" >Agregar Ciudad</i></a> -->
+												<!-- </td> -->
+											<!-- </tr> -->
+											
+											<!-- <tr  *ngIf=" srv.getRol()!= 'INGREC'" > -->
+					
+											<!-- <td  class="text-center" colspan="8"> -->
+												<!-- <input #busqueda_art1 class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER  O BOTON BUSCAR" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo"> -->
+											<!-- </td> -->
+											<!-- <!-- <td class="text-center" colspan="1"> --> 
+											<!-- <!-- </td> --> 
+										
+											<!-- <td class="text-center" colspan="1"> -->
+
+											<!-- <button  class="btn btn-danger" id="btnUpload"  (click)="busca_articulo()">Buscar</button> -->
+										
+											<!-- </td> -->
+
+											<!-- <tr *ngIf="searching_articulo"> -->
+											<!-- <td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td> -->
+											<!-- </tr> -->
+											<!-- <tr *ngIf="this.exist_articulo"> -->
+											<!-- <td class="text-center" colspan="12"> -->
+											<!-- <div class="table-responsive-pedidos"> -->
+												 <!-- <tr class="active" role="row"> -->
+													 <!-- <th>Código</th> -->
+													 <!-- <th>Nombre</th> -->
+													 <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+												  <!-- </tr> -->
+												  
+											<!-- <tr *ngFor="let articulos of articulo;"> -->
+										  
+											 <!-- <td class="">{{articulos.id}}</td> -->
+											 <!-- <td class="">{{articulos.nomart}}</td> -->
+											 <!-- <td class="">  -->
+
+											  <!-- <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/> -->
+											 <!-- </td> -->
+										  <!-- </tr> -->
+
+											<!-- </div> -->
+											<!-- </td> -->
+										<!-- </tr> -->
+											
+                                        <!-- </tbody> -->
+									
+										<!-- <tbody *ngIf="articulos_proveedor.length == 0"> -->
+											<!-- <tr> -->
+												<!-- <td class="text-center" colspan="8"> -->
+												<!-- <input   #busqueda_art1 class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER O BOTON BUSCAR" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo"> -->
+											
+											<!-- </td> -->
+											<!-- <!-- <td class="text-center" colspan="1"> --> 
+											<!-- <!-- </td> --> 
+											<!-- <td class="text-center" colspan="1"> -->
+
+											<!-- <button  class="btn btn-danger" id="btnUpload"  (click)="busca_articulo()">Buscar</button> -->
+
+											<!-- </td> -->
+											<!-- </tr> -->
+											
+											<!-- <tr *ngIf="searching_articulo"> -->
+											<!-- <td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td> -->
+											<!-- </tr> -->
+											
+											<!-- <tr *ngIf="this.exist_articulo"> -->
+											<!-- <td class="text-center" colspan="12"> -->
+											<!-- <div class="table-responsive-pedidos"> -->
+												 <!-- <tr class="active" role="row"> -->
+													 <!-- <th>Código</th> -->
+													 <!-- <th>Nombre</th> -->
+													 <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+												  <!-- </tr> -->
+										
+										  
+											<!-- <tr *ngFor="let articulos of articulo;"> -->
+										  
+											 <!-- <td class="">{{articulos.id}}</td> -->
+											 <!-- <td class="">{{articulos.nomart}}</td> -->
+						
+											 <!-- <td class="">  -->
+											  <!-- <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/> -->
+											 <!-- </td> -->
+										  <!-- </tr> -->
+
+										<!-- </div> -->
+											<!-- </td> -->
+											<!-- </tr> -->
+									<!-- </tbody> -->
+
+										
+										
+										
+									 <!-- <tfoot *ngIf="articulos_proveedor.length > 0"> -->
+								
+			
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th *ngIf="this.exist_articulo"> -->
+													<!-- <p>{{elements_checkedList.length}}  Items seleccionados</p> -->
+												<!-- </th> -->
+												<!-- <th *ngIf="this.exist_articulo">												 -->
+												<!-- <input type="submit" name="inserta_pedido" value="Insertar a Lista" class="btn btn-danger" (click)="inserta_pedido()"> -->
+												<!-- </th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+						
+                                            <!-- </tr> -->
+							
+									<!-- </tfoot> -->
+								
+                                    <!-- </table> -->
+							<!-- <div  *ngIf="this.exist_articulo && articulos_proveedor.length == 0" class="col-md-5"> -->
+							<!-- <input type="submit" name="inserta_pedido" value="Insertar a lista" class="btn btn-danger" (click)="inserta_pedido()"> -->
+								<!-- <p>{{elements_checkedList.length}}  Items seleccionados</p> -->
+							<!-- </div> -->
+                                <!-- </div> -->
+								
+								<!-- <div *ngIf="articulos_proveedor.length > 0" class="form-group"> -->
+								<!-- <input  *ngIf=" srv.getRol()!= 'INGREC'" type="submit" name="add_customer" value="Guardar lista de precio"  class="btn btn-primary" (click)="guardar_lits_politica_prov()" /> -->
+								<!-- <!-- <input routerLink="/admin/lista_proveedores" type="submit"  name="add_purchase" value="Ir a lista de proveedores" class="btn btn-danger"> --> 
+								<!-- </div>	 -->
+                            <!-- </div><!-- FIN COL 12 -->  
+
+					</div><!-- FIN ROW --> 
+
+			</div> <!-- FIN PANEL 2 --> 
+	<!--########################################## FIN PESTAÑA 2  #######################################################	 -->
+				</div>
+				</div>
+			<!-- </div>  <!-- /.fin primary --> 
+		</div>   <!-- /.fin col12 -->
+	</div>
+</section>
+  <!-- /.content -->
+</div>

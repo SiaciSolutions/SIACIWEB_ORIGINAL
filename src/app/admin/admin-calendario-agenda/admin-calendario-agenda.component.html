@@ -1,0 +1,168 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Agenda de pedidos por ruta
+      <small>Por favor seleccione la ruta y programe la entrega de los pedidos</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Calendario</li>
+      <li class="active">Agenda de pedidos</li>
+    </ol>
+  </section>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+	<div class="row">
+	
+		<!-- <div class="col-md-3"> -->
+          <!-- <div class="box box-solid"> -->
+            <!-- <div class="box-header with-border"> -->
+              <!-- <h4 class="box-title">Seleccione Ruta</h4> -->
+            <!-- </div> -->
+            <!-- <div class="box-body"> -->
+              <!-- <!-- <div #external id="external-events"> -->
+                <!-- <!-- <div class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;">PED0001-KFC</div> --> 
+                <!-- <!-- <div class="external-event bg-yellow ui-draggable ui-draggable-handle" style="position: relative;">PED0002-MENESTRA DEL NEGRO</div> --> 
+                <!-- <!-- <div class="external-event bg-aqua ui-draggable ui-draggable-handle" style="position: relative; z-index: auto; left: 0px; top: 0px;">PED0003-PIZZAS HORNEROS</div> --> 
+                <!-- <!-- <div class="external-event bg-light-blue ui-draggable ui-draggable-handle" style="position: relative;">PED0004-PIZZA HUTS</div> --> 
+                <!-- <!-- <div class="external-event bg-red ui-draggable ui-draggable-handle" style="position: relative;">PED0005-HOTEL ALEX</div> --> 
+              <!-- <!-- </div> --> 
+            <!-- </div> -->
+          <!-- </div> -->
+        <!-- </div> -->
+	
+	
+	
+	    <div class="col-md-3">
+		
+		  <div class="box box-solid">
+            <div class="box-header with-border">
+              <h4 class="box-title">Seleccione la ruta</h4>
+            </div>
+            <div class="box-body">
+				 <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="pedidos_ruta()" class="form-control select2 tip" style="width:100%;">
+					<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+					<option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option>
+				</select>
+            </div>
+          </div>
+		
+		
+		
+		
+		
+		
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h4 class="box-title">Pedidos pendientes</h4>
+            </div>
+            <div class="box-body scroll">
+              <!-- the events -->
+              <!-- <div #external id="external-events"> -->
+                <!-- <div class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;">PED0001-KFC</div> -->
+                <!-- <div class="external-event bg-yellow ui-draggable ui-draggable-handle" style="position: relative;">PED0002-MENESTRA DEL NEGRO</div> -->
+                <!-- <div class="external-event bg-aqua ui-draggable ui-draggable-handle" style="position: relative; z-index: auto; left: 0px; top: 0px;">PED0003-PIZZAS HORNEROS</div> -->
+                <!-- <div class="external-event bg-light-blue ui-draggable ui-draggable-handle" style="position: relative;">PED0004-PIZZA HUTS</div> -->
+                <!-- <div class="external-event bg-red ui-draggable ui-draggable-handle" style="position: relative;">PED0005-HOTEL ALEX</div> -->
+              <!-- </div> -->
+			  
+			 <!-- <ul #external id="external-events"> -->
+                <!-- <li class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;">PED0001-KFC</li> -->
+                <!-- <li class="external-event bg-yellow ui-draggable ui-draggable-handle" style="position: relative;">PED0002-MENESTRA DEL NEGRO</li> -->
+                <!-- <li class="external-event bg-aqua ui-draggable ui-draggable-handle" style="position: relative; z-index: auto; left: 0px; top: 0px;">PED0003-PIZZAS HORNEROS</li> -->
+                <!-- <li class="external-event bg-light-blue ui-draggable ui-draggable-handle" style="position: relative;">PED0004-PIZZA HUTS</li> -->
+                <!-- <li class="external-event bg-red ui-draggable ui-draggable-handle" style="position: relative;">PED0005-HOTEL ALEX</li> -->
+              <!-- </ul> -->
+			  
+			  			 
+						 
+			<ul #external id="external-events">
+                <li  *ngFor="let item of lista_pedidos_ruta" class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;list-style:none">{{item.nomcli}}/{{item.numtra_pedido}}</li>
+			</ul>
+			  
+			  
+			  
+			  
+            </div>
+          </div>
+        </div>
+	
+	
+	
+	
+	
+						  <!-- (eventDrop)="eventDrop($event)" -->
+	
+	
+	
+	
+	
+		<div class="col-xs-9">
+			<div class="box box-primary">
+				    <full-calendar #calendar 
+					defaultView="dayGridMonth"
+					[buttonText] = "{
+						today: 'Hoy',
+						month: 'Mes',
+						week: 'Semana',
+						day: 'Día',
+						list: 'Lista'
+					  }"
+					[header]="{
+						left: 'prev,next today',
+						center: 'title',
+						right: 'dayGridMonth,timeGridWeek,timeGridDay'
+					  }"
+					  [plugins]="calendarPlugins"
+					  [weekends]="calendarWeekends"
+					  [timeZone]= "local"
+					  [events]="calendarEvents"
+					  (dateClick)="handleDateClick($event)"
+					  [minTime]= "'05:00:00'"
+					  [maxTime]= "'21:59:00'"
+					  [slotDuration]= "'00:10:01'"
+					  [forceEventDuration]= "true"
+					  [defaultTimedEventDuration] = "'00:10'" 
+					  [allDaySlot]= "true"
+					  [droppable] = "true"
+					  [editable]="true"
+					  (eventDrop)="eventDrop($event)"
+					  (drop) = "drop($event)"
+					  (eventRender)="doNotRenderEvents($event)"
+					 
+					  
+					  
+			  		>
+					</full-calendar>
+				
+			</div>
+		</div>
+		
+		
+		
+          
+		
+		
+		
+		
+		
+	</div>
+</section>
+  <!-- /.content -->
+</div>

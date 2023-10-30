@@ -1,0 +1,541 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Mediciones de agua
+      <small>Proceso para tomar las mediciones de consumo de agua</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Mediciones</li>
+      <!-- <li class="active">Mediciones de agua</li> -->
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Your Page Content Here -->
+	
+	
+	 <div class="row">
+        <div class="col-xs-12">
+		
+			<div class="box box-primary" *ngIf="loading_modulo">
+				<div class="text-center box-header">
+				  <h3 class="box-title ">Por favor espere...!!!!</h3>
+				</div>
+				<div class="box-body">
+				  <!-- <!-- <!-- The body of the box -->  
+				</div>
+				<div class="overlay">
+				  <i class="fa fa-refresh fa-spin"></i>
+				</div>
+				<!-- <!-- <!-- end loading -->  
+			</div>
+		
+		<div class="nav-tabs-custom" *ngIf="!loading_modulo">
+            <ul class="nav nav-tabs">
+			    <!-- <li id="facturacion"   class="active" #facturacion ><a href="#tab_facturacion" data-toggle="tab" style="font-weight:bold;color:red" (click)="cambio_vista_cliente('false')" >FACTURACIÓN</a></li> -->
+                <!-- <li id="crear_cliente" #crear_cliente ><a href="#tab_crear_cliente"  data-toggle="tab" style="font-weight:bold;color:blue" (click)="cambio_vista_cliente('true')" >CREACIÓN CLIENTE</a></li> -->
+				
+				<li id="datos_orden"   class="active" #datos_orden ><a href="#tab_datos_orden" data-toggle="tab" style="font-weight:bold;color:blue" >Datos mediciones</a></li>
+                <li *ngIf="tab_habilitar_datos_orden" id="datos_vehiculo"  #datos_vehiculo ><a href="#tab_datos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue"  >Datos Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="datos_detalle_vehiculo"  #datos_detalle_vehiculo ><a href="#tab_datos_detalle_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Detalle Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="fotos_vehiculo"  #fotos_vehiculo ><a href="#tab_fotos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Fotos Vehiculo</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			<div class="tab-pane active" id="tab_datos_orden" #tab_datos_orden >
+		
+		
+            <!-- <div class="box box-primary"> -->
+                <!-- <div class="box-header"> -->
+                    <!-- <h3 class="box-title">Por favor, rellene la siguiente información</h3> -->
+                <!-- </div> -->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <form class="validation fv-form fv-form-bootstrap" enctype="multipart/form-data" method="post" accept-charset="utf-8" novalidate="novalidate">
+						
+						<button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+                       
+					   <!-- <div class="row"> -->
+							<!-- <div class="col-md-2"> -->
+                                <!-- <div class="form-group"> -->
+                                    <!-- <label for="date">FECHA CREACION -->
+									<!-- </label> -->
+									<!-- <input *ngIf='!accion_actualizar' type="text" name="date" value="{{fectra}}" class="form-control tip" id="date" required="required" disabled> -->
+									<!-- <input *ngIf='accion_actualizar' type="text" name="date" value="{{fectra}}" class="form-control tip" id="date" required="required" disabled> -->
+								<!-- <mat-form-field *ngIf="edit_fecha_creacion"> -->
+								<!-- <input matInput [matDatepicker]="picker" placeholder="Escoja fecha" [(ngModel)]="fectra" name="fectra" > -->
+								<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+								<!-- <mat-datepicker #picker></mat-datepicker> -->
+								<!-- </mat-form-field> -->
+								
+								<!-- </div> -->
+                            <!-- </div> -->
+
+							<!-- <div class="col-md-3"> -->
+								<!-- <div class="form-group"> -->
+                                    <!-- <label for="date">ALMACENES</label> -->
+									<!-- <select *ngIf="!numtra && almacenes_lista.length > 0" name="bodega" [(ngModel)]="almacen" class="form-control select2 tip" style="width:100%;"> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of almacenes_lista; let i = index;" [value]="e.codalm">{{e.nomalm}}</option> -->
+									<!-- </select> -->
+								<!-- </div> -->
+                            <!-- </div> -->
+	
+                       <!-- </div> -->
+
+						<!--################## EJEMPLO COMBO CON SELECT############## -->
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <div class="table-responsive"> -->
+								
+								    <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col-xs-3"><b>Técnico</b></th>
+                                                    <td class="col-xs-10">
+														<input type="text" placeholder="Inserte tecnico" name="tecnico" value="" class="form-control tip"  id="tecnico">
+													</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-xs-3"><b>Num Medidor</b></th>
+                                                    <td class="col-xs-10">
+														<input type="text" placeholder="Inserte medidor" name="medidor" value="" class="form-control tip"  id="medidor">
+													</td>
+                                                </tr>
+												<tr>
+                                                    <th class="col-xs-3"><b>Fecha de medición</b></th>
+                                                    <td class="col-xs-10">
+														<input [(ngModel)]="fecha_desde" type="date" name="fecha_desde" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
+													</td>
+                                                </tr>
+												<tr>
+                                                    <th class="col-xs-3"><b>Hora</b></th>
+                                                    <td class="col-xs-10"> 
+														<input type="time" name="hora">
+													</td>
+                                                </tr>
+												<tr>
+                                                    <th class="col-xs-3"><b>Medida en m3</b></th>
+                                                    <td class="col-xs-10"> 
+													
+														<input type="text" inputmode="numeric" placeholder="Inserte medida" name="m3" value="" class="form-control tip"  id="m3">
+													
+													
+													</td>
+                                                </tr>
+												<tr>
+                                                    <th class="col-xs-3"><b>Observación</b></th>
+                                                    <td class="col-xs-10">
+														<input type="text" placeholder="Inserte observacion" name="observacion" value="" class="form-control tip"  id="observacion">
+													
+													
+													</td>
+                                                </tr>
+
+                                              </tbody>
+                                    </table>
+								
+								
+								
+                                   <!-- <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable"> -->
+                                        <!-- <thead> -->
+                                            <!-- <tr class="active" role="row"> -->
+												<!-- <th>Técnico</th> -->
+												<!-- <th>Num Medidor</th> -->
+                                                <!-- <th>Fecha de medición</th> -->
+												<!-- <th style="width:25px; padding-right:5px;">Hora</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" >Medida en m3</th> -->
+												<!-- <th>Observación</th> -->
+												<!-- <th>Acciones</th> -->
+												
+
+										  <!-- </tr> -->
+                                        <!-- </thead> -->
+										<!-- <tbody> -->
+										<!-- <tr> -->
+											<!-- <td> -->
+												<!-- <input type="text" placeholder="Inserte tecnico" name="tecnico" value="" class="form-control tip"  id="tecnico"> -->
+											
+											<!-- </td> -->
+											<!-- <td style="min-width:100px;"> -->
+												<!-- <input type="text" placeholder="Inserte medidor" name="medidor" value="" class="form-control tip"  id="medidor"> -->
+											<!-- </td> -->
+											<!-- <td style="min-width:100px;"> -->
+												<!-- <input [(ngModel)]="fecha_desde" type="date" name="fecha_desde" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31"> -->
+											<!-- </td> -->
+											<!-- <td style="min-width:100px;"> -->
+											
+												<!-- <input type="time" name="eta"> -->
+											
+											<!-- </td> -->
+											<!-- <td style="min-width:100px;"> -->
+												<!-- <input type="text" inputmode="numeric" placeholder="Inserte medida" name="m3" value="" class="form-control tip"  id="m3"> -->
+											<!-- </td> -->
+											<!-- <td style="min-width:100px;"> -->
+												<!-- <input type="text" placeholder="Inserte observacion" name="observacion" value="" class="form-control tip"  id="observacion"> -->
+											<!-- </td> -->
+											<!-- <td class="col-xs-1 text-center" style="min-width:100px;"> -->
+												<!-- <i class="fa fa-2x fa-trash-o tip pointer spodel" title="Remover artículo"></i> -->
+											<!-- </td> -->
+										<!-- </tr> -->
+										
+										<!-- </tbody> -->
+										
+										<!-- <tbody *ngIf="articulos_pedido.length > 0"> -->
+											<!-- <tr *ngFor="let el of articulos_pedido;"> -->
+												<!-- <td>{{el.codart}}</td> -->
+												<!-- <td style="min-width:100px;">{{el.codbarra}}</td> -->
+												<!-- <td style="min-width:100px;">{{el.nomart}}</td> -->
+												
+												<!-- <td style="padding:2px;" colspan="3"> -->
+													<!-- <input #cant class="form-control input-sm kb-pad text-center rquantity" name="cantidad" type="number"   -->
+													<!-- value="{{el.cant}}" (keypress)='validaNumericos($event,cant.value)' (keyup.enter)="update(el.codart,el.index,cant.value)" (blur)="update(el.codart,el.index,cant.value)"> -->
+												<!-- </td> -->
+												
+												
+												<!-- <td>{{el.coduni}}</td> -->
+
+												
+												<!-- <td (click)="delete_art(el.nomart,el.index)" class="text-center"> -->
+													<!-- <i class="fa fa-trash-o tip pointer spodel" title="Remover artículo"></i> -->
+												<!-- </td> -->
+											<!-- </tr> -->
+											<!-- <tr> -->
+								
+											
+											
+											<!-- <tr *ngIf="searching_articulo"> -->
+											<!-- <td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td> -->
+											<!-- </tr> -->
+											<!-- <tr *ngIf="this.exist_articulo"> -->
+											<!-- <td class="text-center" colspan="12"> -->
+											<!-- <div class="table-responsive-pedidos"> -->
+												 <!-- <tr class="active" role="row"> -->
+													 <!-- <th>Producto</th> -->
+													 <!-- <!-- <th *ngIf="nombre_almacen == 'Producto terminado'">Nombre Prod terminado</th> --> 
+													 <!-- <th style="width:25px; padding-right:5px;" >Dispon</th> -->
+													 <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+												  <!-- </tr> -->
+										
+										<!-- <!-- <input type="submit" name="inserta_pedido" value="Insertar a ingreso" class="btn btn-danger" (click)="inserta_pedido()"> --> 
+												  
+											<!-- <tr *ngFor="let articulos of articulo;"> -->
+												<!-- <!-- <td *ngIf="nombre_almacen == 'Materia prima'" class="">{{articulos.desc_terminado}}</td> --> 
+											 <!-- <td class="">{{articulos.nomart}}</td> -->
+											 <!-- <!-- <td class="text-center"> --> 
+												<!-- <!-- <span *ngIf="articulos!==edit_articulos">{{articulos.cospro}}  </span> --> 
+											 <!-- <!-- </td> -->
+											 
+											 <!-- <td class="">{{redondear(articulos.exiact)}}</td> -->
+											 <!-- <td class="">  -->
+											  <!-- <!-- <input  type="checkbox"/> --> 
+											  <!-- <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/> -->
+											 <!-- </td> -->
+											<!-- </tr> -->
+
+										  <!-- <!-- <input type="submit" name="inserta_pedido" value="Insertar a ingreso" class="btn btn-danger" (click)="inserta_pedido()"> --> 
+
+											<!-- </div> -->
+											<!-- </td> -->
+											<!-- </tr> -->
+											
+                                        <!-- </tbody> -->
+									
+										<!-- <tbody *ngIf="articulos_pedido.length == 0"> -->
+
+											
+											<!-- <tr *ngIf="searching_articulo"> -->
+											<!-- <td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td> -->
+											<!-- </tr> -->
+											
+											<!-- <tr *ngIf="this.exist_articulo"> -->
+											<!-- <td class="text-center" colspan="12"> -->
+											<!-- <div class="table-responsive-pedidos"> -->
+												 <!-- <tr class="active" role="row"> -->
+													 <!-- <th>Producto</th> -->
+													 <!-- <th style="width:25px; padding-right:5px;" >Dispon</th> -->
+													 <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+												  <!-- </tr> -->
+
+												  
+											<!-- <tr *ngFor="let articulos of articulo;"> -->
+										  
+
+											 <!-- <td class="">{{articulos.nomart}}</td> -->
+											 <!-- <!-- <td class="text-center"> --> 
+												<!-- <!-- <span *ngIf="articulos!==edit_articulos">{{articulos.cospro}}  </span> --> 
+											 <!-- <!-- </td> --> 
+											 
+											 <!-- <td class="">{{redondear(articulos.exiact)}}</td> -->
+											 <!-- <td class="">  -->
+											  <!-- <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/> -->
+											 <!-- </td> -->
+											<!-- </tr> -->
+
+										  <!-- <!-- <input type="submit" name="inserta_pedido" value="Insertar a ingreso" class="btn btn-danger" (click)="inserta_pedido()"> --> 
+
+											<!-- </div> -->
+											<!-- </td> -->
+											<!-- </tr> -->
+												
+											
+										<!-- </tbody> -->
+
+										
+										
+										
+
+								
+                                    <!-- </table> -->
+					
+                                <!-- </div> -->
+                            </div>
+                        </div>
+	
+
+
+<!--################## INICIO MODAL ###########################-->
+			<div class="modal fade in" id="series_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+					
+								  <div class="modal-dialog" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close" click="close_serie_renglon()" ><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">Manejo de Series/lote</h4>
+									  </div>
+									  <div class="modal-body">
+																		
+										<div class="font16">
+											<table class="table table-bordered table-condensed" style="margin-bottom: 0;">
+												<tbody>
+													<tr>
+														<th style="border-right-color: #FFF !important;" width="25%">SERIE/LOTE</th>
+														<td class="text-right" width="25%">
+
+														<!-- <span id="item_count"> -->
+															<!-- <!-- {{articulos_suma_cant}} --> 
+														<!-- <input  [(ngModel)]="serie_lote_form" name="serie" type="text"   id="serie" class="pa form-control kb-pad amount"> -->
+														<!-- </span> -->
+														
+														<div class="input-group">
+					
+															<input 	 type="text" name="serie" id="serie"  value="" placeholder="Ingrese serie/lote" [(ngModel)]="serie_lote_form"  (blur)="valida_serie_articulo()"  (keyup.enter)="valida_serie_articulo()" class="form-control ui-autocomplete-input text-center " autocomplete="off">
+														
+															<div  class="input-group-addon no-print" style="padding: 2px 5px;">
+																	<a (click)="scan_valor_serie=true" id="add-customer" class="external" data-toggle="modal" data-target="#series_modal2"><i class="fa fa-2x fa-barcode" id="addIcon"></i></a>
+															</div>
+														</div>
+
+														</td>
+													</tr>
+													<tr>
+													<th style="border-right-color: #FFF !important;" width="25%">FECHA CADUCIDAD</th>
+													<td class="text-right" width="25%">
+														<span id="twt">
+														<!-- <input  [(ngModel)]="fecha_cad_form" name="caducidad" type="text"   id="caducidad" class="pa form-control kb-pad amount"> -->
+														<input [(ngModel)]="fecha_cad_form" type="date" name="begin" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
+														</span>
+													</td>
+													</tr>
+													<tr>
+														<th style="border-right-color: #FFF !important;">CANTIDAD  
+															<span *ngIf="(cant_art_serie_renglon != 0)" style="font-weight:bold;color:red">(No exceder de {{cant_art_serie_renglon}})</span>
+														
+														</th>
+				
+														<td class="text-right">
+														<span id="total_paying">
+															<input  [(ngModel)]="cantidad_form" name="cant_ing" type="number"  placeholder="Ingrese cantidad" id="cant_ing" class="pa form-control kb-pad amount">
+														</span>
+														</td>
+													</tr>
+													
+													<!-- <tr> -->
+														<!-- <th style="border-right-color: #FFF !important;">UBICACION</th> -->
+														<!-- <td class="text-right"> -->
+														<!-- <span id="balance"> -->
+														<!-- <input  [(ngModel)]="ubicacion" name="ubicacion" type="ubicacion"  placeholder="Ingrese Ubicación"  id="ubicacion" class="pa form-control kb-pad amount"> -->
+														<!-- </span> -->
+														<!-- </td> -->
+													<!-- </tr> -->
+													
+													<tr>
+														<!-- <th style="border-right-color: #FFF !important;">UBICACION</th> -->
+														<td class="text-right">
+															<!-- <button *ngIf="cant_art_renglon == cantidad_form" type="button" class="btn btn-primary" (click)="insertar_serie_renglon()">Insertar</button> -->
+															<button *ngIf="(cant_art_serie_renglon != 0) && (disponible_lote > 0) " type="button" class="btn btn-primary" (click)="insertar_serie_renglon()">Insertar</button>
+															<span *ngIf="(cant_art_serie_renglon == 0)" style="font-weight:bold;color:red"> Cantidad de ingreso por serie COMPLETA </span>
+															<!-- <span *ngIf="cantidad_form < cant_art_renglon" style="font-weight:bold;color:red">Cantidad de serie llena</span> -->
+															<!-- <span  style="font-weight:bold;color:red">Cantidad de serie llena</span> -->
+														</td>
+														<td class="text-left">
+														    <span *ngIf="disponible_lote > 0" style="font-weight:bold;color:green"> Disponible lote : {{disponible_lote}}</span>
+															 <span *ngIf="disponible_lote == 0" style="font-weight:bold;color:green"> LOTE {{serie_lote_form}} AGOTADO </span>
+														</td>
+														
+													</tr>
+													
+												</tbody>
+											</table>
+											<div class="clearfix"></div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12">
+											
+								<div>		
+								<div class="table-responsive">
+                                   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+                                        <thead>
+                                            <tr class="active" role="row">
+												<th>SERIE/LOTE</th>
+                                                <th>F.CADUCIDAD</th>
+												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">CANT.</th>
+												<!-- <th>UBICACION</th> -->
+                                                <th class="col-xs-1 text-center" (click)="delete_serie()" style="width:25px;"><i class="fa fa-2x fa-trash-o" title="Remover todos" ></i></th>
+                                            </tr>
+                                        </thead>
+						
+										<tbody>
+
+											
+											<tr *ngFor="let el of serie_renglon;">
+												<td>{{el.serie}}</td>
+												<td style="min-width:100px;">{{el.caducidad}}</td>
+												<td>{{el.cant}}</td>
+												<!-- <td>{{el.ubicacion}}</td> -->
+												<td  class="text-center">
+													<i (click)="delete_renglon_serie(el.codserie,el.codart,el.cant)" class="fa fa-2x fa-trash-o tip pointer spodel" title="Remover renglon"></i>
+													<!-- <a (click)="edit_articulos=el"  class="tip btn btn-warning btn-xs" ><i class="fa fa-plus" title="Agregar ciudad" >Agregar Ciudad</i></a> -->
+													<a (click)="edit_renglon_serie(el.codserie,el.codart,el.serie,el.caducidad,el.ubicacion,el.cant)" class="tip btn btn-warning btn-xs" ><i class="fa fa-2x fa-pencil-square-o" title="editar_serie" ></i></a> 
+												</td>
+											</tr>
+							
+
+											
+                                        </tbody>
+								
+                                    </table>
+                                </div>
+								</div>
+							
+						</div>
+					</div>
+			  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-primary" (click)="close_serie_renglon()"  data-dismiss="modal">Cerrar</button>
+					<!-- <button type="button" class="btn btn-primary">Generar factura</button> -->
+				  </div>
+				</div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+<!--################## FIN MODAL ###########################-->
+
+<!--################## INICIO MODAL ###########################-->
+			<div class="modal fade in" id="series_modal2"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+					
+								  <div class="modal-dialog" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" (click)="close_scanner()" data-dismiss="modal" #closeBtnScan aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">SCANNER CAMARA</h4>
+									  </div>
+									  <div class="modal-body">
+									  <div>
+									  <!-- <div> -->
+										<!-- <zxing-scanner [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']" ></zxing-scanner> -->
+										
+										<!-- <zxing-scanner [formats]="['UPC_EAN_EXTENSION','UPC_E','UPC_A','QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX', 'AZTEC', 'CODABAR', 'CODE_39', 'CODE_93', 'EAN_8', 'ITF', 'MAXICODE' ,'PDF_417' ,'RSS_14','RSS_EXPANDED']"  (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner> -->
+										
+											<!-- (scanError)="scanErrorHandler($event)"  -->
+										<!-- (scanFailure)="scanFailureHandler($event)"  -->
+										<!-- (scanComplete)="scanCompleteHandler($event)" -->
+										<!-- (scanFailure)="scanFailureHandler($event)" -->
+										
+										<!-- [enable]="scannerEnabled" -->
+										
+										<zxing-scanner *ngIf="scan_patron_articulo"
+										[(device)]="currentDevice"
+										[tryHarder]="tryHarder"
+										[formats]="formatsEnabled"  
+										(scanSuccess)="handleQrCodeResult($event,'art')">
+										</zxing-scanner>
+										
+										<zxing-scanner *ngIf="scan_valor_serie"
+										[(device)]="currentDevice"
+										[tryHarder]="tryHarder"
+										[formats]="formatsEnabled"  
+										(scanSuccess)="handleQrCodeResult($event,'serie')">
+										</zxing-scanner>
+										
+										
+										<!-- <zxing-scanner -->
+										<!-- [scannerEnabled]="scannerEnabled" -->
+										<!-- [autofocusEnabled]="autofocusEnabled" -->
+										<!-- [device]="selectedDevice" -->
+										<!-- [cssClass]="'small-video'" -->
+										<!-- (camerasFound)="displayCameras($event)" -->
+										<!-- (scanSuccess)="handleQrCodeResult($event)" -->
+										<!-- ></zxing-scanner> -->
+
+
+									</div>
+									  </div>
+										<div class="modal-footer">
+										<!-- <span *ngIf="scan_result"> EXITOSO {{scan_value}} </span> -->
+										<!-- <input type="submit" name="apagar_scan" (click)="scan=false" value="apagar scan" class="btn btn-danger"> -->
+										<!-- <input type="submit" name="escanear" (click)="scannerEnabled=true"  value="escanear" class="btn btn-info"> -->
+										<!-- <input type="submit" name="apagar escanear" (click)="scannerEnabled=false"  value="apagar escanear" class="btn btn-info"> -->
+										
+										<button type="button" class="btn btn-primary" (click)="close_scanner()" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+<!--################## FIN MODAL ###########################-->
+
+
+                        <div *ngIf="!numtra" class="form-group">
+                            <input *ngIf="(articulos_pedido.length == 0)" type="submit"  disabled name="add_purchase" value="Guardar medicion" class="btn btn-primary">
+							<input *ngIf="(articulos_pedido.length == 0)" type="submit" disabled  name="add_purchase" value="Sincronizar" class="btn btn-danger">
+							<input *ngIf="(articulos_pedido.length == 0)"  type="submit" disabled name="add_purchase" value="Modificar" class="btn btn-success">
+							<input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="generar_conteo()"  name="add_purchase" value="Guardar conteo" class="btn btn-primary">
+							<input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="generar_conteo()"  name="add_purchase" value="Sincronizar" class="btn btn-danger">
+							<input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="generar_conteo()"  name="add_purchase" value="Modificar" class="btn btn-sucess">
+							
+						</div>
+						
+			
+                        </form>    
+					</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div> <!-- /.FIN tab-pane 1 -->
+			
+
+			
+			<div class="tab-pane"  id="tab_datos_vehiculo" #tab_datos_vehiculo>
+				<!-- <app-admin-cliente status_cambio_vista_cliente="true" #cliente_contenido></app-admin-cliente> -->
+
+            </div> <!-- /.tab-pane 2-->
+			
+		 <div class="tab-pane"  id="tab_datos_detalle_vehiculo" #tab_datos_detalle_vehiculo>
+
+         </div> <!-- /.tab-pane 2-->
+			
+		<div class="tab-pane"  id="tab_fotos_vehiculo" #tab_fotos_vehiculo>
+	
+        </div> <!-- /.tab-VEHICULO 2-->
+	
+				</div> <!-- /.tab-content -->
+			</div> <!-- nav-tabs-custom -->
+        </div>
+    </div>
+ </section>
+  <!-- /.content -->
+</div>

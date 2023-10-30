@@ -1,0 +1,145 @@
+<body>
+			<div class="main">
+				<div class="login">
+				 <!-- <mat-card style="width:100%; " class="" [class.mat-elevation-z5]="elevacion"> -->
+				  <!-- <mat-card> -->
+					<!-- <div class="login-top"> -->
+						<!-- <!-- <img src="images/p.png"> --> 
+						
+						<!-- <img src="../../assets/images_index/p.png"> -->
+					<!-- </div> -->
+					<!-- <h1>Portal Login</h1> -->
+					<img mat-card-image src="../../assets/SIACI.png" alt="SIACI">
+					<h2>Iniciar sesión</h2>
+					<div class="login-bottom">
+					<form>
+						<!-- <input type="text" placeholder="Usuario SIACI" required=" ">					 -->
+						<!-- <input type="password" class="password" placeholder="Password" required=" ">	 -->
+						
+						<input type="text" name="usuario" placeholder="Usuario SIACI" required=" " [(ngModel)]="ruc" >					
+						<input type="password" name="password" class="password" placeholder="Password" required=" " [(ngModel)]="password" >	
+						
+					<!-- <mat-form-field> -->
+					  <!-- <mat-label>Empresa</mat-label> -->
+					  <!-- <mat-select name="empresa" [(ngModel)]="empresa"> -->
+						<!-- <mat-option *ngFor="let e of empresas" [value]="e.codemp"> -->
+						  <!-- {{e.nomemp}} -->
+						<!-- </mat-option> -->
+					  <!-- </mat-select> -->
+					<!-- </mat-form-field> -->
+					
+					 <label >EMPRESA</label>
+						<select name="empresa" [(ngModel)]="empresa" class="form-control select2 tip" style="width:100%;" >
+						<option [ngValue]="undefined" disabled  selected> Seleccione</option>
+						<option *ngFor="let e of empresas; let i = index;"  [value]="e.codemp">{{e.codemp}}-{{e.nomemp}}</option>
+						</select>
+					<input *ngIf = "login_exitoso==false"  type="submit" value="login" (click)="hacer_login()">
+					
+					<!-- <mat-form-field *ngIf = "login_exitoso==true" > -->
+					  <!-- <mat-label>Seleccione Agencia</mat-label> -->
+					  <!-- <mat-select name="codagencia" [(ngModel)]="agencia"> -->
+						<!-- <mat-option *ngFor="let e of agencia_lista" [value]="e.codagencia+'|'+e.nomalm"> -->
+						  <!-- {{e.codagencia+'-'+e.nomalm}} -->
+						<!-- </mat-option> -->
+					  <!-- </mat-select> -->
+					<!-- </mat-form-field> -->
+					
+					<label *ngIf = "login_exitoso==true" >Agencia</label>
+						<select *ngIf = "login_exitoso==true"  name="codagencia" [(ngModel)]="agencia" class="form-control select2 tip" style="width:100%;" >
+						<option [ngValue]="undefined" disabled  selected> Seleccione </option>
+						<option *ngFor="let e of agencia_lista; let i = index;"  [value]="e.codagencia+'|'+e.nomalm">{{e.codagencia+'-'+e.nomalm}}</option>
+						</select>
+						
+
+						<input *ngIf = "login_exitoso==true"  type="submit" value="Ingresar" (click)="ingresar()">
+					</form>
+					<!-- <a href="#"><p>Forgot your password? Click Here</p></a> -->
+					</div>
+				 <!-- </mat-card> -->
+				</div>
+			</div>
+		<div class="footer">
+			<!-- <p>&copy 2015 Flat Portal Login Form . All rights reserved | Design by <a href="http://w3layouts.com">W3layouts.</a></p> -->
+			<p>© 2022 SIACI SOLUTIONS . Todos los derechos reservados</p>
+		</div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <body class="fondo"> -->
+  <!-- <div class="cuadro"> -->
+    <!-- <mat-card style="width:100%; " class="" [class.mat-elevation-z5]="elevacion"> -->
+      <!-- <img mat-card-image src="../../assets/SIACI.png" alt="SIACI"> -->
+	 
+	 <!-- <!-- <div> --> 
+	  <!-- <!-- <label class="switch"> --> 
+	  <!-- <!-- <input type="checkbox" checked (click)="tipo_entrada()"><span class="slider round"></span> --> 
+	  <!-- <!-- </label> --> 
+	  
+	  <!-- <!-- <H6>POR RUC</H6> --> 
+	  <!-- <!-- </div> --> 
+	  
+	 <!-- <table> -->
+		<!-- <tbody> -->
+		<!-- <tr> -->
+		<!-- <td>	  -->
+		<!-- <label class="switch"> -->
+		<!-- <input type="checkbox" checked (click)="tipo_entrada()"><span class="slider round"></span> -->
+		<!-- </label></td> -->
+		<!-- <td><H5 *ngIf="!tipo_busqueda" >REPORTE POR CEDULA/RUC</H5></td> -->
+		<!-- <td><H5 *ngIf="tipo_busqueda" >BUSQUEDA CON USUARIO/CLAVE</H5></td> -->
+		<!-- </tr> -->
+		<!-- </tbody> -->
+	<!-- </table> -->
+	  
+	  
+      <!-- <mat-card-content raised style="text-align: center;margin-top:5px"> -->
+      <!-- <input *ngIf="!tipo_busqueda"mat-input [(ngModel)]="ruc" placeholder="cedula/ruc"/> -->
+	  <!-- <input *ngIf="tipo_busqueda" mat-input [(ngModel)]="ruc" placeholder="usuario"/> -->
+      <!-- </mat-card-content> -->
+      <!-- <mat-card-content raised style="text-align: center;margin-top:5px"> -->
+      <!-- <!-- <input mat-input [(ngModel)]="password" placeholder="password" /> --> 
+	  <!-- <input *ngIf="tipo_busqueda"  mat-input [(ngModel)]="password" placeholder="password" /> -->
+      <!-- </mat-card-content> -->
+      <!-- <mat-card-actions style="text-align: center;margin-top:5px"> -->
+        <!-- <mat-form-field> -->
+          <!-- <mat-label>Empresa</mat-label> -->
+          <!-- <mat-select [(ngModel)]="empresa"> -->
+            <!-- <mat-option *ngFor="let e of empresas" [value]="e.codemp"> -->
+              <!-- {{e.nomemp}} -->
+            <!-- </mat-option> -->
+          <!-- </mat-select> -->
+        <!-- </mat-form-field> -->
+
+        <!-- <button mat-button mat-raised-button (click)="ingresar()">Ingresar</button> -->
+      <!-- </mat-card-actions> -->
+    <!-- </mat-card> -->
+  <!-- </div> -->
+<!-- </body> -->

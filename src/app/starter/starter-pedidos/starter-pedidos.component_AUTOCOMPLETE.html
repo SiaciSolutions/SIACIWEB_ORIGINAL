@@ -1,0 +1,185 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Agregar Pedidos
+      <small>Creación de los pedidos de los clientes</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/starter/pedidos"><i class="fa fa-dashboard"></i>Pedidos</a></li>
+      <li class="active">Agregar pedidos</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Your Page Content Here -->
+	
+	
+	 <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Por favor, rellene la siguiente información</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <form action="http://localhost/ma_desa/purchases/add" class="validation fv-form fv-form-bootstrap" enctype="multipart/form-data" method="post" accept-charset="utf-8" novalidate="novalidate">
+						
+						<button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+					<!-- <input type="hidden" name="spos_token" value="63b87f6a60dc5db5380a9ae6f8ae9725" style="display:none;"> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date">Fecha</label>
+									<input type="text" name="date" value="2019-08-02 11:02" class="form-control tip" id="date" required="required" data-fv-field="date">
+									<small style="display: none;" class="help-block" data-fv-validator="notEmpty" data-fv-for="date" data-fv-result="NOT_VALIDATED">Please enter a value</small>
+								</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="reference">Cliente </label>
+									<!-- <input type="text" placeholder="Búsqueda por nombre o cédula/ruc" name="reference" value="" class="form-control tip" id="reference" > -->
+
+								<mat-form-field class="example-full-width">
+								<input type="text"class="form-control tip" matInput [formControl]="myControl" [matAutocomplete]="auto">
+							<!-- ######### VERSION FILTER  ########### -->
+								<mat-autocomplete #auto="matAutocomplete">
+								<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+								  {{option}}
+								</mat-option>
+								</mat-autocomplete>
+								  
+								</mat-form-field>
+								
+								
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+						<label for="reference">Búsqueda del producto por código o nombre </label>
+                           
+
+						   <!-- <input type="text" placeholder="Búsqueda del producto por código o nombre" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off"> -->
+                        
+						<mat-form-field class="example-full-width">
+								<input type="text"class="form-control tip" matInput [formControl]="myControl2" [matAutocomplete]="auto1">
+							<!-- <!-- <!-- <!-- <!-- ######### VERSION FILTER  ########### -->  
+								<mat-autocomplete #auto1="matAutocomplete">
+								<mat-option *ngFor="let articulo of filteredarticulo | async" [value]="articulo">
+								  {{articulo}}
+								</mat-option>
+								</mat-autocomplete>
+								  
+						</mat-form-field>
+						
+						
+						</div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="poTable" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>Producto</th>
+                                                <th class="col-xs-2">Cant.</th>
+                                                <th class="col-xs-2">Custo Unitário</th>
+                                                <th class="col-xs-2">Subtotal</th>
+                                                <th style="width:25px;"><i class="fa fa-trash-o"></i></th>
+                                            </tr>
+                                        </thead>
+									<tbody>
+									   <tr id="1564754521480" class="1245" data-item-id="1245">
+										  <td style="min-width:100px;"><input name="product_id[]" type="hidden" class="rid" value="1245"><span class="sname" id="name_1564754521480">AMORTIGUADOR USADO (100)</span></td>
+										  <td style="padding:2px;"><input class="form-control input-sm kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1564754521480" data-item="1245" id="quantity_1564754521480" onclick="this.select();"></td>
+										  <td style="padding:2px; min-width:80px;"><input class="form-control input-sm kb-pad text-center rcost" name="cost[]" type="text" value="0.00" data-id="1564754521480" data-item="1245" id="cost_1564754521480" onclick="this.select();"></td>
+										  <td class="text-right"><span class="text-right ssubtotal" id="subtotal_1564754521480">0.00</span></td>
+										  <td class="text-center"><i class="fa fa-trash-o tip pointer spodel" id="1564754521480" title="Remove"></i></td>
+									   </tr>
+									   <tr id="1564754521476" class="900" data-item-id="900">
+										  <td style="min-width:100px;"><input name="product_id[]" type="hidden" class="rid" value="900"><span class="sname" id="name_1564754521476">TOKICO (3169)</span></td>
+										  <td style="padding:2px;"><input class="form-control input-sm kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1564754521476" data-item="900" id="quantity_1564754521476" onclick="this.select();"></td>
+										  <td style="padding:2px; min-width:80px;"><input class="form-control input-sm kb-pad text-center rcost" name="cost[]" type="text" value="17.86" data-id="1564754521476" data-item="900" id="cost_1564754521476" onclick="this.select();"></td>
+										  <td class="text-right"><span class="text-right ssubtotal" id="subtotal_1564754521476">17.86</span></td>
+										  <td class="text-center"><i class="fa fa-trash-o tip pointer spodel" id="1564754521476" title="Remove"></i></td>
+									   </tr>
+									   <tr id="1564754521474" class="898" data-item-id="898">
+										  <td style="min-width:100px;"><input name="product_id[]" type="hidden" class="rid" value="898"><span class="sname" id="name_1564754521474">TOKICO (3165)</span></td>
+										  <td style="padding:2px;"><input class="form-control input-sm kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1564754521474" data-item="898" id="quantity_1564754521474" onclick="this.select();"></td>
+										  <td style="padding:2px; min-width:80px;"><input class="form-control input-sm kb-pad text-center rcost" name="cost[]" type="text" value="17.86" data-id="1564754521474" data-item="898" id="cost_1564754521474" onclick="this.select();"></td>
+										  <td class="text-right"><span class="text-right ssubtotal" id="subtotal_1564754521474">17.86</span></td>
+										  <td class="text-center"><i class="fa fa-trash-o tip pointer spodel" id="1564754521474" title="Remove"></i></td>
+									   </tr>
+									   <tr id="1564754521468" class="603" data-item-id="603">
+										  <td style="min-width:100px;"><input name="product_id[]" type="hidden" class="rid" value="603"><span class="sname" id="name_1564754521468">GCONTROL (102035)</span></td>
+										  <td style="padding:2px;"><input class="form-control input-sm kb-pad text-center rquantity" name="quantity[]" type="text" value="1" data-id="1564754521468" data-item="603" id="quantity_1564754521468" onclick="this.select();"></td>
+										  <td style="padding:2px; min-width:80px;"><input class="form-control input-sm kb-pad text-center rcost" name="cost[]" type="text" value="13.39" data-id="1564754521468" data-item="603" id="cost_1564754521468" onclick="this.select();"></td>
+										  <td class="text-right"><span class="text-right ssubtotal" id="subtotal_1564754521468">13.39</span></td>
+										  <td class="text-center"><i class="fa fa-trash-o tip pointer spodel" id="1564754521468" title="Remove"></i></td>
+									   </tr>
+									</tbody>
+							   <tfoot>
+									<tr class="active">
+										<th>Total</th>
+										<th class="col-xs-2"></th>
+										<th class="col-xs-2"></th>
+										<th class="col-xs-2 text-right"><span id="gtotal">49.11</span></th>
+										<th style="width:25px;"></th>
+									</tr>
+								</tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="supplier">Proveedor</label>                                                                        <select name="supplier" class="form-control select2 tip select2-hidden-accessible" id="supplier" required="required" style="width:100%;" tabindex="-1" aria-hidden="true" data-fv-field="supplier">
+<option value="" selected="selected">seleccionar Proveedor</option>
+<option value="2">thiago</option>
+</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-supplier-container"><span class="select2-selection__rendered" id="select2-supplier-container" title="seleccionar Proveedor">seleccionar Proveedor</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                <small style="display: none;" class="help-block" data-fv-validator="notEmpty" data-fv-for="supplier" data-fv-result="NOT_VALIDATED">Please enter a value</small></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="received">Recibido</label>                                                                        <select name="received" class="form-control select2 tip select2-hidden-accessible" id="received" required="required" style="width:100%;" tabindex="-1" aria-hidden="true" data-fv-field="received">
+<option value="1">Recibido</option>
+<option value="0">No se ha recibido todavía</option>
+</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-received-container"><span class="select2-selection__rendered" id="select2-received-container" title="Recibido">Recibido</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                <small style="display: none;" class="help-block" data-fv-validator="notEmpty" data-fv-for="received" data-fv-result="NOT_VALIDATED">Please enter a value</small></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="attachment">Anexo</label>                            <input type="file" name="userfile" class="form-control tip" id="attachment" style="position: absolute; clip: rect(0px, 0px, 0px, 0px);" tabindex="-1"><div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled=""> <span class="group-span-filestyle input-group-btn" tabindex="0"><label for="attachment" class="btn btn-default "><span class="fa fa-folder-open"></span> Choose file</label></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Información</label>                            <div class="redactor-box"><ul class="redactor-toolbar" id="redactor-toolbar-0" style="position: relative; width: auto; top: 0px; left: 0px; visibility: visible;"><li><a href="#" class="re-icon re-html" rel="html" tabindex="-1"></a></li><li><a href="#" class="re-icon re-formatting" rel="formatting" tabindex="-1"></a></li><li><a href="#" class="re-icon re-bold" rel="bold" tabindex="-1"></a></li><li><a href="#" class="re-icon re-italic" rel="italic" tabindex="-1"></a></li><li><a href="#" class="re-icon re-deleted" rel="deleted" tabindex="-1"></a></li><li><a href="#" class="re-icon re-unorderedlist" rel="unorderedlist" tabindex="-1"></a></li><li><a href="#" class="re-icon re-orderedlist" rel="orderedlist" tabindex="-1"></a></li><li><a href="#" class="re-icon re-outdent" rel="outdent" tabindex="-1"></a></li><li><a href="#" class="re-icon re-indent" rel="indent" tabindex="-1"></a></li><li><a href="#" class="re-icon re-link" rel="link" tabindex="-1"></a></li><li><a href="#" class="re-icon re-alignment" rel="alignment" tabindex="-1"></a></li><li><a href="#" class="re-icon re-horizontalrule" rel="horizontalrule" tabindex="-1"></a></li></ul><div class="redactor-editor redactor-linebreaks" dir="ltr" style="min-height: 150px; max-height: 500px;" contenteditable="true"></div><textarea name="note" cols="40" rows="10" class="form-control redactor" id="note" style="display: none;" dir="ltr"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="add_purchase" value="Agregar Compra" class="btn btn-primary">
+                            <button type="button" id="reset" class="btn btn-danger">Limpiar</button>
+                        </div>
+
+                        </form>                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+  </section>
+  <!-- /.content -->
+</div>

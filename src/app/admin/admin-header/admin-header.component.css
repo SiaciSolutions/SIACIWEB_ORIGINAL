@@ -1,0 +1,19 @@
+/* span { text-transform: uppercase;} ; */
+/* .p_local { text-transform: uppercase;} ; */
+
+
+@media only screen and (max-width: 600px) {
+  /* body { */
+    /* background-color: lightblue; */
+  /* } */
+  
+  .span_empresa {
+      /* width: 230px; */
+      /* white-space: nowrap; */
+      /* text-overflow: ellipsis; */
+      /* overflow: hidden; */
+	  display: none
+  }
+
+}
+

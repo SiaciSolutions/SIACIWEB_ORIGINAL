@@ -1,0 +1,196 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Panel de control
+      <small>Administre su sistema</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i> Panel</li>
+      <!-- <li class="active">Dashboard</li> -->
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+  
+  
+  <!-- public getEgresoBodega(): string { -->
+	  <!-- return localStorage.getItem('act_egr_bod') -->
+   <!-- } -->
+<!-- public getConfArticulos(): string { -->
+	  <!-- return localStorage.getItem('act_articulos') -->
+   <!-- } -->
+   
+<!-- public getConfServicios(): string { -->
+	  <!-- return localStorage.getItem('act_servicios') -->
+   <!-- } -->
+    <!-- Info boxes -->
+   
+	<div class="row">
+	<div class="col-xs-12">
+				<!-- routerLink="/admin/edit_comisionista" [queryParams]="{usuario:usuario,com_id:el.com_id}" -->
+	<div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">Links Rápidos</h3>
+                </div>
+                <div class="box-body">
+				
+				    <a *ngIf="srv.getClientes() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/crear_clientes" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-users"></i> Crear Clientes               
+					</a>
+					
+					 <a *ngIf="srv.getClientes() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/consulta_clientes" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-user-plus"></i> Actualizar Clientes             
+					</a>
+					
+					<a *ngIf="srv.getConfPV() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/pos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-th"></i> Facturar           
+					</a>
+					
+					<a *ngIf="srv.getConfPV() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_pdv" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					> 
+                        <i class="fa fa-list"></i> Lista de facturas         
+					</a>
+					
+					
+					<!--  -->
+					<a  *ngIf="srv.getPedidos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/crear_pedidos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-list-ol"></i> Crear Pedidos               
+					</a>
+					
+					<a  *ngIf="srv.getPedidos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_pedidos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-list-alt"></i> Lista de Pedidos               
+					</a>
+					
+					 <!-- *ngIf="srv.getPedidos() != 'NO'" -->
+					
+					<!-- *ngIf="srv.getTalleres() != 'NO'" -->
+					
+					<a *ngIf="srv.getTalleres() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/taller_orden" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-wrench"></i> Talleres-Crear orden de trabajo              
+					</a>
+					
+					<a *ngIf="srv.getTalleres() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_ordenes" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>   
+                        <i class="fa fa-car"></i> Talleres-Lista ordenes	</a>
+					
+					
+					<!-- <a  class="btn btn-app" (click)="ocultar_menu_moviles()" -->
+					<!-- routerLink="/admin/conteo_productos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}" -->
+					<!-- > -->
+                        <!-- <i class="fa fa-check"></i> Conteo físico              -->
+					<!-- </a> -->
+				
+				
+                    <a *ngIf="srv.getIngresoBodega() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/ingreso_articulos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-cubes"></i> Ingresos de producto                    
+					</a>
+					 <!-- <a *ngIf="srv.getIngresoBodega() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()" -->
+					 <!-- routerLink="/admin/lista_fac_pend_despachos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}" -->
+					 <!-- > -->
+					 <!-- <span *ngIf="contador_facturas_pendientes_despachar > 0" -->
+					 <!-- class="badge bg-red">{{contador_facturas_pendientes_despachar}}</span> -->
+                        <!-- <i class="fa fa-external-link-square"></i> Despacho facturas                   -->
+					<!-- </a> -->
+					<a *ngIf="srv.getIngresoBodega() != 'NO'" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/egreso_articulos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					class="btn btn-app">
+                        <i class="fa fa-forward"></i> Registro de egresos               
+					</a>
+					
+					<a *ngIf="srv.getConfArticulos() != 'NO'" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/crear_productos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					class="btn btn-app">
+                        <i class="glyphicon glyphicon-apple"></i> Crear articulos        
+					</a>
+					
+					<a *ngIf="srv.getConfPedidoMedico() != 'NO'" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/admin_pedidos_medicos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					class="btn btn-app">
+                        <i class="fa fa-heartbeat"></i> Pedido Medico      
+					</a>
+					
+					<a  *ngIf="srv.getConfPedidoMedico() != 'NO'"  class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_ped_medicos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-align-justify"></i> Lista Ped Medico               
+					</a>
+					
+					
+					
+					
+					<!-- <a *ngIf="srv.getIngresoBodega() != 'NO'" (click)="ocultar_menu_moviles()" -->
+					<!-- routerLink="/admin/lista_fac_despachadas" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}" -->
+					<!-- class="btn btn-app"> -->
+					<!-- <span *ngIf="contador_facturas_pendientes_auth > 0" -->
+					<!-- class="badge bg-red">{{contador_facturas_pendientes_auth}}</span> -->
+                        <!-- <i class="fa fa-check"></i> Facturas por autorizar                -->
+					<!-- </a> -->
+					
+					
+					
+					
+					
+					
+					<!-- <a  -->
+					<!-- routerLink="/admin/lista_clientes" [queryParams]="{usuario: usuario,empresa: empresa}" -->
+					<!-- class="btn btn-app"> -->
+                        <!-- <i class="fa fa-smile-o"></i> Lista clientes             -->
+					<!-- </a> -->
+					
+					<!-- <a *ngIf=" srv.getRol()!= 'ROLDESC'" -->
+					<!-- routerLink="/admin/ingresar_recibos" [queryParams]="{usuario: usuario,empresa: empresa}" -->
+					<!-- class="btn btn-app"> -->
+                        <!-- <i class="fa fa-pencil-square-o"></i> Entradas Recibos             -->
+					<!-- </a> -->
+					<!-- <a  -->
+					<!-- routerLink="/admin/lista_recibos" [queryParams]="{usuario: usuario,empresa: empresa}" -->
+					<!-- class="btn btn-app"> -->
+                        <!-- <i class="fa fa-reorder"></i>Lista Recibos             -->
+					<!-- </a> -->
+					
+					<!-- <a  -->
+					<!-- routerLink="/admin/salidas" [queryParams]="{usuario: usuario,empresa: empresa}" -->
+					<!-- class="btn btn-app"> -->
+                        <!-- <i class="fa fa-shopping-cart"></i> Generar venta             -->
+					<!-- </a> -->
+
+                </div>
+		</div>
+	</div>
+</div>
+
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+   
+  </section>
+  <!-- /.content -->
+</div>

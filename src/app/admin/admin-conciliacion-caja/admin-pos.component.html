@@ -1,0 +1,193 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Apertura / Cierre de Caja
+      <small>Permite registrar el conteo de la caja al abrir y cerrar</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Punto de venta</li>
+      <li class="active">Apertura / Cierre de Caja</li>
+    </ol>
+  </section>
+  
+
+  
+   <section class="content">
+	 <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Por favor, seleccione almacen y caja</h3>
+                </div>   <!-- FIN HEADER-->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <form class="validation fv-form fv-form-bootstrap" enctype="multipart/form-data" method="post" accept-charset="utf-8" novalidate="novalidate">
+						<div class="row">
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="category">ALMACEN</label>                              
+									<select name="almacen" [(ngModel)]="almacen" (change)="getcajas()" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of almacen_lista; let i = index;" [selected] = "i==0" [value]="e.codalm">{{e.nomalm}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label>CAJA</label>                              
+									<select *ngIf="almacen" [(ngModel)]="caja" name="caja"  class="form-control select2 tip" style="width:100%;">
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<option [ngValue]="undefined" selected="selected">Seleccione</option>
+									<option *ngFor="let e of caja_lista; let i = index;" [value]="e.numcaj">{{e.nomcaj}}</option>
+									</select>
+									
+									<select *ngIf="!almacen" name="caja" class="form-control select2 tip" style="width:100%;" disabled>
+									<option disabled selected>Seleccione</option>
+									</select>
+
+								</div>
+							</div>
+							<div  class="col-md-4">
+                                <div class="form-group">
+                                    <label>TURNO</label>    
+								<select *ngIf="caja"  name="turno" [(ngModel)]="turno" class="form-control select2 tip" id="turno"   style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<!-- <option value="" selected="selected">seleccionar Categoria</option> -->
+									<option [value] ="1">Turno 1</option>
+									<option [value] ="2">Turno 2</option>
+									<option [value] ="3">Turno 3</option>
+								</select>
+								<select *ngIf="!caja" name="turno" class="form-control select2 tip" style="width:100%;" disabled>
+									<option disabled selected>Seleccione</option>
+								</select>
+								
+								
+								
+								</div>
+							</div>
+                        </div>
+						</form>    
+					</div>
+                </div>    <!-- FIN BODY-->
+            </div>  <!-- FIN PRIMARY-->
+			
+			
+			<div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Por favor, seleccione el tipo de dinero y cantidad</h3>
+                </div>   <!-- FIN HEADER-->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <form class="validation fv-form fv-form-bootstrap" enctype="multipart/form-data" method="post" accept-charset="utf-8" novalidate="novalidate">
+						<div class="row">
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="category">TIPO DINERO</label>                              
+									<select name="dinero_tipo_selecc" [(ngModel)]="dinero_tipo_selecc" (change)="get_denominacion()" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of dinero_tipo; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.tipo}}</option>
+									</select>
+	
+								</div>
+							</div>
+							
+							<div  class="col-md-4">
+                                <div class="form-group">
+                                    <label>DENOMINACION</label>
+									<select *ngIf="(dinero_tipo_selecc == 'BILLETES') || (dinero_tipo_selecc == 'MONEDAS')" name="dinero_denominacion_selecc" [(ngModel)]="dinero_denominacion_selecc" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" selected>Seleccione</option>
+									<option *ngFor="let e of dinero_denominacion;" [value]="e.monto">{{e.tipo}}</option>
+									</select>
+									
+									<select *ngIf="((dinero_tipo_selecc != 'BILLETES') && (dinero_tipo_selecc != 'MONEDAS'))" name="dinero_denominacion_selecc" class="form-control select2 tip" style="width:100%;" disabled>
+									<option disabled selected>Seleccione</option>
+									<!-- <option *ngFor="let e of dinero_denominacion; let i = index;" [selected] = "i==0" [value]="e.monto">{{e.tipo}}</option> -->
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label *ngIf="!dinero_tipo_selecc" >CANTIDAD</label> 
+									<label *ngIf="(dinero_tipo_selecc == 'BILLETES') || (dinero_tipo_selecc == 'MONEDAS')" >CANTIDAD DE {{ dinero_tipo_selecc }}</label>
+									<label *ngIf="(dinero_tipo_selecc == 'CHEQUES') || (dinero_tipo_selecc == 'TARJETAS') || (dinero_tipo_selecc == 'EGRESOS (Se restará al total)') || (dinero_tipo_selecc == 'OTROS INGRESOS')">
+									MONTO EN USD
+									</label>
+									<input type="text" placeholder="Inserte cantidad" name="reference" value="" class="form-control tip"  id="reference" (keyup.enter)="insertar_conteo()" [(ngModel)]="cant_tipo_dinero">
+								</div>
+							</div>
+							
+						<div class="col-md-4">
+						<div class="form-group">
+                            <button type="button" id="insertar_conteo" (click)="insertar_conteo()" (keyup.enter)="insertar_conteo()" class="btn btn-success">Insertar a conteo</button>
+                        </div>
+						</div>
+						
+						
+						<div class="col-md-12">
+                                <div class="table-responsive">
+								
+								
+								
+												<!-- <td (click)="delete_art(el.nomart)" class="text-center"> -->
+													<!-- <i class="fa fa-trash-o tip pointer spodel" title="Remover artículo"></i> -->
+												<!-- </td> -->
+								
+								
+                                   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+                                        <thead>
+                                            <tr class="active" role="row">
+												<th class="text-center">Tipo de dinero</th>
+                                                <th class="text-center">Denominación</th>
+												<th class="text-center" style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th>
+				                                <th class="text-center">Subtotal</th>
+                                                <th class="col-xs-1 text-center" (click)="delete_item_todo()" style="width:25px;"><i class="fa fa-trash-o" title="Remover todos" ></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="dinero_mano.length > 0">
+											<tr *ngFor="let el of dinero_mano;">
+												<td class="text-center">{{el.tipo}}</td>
+												<td *ngIf="((el.tipo != 'CHEQUES') && (el.tipo != 'TARJETAS') && (el.tipo != 'EGRESOS') && (el.tipo != 'OTROS INGRESOS'))" class="text-center" style="min-width:100px;">{{el.denominacion}} USD</td>
+												<td *ngIf="((el.tipo === 'CHEQUES') || (el.tipo === 'TARJETAS') || (el.tipo === 'EGRESOS')  || (el.tipo === 'OTROS INGRESOS') )" class="text-center" style="min-width:100px;">{{el.denominacion}}</td>
+												<td class="text-center" >{{el.cant}}</td>
+												<td *ngIf="(el.tipo != 'EGRESOS')" class="text-center">{{el.valor}} USD</td>
+												<td *ngIf="(el.tipo === 'EGRESOS')" class="text-center"> - {{el.valor}} USD</td>
+												<td (click)="delete_item(el.id)">
+													<i class="fa fa-trash-o tip pointer spodel" title="Remover item"></i>
+												</td>
+											</tr>
+                                        </tbody>
+										
+									<tbody *ngIf="dinero_mano.length == 0" >
+										<tr>
+										<td class="text-center" colspan="12">Agregar el dinero en caja</td>
+										</tr>
+									</tbody>
+									<tfoot>
+											<tr class="active">
+                                                <th></th>
+                                                <th></th>
+												<th>TOTAL EN CAJA</th>
+                                                <th><div class="text-center">USD {{ redondear (total_caja)}}</div></th>
+                                                <th style="width:25px;"></th>
+											</tr>
+									</tfoot>
+                                    </table>
+                                </div>
+                        </div>
+						<div class="col-md-4">
+						<div class="form-group">
+                            <button type="button" id="insertar_conteo" (click)="abrir_cerrar_caja()" class="btn btn-danger">ABRIR CAJA</button>
+                        </div>
+						</div>
+                        </div>
+						</form>    
+					</div>
+                </div>    <!-- FIN BODY-->
+            </div>  <!-- FIN PRIMARY-->
+
+        </div>
+    </div>
+ </section>
+</div>

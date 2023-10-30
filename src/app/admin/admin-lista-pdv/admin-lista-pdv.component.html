@@ -1,0 +1,337 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Lista de Ventas por PDV
+      <small>Consulta de las ventas generadas por PDV</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Punto de Venta</li>
+      <li class="active">Lista de PDV</li>
+    </ol>
+  </section>
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Venta registrada con éxito 
+		</div>
+    </div>
+	
+	<div *ngIf="success_act" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Venta actualizada con éxito 
+		</div>
+    </div>
+	
+	<div *ngIf="espera_correo_facturacion"  class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="callout callout-warning">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="callout callout-warning warning-dismissable">
+            <button aria-hidden="true" data-dismiss="callout" class="close" type="button">X</button>
+            <h4><i class="icon fa fa-warning"></i> Enviándo correo por favor espere ..!!!</h4>Enviando correo al Departamento de Facturación...!!!
+		</div>
+    </div>
+	
+	<div *ngIf="espera_exitoso_facturacion"   class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Correo enviado con exito al Departamento de Facturación...!!!
+		</div>
+    </div>
+	
+	<div *ngIf="espera_correo_pedido"  class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="callout callout-warning">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="callout callout-warning warning-dismissable">
+            <button aria-hidden="true" data-dismiss="callout" class="close" type="button">X</button>
+            <h4><i class="icon fa fa-warning"></i> Enviándo correo por favor espere ..!!!</h4>Enviando correo al Cliente...!!!
+		</div>
+    </div>
+	
+	<div *ngIf="espera_exitoso_pedido"   class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Correo enviado con exito al Cliente...!!!
+		</div>
+    </div>
+
+<section class="content">
+    <div class="row">
+	
+	
+	    <div class="col-xs-12">
+            <div class="box box-primary">
+                <!-- <div class="box-header"> -->
+                    <!-- <h3 class="box-title">Utilice la tabla siguiente para navegar o filtrar los resultados.</h3> -->
+                <!-- </div> -->
+				<div class="box-header">
+					<label for="reference">SELECCIONE RANGO DE FECHA DE LA FACTURA EMITIDA</label>
+                </div>
+				 <div class="box-header text-left">
+
+				 
+				  <div class="col-md-3">
+								<label for="fecha_desde">Fecha desde: </label>
+								<input [(ngModel)]="fecha_desde" type="date" name="fecha_desde" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
+								
+				 </div>
+
+				 <div class="col-md-3">
+								<label for="fecha_hasta">Fecha hasta: </label>
+								<input [(ngModel)]="fecha_hasta" type="date" name="fecha_hasta" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
+				 </div>
+				
+				<div class="col-md-2">
+							<br>
+							<input  type="submit" (click)="buscar_factura_fecha()"  name="Buscar" value="Buscar por fecha" class="btn btn-primary">
+				</div>
+				</div>
+				
+                <div class="box-body">
+				<div class="table-responsive">
+				<!-- <table *ngIf="!loading" datatable class="row-border hover">  -->
+					<div *ngIf="loading" class="col-md-12">
+						  <div class="box box-primary">
+							<div class="text-center box-header">
+							  <h3 class="box-title ">Cargando. Generando tabla....!!!!</h3>
+							</div>
+							<div class="box-body">
+							  <!-- The body of the box -->
+							</div>
+							<div class="overlay">
+							  <i class="fa fa-refresh fa-spin"></i>
+							</div>
+							<!-- end loading -->
+						  </div>
+						  <!-- /.box -->
+					</div>
+				
+				<table *ngIf="!loading" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-condensed table-hover dataTable"> 
+				<!-- <table *ngIf="!loading" datatable [dtOptions]="dtOptions" class="dataTable">  -->
+						<thead>
+						<tr>
+						  <th>Fecha</th>
+						  <th>Almacen</th>
+						  <th>Caja</th>
+						  <th>SecInterno</th>
+						  <th>Serie</th>
+						  <th>faccli</th>
+						  <th>Usuario</th>
+						  <th>Cliente</th>
+						  <th>Total (USD)</th>
+						  <th>Forma de pago</th>
+						  <th>Status</th>
+						  <th>Acciones</th>
+						  
+						  <!-- <th>Observación</th> -->
+						  <!-- <th>Estado</th> -->
+						  <!-- <th>Fecha/hora entrega</th> -->
+						  <!-- <th>Direcc entrega</th> -->
+						  <!-- <th>Ruta asignada</th> -->
+						  
+						  <!-- <th style="width:95px;" role="columnheader" rowspan="1" colspan="1" >Acciones</th> -->
+						  
+						</tr>
+					  </thead>
+					  
+					<tbody *ngIf="(lista_pedidos?.length != 0) && (!loading) ">
+					  <tr *ngFor="let el of lista_pedidos;">
+						  <td>{{el.fecfac}}</td>
+						  <td>{{el.nomalm}}</td>
+						  <td>{{el.caja}}</td>
+						  <td>{{el.numfac}}</td>
+						  <td>{{el.serie}}</td>
+						  <td>{{el.faccli}}</td>
+						  <td>{{el.codusu}}</td>
+						  <td>{{el.nomcli}}</td>
+						  <td>{{el.totfac}}</td>
+					   <td>
+						   <!-- <span *ngIf="" >{{el.totfac}}</span> -->
+						   
+						    <ul class="list-group">
+								<li *ngIf="el.conpag == 'E' && el.tipefe == 'E'" class="list-group-item list-group-item-success"><span style="font-weight:bold;">EFECTIVO</span></li>
+								<li *ngIf="el.conpag == 'E' && el.tiptar == 'T'" class="list-group-item list-group-item-info"><span style="font-weight:bold;">TARJETA</span></li>
+								<li *ngIf="el.conpag == 'E' && el.tipche == 'C'" class="list-group-item list-group-item-warning"><span style="font-weight:bold;">CHEQUE</span></li>
+								<li *ngIf="el.conpag == 'E' && el.tiptrans == 'B'" class="list-group-item list-group-item-danger"><span style="font-weight:bold;">TRANSFERENCIA</span></li>
+								<li *ngIf="el.conpag == 'C' && el.tipche == 'X' && el.tipefe =='X' && el.tiptar=='X'" class="list-group-item list-group-item-danger"><span style="font-weight:bold;">CREDITO</span></li>
+							</ul> 
+						   
+						   
+					   </td>
+						<td class="text-center" *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)">
+							<span style="color:blue;font-weight:bold" >{{el.status}}</span>
+							<!-- <a class="tip btn btn-warning btn-xs" href="{{ el.pdf }}" target="blank" ><i class="fa fa-search" title="ver factura">Ver factura</i></a> -->
+						</td>
+						
+						<td class="text-center" *ngIf="el.factok == 'O' && el.status && (el.status == 'NO AUTORIZADO')">
+						<span style="color:red;font-weight:bold" > {{el.status}}</span>
+							<!-- <a class="tip btn btn-info btn-xs" data-toggle="modal" data-target="#series_modal2" ><i class="fa fa-search" title="ver factura"  (click)="error_sri=el.descripcionerror">VER ERROR</i></a> -->
+						</td>
+						
+						<td class="text-center" *ngIf="el.factok == 'O' && !el.status" >
+							<span style="color:green;font-weight:bold" >PENDIENTE AUTO</span>
+						</td>
+						
+						<td class="text-center" *ngIf="el.factok == 'A' && !el.status" >
+							<span style="color:red;font-weight:bold" >ANULADO</span>
+						</td>
+						
+						<td class="text-center" *ngIf="el.factok == 'O' && el.status && (el.status !== 'NO AUTORIZADO' && el.status !== 'AUTORIZADO')" >
+							<span style="color:red;font-weight:bold" >{{el.status}}</span>
+						</td>
+		<!-- ########################## BARRA DE ACCIONES  #################### -->
+						<td class="text-center" >
+							<a *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)" 
+							class="tip btn btn-warning btn-xs" href="{{ el.pdf }}" target="_blank" ><i class="fa fa-search" title="ver factura">Ver factura PDF</i>
+							</a>
+							
+							<a *ngIf=" el.factok == 'O' && el.status && (el.status == 'NO AUTORIZADO' || el.status == 'DEVUELTA' )" (click)="error_sri=el.descripcionerror" class="tip btn btn-info btn-xs" data-toggle="modal" data-target="#series_modal2" >
+							<i class="fa fa-exclamation-triangle" title="ver factura" >VER ERROR</i>
+							</a>
+					<!-- <a  routerLink="/admin/ingreso_articulos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar ingreso"></i></a> -->
+							<!-- <br> -->
+							<!-- <br> -->
+					
+					<!-- *ngIf="(!el.status) || (el.status == 'NO AUTORIZADO' || el.status == 'DEVUELTA' ) " -->
+							
+							
+							<!-- <a *ngIf="el.factok == 'O' && (el.status == 'NO AUTORIZADO' || el.status == 'DEVUELTA' ) " routerLink="/admin/pos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}" -->
+							<!-- class="tip btn btn-success btn-xs" ><i class="fa fa-edit" title="Modificar">Modificar Factura</i> -->
+							<!-- </a> -->
+							
+							<a *ngIf="el.factok == 'O' && el.status != 'AUTORIZADO'" routerLink="/admin/pos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}"
+							class="tip btn btn-success btn-xs" ><i class="fa fa-edit" title="Modificar">Modificar Factura</i>
+							</a>
+							
+							<!-- *ngIf="auth.getCajaReg() != 'NO'" -->
+							<a *ngIf="el.factok == 'O' && el.status != 'AUTORIZADO' && srv.getCajaReg() != 'NO'"
+							routerLink="/admin/pos-cajaregistradora" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}"
+							class="tip btn bg-blue btn-xs"><i class="fa fa-edit" title="Modificar">Modificar Fac CajaReg</i>
+							</a>
+							
+							
+							<a *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)"
+							routerLink="/admin/pos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac,verfactura:1}"
+							class="tip btn btn-warning btn-xs" ><i class="fa fa-search" title="Revisar">Revisar Factura</i>
+							</a>
+							
+							
+							<!-- <br> -->
+							<!-- <br> -->
+							<a *ngIf="el.factok == 'O' && !el.status" (click)="reprocesar_auth(el.numfac)"
+							class="tip btn btn-danger btn-xs" ><i class="fa fa-repeat" title="ReProcesar">Reprocesar Auth</i>
+							</a>
+							
+							<!-- getConfGenerarTicket -->
+							
+							<a *ngIf="el.factok == 'O' && srv.getConfGenerarTicket() != 'NO'" 
+							class="tip btn bg-blue btn-xs" href="{{el.ticket}}" target="blank" ><i class="fa fa-ticket" title="VerTicket">Ver ticket</i>
+							</a>
+
+
+							
+							<a *ngIf="el.factok == 'O' && srv.getConfAnularFactura() != 'NO'" (click)="anular_factura(el.numfac)"
+							class="tip btn btn-danger btn-xs"><i class="fa fa-remove" title="AnularFactura">Anular factura</i>
+							</a>
+							
+							
+							<!-- PARA EL CASO DE REPROCESAMIENTO DEL PDF EN BLANCO -->
+							<!-- <a *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)  && srv.getConfGenerarPdf() != 'NO'" -->
+							<!-- (click)="regenerar_pdf(el.auth)" -->
+							<!-- class="tip btn btn-success btn-xs" ><i class="fa fa-search" title="ReGenerar PDF">ReGenerar PDF</i> -->
+							<!-- </a> -->
+							
+							
+							
+							
+						</td>
+						
+		<!-- ########################## FIN  BARRA DE ACCIONES  #################### -->				
+
+					
+						  <!-- <td class=""> -->
+						    <!-- <div class="text-center"> -->
+                                <!-- <div class="btn-group"> -->
+
+									<!-- <a *ngIf="srv.getConfEditPedido() != 'NO'" routerLink="/admin/ingreso_articulos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar ingreso"></i></a>  -->
+
+								<!-- </div> -->
+                            <!-- </div> -->
+						  <!-- </td> -->
+					  </tr>
+					</tbody> 
+				</table>
+				
+				<!--################## INICIO MODAL ###########################-->
+			<div class="modal fade in" id="series_modal2"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+					
+								  <div class="modal-dialog" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close"  data-dismiss="modal" #closeBtnError (click)="error_sri = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">Mensaje respuesta SRI</h4>
+	
+									  </div>
+									  <div class="modal-body">
+									  <div class="col-xs-12">
+												<div class="form-group">
+													<!-- <label>Dirección</label>									 -->
+													<textarea  rows="12" name="error_sri" id="error_sri" [(ngModel)]="error_sri"  class="pa form-control kb-text"></textarea>
+												</div>
+											</div>
+									  <div>
+									
+
+
+									</div>
+									  </div>
+										<div class="modal-footer">
+										<!-- <span *ngIf="scan_result"> EXITOSO {{scan_value}} </span> -->
+										<!-- <input type="submit" name="apagar_scan" (click)="scan=false" value="apagar scan" class="btn btn-danger"> -->
+										<!-- <input type="submit" name="escanear" (click)="scannerEnabled=true"  value="escanear" class="btn btn-info"> -->
+										<!-- <input type="submit" name="apagar escanear" (click)="scannerEnabled=false"  value="apagar escanear" class="btn btn-info"> -->
+										
+										<button type="button" class="btn btn-primary"  (click)="error_sri = undefined" data-dismiss="modal">Cerrar</button>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+<!--################## FIN MODAL ###########################-->
+	
+					</div>
+				</div>
+			</div>
+        </div>
+   </div>
+</section>
+  <!-- /.content -->
+</div>

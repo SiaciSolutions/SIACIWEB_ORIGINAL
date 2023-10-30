@@ -1,0 +1,311 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Consulta/Modificación de cliente
+      <small>Consulta de los clientes, y modificación de algunos datos.</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Cliente</li>
+      <li class="active">Consulta/Modificación de cliente</li>
+    </ol>
+  </section>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header">
+					<!-- <h3 class="box-title">Por favor, buscar por número de Cedula/RUC</h3> -->
+					<h3 class="box-title">Por favor, buscar por número de Razon Social</h3>
+				</div>
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input   type="text" name="search_customer" id="search_customer" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off">
+			
+						<div class="form-group"  *ngIf="this.exist_razon_social">
+								<p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>
+								<div class="table-responsive-pedidos">
+									<table class="table table-striped table-bordered table-condensed table-hover dataTable">
+									   <thead>
+										  <tr class="active" role="row">
+											 <th>Razon Social</th>
+											 <th class="text-center">Tipo ident</th>
+											 <th class="text-center">Num Identificacion</th>
+											 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+										  </tr>
+									   </thead>
+									   <tbody>
+										  <tr  *ngFor="let rz of razon_social_lista;">
+											 <td>{{rz.nomcli}}</td>
+											 <td class="text-center">{{rz.tpIdCliente}}</td>
+											 <td class="text-center">{{rz.rucced}}</td>
+											 <td class="text-center"> 
+											  <input  type="radio"  name="radio_cliente" (change)="select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)"  />
+											  
+											  <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
+											 </td>
+										  </tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
+							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
+							<!-- <table> -->
+								<!-- <tr> -->
+									<!-- <td> -->
+									<!-- <select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;"> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option> -->
+									<!-- </select> -->
+									<!-- </td> -->
+									<!-- <td class="col-xs-9">  -->
+									<!-- <input (keypress)='validaNumericosCantidad($event)' placeholder="INSERTE CEDULA/RUC/PASAPORTE" (keyup.enter)="busca_cliente()" [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+									<!-- </td> -->
+								<!-- </tr> -->
+							<!-- </table> -->
+							<!-- <br> -->
+							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
+							
+							
+							<!-- <input type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busca_cliente()" > -->
+								<input type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busqueda_razon_social()" >
+							
+						</div>
+						<div class="form-group">
+							<label class="control-label">Nombre y Apellido ó Razón Social</label>
+
+							<input *ngIf="!this.clientes" name="nomcli" type="text" placeholder="Nombre ó Razón Social" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes && !this.cambiar_rz" name="nomcli" type="text" [(ngModel)]="nomcli" placeholder="Nombre ó Razón Social" id="add_item"  value="{{nomcli}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes && this.cambiar_rz" name="nomcli" type="text" [(ngModel)]="nomcli" placeholder="Nombre ó Razón Social" id="add_item"  value="{{nomcli}}" class="form-control ui-autocomplete-input" autocomplete="off" >
+							<input type="button" name="cambio_rz" value="Editar Razón Social" class="btn btn-success" (click)="cambiar_rz = true" >
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label">Cédula / RUC </label>
+						
+							<table>
+								<tr>
+									<td *ngIf="!this.clientes">
+									
+									<select  name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;" disabled >
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option>
+									</select>
+									
+
+									</td>
+									
+									<td *ngIf="this.clientes && !this.cambiar_ident">
+									<select *ngIf="tipo_doc" name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;" disabled>
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option>
+									</select>
+									</td>
+									
+									<td *ngIf="this.clientes && this.cambiar_ident">
+									<select *ngIf="tipo_doc" name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;" >
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option>
+									</select>
+									</td>
+									
+							
+									<td *ngIf="!this.clientes" class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)' inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" disabled />
+									</td>
+									
+									<td *ngIf="this.clientes && !this.cambiar_ident " class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)' inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" disabled />
+									</td>
+									
+									<td *ngIf="this.clientes && this.cambiar_ident " class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)' inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1"  />
+									</td>
+								</tr>
+							</table>
+							
+							<input type="button" name="cambiar_ident" value="Editar Cedula/Ruc" class="btn btn-success" (click)="cambiar_ident = true" >
+							
+							<!-- <table> -->
+								<!-- <tr> -->
+									<!-- <td> -->
+									
+									<!-- <select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;" disabled > -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option> -->
+									<!-- </select> -->
+
+									<!-- </td> -->
+									<!-- <td class="col-xs-9">  -->
+									<!-- <input (keypress)='validaNumericosCantidad($event)' inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" disabled /> -->
+									<!-- </td> -->
+								<!-- </tr> -->
+							<!-- </table> -->
+
+					</div>
+					<div class="form-group">
+							<label class="control-label">Tipo de cliente</label>
+							
+							<select *ngIf="!tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" disabled>
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option>
+							</select>
+							
+						   <select *ngIf="tipo_cliente && !this.cambiar_tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" disabled >
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option>
+							</select>
+							
+							<select *ngIf="tipo_cliente && this.cambiar_tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" >
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option>
+							</select>
+							
+							
+							<input type="button" name="cambiar_tipo_cliente" value="Editar tipo cliente" class="btn btn-success" (click)="cambiar_tipo_cliente = true" >
+							
+					</div>
+					
+					<div class="form-group">
+							<label class="control-label">Dirección cliente</label>
+							<!-- <!-- <!-- <input [(ngModel)]="dircli" type="text" name="cf2" value=""  class="form-control input-sm" id="cf2" /> -->  
+							<input *ngIf="!this.clientes" type="text" placeholder="Direccion registrada" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes && !this.cambiar_dircli" type="text" placeholder="Direccion registrada" id="add_item"  value="{{dircli}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							
+							<input #nuevo_dircli  *ngIf="this.cambiar_dircli && this.clientes"  type="email" placeholder="Ingrese nueva dirección" value="{{dircli}}" name="reference" class="form-control tip" (blur)="update_datos('dircli',nuevo_dircli.value)"  (keyup.enter)="update_datos('dircli',nuevo_dircli.value)">
+							<input type="button" name="dircli_telcli" value="Editar direccion registrada" class="btn btn-success" (click)="cambiar_dircli = true" >
+					
+					</div>
+					
+					<div class="form-group">
+							<label class="control-label">Teléfono </label>
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli" type="text" name="phone" value=""  class="form-control input-sm" id="phone" /> -->
+							<input *ngIf="!this.clientes" type="text" inputmode="numeric"  placeholder="Teléfono" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes &&  !this.cambiar_telcli " type="text" placeholder="Teléfono" id="add_item"  value="{{telcli}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+						
+							<input #nuevo_telcli  *ngIf="this.cambiar_telcli && this.clientes"  type="email" placeholder="Ingrese nuevo teléfono" value="{{telcli}}" name="reference" class="form-control tip" (blur)="update_datos('telcli',nuevo_telcli.value)" autocomplete="off"  (keyup.enter)="update_datos('telcli',nuevo_telcli.value)">
+							<input type="button" name="cambio_telcli" value="Editar teléfono" class="btn btn-success" (click)="cambiar_telcli = true" >
+						
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Teléfono Movil (Opcional)</label>
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli2" type="text" name="phone" value=""  class="form-control input-sm" id="phone" /> -->
+							<input *ngIf="!this.clientes" type="text" inputmode="numeric"  placeholder="Teléfono Movil" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes &&  !this.cambiar_telcli2" type="text" placeholder="Teléfono Movil" id="add_item"  value="{{telcli2}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							
+							<input #nuevo_telcli2  *ngIf="this.cambiar_telcli2 && this.clientes"  type="email" placeholder="Ingrese nuevo teléfono movil" value="{{telcli2}}" name="reference" class="form-control tip" (blur)="update_datos('telcli2',nuevo_telcli2.value)" autocomplete="off"  (keyup.enter)="update_datos('telcli2',nuevo_telcli2.value)">
+							<input type="button" name="cambio_telcli2" value="Editar teléfono movil" class="btn btn-success" (click)="cambiar_telcli2 = true" >
+					</div>
+					<div class="form-group">
+					<label class="control-label" >Provincia</label>
+							<!-- <input *ngIf="!this.clientes" type="text" placeholder="Provincia" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+							<!-- <input *ngIf="this.clientes &&  !this.cambiar_provincia" type="text" placeholder="Provincia" id="add_item"  class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+
+
+
+							<!-- <select *ngIf="!tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" disabled> -->
+							<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option> -->
+							<!-- </select> -->
+							
+						   <!-- <select *ngIf="tipo_cliente && !this.cambiar_tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" disabled > -->
+							<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option> -->
+							<!-- </select> -->
+							
+							<!-- <select *ngIf="tipo_cliente && this.cambiar_tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" > -->
+							<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option> -->
+							<!-- </select> -->
+							
+							
+							<select *ngIf="!provincia && !cambiar_provincia"  name="provincia" [(ngModel)]="provincia" class="form-control select2 tip" style="width:100%;" disabled>
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of provincia_lista; let i = index;"  [value]="e.codgeo">{{e.nomgeo}}</option>
+							</select>
+							
+							<select *ngIf="provincia && !cambiar_provincia"  name="provincia" [(ngModel)]="provincia" class="form-control select2 tip" style="width:100%;" disabled>
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of provincia_lista; let i = index;"  [value]="e.codgeo">{{e.nomgeo}}</option>
+							</select>
+							
+							<select *ngIf="cambiar_provincia"  name="provincia" [(ngModel)]="provincia" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of provincia_lista; let i = index;"  [value]="e.codgeo">{{e.nomgeo}}</option>
+							</select>
+							
+							<input type="button" name="cambio_provincia" value="Cambiar provincia" class="btn btn-success" (click)="cambiar_provincia = true" >
+							
+							
+					</div>
+					<div class="form-group">
+					<label class="control-label" >Ciudad</label>
+							<input *ngIf="!this.clientes" type="text" placeholder="Ciudad" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes &&  !this.cambiar_ciudad" type="text" placeholder="Ciudad" id="add_item"  value="{{ciudad}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+					
+					
+							<select *ngIf="this.clientes && this.cambiar_ciudad" name="city" [(ngModel)]="ciudad" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo">{{e.nomgeo}}</option>
+							</select>
+							
+							<input type="button" name="cambio_ciudad" value="Cambiar ciudad" class="btn btn-success" (click)="cambiar_ciudad = true" >
+							
+							
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Dirección de email</label>
+							<input *ngIf="!this.clientes" type="text" placeholder="Correo electrónico" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes &&  !this.cambiar_email" type="text" placeholder="Correo electrónico" id="add_item"  value="{{email}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<!-- <input #nuevo_correo *ngIf="this.cambiar_email && this.clientes" type="text" placeholder="Correo electrónico" id="add_item"  value="{{email}}" class="form-control ui-autocomplete-input" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)"> -->
+							<input #nuevo_correo_pedido  *ngIf="this.cambiar_email && this.clientes"  type="email" placeholder="Ingrese nuevo correo" value="{{email}}" name="reference" class="form-control tip" (blur)="update_datos('correo',nuevo_correo_pedido.value)"  (keyup.enter)="update_datos('correo',nuevo_correo_pedido.value)">
+								
+							
+							<input type="button" name="cambio_correo" value="Editar email" class="btn btn-success" (click)="cambiar_email = true" >
+					</div>
+					
+					<div *ngIf="srv.getConfConsultaEstadoCartera()=='SI'"class="form-group">
+					<label>Consultar estado de cartera del cliente al día:</label>
+					
+					<mat-form-field>
+					  <input matInput [matDatepicker]="picker" placeholder="Escoja fecha" [(ngModel)]="fecha_status_cartera" name="fecha_cartera" >
+					  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					  <mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+					<input type="button" name="consulta_saldo_cartera" value="Consultar Saldo cartera" class="btn btn-danger" (click)="consulta_saldo_cartera()" >
+					<input type="text" placeholder="Saldo" id="add_item"  value="{{saldo_cliente}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+
+         
+					</div>
+
+					<div class="form-group">
+							<input type="button"  name="add_customer" value="Actualizar datos cliente"  class="btn btn-primary" (click)="update_cliente()" />
+						</div>
+					</div>
+					</form>				
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+  <!-- /.content -->
+</div>

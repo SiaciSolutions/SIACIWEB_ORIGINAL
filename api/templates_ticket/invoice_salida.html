@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- <link rel="stylesheet" href="parzibyte.github.io_files/style.css"> -->
+<style>
+@page {
+	/*size: letter portrait; ancho alto*/
+	size: 70mm 108mm;
+	@frame content_frame {
+		left: 14pt;
+		width: 170pt;
+		top: 10pt;
+		height: 108mm;
+		/*-pdf-frame-border: 1;  */   /* for debugging the layout */
+	}
+}
+* {
+    font-size: 8px;
+    font-family: 'Arial';
+}
+
+/*td,
+th,
+tr,
+table {
+    border-bottom: 1px solid black; 
+    border-collapse: collapse;
+	padding-top:2px;
+}*/
+
+.encabezado{
+    border-collapse: collapse;
+	padding-top:2px;
+}
+
+
+.items
+{
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+	padding-top:2px;
+}
+
+
+
+
+
+td.producto,
+th.producto {
+    width: 100px;
+    max-width: 100px;
+/*	text-align: left; */
+/*    align-content: left; */
+}
+
+td.cantidad,
+th.cantidad {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+	text-align: center;
+    align-content: center;
+}
+
+td.precio,
+th.precio {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+	text-align: center;
+    align-content: center;
+}
+
+.centrado {
+    text-align: center;
+    align-content: center;
+}
+.derecho {
+    text-align: right;
+    align-content: right;
+}
+.izquierdo {
+    text-align: left;
+    align-content: left;
+}
+
+.ticket {
+    width: 200px;
+    max-width: 200px;
+}
+
+img {
+    max-width: inherit;
+    width: inherit;
+}
+
+p {
+    margin: 0px ;
+    padding: 0px;
+}
+</style>
+	
+
+
+</head>
+
+<body>
+    <div class="ticket">
+        <!-- <img src="parzibyte.github.io_files/photo.jpg" alt="Logotipo"> -->
+        
+		<!-- <p class="centrado">ROMERO URREA IVAN MARCELO -->
+            <!-- <br>RUC : 0602290694001 -->
+            <!-- <br>13/11/2022 02:22 p.m.</p> -->
+			
+		<p style="font-weight:bold;" class="centrado">ROMERO URREA IVAN MARCELO</p>
+		<!-- <p class="derecho">R.U.C : <span style="font-weight:bold;">0602290694001</span></p> -->
+		<p class="derecho">R.U.C : <span>0602290694001</span></p>
+		<p style="font-weight:bold;" class="izquierdo">DOCUMENTO SIN VALIDEZ TRIBUTARIA</p>
+		
+		<!-- <th style="width:25px; padding-right:5px;" >Dispon</th> -->
+		<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th> -->
+		
+		<table class="encabezado">
+			<tbody>
+				<tr class="encabezado" >
+					<td style="font-weight:bold;" class="encabezado" >Factura:</td>
+					<td style="width:150px;" class="encabezado">001001-000005903</td>
+					<td style="font-weight:bold;" class="encabezado">Hora:</td>
+					<td class="derecho" class="encabezado" >16:23:52</td>
+				</tr>
+				<tr>
+					<td style="font-weight:bold; width:100px;" class="encabezado" >Cedula/Ruc:</td>
+					<td style="width:150px;" class="encabezado">9999999999999</td>
+					<td style="font-weight:bold;" class="encabezado">Fecha:</td>
+					<td class="derecho" class="encabezado">16-11-2022</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<p class="izquierda"><span style="font-weight:bold;">Cliente:</span> CONSUMIDOR FINAL</p>
+		<p class="izquierda"><span style="font-weight:bold;">Direccion:</span>SIN DIRECCION</p>
+				<!-- <p class="derecho">R.U.C : <span style="font-weight:bold;">0602290694001</span></p> -->
+		
+		
+			
+			
+        <table class="items">
+            <!-- <thead> -->
+                <tr class="items">
+                    <th class="cantidad items">CANT</th>
+                    <th class="producto items centrado">DESCRIPCION</th>
+					<th class="producto items">V/U</th>
+                    <th class="precio items">TOTAL</th>
+                </tr>
+            <!-- </thead> -->
+            <!-- <tbody> -->
+				
+				<tr class="items">
+                    <td class="cantidad items">15.0</td>
+                    <td  class="producto items izquierdo">Llave angular fv 1\2</td>
+					<td class="precio items">13.0</td>
+                    <td class="precio items">195.0</td>
+                </tr>
+				
+				<tr class="items">
+                    <td class="cantidad items">10.0</td>
+                    <td  class="producto items izquierdo">COBALTO</td>
+					<td class="precio items">2.0</td>
+                    <td class="precio items">20.0</td>
+                </tr>
+				
+
+				
+                <!-- <tr> -->
+                    <!-- <td class="cantidad"></td> -->
+					<!-- <td class="cantidad"></td> -->
+                    <!-- <td class="producto">TOTAL</td> -->
+                    <!-- <td class="precio">$28.50</td> -->
+                <!-- </tr> -->
+            <!-- </tbody> -->
+        </table>
+		<br>
+		
+		<table class="encabezado">
+			<tbody>
+				<tr class="derecho">
+					<td style="font-weight:bold;" class="encabezado" >Subtotal:</td>
+					<td style="width:100px;" class="encabezado">215.0</td>
+				</tr>
+				<tr class="derecho">
+					<td style="font-weight:bold;" class="encabezado" >Base 0%:</td>
+					<td style="width:100px;" class="encabezado">215.0</td>
+				</tr>
+				<tr class="derecho">
+					<td style="font-weight:bold;" class="encabezado" >Base 12.0%:</td>
+					<td style="width:100px;" class="encabezado">0.0</td>
+				</tr>
+				<tr class="derecho"> 
+					<td style="font-weight:bold;" class="encabezado" >Iva 12%:</td>
+					<td style="width:100px;" class="encabezado">23.4</td>
+				</tr>
+				<tr class="derecho">
+					<td style="font-weight:bold;" class="encabezado" >DESCUENTO:</td>
+					<td style="width:100px;" class="encabezado">0.0</td>
+				</tr>
+				<tr class="derecho">
+					<td style="font-weight:bold;" class="encabezado" >TOTAL:</td>
+					<td style="width:100px;" class="encabezado">238.4</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		   <p  style="font-weight:bold;" class="centrado">FORMA DE PAGO:
+		   
+		   <span> **EFECTIVO <span>
+		   
+		   <span> **TRANSFERENCIA <span>
+		   
+		   <span> **CHEQUE <span>
+		   
+		   </p>
+		   <p  style="font-weight:bold;" class="centrado">AUTORIZACION SRI:</p>
+		    <!-- <p class="centrado">0101202007170568537600120010020000015880014704411</p> -->
+			<p class="centrado">*** PENDIENTE AUTO ***</p>
+		
+        <p class="centrado">****GRACIAS POR SU COMPRA**** </p>
+		<p  style="font-weight:bold;" class="centrado">**LA FACTURA LE LLEGARA A SU CORREO** </p>
+            <!-- <br>www.siaci.com.ec</p> -->
+    </div>
+
+
+</body></html>

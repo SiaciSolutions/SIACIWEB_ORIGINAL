@@ -1,0 +1,247 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Servicios
+      <small>Caracteristicas del servicio</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Servicios</li>
+      <li class="active">Servicios</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Your Page Content Here -->
+	
+	<!-- <div class="row" *ngIf="loading_modulo"  > -->
+		<!-- <div class="col-md-12"> -->
+		  <!-- <div class="box box-primary"> -->
+			<!-- <div class="text-center box-header"> -->
+			  <!-- <h3 class="box-title ">Por favor espere</h3> -->
+			<!-- </div> -->
+			<!-- <div class="box-body"> -->
+			  <!-- <!-- <!-- <!-- The body of the box -->   
+			<!-- </div> -->
+			<!-- <div class="overlay"> -->
+			  <!-- <i class="fa fa-refresh fa-spin"></i> -->
+			<!-- </div> -->
+			<!-- <!-- <!-- <!-- end loading -->   
+		  <!-- </div> -->
+		  <!-- <!-- <!-- <!-- /.box -->  
+		<!-- </div> -->
+	<!-- </div> -->
+	
+	
+	 <div class="row" >
+        <div class="col-xs-12">
+		
+		
+			<div class="box box-primary" *ngIf="loading_modulo">
+				<div class="text-center box-header">
+				  <h3 class="box-title ">Por favor espere...!!!!</h3>
+				</div>
+				<div class="box-body">
+				  <!-- <!-- <!-- The body of the box -->  
+				</div>
+				<div class="overlay">
+				  <i class="fa fa-refresh fa-spin"></i>
+				</div>
+				<!-- <!-- <!-- end loading -->  
+			</div>
+
+		<div class="nav-tabs-custom"  *ngIf="!loading_modulo">
+            <ul class="nav nav-tabs">
+			    <!-- <li id="facturacion"   class="active" #facturacion ><a href="#tab_facturacion" data-toggle="tab" style="font-weight:bold;color:red" (click)="cambio_vista_cliente('false')" >FACTURACIÓN</a></li> -->
+                <!-- <li id="crear_cliente" #crear_cliente ><a href="#tab_crear_cliente"  data-toggle="tab" style="font-weight:bold;color:blue" (click)="cambio_vista_cliente('true')" >CREACIÓN CLIENTE</a></li> -->
+				
+				<li id="datos_articulo"   class="active" #datos_articulo ><a href="#tab_datos_articulo" data-toggle="tab" style="font-weight:bold;color:blue" >Definir Servicios</a></li>
+                <li *ngIf="tab_habilitar_datos_orden" id="datos_vehiculo"  #datos_vehiculo ><a href="#tab_datos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue"  >Datos Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="datos_detalle_vehiculo"  #datos_detalle_vehiculo ><a href="#tab_datos_detalle_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Detalle Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="fotos_vehiculo"  #fotos_vehiculo ><a href="#tab_fotos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Fotos Vehiculo</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			<div class="tab-pane active" id="tab_datos_articulo" #tab_datos_articulo >
+
+
+			<div class="box-body">
+			<!-- <div class="table-responsive"> -->
+	
+	            <!-- <div class="col-md-12"> -->
+                    <!-- <div class="product-content-right"> -->
+
+                        
+                    <div class="row">
+                            <!-- <div class="col-sm-3"> -->
+                                <!-- <div class="product-images"> -->
+                                    <!-- <div class="product-main-img"> -->
+                                        <!-- <img src="../../assets/img_articulos/subir-imagen.png" width="200" height="200" alt=""> -->
+										<!-- <!-- <img src="{{imagen}}" width="200" height="200" alt="Foto articulos"> --> 
+										<!-- <!-- <img src="../../assets/img_tienda/ACEITE_GRANDE.jpg" alt=""> --> 
+                                    <!-- </div> -->
+                                    
+                                <!-- </div> -->
+                            <!-- </div> -->
+							
+
+							 <div class="row">
+							
+								 <div class="col-sm-3  text-center">
+									
+									<div  class="image-upload">
+									  <!-- <label for="file-input"> -->
+										<img src="../../assets/img_articulos/servicio_imagen.jpg" width="200" height="200" >
+										<!-- <img src="{{src}}" width="200" height="200" alt="subir foto" accept="image/*"> -->
+									  <!-- </label> -->
+
+									  <!-- <input (change)="fileChange($event)" id="file-input" type="file" /> -->
+									</div>
+									
+								
+								</div>
+								 
+								 
+	<!-- <div class="box-body"> -->
+              <!-- <div class="col-lg-12"> -->
+				<!-- <!-- <h1>FOTOS VEHICULO</h1> --> 
+				
+			<!-- <div class="col-md-4"> -->
+              <!-- <div class="input-group"> -->
+
+                  <!-- <div class="custom-file"> -->
+                      <!-- <input (change)="fileChange($event)"  type="file"  class="custom-file-input" id="exampleInputFile" accept="image/*" >  -->
+                     <!-- <!-- <label class="custom-file-label" for="inputGroupFile01">Choose file</label> --> 
+					  <!-- <label class="custom-file-label" for="exampleInputFile" data-browse="Buscar" >{{nombre_archivo}}</label> -->
+                  <!-- </div> -->
+				  
+			       <!-- </div> -->
+				<!-- <div class="progress form-group" *ngIf="progress > 0"> -->
+				<!-- <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress"> -->
+				<!-- </div> -->
+			
+				<!-- </div> -->
+					<!-- <span *ngIf="progress > 0">Subiendo archivo..!!. Progreso: {{progress}}%</span> -->
+			
+			
+          <!-- </div> -->
+		 <!-- <div *ngIf="subida_exitosa" class="col-md-4"> -->
+		<!-- <span>IMAGEN SUBIDA CON EXITO...!!!</span> -->
+		<!-- </div> -->
+		
+
+	  <!-- </div> -->
+		<!-- </div> -->
+							 
+								<div class="col-sm-9">
+								 	<form class="validation fv-form fv-form-bootstrap"  accept-charset="utf-8" >
+									<div class="row">
+										<div class="col-md-6">
+										<label >NOMBRE SERVICIO</label>
+											<input   type="text" style="color:blue" name="nomser" id="nomser"  [(ngModel)]="nomser"  class="form-control ui-autocomplete-input info-box-number" placeholder="Ingrese nombre servicio" >
+										</div>
+										<div class="col-md-3">
+										<label >CODIGO PRINCIPAL</label>
+											<input  *ngIf="accion_actualizar" type="text" style="color:blue" name="codser" id="codser"   [(ngModel)]="codser"  class="form-control ui-autocomplete-input info-box-number"  maxlength="4" placeholder="Ingrese codigo servicio" disabled>
+											<input  *ngIf="!accion_actualizar" type="text" style="color:blue" name="codser" id="codser"   [(ngModel)]="codser"  class="form-control ui-autocomplete-input info-box-number"  maxlength="4" placeholder="Ingrese codigo servicio"  >
+										
+										</div>
+										<!-- <div class="col-md-3"> -->
+										<!-- <label >CODIGO ALTERNO</label> -->
+											<!-- <input   type="text" style="color:blue" name="codalt" id="codalt"  [(ngModel)]="codalt"  class="form-control ui-autocomplete-input info-box-number" placeholder="Ingrese codigo alterno" > -->
+										
+										
+										<!-- </div> -->
+										<div class="col-md-3">
+										<label >IVA (%)</label>
+											<select name="iva" [(ngModel)]="codiva" class="form-control select2 tip info-box-number text-center" style="width:100%;color:blue;">
+												<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+												<!-- <option *ngFor="let e of iva_siaci; let i = index;" [selected] = "i==1" [value]="e.codiva">{{e.poriva}}-{{e.codiva}}</option> -->
+												<option *ngFor="let e of iva_siaci; let i = index;"  [value]="e.codiva">{{e.poriva}}-{{e.codiva}}</option>
+											</select>
+										</div>
+										<div class="col-md-3">
+										<label >PRECIO SERVICIO</label>
+										<input type="number" style="color:blue" (keypress)='validaNumericos($event)'  name="precio_servicio" id="precio_servicio"  [(ngModel)]="precio_servicio"  class="form-control ui-autocomplete-input info-box-number text-center" placeholder="Ingrese precio" >
+										</div>
+
+
+		
+										<!-- <div class="col-md-4"> -->
+											 <!-- <table id="poTable" class="table table-striped-green  table-bordered table-condensed table-hover dataTable"> -->
+											<!-- <tbody> -->
+												<!-- <tr> -->
+													<!-- <td> -->
+														<!-- <label *ngIf="estado_art">ESTADO ARTICULO (ACTIVO)</label> -->
+														<!-- <label *ngIf="!estado_art">ESTADO ARTICULO (INACTIVO)</label> -->
+
+													<!-- </td> -->
+													<!-- <td> -->
+														<!-- <label class="switch"> -->
+														<!-- <input type="checkbox" name="estado" [(ngModel)]= "estado_art"><span class="slider_detalle round"></span> -->
+														<!-- </label> -->
+													<!-- </td> -->
+												<!-- </tr> -->
+											<!-- </tbody> -->
+											<!-- </table> -->
+										<!-- </div> -->
+									
+
+									</div>
+								
+									
+									</form>
+								</div>
+							</div>
+					</div>
+			
+					
+						<br>
+						
+						<div class="form-group">
+                            <!-- <input  #generar_pe type="submit"  disabled name="add_purchase" value="Guardar articulo" class="btn btn-danger"> -->
+							<input *ngIf="!accion_actualizar" type="submit"  name="add_purchase" value="Guardar servicio" (click)="crea_servicio()"class="btn btn-primary">
+							<input *ngIf="accion_actualizar" type="submit"  name="add_purchase" value="Guardar servicio" (click)="actualiza_producto()"class="btn btn-primary">
+							<input routerLink="/admin/lista_servicios" [queryParams]="{usuario:usuario,empresa: empresa}" type="submit"  name="add_purchase" value="Ir a lista servicios" class="btn btn-danger">
+						</div>
+					
+            </div>
+            </div> <!-- /.FIN tab-pane 1 -->
+			
+
+			
+			<div class="tab-pane"  id="tab_datos_vehiculo" #tab_datos_vehiculo>
+				<!-- <app-admin-cliente status_cambio_vista_cliente="true" #cliente_contenido></app-admin-cliente> -->
+				<!-- <h1>SEGUNDA TAB</h1> -->
+				
+            </div> <!-- /.tab-pane 2-->
+			
+		 <div class="tab-pane"  id="tab_datos_detalle_vehiculo" #tab_datos_detalle_vehiculo>
+
+         </div> <!-- /.tab-pane 3-->
+			
+		<div class="tab-pane"  id="tab_fotos_vehiculo" #tab_fotos_vehiculo>
+		
+        </div> <!-- /.tab-VEHICULO 2-->
+			
+			
+			
+				</div> <!-- /.tab-content -->
+			</div> <!-- nav-tabs-custom -->
+			
+		
+
+			
+			
+			
+        </div>
+    </div>
+
+
+
+ </section>
+  <!-- /.content -->
+</div>

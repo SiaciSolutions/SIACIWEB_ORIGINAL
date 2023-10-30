@@ -1,0 +1,416 @@
+<!-- <div layout-fill ng-app="myapp" ng-cloak> -->
+<mat-toolbar style="background-color:white; margin-top: 20px">
+  <mat-toolbar-row>
+    <img src="../../assets/SIACI.png" alt="SIACI" width=150>
+    <span>Ruc: {{ruc}} <fa *ngIf="cargando" name="cog" animation="spin"></fa></span>
+    <span class="example-spacer"></span>
+    <div style="margin-right: 100px">
+    </div>
+    <span class="example-spacer"></span>
+    <div style="margin-right: 10px">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Desde" [(ngModel)]="f1">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div style="margin-right: 10px">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Hasta" [(ngModel)]="f2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div style="margin-right: 10px">
+      <mat-form-field>
+        <input matInput placeholder="ruc" [(ngModel)]="ruc">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <mat-select [(ngModel)]="tipo">
+          <mat-option *ngFor="let t of tipos" [value]="t.value">
+            {{t.tipo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button (click)="buscar()">
+        <mat-icon class="example-icon">search</mat-icon>
+      </button>
+    </div>
+    <button mat-button (click)="salir()">
+      <mat-icon class="example-icon">close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="contenedor mat-elevation-z8">
+  <span *ngIf="cargando" style="font-size:25px">
+    <fa name="cog" animation="spin"></fa>Buscando documentos electrónicos .....
+  </span>
+
+  <mat-form-field *ngIf="!cargando">
+
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar" />
+  </mat-form-field>
+
+</div>
+<!---###################################### MOSTRAR TABLA PARA FACTURAS #####################################################-->
+<div *ngIf="tipo_doc == 'factura'" class="contenedor mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+   <!-- Position Column -->
+    <ng-container matColumnDef="idfactura">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>idfactura</th>
+      <td mat-cell *matCellDef="let element">{{ element.idfactura }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaemision">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>fechaemision</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaemision }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="razonsocial">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>razonsocial</th>
+      <td mat-cell *matCellDef="let element">{{ element.razonsocial }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="identificacioncomprador">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>identificacioncomprador</th>
+      <td mat-cell *matCellDef="let element">{{ element.identificacioncomprador }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="secuencialinterno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>secuencialinterno</th>
+      <td mat-cell *matCellDef="let element">{{ element.secuencialinterno }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="emailresponsable">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>emailresponsable</th>
+      <td mat-cell *matCellDef="let element">{{ element.emailresponsable }}</td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="dircomprador">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>dircomprador</th>
+      <td mat-cell *matCellDef="let element">{{ element.dircomprador }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="importetotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>importetotal</th>
+      <td mat-cell *matCellDef="let element">{{ element.importetotal }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="autorizacionsri">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>autorizacionsri</th>
+      <td mat-cell *matCellDef="let element">{{ element.autorizacionsri }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="estadodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>estadodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.estadodocumento }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionerror">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>descripcionerror</th>
+      <td mat-cell *matCellDef="let element">{{ element.descripcionerror }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="FechaAutorizacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>FechaAutorizacion</th>
+      <td mat-cell *matCellDef="let element">{{ element.FechaAutorizacion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="claveacceso">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>claveacceso</th>
+      <td mat-cell *matCellDef="let element">{{ element.claveacceso }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="codigodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>codigodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.codigodocumento }}</td>
+    </ng-container>
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="pdf">
+      <th mat-header-cell *matHeaderCellDef>Pdf</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.pdf }}" target="blank"><i
+            class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="xml">
+      <th mat-header-cell *matHeaderCellDef>Xml</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.xml }}" target="blank"> <i
+            class="fa fa-file-code-o"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="zip">
+      <th mat-header-cell *matHeaderCellDef>zip</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.zip }}" target="blank"> <i
+            class="fa fa-file"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>mail</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.mail }}" target="blank"> <i
+            class="fa fa-envelope"></i> </a></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: #367bb9; color: white; font-size: 6px"></tr>
+    <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns" [ngClass]="{gray: even}" ></tr>
+  </table>
+  
+</div>
+
+<!---###################################### MOSTRAR TABLA RETENCIONES #####################################################-->
+<div *ngIf="tipo_doc == 'retencion'" class="contenedor mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+   <!-- Position Column -->
+    <ng-container matColumnDef="idretencion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>idretencion</th>
+      <td mat-cell *matCellDef="let element">{{ element.idretencion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaemision">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>fechaemision</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaemision }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="razonsocial">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>razonsocial</th>
+      <td mat-cell *matCellDef="let element">{{ element.razonsocial }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="identificacionproveedor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>identificacionproveedor</th>
+      <td mat-cell *matCellDef="let element">{{ element.identificacionproveedor }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="secuencialinterno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>secuencialinterno</th>
+      <td mat-cell *matCellDef="let element">{{ element.secuencialinterno }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="emailresponsable">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>emailresponsable</th>
+      <td mat-cell *matCellDef="let element">{{ element.emailresponsable }}</td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="dirsujetoretenido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>dirsujetoretenido</th>
+      <td mat-cell *matCellDef="let element">{{ element.dirsujetoretenido }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalretencion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>totalretencion</th>
+      <td mat-cell *matCellDef="let element">{{ element.totalretencion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="autorizacionsri">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>autorizacionsri</th>
+      <td mat-cell *matCellDef="let element">{{ element.autorizacionsri }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="estadodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>estadodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.estadodocumento }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionerror">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>descripcionerror</th>
+      <td mat-cell *matCellDef="let element">{{ element.descripcionerror }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="FechaAutorizacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>FechaAutorizacion</th>
+      <td mat-cell *matCellDef="let element">{{ element.FechaAutorizacion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="claveacceso">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>claveacceso</th>
+      <td mat-cell *matCellDef="let element">{{ element.claveacceso }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="codigodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>codigodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.codigodocumento }}</td>
+    </ng-container>
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="pdf">
+      <th mat-header-cell *matHeaderCellDef>Pdf</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.pdf }}" target="blank"><i
+            class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="xml">
+      <th mat-header-cell *matHeaderCellDef>Xml</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.xml }}" target="blank"> <i
+            class="fa fa-file-code-o"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="zip">
+      <th mat-header-cell *matHeaderCellDef>zip</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.zip }}" target="blank"> <i
+            class="fa fa-file"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>mail</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.mail }}" target="blank"> <i
+            class="fa fa-envelope"></i> </a></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: #367bb9; color: white; font-size: 6px"></tr>
+    <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns" [ngClass]="{gray: even}" ></tr>
+  </table>
+ </div> 
+ 
+
+<!---###################################### MOSTRAR TABLA RETENCIONES #####################################################-->
+<div *ngIf="tipo_doc == 'nota de credito'" class="contenedor mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+   <!-- Position Column -->
+    <ng-container matColumnDef="idnotacredito">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>idnotacredito</th>
+      <td mat-cell *matCellDef="let element">{{ element.idnotacredito }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaemision">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>fechaemision</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaemision }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="razonsocial">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>razonsocial</th>
+      <td mat-cell *matCellDef="let element">{{ element.razonsocial }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="identificacioncomprador">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>identificacioncomprador</th>
+      <td mat-cell *matCellDef="let element">{{ element.identificacioncomprador }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="secuencialinterno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>secuencialinterno</th>
+      <td mat-cell *matCellDef="let element">{{ element.secuencialinterno }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="emailresponsable">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>emailresponsable</th>
+      <td mat-cell *matCellDef="let element">{{ element.emailresponsable }}</td>
+    </ng-container>
+
+
+
+    <!-- <ng-container matColumnDef="dirsujetoretenido"> -->
+      <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header>dirsujetoretenido</th> -->
+      <!-- <td mat-cell *matCellDef="let element">{{ element.dirsujetoretenido }}</td> -->
+    <!-- </ng-container> -->
+
+    <ng-container matColumnDef="ValorModificacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ValorModificacion</th>
+      <td mat-cell *matCellDef="let element">{{ element.ValorModificacion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="autorizacionsri">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>autorizacionsri</th>
+      <td mat-cell *matCellDef="let element">{{ element.autorizacionsri }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="estadodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>estadodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.estadodocumento }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionerror">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>descripcionerror</th>
+      <td mat-cell *matCellDef="let element">{{ element.descripcionerror }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="FechaAutorizacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>FechaAutorizacion</th>
+      <td mat-cell *matCellDef="let element">{{ element.FechaAutorizacion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="claveacceso">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>claveacceso</th>
+      <td mat-cell *matCellDef="let element">{{ element.claveacceso }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="codigodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>codigodocumento</th>
+      <td mat-cell *matCellDef="let element">{{ element.codigodocumento }}</td>
+    </ng-container>
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="pdf">
+      <th mat-header-cell *matHeaderCellDef>Pdf</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.pdf }}" target="blank"><i
+            class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="xml">
+      <th mat-header-cell *matHeaderCellDef>Xml</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.xml }}" target="blank"> <i
+            class="fa fa-file-code-o"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="zip">
+      <th mat-header-cell *matHeaderCellDef>zip</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.zip }}" target="blank"> <i
+            class="fa fa-file"></i> </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>mail</th>
+      <td mat-cell *matCellDef="let element"><a *ngIf="element.estado" href="{{ element.mail }}" target="blank"> <i
+            class="fa fa-envelope"></i> </a></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: #367bb9; color: white; font-size: 6px"></tr>
+    <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns" [ngClass]="{gray: even}" ></tr>
+  </table>
+ </div> 
+ 
+ <!---###################################### MOSTRAR MENSAJE NO ENCONTRADO #####################################################-->
+<div *ngIf="tipo_doc == 'no_existe'" align="center" >
+<h2>Comprobantes no encontrados..!!!</h2> 
+ </div>
+
+<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+<!-- </div> -->

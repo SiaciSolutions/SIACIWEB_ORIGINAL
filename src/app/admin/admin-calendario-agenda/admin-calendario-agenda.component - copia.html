@@ -1,0 +1,117 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Agenda de citas
+      <small>Creación de los clientes para levantar pedidos</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Cliente</li>
+      <li class="active">Creación de cliente</li>
+    </ol>
+  </section>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+
+
+	<div class="row">
+	
+
+						
+					 <!-- defaultView="dayGridMonth"  
+					 [events]="[ -->
+						<!-- { title: 'Cita Carlos Ledezma', date: '2019-12-10' }, -->
+						<!-- { title: 'Cita Juan Sanchez', date: '2019-12-10' } -->
+						<!-- ]" 
+						deepChangeDetection="true"
+						
+						-->
+	
+	
+		<div class="col-xs-10">
+		
+	
+			
+			<div class="box box-primary">
+			
+					<!-- <full-calendar (dateClick)="handleDateClick($event)" [plugins]="calendarPlugins"  -->
+					
+					<!-- [header]="{ -->
+						<!-- left: 'prev,next today', -->
+							<!-- center: 'title', -->
+								<!-- right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek' -->
+								<!-- (dateClick)="handleDateClick($event)" -->
+				  					  <!-- navLinks= false -->
+									  			  <!-- (dateClick)="handleDateClick($event)" -->
+												  			  <!-- (eventRender)="doNotRenderEvents($event)" -->
+					<!-- }" -->
+					
+												
+					<!-- (slotDuration) = "04:00" -->
+					  <!-- (snapDuration) = "02:00" -->
+					  		  <!-- [minTime]= "8" -->
+							  		  <!-- [navLinks]="true" -->
+					<!-- ></full-calendar> -->
+			
+				    <full-calendar #calendar 
+					defaultView="dayGridMonth"
+					[buttonText] = "{
+						today: 'Hoy',
+						month: 'Mes',
+						week: 'Semana',
+						day: 'Día',
+						list: 'Lista'
+					  }"
+					[header]="{
+						left: 'prev,next today',
+						center: 'title',
+						right: 'dayGridMonth,timeGridWeek,timeGridDay'
+					  }"
+					  [plugins]="calendarPlugins"
+					  [weekends]="calendarWeekends"
+					  [events]="calendarEvents"
+					  (dateClick)="handleDateClick($event)"
+					  [minTime]= "'07:00:00'"
+					  [maxTime]= "'19:00:00'"
+					  [slotDuration]= "'00:15:01'"
+					  [allDaySlot]= "false"
+			  
+					  
+
+					>
+					</full-calendar>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				
+			</div>
+		</div>
+	</div>
+
+</section>
+  <!-- /.content -->
+</div>

@@ -1,0 +1,414 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Consulta de los pedidos
+      <small>Consulta de los pedidos creados</small>
+    </h1>
+    <ol class="breadcrumb">
+      <!-- <li><a href="/starter/pedidos"><i class="fa fa-dashboard"></i>Lista de Pedidos</a></li> -->
+	  <li><a><i class="fa fa-dashboard"></i>Lista de Pedidos</a></li>
+      <li class="active">Consulta de pedidos</li>
+    </ol>
+  </section>
+
+<section class="content">
+	        <div class="row">
+            <div class="col-xs-12">
+                <!-- <h1><img src="http://amort.lavisita360.com/uplaods/LogoAA.jpg" alt="EL MUNDO DE LOS AMORTIGUADORES" /></h1> -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Pedido # {{pedido}}</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-xs-3"><b>Fecha de emisión</b></td>
+                                                    <td class="col-xs-10">{{fecha}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-xs-3"><b>Cliente</b></td>
+                                                    <td class="col-xs-10">{{cliente}}</td>
+                                                </tr>
+												<tr>
+                                                    <td class="col-xs-3"><b>Cédula/RUC</b></td>
+                                                    <td class="col-xs-10">{{identificacion}} </td>
+                                                </tr>
+												<tr>
+                                                    <td class="col-xs-3"><b>Dirección entrega sucursal</b></td>
+                                                    <td class="col-xs-10"> {{sucursal}}</td>
+                                                </tr>
+												<tr>
+                                                    <td class="col-xs-3"><b>Ciudad</b></td>
+                                                    <td class="col-xs-10"> {{ciudad}}</td>
+                                                </tr>
+												<tr>
+                                                    <td class="col-xs-3"><b>Teléfono contacto</b></td>
+                                                    <td class="col-xs-10">{{telefono}}</td>
+                                                </tr>
+												<tr>
+                                                    <td class="col-xs-3"><b>Correo electrónico</b></td>
+                                                    <td class="col-xs-10">{{correo}}</td>
+                                                </tr>
+                                                <tr>
+                                                        <td class="col-xs-3"><b>Observación general</b></td>
+                                                        <td class="col-xs-10">{{observacion}}</td>
+                                                    </tr>
+                                                                                                </tbody>
+                                        </table>
+                                        <div class="table-responsive">
+										
+									<!-- <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable"> -->
+                                        <!-- <thead> -->
+                                            <!-- <tr class="active" role="row"> -->
+												<!-- <th>Código</th> -->
+                                                <!-- <th>Producto</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Unid.</th> -->
+												<!-- <th>Observación</th> -->
+												<!-- <th>Precio Unitario</th> -->
+												<!-- <th>Porc. IVA</th> -->
+												<!-- <th>Cant.IVA</th> -->
+                                                <!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Desc%</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">V.Descuento</th> -->
+                                                <!-- <th>Subtotal</th> -->
+                                            <!-- </tr> -->
+                                        <!-- </thead> -->
+                                        <!-- <tbody> -->
+											<!-- <tr *ngFor="let el of renglones_pedido;"> -->
+												<!-- <td>{{el.codart}}</td> -->
+												<!-- <td style="min-width:100px;">{{el.nomart}}</td> -->
+												<!-- <td>{{el.coduni}}</td> -->
+												<!-- <td> -->
+													<!-- {{el.num_docs}}  -->
+												<!-- </td> -->
+												<!-- <td style="padding:2px;"> -->
+													<!-- <div class="text-center">USD {{el.preuni}}</div> -->
+												<!-- </td> -->
+												<!-- <td style="padding:2px;"> -->
+													<!-- <div class="text-center">{{el.poriva}}%</div> -->
+												<!-- </td> -->
+												<!-- <td style="padding:2px;"> -->
+													<!-- <div class="text-center">USD {{el.cant_iva}}</div> -->
+												<!-- </td>												 -->
+												<!-- <td style="padding:2px;"> -->
+												<!-- <div class="text-center">{{el.cantid}}</div> -->
+												<!-- </td> -->
+												<!-- <td style="padding:2px;"> -->
+												<!-- <div class="text-center">{{el.desren}}%</div> -->
+												<!-- </td> -->
+												<!-- <td>  -->
+												<!-- <div class="text-center">USD {{el.des_cant}}</div>  -->
+												<!-- </td> -->
+												<!-- <td style="padding:2px;"> -->
+													<!-- <div class="text-center"> USD {{el.totren}}</div> -->
+												<!-- </td> -->
+											<!-- </tr> -->
+                                        <!-- </tbody> -->
+									 <!-- <tfoot> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Subtotal</th> -->
+                                                <!-- <th><div class="text-center">USD {{subtotal}}</div></th> -->
+											<!-- </tr> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Total IVA</th> -->
+                                                <!-- <th class="text-center">USD {{iva_cant}}</th> -->
+                           
+                                            <!-- </tr> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Total</th> -->
+                                                <!-- <th class="text-center">USD {{total_pedido}}</th> -->
+                                            <!-- </tr> -->
+									<!-- </tfoot> -->
+                                    <!-- </table> -->
+										<div *ngIf="loading" class="col-md-12">
+										  <div class="box box-primary">
+											<div class="text-center box-header">
+											  <h3 class="box-title ">Cargando. Generando tabla....!!!!</h3>
+											</div>
+											<div class="box-body">
+											  <!-- The body of the box -->
+											</div>
+											<div class="overlay">
+											  <i class="fa fa-refresh fa-spin"></i>
+											</div>
+											<!-- end loading -->
+										  </div>
+										  <!-- /.box -->
+									</div>
+									
+									
+									
+									
+									
+									
+									
+									
+									<table id="poTable" *ngIf="!loading" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-condensed table-hover dataTable">
+                                        <thead>
+                                            <tr class="active" role="row">
+												<th>Código</th>
+                                                <th>Producto</th>
+												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Unid.</th>
+												<th>Observación</th>
+												<th>Precio Unitario</th>
+												<th>Porc. IVA</th>
+												<th>Cant.IVA</th>
+                                                <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th>
+												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Desc%</th>
+												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">V.Descuento</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="(renglones_pedido?.length != 0) && (!loading) ">
+											<tr *ngFor="let el of renglones_pedido;">
+												<td>{{el.codart}}</td>
+												<td style="min-width:100px;">{{el.nomart}}</td>
+												<td>{{el.coduni}}</td>
+												<td *ngIf= "(el.num_docs == 'null')">
+												</td>
+												<td *ngIf= "(el.num_docs != 'null')">
+													{{el.num_docs}} 
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center">USD {{el.preuni}}</div>
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center">{{el.poriva}}%</div>
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center">USD {{el.cant_iva}}</div>
+												</td>												
+												<td style="padding:2px;">
+												<div class="text-center">{{el.cantid}}</div>
+												</td>
+												<td style="padding:2px;">
+												<div class="text-center">{{el.desren}}%</div>
+												</td>
+												<td> 
+												<div class="text-center">USD {{el.des_cant}}</div> 
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center"> USD {{el.totren}}</div>
+												</td>
+											</tr>
+											<tr class="active">
+                                                <th></th>
+                                                <th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Subtotal</th>
+                                                <th><div class="text-center">USD {{subtotal}}</div></th>
+											</tr>
+											<tr class="active">
+                                                <th></th>
+                                                <th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Total IVA</th>
+                                                <th class="text-center">USD {{iva_cant}}</th>
+                           
+                                            </tr>
+											<tr class="active">
+                                                <th></th>
+                                                <th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Total</th>
+                                                <th class="text-center">USD {{total_pedido}}</th>
+                                            </tr>
+                                        </tbody>
+									 <!-- <tfoot> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Subtotal</th> -->
+                                                <!-- <th><div class="text-center">USD {{subtotal}}</div></th> -->
+											<!-- </tr> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Total IVA</th> -->
+                                                <!-- <th class="text-center">USD {{iva_cant}}</th> -->
+                           
+                                            <!-- </tr> -->
+											<!-- <tr class="active"> -->
+                                                <!-- <th></th> -->
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<!-- <th>Total</th> -->
+                                                <!-- <th class="text-center">USD {{total_pedido}}</th> -->
+                                            <!-- </tr> -->
+									<!-- </tfoot> -->
+                                    </table>
+
+									
+									
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+							<div class="form-group">
+                            <!-- <input #generar_pe type="submit" (click)="actualizar_pedido()"  name="add_purchase" value="Actualizar pedido" class="btn btn-primary"> -->
+                            <button routerLink="/admin/lista_pedidos" [queryParams]="{usuario:usuario,empresa: empresa}" type="button" id="ir_pedidos"  class="btn btn-danger">Ir a lista de pedidos</button>
+							<!-- <a routerLink="/admin/ver_pedidos" [queryParams]="{usuario:usuario,empresa: empresa,pedido:el.numtra}"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido"></i></a>  -->
+							
+                        </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+  <!-- /.content -->
+</div>
+<!-- <html> -->
+<!-- <head> -->
+    <!-- <meta charset="UTF-8"> -->
+    <!-- <title>view purchase | EL MUNDO DE LOS AMORTIGUADORES</title> -->
+    <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
+    <!-- <style type="text/css"> -->
+    <!-- body { background-color: #ecf0f5; } -->
+    <!-- .table th { text-align: center; } -->
+    <!-- </style> -->
+<!-- </head> -->
+<!-- <body> -->
+    <!-- <section class="content"> -->
+        <!-- <div class="row"> -->
+            <!-- <div class="col-xs-12"> -->
+                <!-- <h1><img src="http://amort.lavisita360.com/uplaods/LogoAA.jpg" alt="EL MUNDO DE LOS AMORTIGUADORES" /></h1> -->
+                <!-- <div class="box box-primary"> -->
+                    <!-- <div class="box-header"> -->
+                        <!-- <h3 class="box-title">purchase # 9</h3> -->
+                    <!-- </div> -->
+                    <!-- <div class="box-body"> -->
+                        <!-- <div class="col-lg-12"> -->
+
+                            <!-- <div class="row"> -->
+                                <!-- <div class="col-md-12"> -->
+                                    <!-- <div class="table-responsive"> -->
+                                        <!-- <table class="table table-bordered"> -->
+                                            <!-- <tbody> -->
+                                                <!-- <tr> -->
+                                                    <!-- <td class="col-xs-2">Fecha</td> -->
+                                                    <!-- <td class="col-xs-10">27/09/2019 06:00:00 PM</td> -->
+                                                <!-- </tr> -->
+                                                <!-- <tr> -->
+                                                    <!-- <td class="col-xs-2">Referencia</td> -->
+                                                    <!-- <td class="col-xs-10">1234</td> -->
+                                                <!-- </tr> -->
+                                                                                                    <!-- <tr> -->
+                                                        <!-- <td class="col-xs-2">Información</td> -->
+                                                        <!-- <td class="col-xs-10">todo bien</td> -->
+                                                    <!-- </tr> -->
+                                                                                                <!-- </tbody> -->
+                                        <!-- </table> -->
+                                        <!-- <div class="table-responsive"> -->
+                                            <!-- <table class="table table-striped table-bordered"> -->
+                                                <!-- <thead> -->
+                                                    <!-- <tr class="active"> -->
+                                                        <!-- <th>Producto</th> -->
+                                                        <!-- <th class="col-xs-2">Cant.</th> -->
+                                                        <!-- <th class="col-xs-2">Custo Unitário</th> -->
+                                                        <!-- <th class="col-xs-2">Subtotal</th> -->
+                                                    <!-- </tr> -->
+                                                <!-- </thead> -->
+                                                <!-- <tbody> -->
+
+                                                    <!-- <tr><td>TOKICO (2504)</td><td class="text-center">1.00</td><td class="text-right">15.63</td><td class="text-right">15.63</td></tr><tr><td>MONROE (6802)</td><td class="text-center">1.00</td><td class="text-right">18.03</td><td class="text-right">18.03</td></tr> -->
+                                                <!-- </tbody> -->
+                                                <!-- <thead> -->
+                                                    <!-- <tr class="active"> -->
+                                                        <!-- <td>Total</td> -->
+                                                        <!-- <td class="col-xs-2"></td> -->
+                                                        <!-- <td class="col-xs-2"></td> -->
+                                                        <!-- <td class="col-xs-2 text-right">33.66</td> -->
+                                                    <!-- </tr> -->
+                                                <!-- </thead> -->
+                                            <!-- </table> -->
+                                        <!-- </div> -->
+                                    <!-- </div> -->
+                                <!-- </div> -->
+
+                            <!-- </div> -->
+                            <!-- <div class="clearfix"></div> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </section> -->
+<!-- </body> -->
+<!-- </html> -->
+

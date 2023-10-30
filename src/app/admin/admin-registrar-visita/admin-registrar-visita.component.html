@@ -1,0 +1,137 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Registrar Visita
+      <small>Registra la visita según geolocalización</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/starter/pedidos"><i class="fa fa-dashboard"></i>Pedidos</a></li>
+      <li class="active">Registrar visita a cliente</li>
+    </ol>
+  </section>
+  <br>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+	
+		<!-- <h3> Tu localizacion actual es: Lat: {{lat}}, Long: {{lng}} <h3> -->
+		<!-- <!-- <!-- <agm-map style="height:200px;width:1200px" [zoom]='19' [latitude]="lat" [longitude]="lng"> --> 
+		<agm-map style="height:200px" [zoom]='19' [latitude]="lat" [longitude]="lng">
+		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+		</agm-map>
+	
+	
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title">Por favor, rellene la siguiente información</h3>
+				</div>
+				
+				
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Busqueda de cliente por Nombre ó Apellido / Razón Social</label>
+							<input  placeholder="Nombre Apellido ó Razón Social" [(ngModel)]="patron" type="text" name="name" value=""  class="form-control input-sm" id="name" (keyup.enter)="buscar_cliente_nombre()" />
+							<input type="button" name="buscar_cliente" value="Buscar cliente"  class="btn btn-primary" (click)="buscar_cliente_nombre()"  />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" >Por favor escoja el cliente o la empresa</label>
+							<select *ngIf="cliente_lista" name="empresa" [(ngModel)]="cliente_datos" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" selected>Seleccione</option>
+							<option *ngFor="let e of cliente_lista; let i = index;" [value]='e.codcli+"|"+e.nombres'>{{e.nombres}}</option>
+							</select>
+							
+							<select *ngIf="!cliente_lista"  class="form-control select2 tip" style="width:100%;" disabled>
+							<option selected>Seleccione</option>
+							</select>
+							
+						</div>
+					</div>
+					
+					
+					
+
+					
+					
+					<!-- <div class="form-group"> -->
+					<!-- <input type="button" name="registrar_visita" value="Registrar visita" class="btn btn-danger" (click)="registrar_visita()" > -->
+					<!-- </div> -->
+					
+					
+
+					</form>				
+			
+				</div>
+				
+				<div class="box-header">
+					<h3 class="box-title">Por favor presionar el botón Geolocalizar para registrar su ubicación actual</h3>
+				</div>
+				<div class="box-body">
+				<form  accept-charset="utf-8">
+					<!-- <div class="col-md-6"> -->
+						<!-- <div class="form-group"> -->
+							<!-- <label class="control-label">Latitud</label> -->
+							<!-- <input  placeholder="Latitud estimada" [(ngModel)]="lat" type="text" name="latitud" value=""  class="form-control input-sm" id="latitud" disabled /> -->
+						<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-6"> -->
+						<!-- <div class="form-group"> -->
+							<!-- <label class="control-label">Longitud</label> -->
+							<!-- <input  placeholder="longitud estimada" [(ngModel)]="lng" type="text" name="longitud" value=""  class="form-control input-sm" id="longitud" disabled /> -->
+						<!-- </div> -->
+					<!-- </div> -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Dirección estimada</label>
+							<input  placeholder="Dirección estimada" [(ngModel)]="address" type="text" name="direccion" value=""  class="form-control input-sm" id="direccion" disabled />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<br>
+							<!-- <label class="control-label">Dirección estimada</label> -->
+							<!-- <input  placeholder="Nombre Apellido ó Razón Social" [(ngModel)]="patron" type="text" name="name" value=""  class="form-control input-sm" id="name" (keyup.enter)="buscar_cliente_nombre()" /> -->
+								<input type="button" style="margin-right: 20px" name="Geolocalizar" value="Geolocalizar" class="btn btn-danger"  (click)="findMe()"  >
+								<input type="button" name="registrar_visita" value="Registrar Visita" class="btn btn-success"  (click)="registrar_visita()"  >
+						</div>
+					</div>
+				
+				</form>
+				</div>
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+
+
+

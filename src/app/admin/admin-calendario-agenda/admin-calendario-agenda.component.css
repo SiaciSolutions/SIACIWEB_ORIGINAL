@@ -1,0 +1,25 @@
+.app-top {
+  margin: 0 0 3em;
+}
+
+.app-calendar {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.scroll{
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 350px;
+}
+
+
+.fc-toolbar {
+    text-transform: capitalize;
+}
+
+ul{
+     list-style:none; 
+}
+
+/* // NOTE: the fullcalendar stylesheets are included in the app's global styles.scss */

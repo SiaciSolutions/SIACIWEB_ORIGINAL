@@ -1,0 +1,233 @@
+.example-full-width {
+  min-width: 150px;
+  min-height: 30px;
+  width: 100%;
+}
+
+mat-selection-list {
+  max-height: 200px;
+  overflow: auto;
+}
+
+ul.nav li {
+ background-color:#d3e7f2;
+}
+/* ul.nav li.selected { */
+ /* background-color:red; */
+/* } */
+
+
+.table-responsive-pedidos {
+    min-height: 0.01%;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.redactor-box {
+    position: relative;
+    overflow: visible;
+    border: 1px solid #ccc;
+}
+
+.redactor-editor {
+    position: relative;
+    overflow: auto;
+    margin: 0 !important;
+    padding: 10px;
+    outline: none;
+    white-space: normal;
+    line-height: 1.6em;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background-color:   #00a65a; VERDE*/
+  /*background-color:   #2196F3; AZUL */
+  
+  background-color:   #d73925;
+ 
+  /* background-color: #ccc; */
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+.slider_detalle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background-color:   #00a65a; VERDE*/
+  /*background-color:   #2196F3; AZUL */
+  
+  /* background-color:   #e3d7d5; */
+    background-color:   red;
+ 
+  /* background-color: #ccc; */
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider_detalle:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider_detalle {
+  background-color: #2AA443;
+}
+
+input:focus + .slider_detalle {
+  box-shadow: 0 0 1px #2AA443;
+}
+
+input:checked + .slider_detalle:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider_detalle.round {
+  border-radius: 34px;
+}
+
+.slider_detalle.round:before {
+  border-radius: 50%;
+}
+
+
+
+/* .fondo { */
+/* background: #ffff0082; */
+/* } */
+/* .fondo { */
+/* background: yellow; */
+/* } */
+
+.fondo:valid {
+  background: #ffff0082;
+}
+
+
+.add_to_cart_button {
+    background: none repeat scroll 0 0 #5a88ca;
+    border: medium none;
+    color: #fff;
+    padding: 6px 25px;display: inline-block
+}
+.add_to_cart_button:hover {background-color: #222;color: #fff;text-decoration: none}
+
+.single-shop-product {
+    margin-bottom: 50px;
+}
+form.cart {
+    margin-bottom: 25px;
+}
+.quantity {
+    float: left;
+    margin-right: 15px;
+}
+
+
+.image-upload>input {
+  display: none;
+}
+
+.table-striped-green>tbody>tr:nth-child(odd)>td {
+   background-color: #c3ec86; 
+ }
+ .table-striped-green>tbody>tr:nth-child(even)>td {
+   background-color: #d2f2db6e; 
+ }
+ 
+ .table-striped-red>tbody>tr:nth-child(odd)>td {
+   background-color: #eca979; 
+ }
+ .table-striped-red>tbody>tr:nth-child(even)>td {
+   background-color: #eecab96e; 
+ }
+ 
+  .table-striped-blue>tbody>tr:nth-child(odd)>td {
+   background-color: #b1c9f9; 
+ }
+ .table-striped-blue>tbody>tr:nth-child(even)>td {
+   background-color: #d8e0f0; 
+ }
+ 
+   .table-striped-orange>tbody>tr:nth-child(odd)>td {
+   background-color: #b1c9f9; 
+ }
+ .table-striped-orange>tbody>tr:nth-child(even)>td {
+   background-color: #d8e0f0; 
+ }

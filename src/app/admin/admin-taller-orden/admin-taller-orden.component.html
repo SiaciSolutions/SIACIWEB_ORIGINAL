@@ -1,0 +1,1858 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Orden de trabajo
+      <small>Creación de las ordenes de trabajo para vehiculos</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Taller</li>
+      <li class="active">Orden de trabajo</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Your Page Content Here -->
+	
+	
+	 <div class="row">
+        <div class="col-xs-12">
+		
+		<div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+			    <!-- <li id="facturacion"   class="active" #facturacion ><a href="#tab_facturacion" data-toggle="tab" style="font-weight:bold;color:red" (click)="cambio_vista_cliente('false')" >FACTURACIÓN</a></li> -->
+                <!-- <li id="crear_cliente" #crear_cliente ><a href="#tab_crear_cliente"  data-toggle="tab" style="font-weight:bold;color:blue" (click)="cambio_vista_cliente('true')" >CREACIÓN CLIENTE</a></li> -->
+				
+				<li id="datos_orden"   class="active" #datos_orden ><a href="#tab_datos_orden" data-toggle="tab" style="font-weight:bold;color:blue" >Datos Orden</a></li>
+                <li *ngIf="tab_habilitar_datos_orden" id="datos_vehiculo"  #datos_vehiculo ><a href="#tab_datos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue"  >Datos Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="datos_detalle_vehiculo"  #datos_detalle_vehiculo ><a href="#tab_datos_detalle_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Detalle Vehiculo</a></li>
+				<li *ngIf="tab_habilitar_datos_orden" id="fotos_vehiculo"  #fotos_vehiculo ><a href="#tab_fotos_vehiculo"  data-toggle="tab" style="font-weight:bold;color:blue" >Fotos Vehiculo</a></li>
+				<!-- <li *ngIf="tab_habilitar_datos_orden" id="audio_orden"  #audio_orden ><a href="#tab_audio_orden"  data-toggle="tab" style="font-weight:bold;color:blue" >Audios orden</a></li> -->
+				
+				
+			</ul>
+			
+			<div class="tab-content">
+			<div class="tab-pane active" id="tab_datos_orden" #tab_datos_orden >
+		
+		
+            <!-- <div class="box box-primary"> -->
+                <!-- <div class="box-header"> -->
+                    <!-- <h3 class="box-title">Por favor, rellene la siguiente información</h3> -->
+                <!-- </div> -->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <form class="validation fv-form fv-form-bootstrap" enctype="multipart/form-data" method="post" accept-charset="utf-8" novalidate="novalidate">
+						
+						<!-- <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button> -->
+					<!-- <input type="hidden" name="spos_token" value="63b87f6a60dc5db5380a9ae6f8ae9725" style="display:none;"> -->
+					
+						<div *ngIf="this.numtra != 0" class="row">
+								<label style="font-weight:bold;color:red" >Fecha / hora Ingreso :</label>
+								<span style="font-weight:bold;color:green" > {{fectra}} / {{hora_ingreso}}</span>
+						</div>
+					
+                        <div class="row">
+						
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="date">NUMERO DE ORDEN
+									<!-- <a *ngIf="!edit_fecha_creacion"  (click)="edit_fecha_creacion = true" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar fecha de creacion"></i></a>  -->
+									</label>
+									<input *ngIf="numtra"  type="text" name="date" value="{{numtra}}" class="form-control tip" id="date" required="required" disabled>
+									<input style="font-weight:bold;color:red" *ngIf="!numtra"  type="text" name="date" value="Nueva Orden" class="form-control tip" id="date" required="required" disabled>
+								</div>
+                            </div>
+
+							<!-- <div class="col-md-2"> -->
+                                <!-- <div class="form-group"> -->
+                                    <!-- <label for="date">FECHA CREACION -->
+									<!-- <!-- <a *ngIf="!edit_fecha_creacion"  (click)="edit_fecha_creacion = true" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar fecha de creacion"></i></a>  --> 
+									<!-- </label> -->
+									<!-- <input *ngIf="!edit_fecha_creacion" type="text" name="date" value="{{fectra}}" class="form-control tip" id="date" required="required" disabled> -->
+										
+								
+								<!-- <mat-form-field *ngIf="edit_fecha_creacion"> -->
+								<!-- <input matInput [matDatepicker]="picker" placeholder="Escoja fecha" [(ngModel)]="fectra" name="fectra" > -->
+								<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+								<!-- <mat-datepicker #picker></mat-datepicker> -->
+								<!-- </mat-form-field> -->
+								
+								<!-- </div> -->
+                            <!-- </div> -->
+
+							
+			<!-- ################################  INICIO FECHA DE ENTREGA ##################################################-->		
+							<!-- <div class="col-md-2"> -->
+                                <!-- <div class="form-group"> -->
+                                    <!-- <label >FECHA DE ENTREGA -->
+									<!-- <!-- <a *ngIf="!edit_fecha_entrega"  (click)="edit_fecha_entrega = true" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar fecha de entrega"></i></a>  --> 
+									<!-- </label> -->
+									<!-- <!-- <input *ngIf="!edit_fecha_entrega" type="text" name="date_entrega" value="{{fecha_entrega}}" class="form-control tip" id="date_entrega" required="required" disabled> --> 
+										
+								
+								<!-- <!-- <mat-form-field *ngIf="edit_fecha_entrega"> --> 
+								<!-- <mat-form-field *ngIf="exist_fecha_entrega"> -->
+								<!-- <input matInput [matDatepicker]="picker" placeholder="Escoja fecha" [formControl]="fecha_entrega" > -->
+								<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+								<!-- <mat-datepicker #picker></mat-datepicker> -->
+								<!-- </mat-form-field> -->
+								
+								<!-- <h4 style="color:red;" *ngIf="!exist_fecha_entrega">POR PLANIFICAR</h4> -->
+								
+								<!-- </div> -->
+								
+								<!-- <!-- <button type="button" id="busqueda_razon_social" (click)="busqueda_razon_social()" class="btn btn-primary" title="Buscar razon social" ><i class="fa fa-fw fa-search"></i></button> -->
+								
+								
+								
+                            <!-- </div> -->
+							
+							<!-- <div class="col-md-2"> -->
+							<!-- <br>  -->
+							<!-- <!-- <input type="submit" name="busqueda_razon_social" value="Buscar razon social" class="btn btn-primary" (click)="busqueda_razon_social()"> --> 
+							<!-- <!-- <button type="button" id="busqueda_razon_social" (click)="busqueda_razon_social()" class="btn btn-primary" title="Buscar razon social" ><i class="fa fa-fw fa-search"></i></button> --> 
+							<!-- <button *ngIf="exist_fecha_entrega" type="button" id="busqueda_razon_social" (click)="exist_fecha_entrega = false" class="btn btn-danger" title="Buscar razon social" >PLANIFICAR ENTREGA LUEGO</button> -->
+							<!-- <button *ngIf="!exist_fecha_entrega"  type="button" id="busqueda_razon_social" (click)="exist_fecha_entrega = true" class="btn btn-primary" title="Buscar razon social" >PLANIFICAR ENTREGA</button> -->
+							<!-- <!-- <i class="fa fa-edit" title="Editar fecha de creacion"></i> --> 
+							<!-- </div> -->
+							
+			<!-- ################################  FIN FECHA DE ENTREGA ##################################################-->
+			
+							<!-- <div *ngIf="this.numtra != 0" class="col-md-2"> -->
+							    <!-- <div class="form-group"> -->
+                                    <!-- <label>HORA INGRESO</label> -->
+									<!-- <input style="font-weight:bold;color:red" type="text" value="{{hora_ingreso}}" class="form-control tip" id="date" required="required" disabled> -->
+								<!-- </div> -->
+							<!-- </div> -->
+							
+							<!-- <div *ngIf="this.numtra != 0" class="col-md-2"> -->
+							<div class="col-md-2">
+                                <!-- <div *ngIf="this.numtra != 0" class="form-group"> -->
+                                    <!-- <label>STATUS</label> -->
+									<!-- <!-- <input style="font-weight:bold;color:red" type="text" value="{{status}}" class="form-control tip" id="date" required="required" disabled> --> 
+									<!-- <select name="status" [(ngModel)]="status" class="form-control select2 tip" style="width:100%;font-weight:bold;color:blue"> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of status_lista; let i = index;"  [value]="e.status" >{{e.status_nombre}}</option> -->
+									<!-- </select> -->
+								<!-- </div> -->
+								
+                                <!-- <div *ngIf="this.numtra == 0" class="form-group"> -->
+                                    <!-- <label>STATUS</label> -->
+									<!-- <!-- <input style="font-weight:bold;color:red" type="text" value="{{status}}" class="form-control tip" id="date" required="required" disabled> --> 
+									<!-- <select name="status" [(ngModel)]="status" class="form-control select2 tip" style="width:100%;font-weight:bold;color:blue" disabled> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of status_lista; let i = index;"  [value]="e.status" >{{e.status_nombre}}</option> -->
+									<!-- </select> -->
+								<!-- </div> -->
+								
+								 <div class="form-group">
+                                    <label>STATUS</label>
+									<!-- <input style="font-weight:bold;color:red" type="text" value="{{status}}" class="form-control tip" id="date" required="required" disabled> -->
+									<select name="status" [(ngModel)]="status" class="form-control select2 tip" style="width:100%;font-weight:bold;color:blue" disabled>
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of status_lista; let i = index;"  [value]="e.status" >{{e.status_nombre}}</option>
+									</select>
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label>VENDEDOR</label>
+									<select name="vendedor" [(ngModel)]="vendedor" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of vendedores_lista; let i = index;" [selected] = "i==1" [value]="e.codven">{{e.nomven}}</option>
+									</select>
+								</div>
+                            </div>
+							
+							
+
+							
+							<!-- <div class="col-md-2"> -->
+                                <!-- <div class="form-group"> -->
+									<!-- <label for="date">TIPO IDENTIFICACIÓN</label> -->
+									<!-- <select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;"> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option> -->
+									<!-- </select> -->
+								<!-- </div> -->
+                            <!-- </div> -->
+                            <!-- <div class="col-md-2"> -->
+                                <!-- <div class="form-group"> -->
+                                    <!-- <label for="reference">CÉDULA/RUC </label> -->
+									<!-- <input type="text" (keypress)='validaNumericosCantidad($event)'  placeholder="Búsqueda por cédula/ruc" name="reference" value="" class="form-control tip"
+									(keyup.enter)="busca_cliente()" id="reference" [(ngModel)]="ruc"> -->
+								<!-- </div> -->
+                            <!-- </div> -->
+							<!-- <div class="col-md-1"> -->
+							<!-- <br> -->
+							<!-- <input type="submit" name="busca_cliente" value="Buscar cliente" class="btn btn-primary" (click)="busca_cliente();check_agencia=false"> -->
+							<!-- </div> -->
+							
+							
+							
+							<div class="col-md-4">
+                                <div class="form-group">
+								<label for="reference">BUSQUEDA POR RAZON SOCIAL</label>
+				
+								<div class="input-group">
+								
+								<input   type="text" name="buscar_cliente" id="buscar_cliente" [(ngModel)]="patron_cliente" 
+								(keyup.enter)="busqueda_razon_social()"  
+								class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off">
+								
+								<div (click)="busqueda_razon_social()" class="input-group-addon no-print" style="padding: 2px 5px;">
+									<a id="add-customer" class="external"><i class="fa fa-2x fa-search" id="searchIcon"></i></a>
+								</div>
+								
+									
+								</div>
+								</div>
+                            </div>
+							
+							<!-- <div class="col-md-1"> -->
+							<!-- <br>  -->
+							<!-- <button type="button" id="busqueda_razon_social" (click)="busqueda_razon_social()" class="btn btn-primary" title="Buscar razon social" ><i class="fa fa-fw fa-search"></i>Buscar</button> -->
+							<!-- </div> -->
+
+							
+							
+							
+							
+                        </div>
+						
+						<div class="form-group"  *ngIf="this.exist_razon_social">
+						<p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>
+						<div class="table-responsive-pedidos">
+							<table class="table table-striped table-bordered table-condensed table-hover dataTable">
+							   <thead>
+								  <tr class="active" role="row">
+									 <th>Razon Social</th>
+									 <th class="text-center">Tipo ident</th>
+									 <th class="text-center">Num Identificacion</th>
+									 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+								  </tr>
+							   </thead>
+							   <tbody>
+								  <tr  *ngFor="let rz of razon_social_lista;">
+									 <td>{{rz.nomcli}}</td>
+									 <td class="text-center">{{rz.tpIdCliente}}</td>
+									 <td class="text-center">{{rz.rucced}}</td>
+									 <td class="text-center"> 
+									  <input  type="radio"  name="radio_cliente" (change)="select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)"  />
+									  
+									  <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
+									 </td>
+								  </tr>
+								</tbody>
+							</table>
+						</div>
+						</div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+														
+								<label for="reference">NOMBRE Y APELLIDO Ó RAZÓN SOCIAL </label>
+								<input *ngIf="!this.clientes" type="text" placeholder="Nombre ó Razón Social" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+								<input *ngIf="this.clientes " type="text" placeholder="Nombre ó Razón Social" id="add_item"  value="{{razon_social}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+						
+								</div>
+                            </div>
+
+
+							
+							<div class="col-md-2">
+								<div class="form-group">
+                                    <label for="nom_ruta">TIPO ORDEN</label>                             
+									
+									<select name="tipo_orden" [(ngModel)]="tipo_orden" class="form-control select2 tip" style="width:100%;">
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<option *ngFor="let e of tipo_orden_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_orden}}</option>
+									</select>
+								</div>
+                            </div>
+							
+							<div *ngIf="srv.getTipoRutaTalleres() == 'SI'" class="col-md-2">
+								<div class="form-group">
+                                    <label for="category">RUTA</label>                             
+									
+									<select name="ruta" [(ngModel)]="ruta" class="form-control select2 tip" style="width:100%;">
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<option *ngFor="let e of ruta_lista; let i = index;"  [value]="e.tipo">{{e.nom_ruta}}</option>
+									</select>
+								</div>
+                            </div>
+							
+							<div *ngIf="this.numtra != 0" class="col-md-1">
+							<br> 
+							<button type="button"  id="nueva_orden" (click)="test_reenvio()" class="btn btn-warning" title="Nueva orden" ><i class="fa fa-fw fa-pencil-square-o"></i>Nueva Orden</button>		
+							</div>
+							
+							<!-- <div class="col-md-2"> -->
+							<!-- <br> -->
+							<!-- <input type="submit" name="cambio_correo" value="Cambiar email" class="btn btn-primary" (click)="cambiar_email = true" > -->
+							<!-- </div> -->
+                     
+					 </div>
+						
+					
+						<!-- <div class="row"> -->
+							<!-- <div class="col-md-4"> -->
+                                <!-- <div class="form-group"> -->
+                                    <!-- <label for="category">CIUDAD</label>                               -->
+									
+									<!-- <select name="city" [(ngModel)]="ciudad" class="form-control select2 tip" style="width:100%;"> -->
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo">{{e.nomgeo}}</option> -->
+									<!-- </select> -->
+
+									
+									
+                                
+								<!-- </div> -->
+								
+
+								
+								
+							<!-- </div> -->
+
+                        <!-- </div> -->
+        
+						<!--################## EJEMPLO COMBO CON SELECT############## -->
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+								
+                                   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+                                        <thead>
+                                            <tr class="active" role="row">
+												<th>Código</th>
+                                                <th>Producto</th>
+												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Unid.</th>
+												<th>Observación</th>
+												<th style="width:25px; padding-right:15px;" rowspan="1" colspan="1" >Precio Unitario</th>
+												<th>Porc. IVA</th>
+												<th>Cant.IVA</th>
+                                                <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th>
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Desc%</th> -->
+												<!-- <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">V.Descuento</th> -->
+                                                <th>Subtotal</th>
+                                                <th class="col-xs-1 text-center" (click)="delete_art_todo()" style="width:25px;"><i class="fa fa-trash-o" title="Remover todos" ></i></th>
+                                            </tr>
+                                        </thead>
+										
+										<tbody *ngIf="articulos_pedido.length > 0">
+											<tr *ngFor="let el of articulos_pedido;">
+												<td>{{el.codart}}</td>
+												<td style="min-width:100px;">{{el.nomart}}</td>
+												<td>{{el.coduni}}</td>
+												<td>
+													<!-- {{el.exiact}} -->
+													<input *ngIf="((el.observ) && (el.observ =='Puede agregar detalles del artículo'))" #observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="{{el.observ}}"   
+													value=""  (keyup.enter)="update_observ(el.codart,el.index,observacion.value)" (blur)="update_observ(el.codart,el.index,observacion.value)">
+													<input *ngIf="((el.observ) && (el.observ !='Puede agregar detalles del artículo'))"#observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="Puede agregar detalles del artículo"   
+													value="{{el.observ}}"  (keyup.enter)="update_observ(el.codart,el.index,observacion.value)" (blur)="update_observ(el.codart,el.index,observacion.value)">
+													
+													<input *ngIf="!el.observ" #observacion class="form-control input-sm kb-pad text-center rquantity" name="observacion[]" type="text" placeholder="Puede agregar detalles del artículo"   
+													value=""  (keyup.enter)="update_observ(el.codart,el.index,observacion.value)" (blur)="update_observ(el.codart,el.index,observacion.value)">
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center">
+													 <!-- <input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"   -->
+													 <!-- value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)"> -->
+													 {{el.prec01}}
+													</div>
+												</td>
+												<td style="padding:2px;">
+													<!-- <div class="text-center">{{el.poriva}}%</div> -->
+													 <div *ngIf="el!== edit_iva_art" class="text-center">{{el.poriva}}% 
+													
+													<!-- BOTON CAMBIO DE IVA-->
+													<!-- <a *ngIf="el!== edit_iva_art" (click)="edit_iva_articulo(el)" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar iva"></i></a> -->
+													</div>
+													
+													 <!-- EL QUE SIRVE -->
+												 <select *ngIf="el===edit_iva_art" #iva  name="change_iva" class="form-control" (change)="update_iva_art(el.codart,el.index,iva.value)">
+												 <option [ngValue]="undefined" disabled  selected>Selec</option>
+												 <option  *ngFor="let e of iva_siaci; let i = index;"  [value]="e.poriva+'|'+e.codiva" >{{e.poriva}}-({{e.codiva}})
+												 </option>
+												 </select>
+													
+													
+												</td>
+												<td style="padding:2px;">
+													<div class="text-center">USD {{el.precio_iva}}</div>
+												</td>												
+												<td style="padding:2px;">
+													<input #cant class="form-control input-sm kb-pad text-center rquantity" name="cantidad" type="text"  
+													value="{{el.cant}}" (keypress)='validaNumericos($event,cant.value)' (keyup.enter)="update(el.codart,el.index,cant.value)" (blur)="update(el.codart,el.index,cant.value)">
+												</td>
+												<!-- <td style="padding:2px;"> -->
+													<!-- <input #porc_desc class="form-control input-sm kb-pad text-center rquantity" name="porc_desc[]" type="text"   -->
+													<!-- value="{{el.punreo}}" (keypress)='validaNumericos($event,porc_desc.value)' (keyup.enter)="update_art_desc(el.codart,el.index,porc_desc.value)" (blur)="update_art_desc(el.codart,el.index, porc_desc.value)"> -->
+												<!-- </td> -->
+												<!-- <td> <div class="text-center">USD {{redondear(el.v_desc_art)}}</div> </td> -->
+
+												<td style="padding:2px;">
+													<!-- <div class="text-center"> USD {{redondear(el.cant * el.prec01)}}</div> -->
+													<div class="text-center"> USD {{redondear(el.subtotal_art)}}</div>
+												</td>
+												<td (click)="delete_art(el.nomart,el.index)" class="text-center">
+													<i class="fa fa-trash-o tip pointer spodel" title="Remover artículo"></i>
+												</td>
+											</tr>
+											<tr>
+											<td class="text-center" colspan="1">
+												<label *ngIf="status != 'I'" class="switch">
+													<input type="checkbox" [checked] = "tipo_busqueda" (click)="tipo_entrada()"><span class="slider round"></span>
+												</label>
+								
+											</td>
+											<td class="text-center" colspan="1">
+												<label  *ngIf="tipo_busqueda" >INCLUIR ARTÍCULO</label> 
+												<label  *ngIf="!tipo_busqueda" >INCLUIR SERVICIO</label> 
+											</td>
+											<td class="text-center" colspan="7">
+												<input *ngIf="tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo">
+												<input *ngIf="!tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda_ser1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL SERVICIO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_servicio()" [(ngModel)]="patron_articulo">
+											</td>
+											
+										
+											<td class="text-center" colspan="1">
+
+											<button *ngIf="tipo_busqueda" class="btn btn-danger" (click)="busca_articulo()">Buscar</button>
+											<button *ngIf="!tipo_busqueda" class="btn btn-danger"  (click)="busca_servicio()">Buscar</button>
+											
+											</td>
+											
+											
+											
+											<tr *ngIf="searching_articulo">
+											<td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td>
+											</tr>
+											<tr *ngIf="this.exist_articulo">
+											<td class="text-center" colspan="12">
+											<div class="table-responsive-pedidos">
+												 <tr class="active" role="row">
+													 <th>Código</th>
+													 <th>Nombre</th>
+													 <th class="text-center">Precio unit</th>
+													 <th style="width:25px; padding-right:5px;" >Dispon</th>
+													 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+												  </tr>
+										
+										<!-- <input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()"> -->
+												  
+											<tr *ngFor="let articulos of articulo;">
+										  
+											 <td class="">{{articulos.codart}}</td>
+											 <td class="">{{articulos.nomart}}</td>
+											 <td class="text-center">
+												<span *ngIf="articulos!==edit_articulos">{{articulos.prec01}}  </span>
+									
+											<select  *ngIf="articulos===edit_articulos"  name="nuevo_precio_renglon" [(ngModel)]="nuevo_precio_renglon" (change)="edit_prec_renglon(articulos.codart)" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option *ngFor="let e of lista_prec; let i = index;" [selected] = "i==0" [value]="e.prec">{{e.prec}}</option>
+											</select>
+											<a *ngIf="articulos!==edit_articulos"  (click)="edit_prec(articulos)" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar precio"></i></a> 	
+											 </td>
+											 <td class="">{{articulos.exiact}}</td>
+											 <td class=""> 
+											  <!-- <input  type="checkbox"/> -->
+											  <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/>
+											 </td>
+										  </tr>
+
+										  <!-- <input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()"> -->
+
+											</div>
+											</td>
+										</tr>
+											
+                                        </tbody>
+									
+										<tbody *ngIf="articulos_pedido.length == 0">
+											<tr>
+											<td class="text-center" colspan="1">
+												<label *ngIf="status != 'I'" class="switch">
+													<input type="checkbox" [checked] = "tipo_busqueda" (click)="tipo_entrada()"><span class="slider round"></span>
+												</label>
+								
+											</td>
+											<td class="text-center" colspan="1">
+												<label  *ngIf="tipo_busqueda" >INCLUIR ARTÍCULO</label> 
+												<label  *ngIf="!tipo_busqueda" >INCLUIR SERVICIO</label> 
+											</td>
+											<td class="text-center" colspan="7">
+												<!-- <input  #busqueda_art2 class="form-control input-sm kb-pad text-center rquantity" name="busqueda2" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo"> -->
+												<input *ngIf="tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo">
+												<input *ngIf="!tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda_ser1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL SERVICIO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_servicio()" [(ngModel)]="patron_articulo">
+											</td>
+											<td class="text-center" colspan="1">
+
+											<button *ngIf="tipo_busqueda" class="btn btn-danger"  (click)="busca_articulo()">Buscar</button>
+											<button *ngIf="!tipo_busqueda" class="btn btn-danger" (click)="busca_servicio()">Buscar</button>
+
+											</td>
+											</tr>
+											
+											<tr *ngIf="searching_articulo">
+											<td class="text-center" colspan="12"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td>
+											</tr>
+											
+											<tr *ngIf="this.exist_articulo">
+											<td class="text-center" colspan="12">
+											<div class="table-responsive-pedidos">
+												 <tr class="active" role="row">
+													 <th>Código</th>
+													 <th>Nombre</th>
+													 <th class="text-center">Precio unit</th>
+													 <th style="width:25px; padding-right:5px;" >Dispon</th>
+													 <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+												  </tr>
+										
+										<!-- <input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()"> -->
+												  
+											<tr *ngFor="let articulos of articulo;">
+										  
+											 <td class="">{{articulos.codart}}</td>
+											 <td class="">{{articulos.nomart}}</td>
+											 <td class="text-center">
+												<span *ngIf="articulos!==edit_articulos">{{articulos.prec01}}  </span>
+									
+											<select  *ngIf="articulos===edit_articulos"  name="nuevo_precio_renglon" [(ngModel)]="nuevo_precio_renglon" (change)="edit_prec_renglon(articulos.codart)" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option *ngFor="let e of lista_prec; let i = index;" [selected] = "i==0" [value]="e.prec">{{e.prec}}</option>
+											</select>
+											<a *ngIf="articulos!==edit_articulos"  (click)="edit_prec(articulos)" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar precio"></i></a> 	
+											 </td>
+											 <td class="">{{articulos.exiact}}</td>
+											 <td class=""> 
+											  <!-- <input  type="checkbox"/> -->
+											  <input  type="checkbox" [(ngModel)]="articulos.isSelected" name="list_name" value="{{articulos.nomart}}" (change)="isAllSelected()"/>
+											 </td>
+										  </tr>
+
+										  <!-- <input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()"> -->
+
+											</div>
+											</td>
+											</tr>
+		<!-- <div class="table-responsive-pedidos">									 -->
+<!-- *ngIf="!searching_articulo" -->
+<!--  -->						
+
+
+											
+											
+											
+											
+											
+										</tbody>
+
+										
+										
+										
+									 <tfoot *ngIf="articulos_pedido.length > 0">
+											<tr class="active">
+                                                <th></th>
+                                                <th *ngIf="this.exist_articulo">												
+												<input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()">
+												</th>
+												<th *ngIf="!this.exist_articulo">
+												</th>
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Subtotal</th>
+                                                <th><div class="text-center">USD {{ redondear (subtotal)}}</div></th>
+                                                <th style="width:25px;"></th>
+											</tr>
+			
+											<tr class="active">
+                                                <th></th>
+                                                <th *ngIf="this.exist_articulo">
+													<p>{{elements_checkedList.length}}  Items seleccionados</p>
+												</th>
+												<th *ngIf="!this.exist_articulo">
+												</th>
+												<!-- <th></th> -->
+												<!-- <th></th> -->
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Total IVA</th>
+                                                <th class="text-center">USD {{ redondear (iva_cant_new)}}</th>
+                                                <th style="width:25px;"></th>
+                                            </tr>
+											<tr class="active">
+                                                <th></th>
+                                                <!-- <th></th> -->
+												<!-- <th></th> -->
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th></th>
+												<th>Total</th>
+                                                <th class="text-center">USD {{ redondear (total)}}</th>
+                                                <th style="width:25px;"></th>
+                                            </tr>
+									</tfoot>
+								
+                                    </table>
+							<div  *ngIf="this.exist_articulo && articulos_pedido.length == 0" class="col-md-5">
+							<input type="submit" name="inserta_pedido" value="Insertar a pedido" class="btn btn-danger" (click)="inserta_pedido()">
+								<p>{{elements_checkedList.length}}  Items seleccionados</p>
+							</div>
+                                </div>
+                            </div>
+                        </div>
+<div class="form-group">
+    <label for="note">OBSERVACIÓN ADICIONAL PARA EL PEDIDO</label>
+	<!-- <input value="{{observacion_pedido}}" #observ_general (keyup.enter)="update_observ_general(observ_general.value)" (blur)="update_observ_general(observ_general.value)" type="text" placeholder="Puede escribir observaciones del pedido" name="reference" value="" class="form-control tip" id="reference"> -->
+	<input [(ngModel)]="observacion_pedido" value="{{observacion_pedido}}" type="text" placeholder="Puede escribir observaciones del pedido" name="reference" value="" class="form-control tip" id="reference">
+	
+</div>
+
+<!-- ############################################## INCIO RUTAS ################################################-->
+<!-- <div class="form-group"> -->
+    <!-- <label>DEFINIR LUGAR DE ENTREGA</label> -->
+	<!-- <!-- <div class="form-group"> --> 
+					  <!-- <div class="radio"> -->
+						<!-- <label>  -->
+						<!-- <!-- ;check_agencia_sucursal=false --> 
+						  <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
+						  <!-- Agencia Principal -->
+						<!-- </label> -->
+					  <!-- </div> -->
+					  <!-- <div class="radio"> -->
+						<!-- <label> -->
+						<!-- <!-- ;check_agencia_ppal=false -->
+						  <!-- <input type="radio" name="optionsRadios" id="optionsRadios2" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('S');habilitar_crear_nueva_sucursal=false"  value="sucursal"> -->
+						  <!-- Agencia Sucursal -->
+						<!-- </label> -->
+					  <!-- </div> -->
+	<!-- <!-- </div> --> 
+<!-- </div> -->
+
+<!-- <!-- ##########################  SECCION DEFICNICION RUTA DE LA SEDE PRINCIPAL  ####################################### --> 
+<!-- <div *ngIf="check_agencia == 'principal'" class="form-group"> -->
+			 <!-- <label *ngIf="(check_agencia == 'principal' && !val_exist_ppal)" style="color:blue">RUTA Y DIRECCION DE AGENCIA PRINCIPAL NO DEFINIDA, POR FAVOR DEFINIRLA A CONTINUACION</label> -->
+			 
+			 <!-- <div  class="row"  *ngIf="(check_agencia == 'principal'  && !val_exist_ppal)"> -->
+				<!-- <div class="col-md-3"> -->
+				 <!-- <label>Ruta de entrega</label> -->
+				 <!-- <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> --> 
+					<!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas()" class="form-control select2 tip" style="width:100%;"> -->
+					<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+					<!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
+					
+					<!-- <!-- [value]="e.porret+'|'+e.codret" -->
+					<!-- </select> -->
+
+				<!-- </div> -->
+				<!-- <div class="col-md-5"> -->
+				<!-- <label>Dirección definida en la ficha del cliente</label> -->
+				 <!-- <input  *ngIf="!edit_dir_agencia_ppal"  type="text"  name="Direccion" [(ngModel)]="dir_agencia"  disabled value=""  class="form-control tip "> -->
+				 <!-- <input  *ngIf="edit_dir_agencia_ppal"  type="text"  placeholder="Ingrese Dirección" name="Direccion" [(ngModel)]="dir_agencia"  value=""  class="form-control tip "> -->
+				
+				<!-- </div> -->
+				<!-- <div class="col-md-1"> -->
+				<!-- <br> -->
+				<!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true; " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> -->
+				<!-- </div> -->
+				<!-- <div class="col-md-3"> -->
+				<!-- <br> -->
+				<!-- <!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true;dir_agencia='' " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> --> 
+				<!-- <input  type="submit" (click)="guardar_nueva_agencia('P')"  name="guardar_nueva_agencia" value="Crear agencia" class="btn btn-success"> -->
+				<!-- </div> -->
+			<!-- </div> -->
+
+			<!-- <div class="row" *ngIf="(check_agencia == 'principal'   && val_exist_ppal)"> -->
+				<!-- <div class="col-md-4"> -->
+				 <!-- <label>Ruta de entrega</label> -->
+				 <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> -->
+				<!-- </div> -->
+				<!-- <div class="col-md-8"> -->
+				 <!-- <label>Dirección de agencia principal</label> -->
+				 <!-- <input  type="text"  placeholder="Direccion" name="Direccion" [(ngModel)]="dir_agencia" disabled value=""  class="form-control tip "> -->
+				<!-- </div> -->
+			<!-- </div> -->
+<!-- </div> -->
+<!-- <!-- ##########################  SECCION DEFICNICION RUTA DE LA SEDE SUCURSAL  ####################################### --> 
+	<!-- <div *ngIf="check_agencia == 'sucursal' " class="form-group"> -->
+	<!-- <label *ngIf="(check_agencia == 'sucursal' && !val_exist_sucursal)" style="color:blue">NO EXISTE RUTA Y DIRECCION DE AGENCIA SUCURSAL PARA ESTE CLIENTE, POR FAVOR DEFINIRLA A CONTINUACION</label> -->
+			 <!-- <div  class="row"  *ngIf="(check_agencia == 'sucursal'  && !val_exist_sucursal) || (habilitar_crear_nueva_sucursal)"> -->
+				<!-- <div class="col-md-3"> -->
+				 <!-- <label>Ruta de entrega</label> -->
+					<!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas()" class="form-control select2 tip" style="width:100%;"> -->
+					<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+					<!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
+					<!-- </select> -->
+
+				<!-- </div> -->
+				<!-- <div class="col-md-5"> -->
+			<!-- <label>Favor ingresar dirección de la nueva agencia sucursal</label> -->
+				 <!-- <input  type="text"  placeholder="Ingrese Dirección" name="Direccion" [(ngModel)]="dir_agencia"  value=""  class="form-control tip "> -->
+				<!-- </div> -->
+				<!-- <!-- <div class="col-md-1"> --> 
+				<!-- <!-- <br> --> 
+				<!-- <!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true; " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> -->
+				<!-- <!-- </div> --> 
+				<!-- <div class="col-md-3"> -->
+				<!-- <br> -->
+				<!-- <input  type="submit" (click)="habilitar_crear_nueva_sucursal=false;guardar_nueva_agencia('S')"  name="guardar_nueva_agencia" value="Crear agencia" class="btn btn-success"> -->
+				<!-- </div> -->
+			<!-- </div> -->
+
+			<!-- <div class="row" *ngIf="(check_agencia == 'sucursal'  && val_exist_sucursal) &&  (!habilitar_crear_nueva_sucursal)"> -->
+				<!-- <div class="col-md-4"> -->
+				 <!-- <label>Ruta de entrega</label> -->
+				 <!-- <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> --> 
+				 
+				 
+				 <!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas('S')" class="form-control select2 tip" style="width:100%;"> -->
+					<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+					<!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
+				<!-- </select> -->
+				<!-- </div> -->
+				<!-- <div class="col-md-6"> -->
+				 <!-- <label>Selecione sucursal</label> -->
+				 <!-- <!-- <input  type="text"  placeholder="Direccion" name="Direccion" [(ngModel)]="dir_agencia" disabled value=""  class="form-control tip "> --> 
+				<!-- <select *ngIf="(lista_surcursales && lista_surcursales.length > 0)" -->
+				<!-- name="sucursal" [(ngModel)]="id_direccion_sucursal_seleccionado" (change)="set_id_dir_sucursal();" class="form-control select2 tip" style="width:100%;"> -->
+					<!-- <!-- <option [ngValue]="undefined" selected>Seleccione</option> --> 
+					<!-- <option [ngValue]="undefined" disabled selected>Seleccione</option> -->
+					<!-- <!-- <option *ngFor="let e of caja_lista; let i = index;" [value]="e.numcaj">{{e.nomcaj}}</option> --> 
+					<!-- <option *ngFor="let e of lista_surcursales; let i = index;" [value]="e.id_agencia+'|'+e.dir_agencia">{{e.dir_agencia}}</option> -->
+				<!-- </select> -->
+				
+				<!-- <input *ngIf="!lista_surcursales" type="text" value="POR FAVOR SELECCIONE LA RUTA...!!!"  class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+				<!-- <input *ngIf="(lista_surcursales && lista_surcursales.length == 0)" type="text" value="NO EXISTEN SUCURSALES EN ESTA RUTA...!!!"  class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+				<!-- <label style="color:blue" >Si no está la sucursal en la ruta seleccionada, la puede crear con el boton (+)</label> -->
+				<!-- </div> -->
+				<!-- <div class="col-md-2"> -->
+				<!-- <br> -->
+					<!-- <!-- <input  type="submit" (click)="habilitar_crear_nueva_sucursal=true;dir_agencia=''"  name="guardar_nueva_agencia" value="Crear nueva sucursal" class="btn btn-success"> --> 
+					<!-- <button type="button" id="guardar_nueva_agencia" (click)="habilitar_crear_nueva_sucursal=true;dir_agencia=''" class="btn btn-warning" title="Agregar nueva sucursal" ><i class="fa fa-plus"></i></button> -->
+				<!-- </div> -->
+			<!-- </div> -->
+	<!-- </div> -->
+
+<!-- ############################################## FIN RUTAS ################################################-->
+
+                        <div *ngIf="!numtra" class="form-group">
+                            <!-- <input *ngIf="(articulos_pedido.length == 0)"  #generar_pe type="submit" (click)="generar_pedido()" disabled name="add_purchase" value="Guardar orden" class="btn btn-primary"> -->
+							<!-- <input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="generar_pedido()"  name="add_purchase" value="Guardar orden" class="btn btn-primary"> -->
+							
+							<button *ngIf="(articulos_pedido.length == 0)" name="generar_pedido"  class="btn btn-primary" id="generar_pedido" disabled >Guardar orden</button>
+							<button *ngIf="(articulos_pedido.length > 0)" name="generar_pedido"  class="btn btn-primary" id="generar_pedido" (click)="generar_pedido()">Guardar orden</button>
+						
+						</div>
+						
+						
+						<!-- <button *ngIf="numtra && (status=='I')" class="btn btn-primary" id="generar_pedido" (click)="generar_pedido()">Guardar orden</button> -->
+						<div *ngIf="numtra && (status=='I')">
+                            <!-- <input *ngIf="(articulos_pedido.length == 0)"  #generar_pe type="submit" disabled name="add_purchase" value="Actualizar orden" class="btn btn-primary"> -->
+							<!-- <input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="actualizar_pedido()"  name="add_purchase" value="Actualizar orden" class="btn btn-primary"> -->
+							
+							<button *ngIf="(articulos_pedido.length == 0)" name="actualizar_pedido" class="btn btn-primary" id="actualizar_pedido" disabled >Actualizar orden</button>
+							<button *ngIf="(articulos_pedido.length > 0)" name="actualizar_pedido" class="btn btn-primary" id="actualizar_pedido" (click)="actualizar_pedido()">Actualizar orden</button>
+						
+						</div>
+                        </form>    
+					</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div> <!-- /.FIN tab-pane 1 -->
+			
+
+			
+			<div class="tab-pane"  id="tab_datos_vehiculo" #tab_datos_vehiculo>
+				<!-- <app-admin-cliente status_cambio_vista_cliente="true" #cliente_contenido></app-admin-cliente> -->
+				<!-- <h1>SEGUNDA TAB</h1> -->
+				
+				
+				
+				   <div class="box-body">
+						<div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+														
+								<label for="reference">MARCA</label>
+								<input id = "marca" type="text" placeholder="Ingrese marca" [(ngModel)]="marca" name="marca"  class="form-control ui-autocomplete-input fondo" required autocomplete="off">
+								<!-- <input type="text" placeholder="Nombre ó Razón Social" id="add_item"  value="{{razon_social}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+						
+								</div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">MODELO</label>
+									<input id = "modelo"  type="text" placeholder="Ingrese modelo" [(ngModel)]="modelo" name="modelo" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+								
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">AÑO</label>
+		
+									<!-- <input #anio id="anio" placeholder="Ingrese año" [(ngModel)]="anio" type="number" value="2000" (keypress)='validaNumericos($event,anio.value)' class="form-control tip"> -->
+									<input id = "anio" [(ngModel)]="anio" type="number" value="2000" (keypress)='validaNumericosCantidad($event,anio)'required class="form-control tip fondo">
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+								
+                            </div>
+							<div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="reference">PLACA *</label>
+									<!-- <input  type="text" placeholder="Ingrese Placa" [(ngModel)]="placa" name="placa" value="" required class="form-control tip fondo" > -->
+
+									<div class="input-group">
+									
+									<input type="text" name="buscar_por_placa" id="buscar_por_placa" (keyup.enter)="buscar_datos_vehiculo_placa()" 
+									onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+									[(ngModel)]="placa"  
+									class="form-control tip fondo" placeholder="Ingrese placa" autocomplete="off">
+									<div *ngIf="numtra && (status=='I')" (click)="buscar_datos_vehiculo_placa()" class="input-group-addon no-print" style="padding: 2px 5px;">
+										<a id="add-customer" class="external"><i class="fa fa-2x fa-search" id="searchIcon"></i></a>
+									</div>
+									
+										
+									</div>
+								
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">MATRICULA *</label>
+									<input  type="text" placeholder="Matricula" [(ngModel)]="num_matricula"  name="matricula" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+						
+                        </div>
+						
+						<div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+														
+								<label for="reference">COLOR</label>
+								<input type="text" placeholder="Ingrese color" [(ngModel)]="color"  name="color"  class="form-control ui-autocomplete-input fondo" required autocomplete="off">
+								<!-- <input type="text" placeholder="Nombre ó Razón Social" id="add_item"  value="{{razon_social}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+						
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="reference">PAIS DE ORIGEN</label>
+									<!-- <input  type="text" placeholder="Ingrese pais" [(ngModel)]="pais_origen" name="pais" value="" required class="form-control tip fondo" > -->
+																
+  
+							
+									<select name="paises" [(ngModel)]="pais_origen" class="form-control select2 tip fondo" required style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo">{{e.nomgeo}}</option> -->
+									<option *ngFor="let e of pais_lista; let i = index;"  [value]="e.nomgeo">{{e.nomgeo}}</option>
+									</select>
+
+								</div>
+								
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">KM RECORR</label>
+									<!-- <input  type="text" placeholder="Ingrese año" name="ano" value="" class="form-control tip" > -->
+									<input #km id="km" placeholder="Ingrese KM" [(ngModel)]="km_recorrido" type="number" value="0" (keypress)='validaNumericos($event,km.value)' required class="form-control tip fondo">
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+								
+                            </div>
+							<div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="reference">COMBUSTIBLE</label>
+									<!-- <input  type="text" placeholder="Tipo de Combustible" [(ngModel)]="tipo_combustible" name="combustible" value="" required class="form-control tip fondo" > -->
+
+
+									<select name="paises" [(ngModel)]="tipo_combustible" class="form-control select2 tip fondo" required style="width:100%;">
+									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
+									<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo">{{e.nomgeo}}</option> -->
+									<option *ngFor="let e of tipo_combustible_lista; let i = index;" [selected] = "i==0" [value]="e.combustible">{{e.combustible}}</option>
+									</select>
+
+								</div>
+                            </div>
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="reference">S/N MOTOR</label>
+									<input  type="text" placeholder="S/N MOTOR" [(ngModel)]="sn_motor" name="sn_motor" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="reference">S/N CHASIS *</label>
+									<input  type="text" placeholder="S/N CHASIS" [(ngModel)]="sn_chassis" name="sn_chasis" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="reference">Cilindraje</label>
+									<input  type="text" placeholder="Cilindraje" [(ngModel)]="cilindraje" name="cilindraje" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">RAM</label>
+									<input  type="text" placeholder="RAM"  [(ngModel)]="ram" name="ram" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">CLASE</label>
+									<input  type="text" placeholder="clase" [(ngModel)]="clase" name="clase" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">SUBCLASE</label>
+									<input  type="text" placeholder="subclase" [(ngModel)]="subclase" name="subclase" value="" required class="form-control tip fondo" >
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">NUM PASAJEROS</label>
+									<input  id="pasajeros" placeholder="pasajeros"  [(ngModel)]="num_pasajeros" type="number" required value="5" (keypress)='validaNumericosCantidad($event,num_pasajeros)' class="form-control tip fondo">
+									<!-- <input *ngIf="this.clientes && !this.cambiar_email"  type="text" value="{{email_cliente}}" name="reference" class="form-control tip" disabled> -->
+									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
+								</div>
+                            </div>
+							
+							
+							<div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="reference">CONSUMO TANQUE</label>
+									<div id="handle1"></div>
+								</div>
+                            </div>
+							
+							
+						
+                        </div>
+						
+					<div>
+
+					<button *ngIf="numtra && (status=='I')" class="btn btn-primary" id="guardar_datos_vehiculo" (click)="guardar_datos_vehiculo()">Guardar datos</button>
+					</div>
+					
+					
+					
+					</div>
+					<!-- FIN DIV BODY-->
+				
+				
+				
+				
+				
+				
+				
+            </div> <!-- /.tab-pane 2-->
+			
+		 <div class="tab-pane"  id="tab_datos_detalle_vehiculo" #tab_datos_detalle_vehiculo>
+				<!-- <app-admin-cliente status_cambio_vista_cliente="true" #cliente_contenido></app-admin-cliente> -->
+				<!-- <h1>TERCERA TAB</h1> -->
+					<!-- <div class="box-body"> -->
+						<!-- <div class="row"> -->
+                            <!-- <div class="col-md-3"> -->
+                                <!-- <div class="form-group"> -->
+								<!-- <!-- <label for="reference">ANTENA <p>NO</p></label> --> 
+								<!-- <label *ngIf="!antena" for="reference">ANTENA (NO)</label> -->
+								<!-- <label *ngIf="antena" for="reference">ANTENA (SI)</label> -->
+								<!-- <label  class="switch"> -->
+									<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+									<!-- <input type="checkbox" [(ngModel)]="antena" ><span class="slider round"></span> -->
+								<!-- </label> -->
+								<!-- </div> -->
+							<!-- </div> -->
+							 <!-- <div class="col-md-3"> -->
+								<!-- <div class="form-group"> -->
+								
+								<!-- <label *ngIf="!llave_rueda" for="reference">LLAVE RUEDA (NO)</label> -->
+								<!-- <label *ngIf="llave_rueda"for="reference">LLAVE RUEDA (SI)</label> -->
+								<!-- <label  class="switch"> -->
+									<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+									<!-- <input type="checkbox" [(ngModel)]="llave_rueda"><span class="slider round"></span> -->
+								<!-- </label> -->
+								<!-- </div> -->
+                            <!-- </div> -->
+							<!-- <div class="col-md-3"> -->
+								<!-- <div class="form-group"> -->
+								
+								<!-- <label *ngIf="!gata" for="reference">GATA (NO)</label> -->
+								<!-- <label *ngIf="gata" for="reference">GATA (SI)</label> -->
+								<!-- <label  class="switch"> -->
+									<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+									<!-- <input type="checkbox" [(ngModel)]= "gata"><span class="slider round"></span> -->
+								<!-- </label> -->
+								<!-- </div> -->
+                            <!-- </div> -->
+							
+						<!-- <div class="col-md-3"> -->
+								<!-- <div class="form-group"> -->
+								
+								<!-- <label *ngIf="!tapagas" for="reference">TAPAGAS (NO)</label> -->
+								<!-- <label *ngIf="tapagas" for="reference">TAPAGAS (SI)</label> -->
+								<!-- <label  class="switch"> -->
+									<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+									<!-- <input type="checkbox" [(ngModel)]="tapagas"><span class="slider round"></span> -->
+								<!-- </label> -->
+								<!-- </div> -->
+                        <!-- </div> -->
+						<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!matricula"   for="reference">MATRICULA (NO)</label> -->
+							<!-- <label *ngIf="matricula"  for="reference">MATRICULA (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "matricula"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+						<!-- </div> -->
+						<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!encendedor"   for="reference">ENCENDEDOR (NO)</label> -->
+							<!-- <label *ngIf="encendedor"  for="reference">ENCENDEDOR (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]="encendedor"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+						<!-- </div> -->
+						<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!plumas"   for="reference">PLUMAS (NO)</label> -->
+							<!-- <label *ngIf="plumas"  for="reference">PLUMAS (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "plumas"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+						<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!tuerca"   for="reference">TUERCA SEGURIDAD (NO)</label> -->
+							<!-- <label *ngIf="tuerca"  for="reference">TUERCA SEGURIDAD (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "tuerca"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!botiquin"   for="reference">BOTIQUIN(NO)</label> -->
+							<!-- <label *ngIf="botiquin"  for="reference">BOTIQUIN (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "botiquin"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!cubresol"   for="reference">CUBRE SOL(NO)</label> -->
+							<!-- <label *ngIf="cubresol"  for="reference">CUBRE SOL (SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "cubresol"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!llanta"   for="reference">LLANTA(NO)</label> -->
+							<!-- <label *ngIf="llanta"  for="reference">LLANTA(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "llanta"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!espejos"   for="reference">ESPEJOS(NO)</label> -->
+							<!-- <label *ngIf="espejos"  for="reference">ESPEJOS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "espejos"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!compac"   for="reference">COMPAC(NO)</label> -->
+							<!-- <label *ngIf="compac"  for="reference">COMPAC(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "compac"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!emblemas"   for="reference">EMBLEMAS(NO)</label> -->
+							<!-- <label *ngIf="emblemas"  for="reference">EMBLEMAS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "emblemas"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!alarma"   for="reference">ALARMA(NO)</label> -->
+							<!-- <label *ngIf="alarma"  for="reference">ALARMA(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]="alarma"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!radio"   for="reference">RADIO(NO)</label> -->
+							<!-- <label *ngIf="radio"  for="reference">RADIO(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "radio"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!herramientas"   for="reference">HERRAMIENTAS(NO)</label> -->
+							<!-- <label *ngIf="herramientas"  for="reference">HERRAMIENTAS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "herramientas"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!combustible"   for="reference">COMBUSTIBLE(NO)</label> -->
+							<!-- <label *ngIf="combustible"  for="reference">COMBUSTIBLE(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "combustible"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!cont_puerta"   for="reference">CONT.PUERTA(NO)</label> -->
+							<!-- <label *ngIf="cont_puerta"  for="reference">CONT.PUERTA(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]="cont_puerta"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!tapacubos"   for="reference">TAPACUBOS(NO)</label> -->
+							<!-- <label *ngIf="tapacubos"  for="reference">TAPACUBOS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]="tapacubos"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!moquetas"   for="reference">MOQUETAS(NO)</label> -->
+							<!-- <label *ngIf="moquetas"  for="reference">MOQUETAS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "moquetas"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!extinguidor"   for="reference">EXTINGUIDOR(NO)</label> -->
+							<!-- <label *ngIf="extinguidor"  for="reference">EXTINGUIDOR(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "extinguidor"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!triangulos"   for="reference">TRIANGULOS(NO)</label> -->
+							<!-- <label *ngIf="triangulos"  for="reference">TRIANGULOS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox"[(ngModel)]= "triangulos"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!alogenos"   for="reference">ALÓGENOS(NO)</label> -->
+							<!-- <label *ngIf="alogenos"  for="reference">ALÓGENOS(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]="alogenos"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					<!-- <div class="col-md-3"> -->
+							<!-- <div class="form-group"> -->
+							<!-- <label *ngIf="!pantalla_radio"   for="reference">PANTALLA RADIO(NO)</label> -->
+							<!-- <label *ngIf="pantalla_radio"  for="reference">PANTALLA RADIO(SI)</label> -->
+							<!-- <label  class="switch"> -->
+								<!-- <!-- <input type="checkbox" [checked] = "antena" (click)="tipo_entrada()"><span class="slider round"></span> --> 
+								<!-- <input type="checkbox" [(ngModel)]= "pantalla_radio"><span class="slider round"></span> -->
+							<!-- </label> -->
+							<!-- </div> -->
+					<!-- </div> -->
+							<!-- AQUI BOTON    #2AA443-->
+							
+					<!-- <div class="row col-md-offset-3"> -->
+					<div class="row form-group">
+						<!-- class="text-center"  -->
+						<div class="col-md-3 text-center">
+							<div  class="table-responsive">
+							   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+									<!-- <thead> -->
+										<!-- <tr class="active text-center" role="row"> -->
+											<!-- <th>ACCESORIO</th> -->
+											<!-- <th>DISPONIBLE</th> -->
+									   <!-- </tr> -->
+									<!-- </thead> -->
+									<tbody>
+										<tr>
+											<td>
+												<label *ngIf="!antena"   for="reference">ANTENA (NO)</label>
+												<label *ngIf="antena"  for="reference">ANTENA (SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "antena"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!llave_rueda"   for="reference">LLAVE RUEDA (NO)</label>
+												<label *ngIf="llave_rueda"  for="reference">LLAVE RUEDA (SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "llave_rueda"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!gata"   for="reference">GATA(NO)</label>
+												<label *ngIf="gata"  for="reference">GATA(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "gata"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!tapagas"   for="reference">TAPAGAS(NO)</label>
+												<label *ngIf="tapagas"  for="reference">TAPAGAS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "tapagas"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!encendedor"   for="reference">ENCENDEDOR(NO)</label>
+												<label *ngIf="encendedor"  for="reference">ENCENDEDOR(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "encendedor"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!plumas"   for="reference">PLUMAS(NO)</label>
+												<label *ngIf="plumas"  for="reference">PLUMAS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "plumas"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!tuerca"   for="reference">TUERCA SEGURIDAD(NO)</label>
+												<label *ngIf="tuerca"  for="reference">TUERCA SEGURIDAD(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "tuerca"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+									</tbody>
+								
+								</table>
+							</div>
+						</div>
+						<div class="col-md-3 text-center">
+							<div  class="table-responsive">
+							   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+									<!-- <thead> -->
+										<!-- <tr class="active text-center" role="row"> -->
+											<!-- <th>ACCESORIO</th> -->
+											<!-- <th>DISPONIBLE</th> -->
+									   <!-- </tr> -->
+									<!-- </thead> -->
+									<tbody>
+										<tr>
+											<td>
+												<label *ngIf="!botiquin"   for="reference">BOTIQUIN(NO)</label>
+												<label *ngIf="botiquin"  for="reference">BOTIQUIN(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "botiquin"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!cubresol"   for="reference">CUBRE SOL(NO)</label>
+												<label *ngIf="cubresol"  for="reference">CUBRE SOL(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "cubresol"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!llanta"   for="reference">LLANTA(NO)</label>
+												<label *ngIf="llanta"  for="reference">LLANTA(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "llanta"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!espejos"   for="reference">ESPEJOS(NO)</label>
+												<label *ngIf="espejos"  for="reference">ESPEJOS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "espejos"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!compac"   for="reference">COMPAC(NO)</label>
+												<label *ngIf="compac"  for="reference">COMPAC(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "compac"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!emblemas"   for="reference">EMBLEMAS(NO)</label>
+												<label *ngIf="emblemas"  for="reference">EMBLEMAS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "emblemas"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!alarma"   for="reference">ALARMA(NO)</label>
+												<label *ngIf="alarma"  for="reference">ALARMA(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "alarma"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+																		
+									</tbody>
+								
+								</table>
+							</div>
+						</div>
+						<div class="col-md-3 text-center">
+							<div  class="table-responsive">
+							   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+									<!-- <thead> -->
+										<!-- <tr class="active text-center" role="row"> -->
+											<!-- <th>ACCESORIO</th> -->
+											<!-- <th>DISPONIBLE</th> -->
+									   <!-- </tr> -->
+									<!-- </thead> -->
+									<tbody>
+										<tr>
+											<td>
+												<label *ngIf="!radio"   for="reference">RADIO(NO)</label>
+												<label *ngIf="radio"  for="reference">RADIO(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "radio"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!herramientas"   for="reference">HERRAMIENTAS(NO)</label>
+												<label *ngIf="herramientas"  for="reference">HERRAMIENTAS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "herramientas"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!combustible"   for="reference">COMBUSTIBLE(NO)</label>
+												<label *ngIf="combustible"  for="reference">COMBUSTIBLE(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "combustible"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!cont_puerta"   for="reference">CONT.PUERTA(NO)</label>
+												<label *ngIf="cont_puerta"  for="reference">CONT.PUERTA(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "cont_puerta"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!tapacubos"   for="reference">TAPACUBOS(NO)</label>
+												<label *ngIf="tapacubos"  for="reference">TAPACUBOS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "tapacubos"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!moquetas"   for="reference">MOQUETAS(NO)</label>
+												<label *ngIf="moquetas"  for="reference">MOQUETAS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "moquetas"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!extinguidor"   for="reference">EXTINGUIDOR(NO)</label>
+												<label *ngIf="extinguidor"  for="reference">EXTINGUIDOR(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "extinguidor"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>					
+									</tbody>
+								
+								</table>
+							</div>
+						</div>
+							
+						
+							 
+		 
+							 
+                        <!-- </div> -->
+						<!-- class="text-center"  -->
+						<div class="col-md-3 text-center">
+							<div  class="table-responsive">
+							   <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable">
+									<!-- <thead> -->
+										<!-- <tr class="active text-center" role="row"> -->
+											<!-- <th>ACCESORIO</th> -->
+											<!-- <th>DISPONIBLE</th> -->
+									   <!-- </tr> -->
+									<!-- </thead> -->
+									<tbody>
+										<tr>
+											<td>
+												<label *ngIf="!triangulos"   for="reference">TRIANGULOS(NO)</label>
+												<label *ngIf="triangulos"  for="reference">TRIANGULOS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "triangulos"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label *ngIf="!alogenos"   for="reference">ALÓGENOS(NO)</label>
+												<label *ngIf="alogenos"  for="reference">ALÓGENOS(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "alogenos"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>
+										<tr>
+										<td>
+												<label *ngIf="!pantalla_radio"   for="reference">PANTALLA RADIO(NO)</label>
+												<label *ngIf="pantalla_radio"  for="reference">PANTALLA RADIO(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "pantalla_radio"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>	
+										<tr>
+										<td>
+												<label *ngIf="!matricula"   for="reference">MATRICULA(NO)</label>
+												<label *ngIf="matricula"  for="reference">MATRICULA(SI)</label>
+											</td>
+											<td>
+											<label class="switch">
+											<input type="checkbox" [(ngModel)]= "matricula"><span class="slider_detalle round"></span>
+											</label>
+											</td>
+										</tr>											
+									</tbody>
+								
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- FIN ROW-->
+					<!-- <div class="form-group"> -->
+					<div>
+					<button *ngIf="numtra && (status=='I')"class="btn btn-danger" id="reset_detalle_vehiculo" (click)="reset_detalle_vehiculo()">Reset</button>
+					<button *ngIf="numtra && (status=='I')" class="btn btn-primary" id="guardar_detalle_vehiculo" (click)="guardar_detalle_vehiculo()">Guardar detalle</button>
+					</div>
+					<!-- </div> -->
+					<!-- FIN DIV BODY-->
+         </div> <!-- /.tab-pane 2-->
+			
+		<div class="tab-pane"  id="tab_fotos_vehiculo" #tab_fotos_vehiculo>
+		   <div class="box-body">
+              <div class="col-lg-12">
+				<!-- <h1>FOTOS VEHICULO</h1> -->
+				
+			<div *ngIf="numtra && (status=='I')" class="col-md-4">
+              <div class="input-group">
+
+                  <div class="custom-file">
+                      <input (change)="fileChange($event)"  type="file"  class="custom-file-input" id="exampleInputFile" accept="image/*" > 
+                     <!-- <label class="custom-file-label" for="inputGroupFile01">Choose file</label> -->
+					  <label class="custom-file-label" for="exampleInputFile" data-browse="Buscar" >{{nombre_archivo}}</label>
+                  </div>
+				  
+			       </div>
+				<div class="progress form-group" *ngIf="progress > 0">
+				<div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+				</div>
+			
+				</div>
+					<span *ngIf="progress > 0">Subiendo archivo..!!. Progreso: {{progress}}%</span>
+			
+			
+          </div>
+		 <div *ngIf="subida_exitosa" class="col-md-4">
+		<span>IMAGEN SUBIDA CON EXITO...!!!</span>
+		</div>
+		
+		<div  class="text-center" *ngIf="(imageFile && !loading)" >
+		<!-- <div  class="text-center" > -->
+			<br> Comprimido: tamaño: {{sizeOFCompressedImage | number : '1.2-2'}}MB
+			<br>
+			<img [src]="localCompressedURl" height="150px">	
+			<!-- <div class="input-group-prepend"> -->
+			  <button class="btn btn-danger" id="btnUpload" (click)="upload()">Subir</button>
+            <!-- </div> -->
+		</div>	
+
+
+		
+		
+		
+		  
+		  </div>
+		</div>
+		
+		<div class="box-body">
+              <div class="col-lg-12">
+		
+			<div class="table-responsive">
+	<!-- A PARTIR DE AQUI ES LAS IMAGENES-->
+	<div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+			
+			    <div *ngFor="let img of fotos" class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper text-center">
+                            <!-- <img src="../../assets/img_tienda/product-1.jpg" width="195" height="243"  alt=""> -->
+							<!-- <img src="../../assets/img_tienda/img-no-disp.jpg" width="195" height="243"  alt=""> -->
+							<a href="{{img.src}}" target="_blank">
+							<img src="{{img.src}}" width="262" height="243"  alt="">
+							</a>
+							<!-- <img src="articulos.imagen" alt=""> -->
+                        </div>
+					<div class="product-option-shop">
+						 <button class="btn btn-danger" id="btnUpload" (click)="eliminar_imagen(img.nombre)">Eliminar</button>
+                            <!-- <!-- <!-- <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a> -->  
+							<!-- <h4 style="font-weight:bold;color:green" *ngIf="articulos.exiact > 0"  >Disponible </h4> -->
+							<!-- <h4 style="font-weight:bold;color:red" *ngIf="articulos.exiact <= 0"  >Agotado</h4> -->
+                        </div>                       
+                    </div>
+                </div>
+
+            </div>
+   
+        </div>
+    </div>
+	<!-- TERMINA AQUI ES LAS IMAGENES			 -->
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+				
+				</div>
+				</div>
+				
+        </div> <!-- /.tab-VEHICULO 2-->
+		
+			<div class="tab-pane"  id="tab_audio_orden" #tab_audio_orden>
+			   <div class="box-body">
+				  <div class="col-lg-12">
+				  			<button  class="btn btn-success btn-lg" [disabled]="isRecording" (click)="record()">
+							<!-- <i class="fa fa-2x fa-play-circle"></i> -->
+							<i class="fa fa-play-circle"></i>
+							Grabar
+							</button>
+							<button  class="btn btn-danger btn-lg" [disabled]="!isRecording" (click)="stop()">
+							<i class="fa fa-stop"></i>
+							Stop
+							</button>
+							<button  class="btn btn-info btn-lg"  (click)="lista_audios()">
+							<i class="fa fa-refresh"></i>
+							Refrescar
+							</button>
+							<h3 style="font-weight:bold;color:red" *ngIf="isRecording" >Grabando....!!!! </h3>
+				 
+				 </div>
+				 
+				 <!-- <div class="progress form-group" *ngIf="progress > 0"> -->
+				  <!-- <div class="progress form-group"> -->
+					<!-- <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress"> -->
+					<!-- </div> -->
+			
+				<!-- </div> -->
+					<span *ngIf="progress > 0">Subiendo archivo..!!. Progreso: {{progress}}%</span>
+						<!-- <span>Subiendo archivo..!!. Progreso: {{progress}}%</span> -->
+				 
+				 
+				 
+				 		
+		<!-- <div class="box-body"> -->
+              <div class="col-lg-12">
+				<div class="table-responsive">
+				
+					<!-- <div *ngIf="loading" class="col-md-12"> -->
+						  <!-- <div class="box box-primary"> -->
+							<!-- <div class="text-center box-header"> -->
+							  <!-- <h3 class="box-title ">Cargando. por favor espere....!!!!</h3> -->
+							<!-- </div> -->
+							<!-- <div class="box-body"> -->
+							  <!-- <!-- The body of the box --> 
+							<!-- </div> -->
+							<!-- <div class="overlay"> -->
+							  <!-- <i class="fa fa-refresh fa-spin"></i> -->
+							<!-- </div> -->
+							<!-- <!-- end loading --> 
+						  <!-- </div> -->
+						  <!-- <!-- /.box --> 
+					<!-- </div> -->
+				
+				<!-- A PARTIR DE AQUI ES LAS IMAGENES-->
+				<!-- <div *ngIf="!loading" class="single-product-area"> -->
+				<div class="single-product-area">
+					<div class="zigzag-bottom"></div>
+					<div class="container">
+						<div class="row">
+							<!-- <div *ngFor="let img of fotos" class="col-md-3 col-sm-6"> -->
+							<div *ngFor="let audio of audios" class="col-md-3 col-sm-6">
+							
+							
+								<div class="single-shop-product">
+									<div class="product-upper text-center">
+										<!-- <a href="{{img.src}}"> -->
+										<!-- <img src="{{img.src}}" width="262" height="243"  alt=""> -->
+										<!-- </a> -->
+										<audio controls>
+											<source src="{{audio.src}}" type="audio/ogg">
+										</audio>
+						
+										
+										
+									</div>
+									<div class="product-option-shop text-center">
+										<span>{{audio.nombre}}</span> 
+									 <button class="btn btn-danger" id="btnUpload" (click)="eliminar_audio(audio.nombre)">Eliminar</button>
+									</div>                       
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- TERMINA AQUI ES LAS IMAGENES			 -->
+				</div>
+				</div>
+		<!-- </div> -->
+				  
+				  <!-- <div class="col-lg-12"> -->
+					<!-- <audio *ngFor="let audio of audios" controls> -->
+						<!-- <!-- <source src="assets/img_talleres/01_17000025/audio_54894.ogg" type="audio/ogg"> --> 
+						<!-- <source src="{{audio.src}}" type="audio/ogg"> -->
+						
+						
+
+					<!-- </audio> -->
+					
+					<!-- <div class="col-md-6 text-center"> -->
+							<!-- <div  class="table-responsive"> -->
+							   <!-- <table id="poTable" class="table table-striped table-bordered table-condensed table-hover dataTable"> -->
+									<!-- <tbody> -->
+										<!-- <tr *ngFor="let audio of audios"> -->
+											<!-- <td> -->
+												<!-- <!-- <label *ngIf="!radio"   for="reference">RADIO(NO)</label> --> 
+												<!-- <!-- <label *ngIf="radio"  for="reference">RADIO(SI)</label> --> 
+												
+												<!-- <audio controls> -->
+													<!-- <source src="{{audio.src}}" type="audio/ogg"> -->
+												<!-- </audio> -->
+												<!-- <span>{{audio.nombre}}</span>  -->
+												
+												
+											<!-- </td> -->
+										<!-- </tr> -->
+										
+										
+									<!-- </tbody> -->
+								
+								<!-- </table> -->
+							<!-- </div> -->
+					<!-- </div> -->
+					
+
+					
+					
+				<!-- </div> -->
+				 
+				</div>
+			 </div>
+		
+		
+		
+			
+			
+			
+				</div> <!-- /.tab-content -->
+			</div> <!-- nav-tabs-custom -->
+        </div>
+    </div>
+ </section>
+  <!-- /.content -->
+</div>

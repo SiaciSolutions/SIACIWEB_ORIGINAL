@@ -1,0 +1,1 @@
+C:\WINDOWS\system32>Mklink /D  C:\SISTEMA\SIACIWEB\api\img_articulos C:\SISTEMA\SIACIWEB\nginx-1.14.2\html\assets\img_articulos

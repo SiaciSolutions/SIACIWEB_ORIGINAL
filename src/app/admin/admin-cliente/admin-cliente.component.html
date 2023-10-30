@@ -1,0 +1,318 @@
+<div  *ngIf="status_cambio_vista_cliente == 'false'" class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Creación de Cliente
+      <small>Creación de los clientes para levantar pedidos</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Cliente</li>
+      <li class="active">Creación de cliente</li>
+    </ol>
+  </section>
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+		
+		<!-- <div class="box box-primary" *ngIf="loading_modulo"> -->
+		<div class="box box-primary" *ngIf="loading_modulo" >
+				<div class="text-center box-header">
+				  <h3 class="box-title ">Por favor espere...!!!!</h3>
+				</div>
+				<div class="box-body">
+				  <!-- <!-- <!-- The body of the box -->  
+				</div>
+				<div class="overlay">
+				  <i class="fa fa-refresh fa-spin"></i>
+				</div>
+				<!-- <!-- <!-- end loading -->  
+		</div>
+			<div class="box box-primary" *ngIf="!loading_modulo" >
+				<div class="box-header">
+					<h3 class="box-title">Por favor, rellene la siguiente información</h3>
+				</div>
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+						<input type="hidden" name="spos_token" value="81ab1394a6a5b62e98f47481fe9e15d6" style="display:none;" />
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Nombre y Apellido ó Razón Social</label>
+							<input [(ngModel)]="nomcli" type="text" name="name" value="" placeholder="Ingrese nombre o razón social" class="form-control input-sm" id="name" />
+						</div>
+					<div class="form-group">
+							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
+							<label class="control-label">Cédula / RUC </label>
+							<table>
+								<tr>
+									<td>
+									<!-- <select #tipo_doc name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_doc(tipo_doc.value)" >{{e.nom_doc}}</option> -->
+									<!-- </select>  -->
+									
+									<select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option>
+									</select>
+									
+									
+									
+									</td>
+									<td class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)'  inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" />
+									</td>
+								</tr>
+							</table>
+							<!-- <div class="col-md-3"> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+                            <!-- </div> -->
+							<!-- <div class="col-md-9"> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					        <!-- </div> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					</div>
+					<div class="form-group">
+							<label class="control-label">Tipo de cliente</label>
+							<!-- <select #tipo_cliente name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_cliente(tipo_cliente.value)" >{{e.nom_tipo_cli}}</option> -->
+							<!-- </select>  -->
+							
+							<select name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option>
+							</select>
+							
+					</div>
+					<div class="form-group">
+							<label class="control-label">Dirección cliente</label>
+							<input [(ngModel)]="dircli"   type="text" name="cf2" value="" placeholder="Ingrese dirección del cliente"   class="form-control input-sm" id="cf2" />
+					</div>
+					<div class="form-group">
+							<label class="control-label">Teléfono</label>
+							<input   (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli" inputmode="numeric"  type="text" name="phone" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone" />
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Teléfono Móvil (OPCIONAL)</label>
+							<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli2" inputmode="numeric"  type="text" name="phone" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone" />
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Provincia</label>
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							
+							<select name="prov" [(ngModel)]="provincia" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of provincia_lista; let i = index;"  [value]="e.codgeo">{{e.nomgeo}}</option>
+							</select>
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Ciudad</label>
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							
+							<select name="city" [(ngModel)]="ciudad" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of ciudad_lista; let i = index;" [value]="e.nomgeo">{{e.nomgeo}}</option>
+							</select>
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Dirección de e-mail</label>
+							<input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese email válido"  class="form-control input-sm" id="email_address" />
+					</div>
+
+					<div class="form-group">
+							<input type="submit" name="add_customer" value="Agregar Cliente"  class="btn btn-primary" (click)="crea_cliente()" />
+						</div>
+					</div>
+					</form>				
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+  <!-- /.content -->
+</div>
+
+
+
+<div  *ngIf="status_cambio_vista_cliente == 'true'">
+  <!-- Content Header (Page header) -->
+  <!-- <section class="content-header"> -->
+    <!-- <h1> -->
+      <!-- <!-- Page Header 1111 --> 
+	   <!-- Creación de Cliente -->
+      <!-- <small>Creación de los clientes para levantar pedidos</small> -->
+    <!-- </h1> -->
+    <!-- <ol class="breadcrumb"> -->
+      <!-- <li><i class="fa fa-dashboard"></i>Cliente</li> -->
+      <!-- <li class="active">Creación de cliente</li> -->
+    <!-- </ol> -->
+  <!-- </section> -->
+  
+  
+  <!-- *ngIf="success" -->
+  
+    <div *ngIf="success" class="col-lg-12 alerts">
+        <div id="custom-alerts" style="display:none;">
+            <div class="alert alert-dismissable">
+                <div class="custom-msg"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">X</button>
+            <h4>	<i class="icon fa fa-check"></i> Éxito</h4> Cliente creado con éxito 
+		</div>
+    </div>
+
+<section class="content">
+	<div class="row">
+	
+		<div class="box box-primary" *ngIf="loading_modulo" >
+				<div class="text-center box-header">
+				  <h3 class="box-title ">Por favor espere...!!!!</h3>
+				</div>
+				<div class="box-body">
+				  <!-- <!-- <!-- The body of the box -->  
+				</div>
+				<div class="overlay">
+				  <i class="fa fa-refresh fa-spin"></i>
+				</div>
+				<!-- <!-- <!-- end loading -->  
+		</div>
+	
+	
+		<div class="col-xs-12" *ngIf="!loading_modulo"  >
+			<!-- <div class="box box-primary"> -->
+				<div class="box-header">
+					<h3 class="box-title">Por favor, rellene la siguiente información</h3>
+				</div>
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+			
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Nombre y Apellido ó Razón Social</label>
+							<input [(ngModel)]="nomcli" type="text" name="name" value="" placeholder="Ingrese nombre o razón social" class="form-control input-sm" id="name" />
+						</div>
+					<div class="form-group">
+							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
+							<label class="control-label">Cédula / RUC </label>
+							<table>
+								<tr>
+									<td>
+									<!-- <select #tipo_doc name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_doc(tipo_doc.value)" >{{e.nom_doc}}</option> -->
+									<!-- </select>  -->
+									
+									<select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;">
+									<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+									<option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option>
+									</select>
+									
+									
+									
+									</td>
+									<td class="col-xs-9"> 
+									<input (keypress)='validaNumericosCantidad($event)' inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" />
+									</td>
+								</tr>
+							</table>
+							<!-- <div class="col-md-3"> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+                            <!-- </div> -->
+							<!-- <div class="col-md-9"> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					        <!-- </div> -->
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
+					</div>
+					<div class="form-group">
+							<label class="control-label">Tipo de cliente</label>
+							<!-- <select #tipo_cliente name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo" (click)="update_tipo_cliente(tipo_cliente.value)" >{{e.nom_tipo_cli}}</option> -->
+							<!-- </select>  -->
+							
+							<select name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of tipo_cliente_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_tipo_cli}}</option>
+							</select>
+							
+					</div>
+					<div class="form-group">
+							<label class="control-label">Dirección cliente</label>
+							<input [(ngModel)]="dircli" type="text" name="cf2" value="" placeholder="Ingrese dirección del cliente"  class="form-control input-sm" id="cf2" />
+					</div>
+					<div class="form-group">
+							<label class="control-label">Teléfono</label>
+							<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli"  inputmode="numeric" type="text" name="phone1" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone1" />
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Teléfono Movil(OPCIONAL)</label>
+							<input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli2" inputmode="numeric" type="text" name="phone2" value="" placeholder="Ingrese número telefónico"   class="form-control input-sm" id="phone2" />
+					</div>
+					
+					<div class="form-group">
+							<label class="control-label" >Provincia</label>
+							<select name="prov" [(ngModel)]="provincia" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of provincia_lista; let i = index;"  [value]="e.codgeo">{{e.nomgeo}}</option>
+							</select>
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Ciudad</label>
+							<!-- <select #ciudad name="city" class="form-control select2 tip" id="category"  required="required" style="width:100%;"> -->
+							<!-- <option *ngFor="let e of ciudad_lista; let i = index;" [selected] = "i==0" [value]="e.nomgeo" (click)="update_ciudad(ciudad.value)" >{{e.nomgeo}}</option> -->
+							<!-- </select> -->
+							
+							<select name="city" [(ngModel)]="ciudad" class="form-control select2 tip" style="width:100%;">
+							<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+							<option *ngFor="let e of ciudad_lista; let i = index;"  [value]="e.nomgeo">{{e.nomgeo}}</option>
+							</select>
+					</div>
+					<div class="form-group">
+							<label class="control-label" >Dirección de e-mail</label>
+							<input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese correo válido"  class="form-control input-sm" id="email_address" />
+					</div>
+
+					<div class="form-group">
+							<input type="button"  name="add_customer" value="Agregar Cliente"  class="btn btn-primary" (click)="crea_cliente()" />
+						</div>
+					</div>
+					</form>				
+				</div>
+			<!-- </div> -->
+		</div>
+	</div>
+</section>
+  <!-- /.content -->
+</div>
+

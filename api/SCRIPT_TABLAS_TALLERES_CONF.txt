@@ -1,0 +1,2 @@
+alter table encabezadopedpro add hora_ingreso time;
+insert into parametros_siaciweb (codemp,parametro,valor,descripcion,clave_json) values ('01','ACTIVAR_TIPO_RUTA_TALLERES','SI','Valores permitido SI/NO. Habilita TIPO DE ORDEN y RUTAS en Talleres','act_tipo_ruta_talleres');

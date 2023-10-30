@@ -1,0 +1,14 @@
+.fondo {
+  background-color: #c8cfcb; 
+}
+
+.cuadro {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 20em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

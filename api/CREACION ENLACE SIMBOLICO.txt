@@ -1,0 +1,21 @@
+C:\WINDOWS\system32>Mklink /D  C:\wamp\www\TEST_acople_webfe_PEDIDO_PDV_TALLERES\api\img_talleres_desa C:\wamp\www\TEST_acople_webfe_PEDIDO_PDV_TALLERES\src\assets\img_talleres
+
+vínculo simbólico creado para C:\wamp\www\TEST_acople_webfe_PEDIDO_PDV_TALLERES\api\img_talleres_desa <<===>> C:\wamp\www\TEST_acople_webfe_PEDIDO_PDV_TALLERES\src\assets\img_talleres
+
+
+C:\WINDOWS\system32>Mklink /D  C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_talleres_desa C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_talleres
+
+
+C:\WINDOWS\system32>Mklink /D  C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_articulos C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_articulos
+vínculo simbólico creado para C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_articulos <<===>> C:\wamp\www\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_articulos
+
+
+############ CLIENTES NATURALES
+C:\WINDOWS\system32>Mklink /D  C:\SISTEMA\SIACIWEB\api\img_articulos C:\SISTEMA\SIACIWEB\nginx-1.14.2\html\img_articulos
+
+
+Mklink /D  C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_talleres_desa C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_talleres
+
+Mklink /D  C:\sistema\SIACIWEB\api\img_talleres_desa C:\sistema\SIACIWEB\nginx-1.14.2\html\assets\img_talleres
+
+

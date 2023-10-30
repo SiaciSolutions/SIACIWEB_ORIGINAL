@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
+.fc-center {
+    text-transform: capitalize;
+}
+
+.day-highlight {
+  background-color: yellow !important;
+  /*  color: red !important;*/
+}
+

@@ -1,0 +1,50 @@
+<body class="fondo">
+  <div class="cuadro">
+    <mat-card style="width:100%; " class="" [class.mat-elevation-z5]="elevacion">
+      <img mat-card-image src="../../assets/SIACI.png" alt="SIACI">
+	 
+	 <!-- <div> -->
+	  <!-- <label class="switch"> -->
+	  <!-- <input type="checkbox" checked (click)="tipo_entrada()"><span class="slider round"></span> -->
+	  <!-- </label> -->
+	  
+	  <!-- <H6>POR RUC</H6> -->
+	  <!-- </div> -->
+	  
+	 <table>
+		<tbody>
+		<tr>
+		<td>	 
+		<label class="switch">
+		<input type="checkbox" checked (click)="tipo_entrada()"><span class="slider round"></span>
+		</label></td>
+		<td><H5 *ngIf="!tipo_busqueda" >REPORTE POR CEDULA/RUC</H5></td>
+		<td><H5 *ngIf="tipo_busqueda" >BUSQUEDA CON USUARIO/CLAVE</H5></td>
+		</tr>
+		</tbody>
+	</table>
+	  
+	  
+      <mat-card-content raised style="text-align: center;margin-top:5px">
+      <input *ngIf="!tipo_busqueda"mat-input [(ngModel)]="ruc" placeholder="cedula/ruc"/>
+	  <input *ngIf="tipo_busqueda" mat-input [(ngModel)]="ruc" placeholder="usuario"/>
+      </mat-card-content>
+      <mat-card-content raised style="text-align: center;margin-top:5px">
+      <!-- <input mat-input [(ngModel)]="password" placeholder="password" /> -->
+	  <input *ngIf="tipo_busqueda"  mat-input [(ngModel)]="password" placeholder="password" />
+      </mat-card-content>
+      <mat-card-actions style="text-align: center;margin-top:5px">
+        <mat-form-field>
+          <mat-label>Empresa</mat-label>
+          <mat-select [(ngModel)]="empresa">
+            <mat-option *ngFor="let e of empresas" [value]="e.codemp">
+              {{e.nomemp}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-button mat-raised-button (click)="ingresar()">Ingresar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</body>

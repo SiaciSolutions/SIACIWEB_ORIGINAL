@@ -1,0 +1,22 @@
+.contenedor {
+  display: flex;
+  justify-content: center;
+  margin: 15px
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+table {
+  width: 100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.gray { background-color: #f5f5f5 }

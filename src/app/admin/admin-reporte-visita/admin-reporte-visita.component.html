@@ -1,0 +1,95 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Reporte de visita de los vendedores
+      <small>Reporte de visita de los vendedores</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/starter/pedidos"><i class="fa fa-dashboard"></i>Pedidos</a></li>
+      <li class="active">Registrar visita vendedores</li>
+    </ol>
+  </section>
+  <br>
+	
+		<!-- <h3> Tu localizacion actual es: Lat: {{lat}}, Long: {{lng}} <h3> -->
+		<!-- <!-- <!-- <agm-map style="height:200px;width:1200px" [zoom]='19' [latitude]="lat" [longitude]="lng"> --> 
+		<agm-map style="height:200px" [zoom]='19' [latitude]="lat" [longitude]="lng">
+		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+		</agm-map>
+	
+	
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title">Utilice la tabla siguiente para navegar o filtrar los resultados</h3>
+				</div>
+				                <div class="box-body">
+				<div class="table-responsive">
+				<!-- <table *ngIf="!loading" datatable class="row-border hover">  -->
+				<table *ngIf="!loading" datatable [dtOptions]="dtOptions" class="row-border hover table table-striped table-bordered table-condensed table-hover dataTable"> 
+						<thead>
+						<tr>
+						  <th>Fecha</th>
+						  <th>Hora</th>
+						  <th>Vendedor</th>
+						  <th>Cod.Cli</th>
+						  <th>Cliente</th>
+						  <th>Dirección estimada</th>
+						  <th style="width:95px;" role="columnheader" rowspan="1" colspan="1" >Acciones</th>
+						  
+						</tr>
+					  </thead>
+					  
+					<tbody *ngIf="(lista_visitas?.length != 0) && (!loading) ">
+					  <tr *ngFor="let el of lista_visitas;">
+						  <td>{{el.fectra}}</td>
+						  <td>{{el.hora}}</td>
+						  <td>{{el.nomven}}</td>
+						  <td>{{el.codcli}}</td>
+						  <td>{{el.nomcli}}</td>
+						  <td>{{el.direccion}}</td>
+						  <td class="">
+						    <div class="text-center">
+                                <div class="btn-group">
+									<!-- <a routerLink="/admin/ver_pedidos" [queryParams]="{usuario:usuario,empresa: empresa,pedido:el.numtra}"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido"></i></a>  -->
+									<!-- <a routerLink="/admin/editar_pedidos" [queryParams]="{usuario:usuario,empresa: empresa,pedido:el.numtra}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar pedido"></i></a>  -->
+									<!-- <a (click)="correo_facturacion(el.numtra,el.nomcli)" class="tip btn btn-danger btn-xs" ><i class="fa fa-envelope" title="Enviar correo facturar pedido" ></i></a> -->
+									<!-- <a (click)="correo_pedido(el.numtra,el.nomcli,el.email)"  class="tip btn btn-success btn-xs" ><i class="fa fa-envelope" title="Reenviar correo pedido" ></i></a> -->
+									<input type="button" name="ubicar_mapa" value="Ubicar" class="btn btn-success"  (click)="ubicar(el.latitud,el.longitud)"  >
+								</div>
+                            </div>
+						  </td>
+					  </tr>
+					</tbody> 
+				
+				
+				
+				
+				</table>
+				
+		
+	
+					</div>
+				</div>
+				
+			
+
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+
+
+

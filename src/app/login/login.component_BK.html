@@ -1,0 +1,29 @@
+<body class="fondo">
+  <div class="cuadro">
+    <mat-card style="width:100%; " class="" [class.mat-elevation-z5]="elevacion">
+      <!-- <mat-card-header style="text-align:center; background-color: black; color: blanchedalmond">
+    Login
+  </mat-card-header> -->
+      <!-- #c8cfcb -->
+      <img mat-card-image src="../../assets/SIACI.png" alt="SIACI">
+      <mat-card-content raised style="text-align: center;margin-top:5px">
+        <input mat-input [(ngModel)]="ruc" placeholder="ruc" />
+      </mat-card-content>
+      <mat-card-content raised style="text-align: center;margin-top:5px">
+        <input mat-input [(ngModel)]="password" placeholder="password" />
+      </mat-card-content>
+      <mat-card-actions style="text-align: center;margin-top:5px">
+        <mat-form-field>
+          <mat-label>Empresa</mat-label>
+          <mat-select [(ngModel)]="empresa">
+            <mat-option *ngFor="let e of empresas" [value]="e.codemp">
+              {{e.nomemp}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-button mat-raised-button (click)="ingresar()">Ingresar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</body>

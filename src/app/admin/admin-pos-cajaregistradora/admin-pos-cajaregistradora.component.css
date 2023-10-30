@@ -1,0 +1,295 @@
+.example-full-width {
+  min-width: 150px;
+  min-height: 30px;
+  width: 100%;
+}
+
+mat-selection-list {
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+.table-responsive-pedidos {
+    min-height: 0.01%;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.redactor-box {
+    position: relative;
+    overflow: visible;
+    border: 1px solid #ccc;
+}
+
+.redactor-editor {
+    position: relative;
+    overflow: auto;
+    margin: 0 !important;
+    padding: 10px;
+    outline: none;
+    white-space: normal;
+    line-height: 1.6em;
+}
+
+
+
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*background-color:   #00a65a; VERDE*/
+  /*background-color:   #2196F3; AZUL */
+  
+  background-color:   #d73925;
+ 
+  /* background-color: #ccc; */
+  -webkit-transition:.4s;
+  transition:.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition:.4s;
+  transition:.4s;
+}
+
+input:checked +.slider {
+  background-color: #2196F3;
+}
+
+input:focus +.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked +.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/**************************** GRID CONTENIDO ********************************************/
+/* .pos #pos { */
+    /* padding: 15px; */
+/* } */
+
+.input-qty {
+	padding: 0;
+	height: auto;
+}
+button.edit {
+	white-space: normal;
+	text-align: left !important;
+}
+.table td {
+    vertical-align: middle !important;
+}
+.table-responsive-comanda {
+	min-height: 0.01%;
+	overflow-x: auto;
+	overflow-y: auto;
+	/* max-height: 150px; */
+	max-height: 600px;
+	height: 350px;
+}
+
+.font16 {
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.table-responsive-rz {
+	min-height: 0.01%;
+	overflow-x: auto;
+	overflow-y: auto;
+	max-height: 150px;
+}
+
+.table-responsive-art {
+	min-height: 0.01%;
+	overflow-x: auto;
+	overflow-y: auto;
+	max-height: 250px;
+}
+.table-responsive-pedidos {
+	min-height: 0.01%;
+	overflow-x: auto;
+	overflow-y: auto;
+	/* max-height: 150px; */
+	max-height: 550px;
+}
+
+.pos {
+    padding: 15px;
+}
+
+.pos .content-wrapper .layout-table {
+	position: absolute;
+	min-width: 1020px !important;
+}
+
+.contents {
+    /* padding: 15px 65px 15px 0; */
+	padding: 15px 0px 15px 0;
+	/* padding: 0px 0px 0px 0; */
+    position: relative;
+    min-height: 440px;
+    overflow: hidden;
+}
+.contents .product-nav  {
+    position: absolute;
+    bottom: 0;
+    padding-right: 65px;
+}
+.contents #item-list .btn {
+    width: 120px;
+    text-align: center;
+}
+.contents #item-list .items  {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.contents #item-list .btn-name {
+    width: 116px;
+    height: 60px;
+    line-height: 16px;
+    white-space: pre-wrap;
+    margin: 2px;
+}
+.contents #item-list .btn-img  ,
+.contents #item-list .btn-both {
+    background: transparent;
+    padding: 3px;
+}
+.contents #item-list .btn-img:hover ,
+.contents #item-list .btn-both:hover {
+    background: #CCC;
+}
+.contents #item-list .btn-both .bg-img {
+    background: #FFF;
+    height: 110px;
+    padding: 5px;
+}
+.contents #item-list .btn-both  span {
+    display: block;
+    width: 110px;
+    background: #E5E5E5;
+	height: 70px;
+    /* height: 40px; */
+    overflow: hidden;
+    white-space: pre-wrap;
+    margin-left: 1px;
+}
+.contents #item-list .btn-both  span span {
+    display: table-cell;
+    vertical-align: middle;;
+    overflow: hidden;
+    white-space: pre-wrap;
+    line-height: 16px;
+    padding: 3px 2px;
+}
+
+/**************************** GRID CONTENIDO ********************************************/
+
+
+
+
+/* * { */
+    /* font-size: 12px; */
+    /* font-family: 'Times New Roman'; */
+/* } */
+
+/* td,th,tr,table { */
+    /* border-top: 1px solid black; */
+    /* border-collapse: collapse; */
+/* } */
+
+td.producto,
+th.producto {
+    width: 75px;
+    max-width: 75px;
+	    /* font-size: 8px; */
+    /* font-family: 'Times New Roman'; */
+}
+
+td.cantidad,
+th.cantidad {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+	    /* font-size: 8px; */
+    /* font-family: 'Times New Roman'; */
+}
+
+td.precio,
+th.precio {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+	    /* font-size: 8px; */
+    /* font-family: 'Times New Roman'; */
+}
+
+.centrado {
+    text-align: center;
+    align-content: center;
+}
+
+.ticket {
+  /*  width: 155px;
+    max-width: 155px; */
+  width: 310px;
+  max-width: 310px;
+
+}
+
+/* img { */
+    /* max-width: inherit; */
+    /* width: inherit; */
+/* } */
+
+.ticket-logo {
+    max-width: inherit;
+    width: inherit;
+}
+
+
+

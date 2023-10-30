@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><factura id="comprobante" version="1.0.0"> 
+	<infoTributaria>
+		<ambiente>2</ambiente>
+		<tipoEmision>1</tipoEmision>
+		<razonSocial>PRODUCTOS ELECTRONICOS MAXIDISTRIBUCIONES CIA. LTDA</razonSocial>
+		<nombreComercial>PRODUCTOS ELECTRONICOS MAXIDISTRIBUCIONES CIA. LTDA</nombreComercial>
+		<ruc>1791769902001</ruc>
+		<claveAcceso>2401201901179176990200120010020000004840004339217</claveAcceso>
+		<codDoc>01</codDoc>
+		<estab>001</estab>
+		<ptoEmi>002</ptoEmi>
+		<secuencial>000000484</secuencial>
+		<dirMatriz>Amazonas N25-23 y ColónEdificio España, Oficina 28</dirMatriz>
+	</infoTributaria>
+
+	<infoFactura>
+		<fechaEmision>24/01/2019</fechaEmision>
+		<dirEstablecimiento>Amazonas N25-23 y Colón</dirEstablecimiento>
+		<obligadoContabilidad>SI</obligadoContabilidad>
+		<tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+		<razonSocialComprador>ARTICULOS Y SEGURIDAD ARSEG C.  LTDA</razonSocialComprador>
+		<identificacionComprador>0991353992001</identificacionComprador>
+		<direccionComprador>BOMBONA SOLAR 10 Y SIMON RODRIGUEZ</direccionComprador>
+		<totalSinImpuestos>468.0000</totalSinImpuestos>
+		<totalDescuento>0</totalDescuento>
+		<totalConImpuestos>
+			<totalImpuesto>
+				<codigo>2</codigo>
+				<codigoPorcentaje>2</codigoPorcentaje>
+				<baseImponible>468.0000</baseImponible>
+				<valor>56.1600</valor>
+			</totalImpuesto>
+		</totalConImpuestos>
+		<propina>0</propina>
+		<importeTotal>524.1600</importeTotal>
+		<moneda>DOLARES </moneda>
+		<pagos>
+			<pago>
+				<formaPago>01</formaPago>
+				<total>524.16</total>
+				<plazo>0</plazo>
+				<unidadTiempo>dias</unidadTiempo>
+			</pago>
+		</pagos>
+	</infoFactura>
+
+<detalles>
+	<detalle>
+		<codigoPrincipal>\0301</codigoPrincipal>
+		<descripcion>RENTA Y SERVICIO RADIO PORTATIL </descripcion>
+		<cantidad>26.0000</cantidad>
+		<precioUnitario>18.000000</precioUnitario>
+		<descuento>0</descuento>
+		<precioTotalSinImpuesto>468.0000</precioTotalSinImpuesto>
+		<impuestos>
+			<impuesto>
+				<codigo>2</codigo>
+				<codigoPorcentaje>2</codigoPorcentaje>
+				<tarifa>12.0000</tarifa>
+				<baseImponible>468.0000</baseImponible>
+				<valor>56.1600</valor>
+			</impuesto>
+		</impuestos>
+	</detalle>
+	<detalle>
+		<codigoPrincipal>*</codigoPrincipal>
+		<descripcion>MES DE DICIEMBRE DEL 2018</descripcion>
+		<cantidad>1.0000</cantidad>
+		<precioUnitario>0</precioUnitario>
+		<descuento>0</descuento>
+		<precioTotalSinImpuesto>0</precioTotalSinImpuesto>
+		<impuestos>
+			<impuesto>
+				<codigo>2</codigo>
+				<codigoPorcentaje>0</codigoPorcentaje>
+				<tarifa>0</tarifa>
+				<baseImponible>0</baseImponible>
+				<valor>0</valor>
+			</impuesto>
+		</impuestos>
+	</detalle>
+</detalles>
+
+	<infoAdicional>
+		<campoAdicional nombre="email">facturacion@arseg.com.ec;ebuele@arseg.com.ec;facturas_enviadas@grupomaxi.com.ec</campoAdicional>
+	</infoAdicional>
+</factura> 
