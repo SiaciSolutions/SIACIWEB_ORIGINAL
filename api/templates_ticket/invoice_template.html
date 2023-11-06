@@ -126,14 +126,29 @@ p {
 				<tr class="encabezado" >
 					<td style="font-weight:bold;" class="encabezado" >Factura:</td>
 					<td style="width:150px;" class="encabezado">{{faccli}}</td>
-					<td style="font-weight:bold;" class="encabezado">Hora:</td>
-					<td class="derecho" class="encabezado" >{{hora}}</td>
+					<!-- <td style="font-weight:bold;" class="encabezado">Hora:</td> -->
+					<!-- <td class="derecho" class="encabezado" >{{hora}}</td> -->
+					
 				</tr>
 				<tr>
 					<td style="font-weight:bold; width:100px;" class="encabezado" >Cedula/Ruc:</td>
 					<td style="width:150px;" class="encabezado">{{rucced}}</td>
+					<!-- <td style="font-weight:bold;" class="encabezado">Fecha:</td> -->
+					<!-- <td class="derecho" class="encabezado">{{fecha}}</td> -->
+				</tr>
+				
+				<tr>
+					<!-- <td style="font-weight:bold; width:100px;" class="encabezado" >Cedula/Ruc:</td> -->
+					<!-- <td style="width:150px;" class="encabezado">{{rucced}}</td> -->
 					<td style="font-weight:bold;" class="encabezado">Fecha:</td>
-					<td class="derecho" class="encabezado">{{fecha}}</td>
+					<td class="encabezado">{{fecha}}</td>
+				</tr>
+				
+				<tr>
+					<td style="font-weight:bold;" class="encabezado">Hora:</td>
+					<td class="encabezado" >{{hora}}</td>
+					<!-- <td style="font-weight:bold;" class="encabezado">Fecha:</td> -->
+					<!-- <td class="derecho" class="encabezado">{{fecha}}</td> -->
 				</tr>
 			</tbody>
 		</table>
@@ -203,20 +218,51 @@ p {
 				</tr>
 			</tbody>
 		</table>
-		<br>
-		   <p  style="font-weight:bold;" class="centrado">FORMA DE PAGO:
-		   {% for f in formas_pago %}
-		   <span> **{{f.forma}} <span>
-		   {% endfor %}
-		   </p>
-		   <p  style="font-weight:bold;" class="centrado">AUTORIZACION SRI:</p>
-		    <!-- <p class="centrado">0101202007170568537600120010020000015880014704411</p> -->
-			<p class="centrado">{{autorizacion}}</p>
 		
-        <p class="centrado">****GRACIAS POR SU COMPRA**** </p>
-		<p  style="font-weight:bold;" class="centrado">**LA FACTURA LE LLEGARA A SU CORREO** </p>
-            <!-- <br>www.siaci.com.ec</p> -->
+		<table >
+		<tbody>
+			<tr class="centrado">
+				<td style="font-weight:bold;" class="encabezado" >
+				<p  style="font-weight:bold;" class="centrado">FORMA DE PAGO:
+				   {% for f in formas_pago %}
+				   <span> **{{f.forma}} <span>
+				   {% endfor %}
+				</p>
+				</td>
+			</tr>
+			<tr class="centrado">
+				<td style="font-weight:bold;" class="encabezado" >
+			    <p  style="font-weight:bold;" class="centrado">AUTORIZACION SRI:</p>
+				<p class="centrado">{{autorizacion}}</p>
+				</td>
+			</tr>
+			<tr class="centrado">
+				<td style="font-weight:bold;" class="encabezado" >
+				<p class="centrado">****GRACIAS POR SU COMPRA**** </p>
+				<p  style="font-weight:bold;" class="centrado">**LA FACTURA LE LLEGARA A SU CORREO** </p>
+				</td>
+			</tr>
+		
+		
+		</tbody>
+		</table>
+		
+		
+		<!-- <br> -->
+		   <!-- <p  style="font-weight:bold;" class="centrado">FORMA DE PAGO: -->
+		   <!-- {% for f in formas_pago %} -->
+		   <!-- <span> **{{f.forma}} <span> -->
+		   <!-- {% endfor %} -->
+		   <!-- </p> -->
+		   <!-- <p  style="font-weight:bold;" class="centrado">AUTORIZACION SRI:</p> -->
+		    <!-- <!-- <p class="centrado">0101202007170568537600120010020000015880014704411</p> -->
+			<!-- <p class="centrado">{{autorizacion}}</p> -->
+		
+        <!-- <p class="centrado">****GRACIAS POR SU COMPRA**** </p> -->
+		<!-- <p  style="font-weight:bold;" class="centrado">**LA FACTURA LE LLEGARA A SU CORREO** </p> -->
+            <!-- <!-- <br>www.siaci.com.ec</p> --> 
     </div>
 
 
-</body></html>
+</body>
+</html>

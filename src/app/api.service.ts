@@ -16,8 +16,8 @@ export class ApiService {
   //public apiUrl = 'http://192.168.100.11';
     // public apiUrl = 'https://192.168.100.11';
  
-  public apiUrl = 'https://localhost';
-    // public apiUrl = 'https://localhost';
+  // public apiUrl = 'https://192.168.101.2';
+    public apiUrl = 'https://localhost';
   // public apiUrl = 'https://192.168.0.13';
   // public apiUrl = 'https://192.168.101.7';
     

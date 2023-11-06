@@ -10,7 +10,13 @@ import shutil
 import coneccion
 import sqlanydb
 from jinja2 import Environment, FileSystemLoader
-# from xhtml2pdf import pisa             # import python module
+from reportlab.graphics.barcode import code93
+from reportlab.graphics.barcode import code39
+from reportlab.graphics.barcode import usps
+from reportlab.graphics.barcode import usps4s
+from reportlab.graphics.barcode import ecc200datamatrix
+from reportlab.graphics.barcode import code128
+from xhtml2pdf import pisa             # import python module
 
 
 def convert_decimal(d):
@@ -32,10 +38,10 @@ def from_template(template, output):
 		output  : str
 			name of the file to create
 		"""
-		# Reading our template
+		## Reading our template
 		source_html = open(template, "r")
-		content = source_html.read() # the HTML to convert
-		source_html.close() # close template file
+		content = source_html.read() ## the HTML to convert
+		source_html.close() ## close template file
 		
 		html_to_pdf(content, output)
 
@@ -51,26 +57,26 @@ def html_to_pdf(content, output):
 		output  : str
 			name of the file to create
 		"""
-		# Open file to write
+		## Open file to write
 		result_file = open(output, "w+b") # w+b to write in binary mode.
 		
-		# convert HTML to PDF
-		# pisa_status = pisa.CreatePDF(
-				# content,                   # the HTML to convert
-				# dest=result_file	       # file handle to recieve result
-		# )           
+		## convert HTML to PDF
+		pisa_status = pisa.CreatePDF(
+				content,                   # the HTML to convert
+				dest=result_file	       # file handle to recieve result
+		)           
 
-		# close output file
+		##close output file
 		result_file.close()
 
-		# result = pisa_status.err
+		result = pisa_status.err
 
 		if not result:
 			print("Successfully created PDF")
 		else:
 			print("Error: unable to create the PDF")    
 
-		# return False on success and True on errors
+		## return False on success and True on errors
 		return result
 
 
@@ -519,10 +525,10 @@ class GEN_PDF():
 		campos = ['index','codart','nomart','coduni','cant','prec01','totren','punreo','codiva','poriva','precio_iva','v_desc_art','subtotal_art']
 		renglones_pdv = []
 		for reg in r:
-			print (reg)
+			# print (reg)
 			reg_encabezado = dict(zip(campos, reg))
 			renglones_pdv.append(reg_encabezado)
-			print (renglones_pdv)
+			# print (renglones_pdv)
 
 		root = os.path.dirname(os.path.abspath(__file__))
 		templates_dir = os.path.join(root, 'templates_ticket')
@@ -547,8 +553,8 @@ class GEN_PDF():
 		# direccion = 'ATAHUALPA'
 		
 		# 1 renglon = 90 mm  MUY MINIMO 87mm
-		alto_minimo= 90
-		longitud_renglones = 0
+		alto_minimo= 500
+		longitud_renglones = 10
 
 		for renglon in renglones_factura:
 			cant_renglon = 1
@@ -634,8 +640,8 @@ class GEN_PDF():
 			autorizacion = '*** PENDIENTE AUTO ***' 
 		poriva=r[11]
 		totnet=r[12]
-		totbas=r[13]
-		totbase0=r[14]
+		totbas=round(r[13],2)
+		totbase0=round(r[14],2)
 		totdes=r[15]
 		totiva=r[16]
 		totfac=r[17]
@@ -707,6 +713,7 @@ class GEN_PDF():
 		# template = (APP_PATH+'\\templates_ticket\\invoice_template.html')
 		
 		OUTPUT_HTML = "C:\\SISTEMA\\temporales\\ticket_"+codemp+"_"+numfac+".html"
+		OUTPUT_PDF = "C:\\SISTEMA\\temporales\\ticket_"+codemp+"_"+numfac+".pdf"
 		# Evaluar esta impresora
 		# SAT38TUSE
 		
@@ -725,18 +732,20 @@ class GEN_PDF():
 		# direccion = 'ATAHUALPA'
 		
 		# 1 renglon = 90 mm  MUY MINIMO 87mm
-		alto_minimo= 90
+		alto_minimo=90
 		longitud_renglones = 0
 
-		for renglon in renglones_factura:
-			cant_renglon = 1
-			if(len(renglon['nomart']) > 9):
-				cant_renglon = round(len(renglon['nomart'])/18)
-			print (cant_renglon)
-			longitud_renglones = longitud_renglones+cant_renglon
+		# for renglon in renglones_factura:
+			# cant_renglon = 1
+			# if(len(renglon['nomart']) > 9):
+				# cant_renglon = round(len(renglon['nomart'])/18)
+                
+			# print (cant_renglon)
+			# longitud_renglones = longitud_renglones+cant_renglon
 
 		# formula =alto minimo + (suma de la cantidad de lineas por renglon*4 minimetros cada renglon ) + 10 mm de holgura de seguridad
-		alto_minimo = alto_minimo + (longitud_renglones*4) + 10
+		# alto_minimo = alto_minimo + (longitud_renglones*5) + 10
+		alto_minimo = alto_minimo + len(renglones_factura)*7 + 10
 		
 		filename = os.path.join(root, 'templates_ticket',OUTPUT_HTML)
 		with open(filename, 'w') as fh:
@@ -763,6 +772,9 @@ class GEN_PDF():
 				formas_pago = formas_pago
 		))
 			
-		# from_template(filename, OUTPUT_FILENAME)
+		from_template(filename, OUTPUT_PDF)
 		return 'HTML GENERADO CON EXITO'
 
+
+
+# ModuleNotFoundError: No module named 'reportlab.graphics.barcode.code128'

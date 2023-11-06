@@ -3450,7 +3450,7 @@ def lista_ventas_pdv():
   (select f.estadodocumento from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
   pv.conpag,pv.numfac,
    (select f.descripcionerror from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
-   pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.html' as ticket_url, pv.factok
+   pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.pdf' as ticket_url, pv.factok
   FROM encabezadopuntosventa pv
   where pv.codalm = '{}' and pv.codemp='{}'
   and pv.fecfac between '{}' and '{}'

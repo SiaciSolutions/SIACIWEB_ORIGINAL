@@ -97,7 +97,7 @@
 					<!-- </a> -->
 				
 				
-                    <a *ngIf="srv.getIngresoBodega() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+                    <a *ngIf="srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))" class="btn btn-app" (click)="ocultar_menu_moviles()"
 					routerLink="/admin/ingreso_articulos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					>
                         <i class="fa fa-cubes"></i> Ingresos de producto                    
@@ -109,13 +109,13 @@
 					 <!-- class="badge bg-red">{{contador_facturas_pendientes_despachar}}</span> -->
                         <!-- <i class="fa fa-external-link-square"></i> Despacho facturas                   -->
 					<!-- </a> -->
-					<a *ngIf="srv.getIngresoBodega() != 'NO'" (click)="ocultar_menu_moviles()"
+					<a *ngIf="srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))" (click)="ocultar_menu_moviles()"
 					routerLink="/admin/egreso_articulos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					class="btn btn-app">
                         <i class="fa fa-forward"></i> Registro de egresos               
 					</a>
 					
-					<a *ngIf="srv.getConfArticulos() != 'NO'" (click)="ocultar_menu_moviles()"
+					<a *ngIf="srv.getConfArticulos() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))" (click)="ocultar_menu_moviles()"
 					routerLink="/admin/crear_productos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					class="btn btn-app">
                         <i class="glyphicon glyphicon-apple"></i> Crear articulos        
