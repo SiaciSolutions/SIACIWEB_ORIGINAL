@@ -40,6 +40,10 @@ import { AdminServiciosComponent } from './../admin-servicios/admin-servicios.co
 import { AdminConfigComponent } from './../admin-config/admin-config.component';
 import { AdminPedidosMedicosComponent } from './../admin-pedidos-medicos/admin-pedidos-medicos.component';
 import { AdminListaPedidosMedicosComponent } from './../admin-lista-ped-medicos/admin-lista-ped-medicos.component';
+import { AdminTransfBodegaComponent } from './../admin-transferencias/admin-transferencias.component';
+import { AdminListaTranferenciasComponent } from './../admin-lista-transferencia/admin-lista-transferencias.component';
+
+
 
 
 
@@ -233,28 +237,16 @@ import { AdminListaPedidosMedicosComponent } from './../admin-lista-ped-medicos/
             path: 'lista_ped_medicos',
             component: AdminListaPedidosMedicosComponent
           }
-		  
-		  
-		  
-
-		  
-		  
-
-
-
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
+		  ,
+		  {
+            path: 'transf_bodegas',
+            component: AdminTransfBodegaComponent
+          }
+		  ,
+		  {
+            path: 'lista_transferencias',
+            component: AdminListaTranferenciasComponent
+          }
 		  
         ]
       }

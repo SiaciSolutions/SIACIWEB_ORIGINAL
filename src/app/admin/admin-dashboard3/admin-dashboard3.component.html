@@ -121,6 +121,17 @@
                         <i class="glyphicon glyphicon-apple"></i> Crear articulos        
 					</a>
 					
+					<a *ngIf="srv.getActTransfBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/transf_bodegas" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					class="btn btn-app">
+                        <i class="fa fa-exchange"></i> Transferencia Bodega        
+					</a>
+					<a *ngIf="srv.getActTransfBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_transferencias" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					class="btn btn-app">
+                        <i class="fa fa-list"></i> Lista transferencias       
+					</a>
+					
 					<a *ngIf="srv.getConfPedidoMedico() != 'NO'" (click)="ocultar_menu_moviles()"
 					routerLink="/admin/admin_pedidos_medicos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					class="btn btn-app">

@@ -27,12 +27,6 @@ import shutil
 import glob
 from dbfpy3 import dbf
 
-# C:\wamp\www\TEST_acople_webfe_PEDIDO_PDV_TALLERES\src\assets\img_talleres\ORD_12345
-
-
-
-# app = Flask(__name__)
-# CORS(app)
 
 
 app = Flask(__name__)
@@ -42,6 +36,11 @@ CORS(app)
 
 
 APP_PATH = os.getcwd()
+# os.environ['PATH'] += ";C:\sistema\dlls\Bin32"
+# print (os.environ['PATH'] )
+# print (os.environ["SQLANY_API_DLL"])
+
+
 DB_PATH = APP_PATH+ '\\base_siaci_web.db'
 
 urlfile = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/images/'
@@ -118,7 +117,7 @@ def login():
   'act_total_recibido_cambio','act_selecc_articulo_servicio_pdv','act_pago_efectivo_pdv','act_pago_tarjeta_pdv','act_pago_cheque_pdv','act_pago_trans_pdv',
   'act_pago_credito_pdv','act_edicion_plazo_credito_pdv','consultar_estado_cartera','act_articulos','act_servicios','act_egr_bod','busqueda_defecto_pdv','servicio_defecto_pdv']
   
-  sql = "select u.codus1,u.clausu,u.tipacc,e.nomemp,u.codemp from usuario u, empresa e where u.codemp=e.codemp and u.codus1='{}' and u.clausu='{}' and u.codemp='{}'".format(d['usuario'],d['password'],d['empresa'])
+  sql = "select u.codus1,'clave',u.tipacc,e.nomemp,u.codemp from usuario u, empresa e where u.codemp=e.codemp and u.codus1='{}' and (u.clausu='{}' OR u.clausu= (SELECT f_decodificador('{}','secreto'))) and u.codemp='{}'".format(d['usuario'],d['password'],d['password'],d['empresa'])
   curs.execute(sql)
   print (sql)
   print ("GEOLOCALIZACION ACTIVA= "+coneccion.GEOLOC)
@@ -141,7 +140,7 @@ def login():
        d = {'codus1': False}
   if (coneccion.CONF_PARAM_BD == 'SI'):
     if r:
-       sql = "SELECT parametro,valor,clave_json FROM parametros_siaciweb where codemp='{}'".format(d['empresa'])
+       sql = "SELECT parametro,valor,clave_json FROM parametros_siaciweb  where codemp='{}'".format(d['empresa'])
        curs.execute(sql)
        print (sql)
        regs = curs.fetchall()
@@ -383,7 +382,7 @@ def iva():
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
   campos = ['codiva', 'poriva']
-  sql = "SELECT codiva,poriva FROM iva where codiva in ('S','O','N','E') and descripcion = 'IVA' "
+  sql = "SELECT codiva,poriva FROM iva where codiva in ('S','O','N','E','T','A') and descripcion = 'IVA' "
   curs.execute(sql)
   regs = curs.fetchall()
   arrresp = []
@@ -1335,7 +1334,7 @@ def articulos():
   ############ COMENTADO PARA GUADAPRODUC, PARA QUE LE SELECT DE LA FICHA DE ARTICULO ################ 
   # sql = "select a.codart, a.nomart, round(a.prec01, 2) as precio01, (a.exiact-(select case when sum(p.cantid) is null then 0 else sum(p.cantid) end  as sum from v_exitencias_pedpro p where p.codemp = '{}' and p.codart like '%'||a.codart||'%'))  as exiact,a.coduni,a.punreo,a.codiva, (select i.poriva from iva i where i.codiva=a.codiva) as poriva , round(((poriva*precio01)/100),2) as precio_iva from articulos a where (a.nomart like '%{}%' or a.codart like '%{}%') and a.codemp = '{}' order by a.nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['codemp'])
   
-  sql = "select a.codart, a.nomart, round(prec01,6), (a.exiact-(select case when sum(p.cantid) is null then 0 else sum(p.cantid) end  as sum from v_exitencias_pedpro p where p.codemp = '{}' and p.codart like a.codart||'%'))  as exiact,a.coduni,a.punreo,a.codiva, (select i.poriva from iva i where i.codiva=a.codiva) as poriva , round(((poriva*prec01)/100),6) as precio_iva from articulos a where (a.nomart like '%{}%' or a.codart like '%{}%') and a.codemp = '{}' order by a.nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['codemp'])
+  sql = "select a.codart, a.nomart, round(prec01,6), (a.exiact-(select case when sum(p.cantid) is null then 0 else sum(p.cantid) end  as sum from v_exitencias_pedpro p where p.codemp = '{}' and p.codart like a.codart||'%'))  as exiact,a.coduni,a.punreo,a.codiva, (select i.poriva from iva i where i.codiva=a.codiva) as poriva , round(((poriva*prec01)/100),6) as precio_iva from articulos a where (a.nomart like '%{}%' or a.codart like '%{}%') and a.codemp = '{}' and a.estado = 'A' order by a.nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['codemp'])
   curs.execute(sql)
   print (sql)
   regs = curs.fetchall()
@@ -2084,6 +2083,31 @@ def busqueda_razon_social():
   # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
   
   sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
+  curs.execute(sql)
+  regs = curs.fetchall()
+  arrresp = []
+  for r in regs:
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+
+@app.route('/busqueda_razon_social_placa', methods=['POST'])
+def busqueda_razon_social_placa():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  campos = ['nomcli', 'rucced','tpIdCliente','email','dircli','codcli']
+  # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
+  
+  sql = "SELECT  nombres,rucced,tpidcliente,email,dircli,codcli FROM v_clientes_placa where codemp= '{}' and numplaca = '{}' order by nombres asc".format(datos['codemp'],datos['patron_placa'])
   curs.execute(sql)
   regs = curs.fetchall()
   arrresp = []
@@ -2890,6 +2914,20 @@ def generar_encabezado_pdv():
   
   print (numfac)
   
+  ########################### INICIO BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  print (numfac)
+  print (len(numfac))
+  print (int(numfac)+1)
+  print (str((int(numfac)+1)).zfill(len(numfac)))
+  numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  numfac= numfac_nueva
+  ########################### FIN BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  
+
+  
+  
+  
   ##SECUENCIA TRIBUTARIA
   # sql = "select seccue from secuencias_tmp where  codemp='{}' and codalm='{}' and numcaj='{}' and codsec='PV_FAC'".format(
   # sql = "select seccue from secuencias_tmp where  codemp='{}' and codalm='{}' and codsec='VC_FAC' and numcaj='12'".format(
@@ -3002,22 +3040,29 @@ def generar_encabezado_pdv():
   datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
   datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
   datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
-  datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
   
   
 	
 	
   string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
   valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
-  factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep,tipo_guia,numplaca'''
+  factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep,tipo_guia,numplaca,observ'''
   
   
-  sql = """insert into encabezadopuntosventa ({}) values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},'{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},{},{},{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},'{}','{}',{},{},{},{})
+  sql = """insert into encabezadopuntosventa ({}) values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},'{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},{},{},{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},'{}','{}',{},{},{},{},{})
   """.format(string_campos,numfac,datos['codemp'],codven,datos['codalm'],datos['nomcli'],
   datos['fecfac'],datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
   datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],datos['totrec'],datos['codus1'],datos['fecfac'],'01','1',datos['codcli'],'X',
   datos['numcaj'],datos['telcli'],codiva,porivar,valiva,
-  codret,porret,valret,numfac_tributaria,'01',datos['serie'],datos['turno'],'null','0','O','F','FC'+numfac,'NC','X','null','0','1',datos['fecfac'],lispre,hora,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],0,datos['tiptrans'],datos['valtrans'],datos['numtrans'],datos['coddep'],1,datos['numplaca']) 
+  codret,porret,valret,numfac_tributaria,'01',datos['serie'],datos['turno'],'null','0','O','F','FC'+numfac,'NC','X','null','0','1',datos['fecfac'],lispre,hora,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],0,datos['tiptrans'],datos['valtrans'],datos['numtrans'],datos['coddep'],1,datos['numplaca'],datos['observ']) 
   # curs = conn.cursor()
 
   print (sql)
@@ -3026,19 +3071,16 @@ def generar_encabezado_pdv():
   conn.commit()
   
   
-  
-  print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
-  print (numfac)
-  print (len(numfac))
-  print (int(numfac)+1)
-  print (str((int(numfac)+1)).zfill(len(numfac)))
-  numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
-  
   #### CAMBIO DE SECUENCIAS  ####
-  # curs = conn.cursor()
-  # sql = "update secuencias set seccue = seccue+1 where codalm='{}' and codsec = 'PV_FAC' and codemp='{}' and numcaj='{}'".format(datos['codalm'],datos['codemp'],datos['numcaj'])
-  # sql = "update secuencias set seccue = seccue+1 where codalm='{}' and codsec = 'PV_FAC' and codemp='{}'".format(datos['codalm'],datos['codemp'])
   
+  # print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  # print (numfac)
+  # print (len(numfac))
+  # print (int(numfac)+1)
+  # print (str((int(numfac)+1)).zfill(len(numfac)))
+  # numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  
+
   sql = "update secuencias set seccue =  '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}'".format(numfac_nueva,datos['codalm'],datos['codemp'])
   curs.execute(sql)
   conn.commit()
@@ -3204,7 +3246,7 @@ def get_encabezado_pdv():
     SELECT p.codemp,p.numfac,p.faccli,fecfac,c.tpIdCliente,c.rucced,c.nombres,c.codcli,c.email,c.dircli,
     p.observ,p.totnet,p.totfac,p.totrec,
     p.tipefe,p.valefe,p.tiptar,p.numtar,p.valtar,p.codtar,p.tipche,p.numche,p.valche,p.codban,p.tipcre,p.valcre,p.numpag,p.plapag,p.tiptrans,p.valtrans,p.numtrans,p.coddep,
-    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.numplaca
+    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.numplaca,p.observ
     FROM encabezadopuntosventa p, clientes c
     where p.numfac = '{}' and p.codemp='{}'
     and p.codcli=c.codcli
@@ -3215,7 +3257,7 @@ def get_encabezado_pdv():
 
 	
 	campos = ['codemp', 'numfac','faccli','fecfac','tpIdCliente','rucced','razon_social','codcli','email','dircli','observ','totnet','totfac','totrec','tipefe'
-	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','tipcre','valcre','numpag','plapag','tiptrans','valtrans','numtrans','coddep','totiva','poriva','totdes','pordes','totbas','numplaca']
+	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','tipcre','valcre','numpag','plapag','tiptrans','valtrans','numtrans','coddep','totiva','poriva','totdes','pordes','totbas','numplaca','observ']
 	print (r)
 	if r:
 		d = dict(zip(campos, r))
@@ -3333,7 +3375,17 @@ def actualizar_encabezado_pdv():
   datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
   datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
   datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
-  datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+      
+  
  
   # string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
   # valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
@@ -3342,12 +3394,12 @@ def actualizar_encabezado_pdv():
   
   sql = """update encabezadopuntosventa set nomcli='{}',totnet={},totdes={},totbas={},poriva={}, totfac={},tipefe='{}',valefe={},tipche='{}',numche={} ,valche={},
   tiptar='{}',numtar={},valtar={},totiva={},totrec={},fecult='{}',codcli='{}',porivar='{}',valiva='{}',codret={},porret='{}',valret='{}',conpag='{}',
-  tipcre='{}',numpag={},plapag={},valcre={},forpag='{}', cuecob='{}',pordes={},codtar={},codban={},tiptrans='{}',valtrans={},numtrans={},coddep={}, numplaca={}
+  tipcre='{}',numpag={},plapag={},valcre={},forpag='{}', cuecob='{}',pordes={},codtar={},codban={},tiptrans='{}',valtrans={},numtrans={},coddep={}, numplaca={}, observ={}
   where codemp='{}' and numfac='{}'
   """.format(datos['nomcli'],datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
   datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],datos['totrec'],fecult,datos['codcli'],porivar,valiva,
   codret,porret,valret,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],datos['tiptrans'],datos['valtrans'],
-  datos['numtrans'],datos['coddep'],datos['numplaca'],datos['codemp'],datos['numfac']) 
+  datos['numtrans'],datos['coddep'],datos['numplaca'],datos['observ'],datos['codemp'],datos['numfac']) 
   curs = conn.cursor()
 
   print (sql)
@@ -3382,9 +3434,19 @@ def aplicar_fact_electronica():
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
   
-  sql = """update encabezadopuntosventa e set 
-  e.inserta = (select (case when e.inserta is null then 'P' else null end))
+  sql = """select e.inserta from encabezadopuntosventa e 
   where e.numfac = '{}' and e.codemp = '{}'""".format(datos['numfac'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  r = curs.fetchone()
+  inserta = r[0]
+  inserta= "'P'" if inserta == None else 'null'
+  print (r)
+  print (inserta)
+  
+  sql = """update encabezadopuntosventa e set 
+  e.inserta = {}
+  where e.numfac = '{}' and e.codemp = '{}'""".format(inserta,datos['numfac'] ,datos['codemp'])
   print (sql) 
   curs.execute(sql)
   conn.commit()
@@ -3463,6 +3525,7 @@ def lista_ventas_pdv():
 
   regs = curs.fetchall()
   arrresp = []
+   # print (regs)
   for r in regs:
     # print (r)
     # print (r[15])
@@ -3481,6 +3544,7 @@ def lista_ventas_pdv():
   # print(arrresp)
   curs.close()
   conn.close()
+  # print (arrresp)
 
   return (jsonify(arrresp))
 
@@ -3654,6 +3718,22 @@ def generar_pedido():
      curs.execute(sql)
      conn.commit()
   if (TIPTRA == '2'):
+  
+     print ("INFO ADICIONAL")
+     info_adicional=datos['info_adicional']
+     print (info_adicional)
+     info_adicional= 'null'  if datos['info_adicional'] == None else "'"+datos['info_adicional']+"'"
+
+     print ("CONDICIONES DE PAGO")
+     condiciones_pago=datos['condiciones_pago']
+     print (condiciones_pago)
+     condiciones_pago= 'null'  if datos['condiciones_pago'] == None else "'"+datos['condiciones_pago']+"'"
+  
+     print ("TIEMPO ENTREGA")
+     tiempo_entrega=datos['tiempo_entrega']
+     print (tiempo_entrega)
+     tiempo_entrega= 'null'  if datos['tiempo_entrega'] == None else "'"+datos['tiempo_entrega']+"'"
+     
      sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,soli_gra,ciucli,info_adicional,condiciones_pago,tiempo_entrega) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}',{},{},{})"\
         .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,info_adicional,condiciones_pago,tiempo_entrega)
      print (sql)
@@ -5114,6 +5194,11 @@ def crear_cliente():
   print (exist_cliente)
   d=''
   datos['telcli2']= 'null'  if datos['telcli2'] == None else "'"+datos['telcli2']+"'"
+  try:
+      datos['codprov']= 'null'  if datos['codprov'] == None else "'"+datos['codprov']+"'"
+  except:
+      datos['codprov']= '17'
+      
   if (exist_cliente == 0):
       print ("###### CREO CLIENTE  ####")
       sql = """
@@ -5144,6 +5229,10 @@ def actualizar_cliente():
   curs = conn.cursor()
   
   datos['telcli2']= 'null'  if datos['telcli2'] == None else "'"+datos['telcli2']+"'"
+  try:
+      datos['codprov']= 'null'  if datos['codprov'] == None else "'"+datos['codprov']+"'"
+  except:
+      datos['codprov']= '17'
 	  
   print ("###### ACTUALIZO CLIENTE  ####")
   sql = """
@@ -5466,6 +5555,46 @@ def almacen():
   response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+  
+
+@app.route('/almacen_origen_destino', methods=['POST'])  
+def almacen_origen_destino():
+  datos = request.json
+  print ("#### ENTRADA ALMACEN  #######")
+  print (datos)
+  codemp = datos['codemp']
+  codagencia = datos['codagencia']
+  tipo_consulta = datos['tipo_consulta']
+  # codusu = datos['codusu']
+  # print (datos['codusu'])
+  print (datos['codemp'])
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  sql_campos = 'codalm,nomalm'
+  string_campos = 'codalm,nomalm'
+  arr_campos = string_campos.split(',')
+  if (tipo_consulta == 'O'):
+     sql = """select {} from almacenes where codalm <> '%' and codemp='{}' and agencia ='{}'
+     """.format(sql_campos, codemp,codagencia)
+  if (tipo_consulta == 'D'):
+     sql = """select {} from almacenes where codalm <> '%' and codemp='{}'
+     """.format(sql_campos, codemp,codagencia)
+  print (sql)
+  curs = conn.cursor()
+  curs.execute(sql)
+  regs = curs.fetchall()
+  curs.close()
+  curs.close()
+  conn.close()
+  resp = []
+  for r in regs:
+    d = dict(zip(arr_campos, r))
+    resp.append(d)
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
 
 #########  SERVICIOS PARA MANEJAR DETALLE VEHICULO #######################
 

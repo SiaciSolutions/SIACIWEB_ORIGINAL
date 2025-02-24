@@ -4876,7 +4876,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      Panel de control\n      <small>Administre su sistema</small>\n    </h1>\n    <ol class=\"breadcrumb\">\n      <li><i class=\"fa fa-dashboard\"></i> Panel</li>\n      <!-- <li class=\"active\">Dashboard</li> -->\n    </ol>\n  </section>\n\n  <!-- Main content -->\n  <section class=\"content\">\n  \n  \n  <!-- public getEgresoBodega(): string { -->\n\t  <!-- return localStorage.getItem('act_egr_bod') -->\n   <!-- } -->\n<!-- public getConfArticulos(): string { -->\n\t  <!-- return localStorage.getItem('act_articulos') -->\n   <!-- } -->\n   \n<!-- public getConfServicios(): string { -->\n\t  <!-- return localStorage.getItem('act_servicios') -->\n   <!-- } -->\n    <!-- Info boxes -->\n   \n\t<div class=\"row\">\n\t<div class=\"col-xs-12\">\n\t\t\t\t<!-- routerLink=\"/admin/edit_comisionista\" [queryParams]=\"{usuario:usuario,com_id:el.com_id}\" -->\n\t<div class=\"box box-success\">\n                <div class=\"box-header\">\n                    <h3 class=\"box-title\">Links Rápidos</h3>\n                </div>\n                <div class=\"box-body\">\n\t\t\t\t\n\t\t\t\t    <a *ngIf=\"srv.getClientes() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_clientes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-users\"></i> Crear Clientes               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t <a *ngIf=\"srv.getClientes() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/consulta_clientes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-user-plus\"></i> Actualizar Clientes             \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPV() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/pos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-th\"></i> Facturar           \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPV() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_pdv\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t> \n                        <i class=\"fa fa-list\"></i> Lista de facturas         \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!--  -->\n\t\t\t\t\t<a  *ngIf=\"srv.getPedidos() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_pedidos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-list-ol\"></i> Crear Pedidos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a  *ngIf=\"srv.getPedidos() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_pedidos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-list-alt\"></i> Lista de Pedidos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t <!-- *ngIf=\"srv.getPedidos() != 'NO'\" -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- *ngIf=\"srv.getTalleres() != 'NO'\" -->\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getTalleres() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/taller_orden\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-wrench\"></i> Talleres-Crear orden de trabajo              \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getTalleres() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_ordenes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>   \n                        <i class=\"fa fa-car\"></i> Talleres-Lista ordenes\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/conteo_productos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t<!-- > -->\n                        <!-- <i class=\"fa fa-check\"></i> Conteo físico              -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\n\t\t\t\t\n                    <a *ngIf=\"srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/ingreso_articulos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-cubes\"></i> Ingresos de producto                    \n\t\t\t\t\t</a>\n\t\t\t\t\t <!-- <a *ngIf=\"srv.getIngresoBodega() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t <!-- routerLink=\"/admin/lista_fac_pend_despachos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t <!-- > -->\n\t\t\t\t\t <!-- <span *ngIf=\"contador_facturas_pendientes_despachar > 0\" -->\n\t\t\t\t\t <!-- class=\"badge bg-red\">{{contador_facturas_pendientes_despachar}}</span> -->\n                        <!-- <i class=\"fa fa-external-link-square\"></i> Despacho facturas                   -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t<a *ngIf=\"srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/egreso_articulos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-forward\"></i> Registro de egresos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfArticulos() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_productos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"glyphicon glyphicon-apple\"></i> Crear articulos        \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPedidoMedico() != 'NO'\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/admin_pedidos_medicos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-heartbeat\"></i> Pedido Medico      \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a  *ngIf=\"srv.getConfPedidoMedico() != 'NO'\"  class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_ped_medicos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-align-justify\"></i> Lista Ped Medico               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a *ngIf=\"srv.getIngresoBodega() != 'NO'\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_fac_despachadas\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n\t\t\t\t\t<!-- <span *ngIf=\"contador_facturas_pendientes_auth > 0\" -->\n\t\t\t\t\t<!-- class=\"badge bg-red\">{{contador_facturas_pendientes_auth}}</span> -->\n                        <!-- <i class=\"fa fa-check\"></i> Facturas por autorizar                -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_clientes\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-smile-o\"></i> Lista clientes             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a *ngIf=\" srv.getRol()!= 'ROLDESC'\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/ingresar_recibos\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-pencil-square-o\"></i> Entradas Recibos             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_recibos\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-reorder\"></i>Lista Recibos             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/salidas\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-shopping-cart\"></i> Generar venta             -->\n\t\t\t\t\t<!-- </a> -->\n\n                </div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\t\n\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\n   \n  </section>\n  <!-- /.content -->\n</div>\n"
+module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      Panel de control\n      <small>Administre su sistema</small>\n    </h1>\n    <ol class=\"breadcrumb\">\n      <li><i class=\"fa fa-dashboard\"></i> Panel</li>\n      <!-- <li class=\"active\">Dashboard</li> -->\n    </ol>\n  </section>\n\n  <!-- Main content -->\n  <section class=\"content\">\n  \n  \n  <!-- public getEgresoBodega(): string { -->\n\t  <!-- return localStorage.getItem('act_egr_bod') -->\n   <!-- } -->\n<!-- public getConfArticulos(): string { -->\n\t  <!-- return localStorage.getItem('act_articulos') -->\n   <!-- } -->\n   \n<!-- public getConfServicios(): string { -->\n\t  <!-- return localStorage.getItem('act_servicios') -->\n   <!-- } -->\n    <!-- Info boxes -->\n   \n\t<div class=\"row\">\n\t<div class=\"col-xs-12\">\n\t\t\t\t<!-- routerLink=\"/admin/edit_comisionista\" [queryParams]=\"{usuario:usuario,com_id:el.com_id}\" -->\n\t<div class=\"box box-success\">\n                <div class=\"box-header\">\n                    <h3 class=\"box-title\">Links Rápidos</h3>\n                </div>\n                <div class=\"box-body\">\n\t\t\t\t\n\t\t\t\t    <a *ngIf=\"srv.getClientes() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_clientes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-users\"></i> Crear Clientes               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t <a *ngIf=\"srv.getClientes() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/consulta_clientes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-user-plus\"></i> Actualizar Clientes             \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPV() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/pos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-th\"></i> Facturar           \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPV() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_pdv\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t> \n                        <i class=\"fa fa-list\"></i> Lista de facturas         \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!--  -->\n\t\t\t\t\t<a  *ngIf=\"srv.getPedidos() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_pedidos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-list-ol\"></i> Crear Pedidos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a  *ngIf=\"srv.getPedidos() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_pedidos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-list-alt\"></i> Lista de Pedidos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t <!-- *ngIf=\"srv.getPedidos() != 'NO'\" -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- *ngIf=\"srv.getTalleres() != 'NO'\" -->\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getTalleres() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/taller_orden\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-wrench\"></i> Talleres-Crear orden de trabajo              \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getTalleres() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_ordenes\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>   \n                        <i class=\"fa fa-car\"></i> Talleres-Lista ordenes\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/conteo_productos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t<!-- > -->\n                        <!-- <i class=\"fa fa-check\"></i> Conteo físico              -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\n\t\t\t\t\n                    <a *ngIf=\"srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/ingreso_articulos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-cubes\"></i> Ingresos de producto                    \n\t\t\t\t\t</a>\n\t\t\t\t\t <!-- <a *ngIf=\"srv.getIngresoBodega() != 'NO'\" class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t <!-- routerLink=\"/admin/lista_fac_pend_despachos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t <!-- > -->\n\t\t\t\t\t <!-- <span *ngIf=\"contador_facturas_pendientes_despachar > 0\" -->\n\t\t\t\t\t <!-- class=\"badge bg-red\">{{contador_facturas_pendientes_despachar}}</span> -->\n                        <!-- <i class=\"fa fa-external-link-square\"></i> Despacho facturas                   -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t<a *ngIf=\"srv.getIngresoBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/egreso_articulos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-forward\"></i> Registro de egresos               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfArticulos() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/crear_productos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"glyphicon glyphicon-apple\"></i> Crear articulos        \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getActTransfBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/transf_bodegas\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-exchange\"></i> Transferencia Bodega        \n\t\t\t\t\t</a>\n\t\t\t\t\t<a *ngIf=\"srv.getActTransfBodega() != 'NO' && (srv.getTipacc() == 'T' || (srv.getTipacc() == 'P' && srv.getConfPerfilParcial('pb_2')))\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_transferencias\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-list\"></i> Lista transferencias       \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a *ngIf=\"srv.getConfPedidoMedico() != 'NO'\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/admin_pedidos_medicos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\tclass=\"btn btn-app\">\n                        <i class=\"fa fa-heartbeat\"></i> Pedido Medico      \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t<a  *ngIf=\"srv.getConfPedidoMedico() != 'NO'\"  class=\"btn btn-app\" (click)=\"ocultar_menu_moviles()\"\n\t\t\t\t\trouterLink=\"/admin/lista_ped_medicos\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\"\n\t\t\t\t\t>\n                        <i class=\"fa fa-align-justify\"></i> Lista Ped Medico               \n\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a *ngIf=\"srv.getIngresoBodega() != 'NO'\" (click)=\"ocultar_menu_moviles()\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_fac_despachadas\" [queryParams]=\"{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n\t\t\t\t\t<!-- <span *ngIf=\"contador_facturas_pendientes_auth > 0\" -->\n\t\t\t\t\t<!-- class=\"badge bg-red\">{{contador_facturas_pendientes_auth}}</span> -->\n                        <!-- <i class=\"fa fa-check\"></i> Facturas por autorizar                -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_clientes\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-smile-o\"></i> Lista clientes             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a *ngIf=\" srv.getRol()!= 'ROLDESC'\" -->\n\t\t\t\t\t<!-- routerLink=\"/admin/ingresar_recibos\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-pencil-square-o\"></i> Entradas Recibos             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/lista_recibos\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-reorder\"></i>Lista Recibos             -->\n\t\t\t\t\t<!-- </a> -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- <a  -->\n\t\t\t\t\t<!-- routerLink=\"/admin/salidas\" [queryParams]=\"{usuario: usuario,empresa: empresa}\" -->\n\t\t\t\t\t<!-- class=\"btn btn-app\"> -->\n                        <!-- <i class=\"fa fa-shopping-cart\"></i> Generar venta             -->\n\t\t\t\t\t<!-- </a> -->\n\n                </div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\t\n\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\n   \n  </section>\n  <!-- /.content -->\n</div>\n"
 
 /***/ }),
 
@@ -13477,7 +13477,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<aside class=\"main-sidebar\">\n  <!-- sidebar: style can be found in sidebar.less -->\n  <section class=\"sidebar\">\n    <!-- Sidebar user panel -->\n    <!-- <div class=\"user-panel\"> -->\n      <!-- <div class=\"pull-left image\"> -->\n        <!-- <img src=\"assets/img/user2-160x160.jpg\" class=\"img-circle\" alt=\"User Image\"> -->\n      <!-- </div> -->\n      <!-- <div class=\"pull-left info\"> -->\n        <!-- <p>Alexander Pierce</p> -->\n        <!-- <a href=\"#\"><i class=\"fa fa-circle text-success\"></i> Online</a> -->\n      <!-- </div> -->\n    <!-- </div> -->\n\t\n    <!-- search form -->\n    <!-- <form action=\"#\" method=\"get\" class=\"sidebar-form\"> -->\n      <!-- <div class=\"input-group\"> -->\n        <!-- <input type=\"text\" name=\"q\" class=\"form-control\" placeholder=\"Search...\"> -->\n        <!-- <span class=\"input-group-btn\"> -->\n                <!-- <button type=\"submit\" name=\"search\" id=\"search-btn\" class=\"btn btn-flat\"><i class=\"fa fa-search\"></i> -->\n                <!-- </button> -->\n              <!-- </span> -->\n      <!-- </div> -->\n    <!-- </form> -->\n    <!-- /.search form -->\n    <!-- sidebar menu: : style can be found in sidebar.less -->\n\n    <ul class=\"sidebar-menu\">\n      <li class=\"header\">NAVEGACION PRINCIPAL</li>\n\t  \t <!--####################### MULTINIVEL PANEL DE CONTROL#######################################-->\n      <!-- <li class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-dashboard\"></i> <span>Panel de control</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n          <!-- <li class=\"active\"><a routerLink=\"dashboard1\"><i class=\"fa fa-circle-o\"></i> Dashboard v1</a></li> -->\n          <!-- <li><a routerLink=\"dashboard2\"><i class=\"fa fa-circle-o\"></i> Dashboard v2</a></li> -->\n\t\t  <!-- <li><a routerLink=\"dashboard3\"><i class=\"fa fa-circle-o\"></i> Dashboard v3</a></li> -->\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  <!--####################### MULTINIVEL PANEL DE CONTROL#######################################-->\n\t  <!-- <li class=\"active\"><a href=\"/admin/pos\"><i class=\"fa fa-th\"></i> <span>Punto de venta</span></a></li> -->\n\t    <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"dashboard3\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-dashboard\"></i> <span>PANEL DE CONTROL</span></a></li>\n\t\n\n\n\t\n\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"mediciones\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i><span>MEDICIONES</span></a></li> \n\t\t <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"mediciones_horiz\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i><span>MEDICIONESv2</span></a></li> -->\n\t\n\t<!-- <li *ngIf=\"auth.getCajaReg() != 'NO'\" class=\"active\"><a routerLink=\"pos-cajaregistradora\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fax\"></i> <span>Caja Registradora</span></a></li> -->\n\t\t\n\t\n\t<!-- <li  class=\"active\"><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-cubes\"></i> <span>Ingresos de productos</span></a></li> -->\n\n\t <li *ngIf=\"auth.getConfPV() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-th\"></i> <span>PUNTO DE VENTA</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n        \n\t\t\t<li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"pos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-2x fa-tablet\"></i>PDV MOVIL</a></li>\n\t\t\t<li *ngIf=\"auth.getCajaReg() != 'NO'\" (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"pos-cajaregistradora\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fax\"></i>Caja Registradora</a></li>\n\t\t\t<li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_pdv\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-list\"></i>Lista Ventas PDV</a></li>\n\t\t\t<li  *ngIf=\"auth.getConfServicios() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-hand-paper-o\"></i> Servicios\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_servicios\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Servicio</a></li>\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_servicios\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Servicios</a></li>\n\t\t\t\t</ul>\n\t\t\t</li>\n\n\t  </ul>\n      </li>\n\t  \n\t  <li *ngIf=\"auth.getModInventario() == 'SI' && (auth.getTipacc() == 'T' || (auth.getTipacc() == 'P' && auth.getConfPerfilParcial('pb_2')))\"  class=\"treeview\" style=\"height: auto;\">\n\t\t   <a href=\"#\">\n\t\t   <i class=\"fa fa-cubes\"></i> <span>INVENTARIO</span>\n\t\t   <span class=\"pull-right-container\">\n\t\t   <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t   </span>\n\t\t   </a>\n\t\t   \n\t\t   \n\t\t   <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t  <li *ngIf=\"auth.getConfArticulos() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"glyphicon glyphicon-apple\"></i> Productos\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Producto</a></li>\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Productos</a></li>\n\t\t\t\t</ul>\n\t\t\t  </li>\n\n\t\t\t  <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-plus-square\"></i> Ingreso a bodega\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t \t<li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i> Ingreso general</a></li>\n\t\t\t\t\t<li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_ingresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i> Lista de Ingresos</a></li>\n\t\t\t\t </ul>\n\t\t\t  </li>\n\t\t\t  <li *ngIf=\"auth.getEgresoBodega() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-forward\"></i> Egresos a bodega\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t \n\t\t\t\t \t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li>\n\t\t\t\t\t<li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li>\n\t\t\t\t </ul>\n\t\t\t  </li>\n\t\t\t  \n\t\t\t  <!-- <li *ngIf=\"auth.getEgresoBodega() != 'NO'\" class=\"treeview\"> -->\n\t\t\t\t <!-- <a href=\"#\"><i class=\"fa fa-forward\"></i> Conteo Físico -->\n\t\t\t\t <!-- <span class=\"pull-right-container\"> -->\n\t\t\t\t <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n\t\t\t\t <!-- </span> -->\n\t\t\t\t <!-- </a> -->\n\t\t\t\t <!-- <ul class=\"treeview-menu\" style=\"display: none;\"> -->\n\t\t\t\t \n\t\t\t\t \t<!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li> -->\n\t\t\t\t\t<!-- <li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li> -->\n\t\t\t\t <!-- </ul> -->\n\t\t\t  <!-- </li> -->\n\t\t\t  \n\t\t\t  \t<li *ngIf=\"auth.getActConteoFisico() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"conteo_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i> <span>Conteo Físico</span></a></li>\n\n\t\t   </ul>\n\t\t</li>\n\t  \n\t \n\t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-cubes\"></i> <span>Ingresos Productos</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Ingresos de productos</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_ingresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Ingresos</a></li> -->\n\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-external-link-square\"></i> <span>Despachos facturas</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <!-- <li class=\"active\"><a routerLink=\"despacho\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar descarga</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_fac_pend_despachos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista facturas por despachar</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_fac_despachadas\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista facturas despachadas</a></li> -->\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t  \n\t  \t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-forward\"></i> <span>Registro egresos</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li> -->\n\t\t\t<!-- <li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li> -->\n\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t<!-- <li *ngIf=\"auth.getConfArticulos() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <!-- <!-- <!-- <i class=\"glyphicon glyphicon-lamp\"></i>  --> \n\t\t\t <!-- <i class=\"glyphicon glyphicon-apple\"></i>  -->\n\t\t\t<!-- <span>PRODUCTOS</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n          <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Producto</a></li> -->\n\t\t  <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Productos</a></li> -->\n\t\t\n\t\t<!-- </ul> -->\n      <!-- </li>  -->\n\n\t <li *ngIf=\"auth.getClientes() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-users\"></i> <span>CLIENTES</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n          <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Cliente</a></li>\n\t\t  <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"consulta_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Consultar/Modif Cliente</a></li>\n          <!-- <li><a routerLink=\"dashboard2\"><i class=\"fa fa-circle-o\"></i> Dashboard v2</a></li> -->\n\t\t  <!-- <li><a routerLink=\"dashboard3\"><i class=\"fa fa-circle-o\"></i> Dashboard v3</a></li> -->\n        </ul>\n      </li> \n\t  \n\t  <!--  -->\n\t  \n\t <li *ngIf=\"auth.getConfAjustes() != 'NO'\"  class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-gears\"></i> <span>AJUSTES</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n          <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_config\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Configuracion general</a></li>\n\t\t  <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"consulta_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Consultar/Modif Cliente</a></li> -->\n\n        </ul>\n      </li> \n\t  \t  <!--####################### MULTINIVEL PEDIDOS#######################################-->\n      <li *ngIf=\"auth.getPedidos() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-plus\"></i> \n\t\t<span>PEDIDOS</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t\n\t\t\t   <!-- <a [routerLink]=\"['/profile']\" [queryParams]=\"{ruc: auth.getRUC()}\" class=\"nav-link\" >Comprobantes descargados</a> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Pedidos</a></li>\n\t\t  <li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Agregar Pedido</a></li>\n\t\t <li  *ngIf=\"auth.getConfGeoloc() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"registrar_visita\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Registrar visita cliente</a></li>\n\t\t <li  *ngIf=\"auth.getConfGeoloc() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"reporte_visita\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Reporte visita vendedores</a></li>\n\t\t <!-- <li><a href=\"#\"><i class=\"fa fa-circle-o\"></i>Lista de Pedidos</a></li> -->\n          <!-- <li><a href=\"#\"><i class=\"fa fa-circle-o\"></i>Agregar Pedido</a></li> -->\n        </ul>\n      </li>\n\t  \n\t <!--####################### MULTINIVEL PEDIDOS#######################################-->\n      <li *ngIf=\"auth.getConfPedidoMedico() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-heartbeat\"></i> \n\t\t<span>ORDEN FACTURACION</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t\n\t\t\t   <!-- <a [routerLink]=\"['/profile']\" [queryParams]=\"{ruc: auth.getRUC()}\" class=\"nav-link\" >Comprobantes descargados</a> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_ped_medicos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de ordenes</a></li>\n\t\t  <li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_pedidos_medicos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Agregar orden facturacion</a></li>\n\t\n        </ul>\n      </li>\n\t  \n\t  \n\t <li *ngIf=\"auth.getCalendario() != 'NO'\"  class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-calendar\"></i> \n\t\t<span>Caledario</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"agenda_calendario\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Ver calendario</a></li>\n        <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"admin-reporte-pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Reporte de rutas por fechas</a></li>\n\t\t</ul>\n      </li>\n\t  \n\t  \n\t  <li *ngIf=\"auth.getTalleres() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-fw fa-wrench\"></i> \n\t\t<span>TALLERES</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a  routerLink=\"taller_orden\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li>\n\t\t<!-- <li><a [routerLinkActive]=\"['active']\" [routerLink]=\"['/admin/taller_orden', tokenid]\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_ordenes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-reorder\"></i>Lista de ordenes</a></li>\n\t\t</ul>\n      </li>\n\t  \n\t  \n\t <li *ngIf=\"auth.getWhatsapp() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<!-- <i class=\"fa fa-fw fa-whatsapp\"></i>  -->\n\t\t<a class=\"tip btn bg-green btn-xs\"><i class=\"fa fa-2x fa-whatsapp\"></i></a> \n\t\t<span>CENTRO DE MSGs</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<!-- <li (click)=\"ocultar_menu_moviles()\"><a  routerLink=\"taller_orden\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear mensaje masivo</a></li> -->\n\t\t<!-- <li><a [routerLinkActive]=\"['active']\" [routerLink]=\"['/admin/taller_orden', tokenid]\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_msg_whatsapp\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-reorder\"></i>Cola de mensajes</a></li>\n\t\t</ul>\n      </li>\n\n    </ul>\n  </section>\n  <!-- /.sidebar -->\n</aside>\n"
+module.exports = "<aside class=\"main-sidebar\">\n  <!-- sidebar: style can be found in sidebar.less -->\n  <section class=\"sidebar\">\n    <!-- Sidebar user panel -->\n    <!-- <div class=\"user-panel\"> -->\n      <!-- <div class=\"pull-left image\"> -->\n        <!-- <img src=\"assets/img/user2-160x160.jpg\" class=\"img-circle\" alt=\"User Image\"> -->\n      <!-- </div> -->\n      <!-- <div class=\"pull-left info\"> -->\n        <!-- <p>Alexander Pierce</p> -->\n        <!-- <a href=\"#\"><i class=\"fa fa-circle text-success\"></i> Online</a> -->\n      <!-- </div> -->\n    <!-- </div> -->\n\t\n    <!-- search form -->\n    <!-- <form action=\"#\" method=\"get\" class=\"sidebar-form\"> -->\n      <!-- <div class=\"input-group\"> -->\n        <!-- <input type=\"text\" name=\"q\" class=\"form-control\" placeholder=\"Search...\"> -->\n        <!-- <span class=\"input-group-btn\"> -->\n                <!-- <button type=\"submit\" name=\"search\" id=\"search-btn\" class=\"btn btn-flat\"><i class=\"fa fa-search\"></i> -->\n                <!-- </button> -->\n              <!-- </span> -->\n      <!-- </div> -->\n    <!-- </form> -->\n    <!-- /.search form -->\n    <!-- sidebar menu: : style can be found in sidebar.less -->\n\n    <ul class=\"sidebar-menu\">\n      <li class=\"header\">NAVEGACION PRINCIPAL</li>\n\t  \t <!--####################### MULTINIVEL PANEL DE CONTROL#######################################-->\n      <!-- <li class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-dashboard\"></i> <span>Panel de control</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n          <!-- <li class=\"active\"><a routerLink=\"dashboard1\"><i class=\"fa fa-circle-o\"></i> Dashboard v1</a></li> -->\n          <!-- <li><a routerLink=\"dashboard2\"><i class=\"fa fa-circle-o\"></i> Dashboard v2</a></li> -->\n\t\t  <!-- <li><a routerLink=\"dashboard3\"><i class=\"fa fa-circle-o\"></i> Dashboard v3</a></li> -->\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  <!--####################### MULTINIVEL PANEL DE CONTROL#######################################-->\n\t  <!-- <li class=\"active\"><a href=\"/admin/pos\"><i class=\"fa fa-th\"></i> <span>Punto de venta</span></a></li> -->\n\t    <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"dashboard3\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-dashboard\"></i> <span>PANEL DE CONTROL</span></a></li>\n\t\n\n\n\t\n\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"mediciones\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i><span>MEDICIONES</span></a></li> \n\t\t <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"mediciones_horiz\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i><span>MEDICIONESv2</span></a></li> -->\n\t\n\t<!-- <li *ngIf=\"auth.getCajaReg() != 'NO'\" class=\"active\"><a routerLink=\"pos-cajaregistradora\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fax\"></i> <span>Caja Registradora</span></a></li> -->\n\t\t\n\t\n\t<!-- <li  class=\"active\"><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-cubes\"></i> <span>Ingresos de productos</span></a></li> -->\n\n\t <li *ngIf=\"auth.getConfPV() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-th\"></i> <span>PUNTO DE VENTA</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n        \n\t\t\t<li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"pos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-2x fa-tablet\"></i>PDV MOVIL</a></li>\n\t\t\t<li *ngIf=\"auth.getCajaReg() != 'NO'\" (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"pos-cajaregistradora\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fax\"></i>Caja Registradora</a></li>\n\t\t\t<li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_pdv\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-list\"></i>Lista Ventas PDV</a></li>\n\t\t\t<li  *ngIf=\"auth.getConfServicios() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-hand-paper-o\"></i> Servicios\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_servicios\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Servicio</a></li>\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_servicios\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Servicios</a></li>\n\t\t\t\t</ul>\n\t\t\t</li>\n\n\t  </ul>\n      </li>\n\t  \n\t  <li *ngIf=\"auth.getModInventario() == 'SI' && (auth.getTipacc() == 'T' || (auth.getTipacc() == 'P' && auth.getConfPerfilParcial('pb_2')))\"  class=\"treeview\" style=\"height: auto;\">\n\t\t   <a href=\"#\">\n\t\t   <i class=\"fa fa-cubes\"></i> <span>INVENTARIO</span>\n\t\t   <span class=\"pull-right-container\">\n\t\t   <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t   </span>\n\t\t   </a>\n\t\t   \n\t\t   \n\t\t   <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t  <li *ngIf=\"auth.getConfArticulos() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"glyphicon glyphicon-apple\"></i> Productos\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Producto</a></li>\n\t\t\t\t\t<li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Productos</a></li>\n\t\t\t\t</ul>\n\t\t\t  </li>\n\n\t\t\t  <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-plus-square\"></i> Ingreso a bodega\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t \t<li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i> Ingreso general</a></li>\n\t\t\t\t\t<li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_ingresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i> Lista de Ingresos</a></li>\n\t\t\t\t </ul>\n\t\t\t  </li>\n\t\t\t  <li *ngIf=\"auth.getEgresoBodega() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-forward\"></i> Egresos a bodega\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t \n\t\t\t\t \t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li>\n\t\t\t\t\t<li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li>\n\t\t\t\t </ul>\n\t\t\t  </li>\n\t\t\t  \n\t\t\t   <li *ngIf=\"auth.getActTransfBodega() != 'NO'\" class=\"treeview\">\n\t\t\t\t <a href=\"#\"><i class=\"fa fa-exchange\"></i> Trasferencia de bodega\n\t\t\t\t <span class=\"pull-right-container\">\n\t\t\t\t <i class=\"fa fa-angle-left pull-right\"></i>\n\t\t\t\t </span>\n\t\t\t\t </a>\n\t\t\t\t <ul class=\"treeview-menu\" style=\"display: none;\">\n\t\t\t\t \n\t\t\t\t \t<li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"transf_bodegas\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar transferencia</a></li>\n\t\t\t\t\t<li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_transferencias\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista transferencia</a></li>\n\t\t\t\t </ul>\n\t\t\t  </li>\n\t\t\t  \n\t\t\t  <!-- <li *ngIf=\"auth.getEgresoBodega() != 'NO'\" class=\"treeview\"> -->\n\t\t\t\t <!-- <a href=\"#\"><i class=\"fa fa-forward\"></i> Conteo Físico -->\n\t\t\t\t <!-- <span class=\"pull-right-container\"> -->\n\t\t\t\t <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n\t\t\t\t <!-- </span> -->\n\t\t\t\t <!-- </a> -->\n\t\t\t\t <!-- <ul class=\"treeview-menu\" style=\"display: none;\"> -->\n\t\t\t\t \n\t\t\t\t \t<!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li> -->\n\t\t\t\t\t<!-- <li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li> -->\n\t\t\t\t <!-- </ul> -->\n\t\t\t  <!-- </li> -->\n\t\t\t  \n\t\t\t  \t<li *ngIf=\"auth.getActConteoFisico() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"conteo_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-check\"></i> <span>Conteo Físico</span></a></li>\n\n\t\t   </ul>\n\t\t</li>\n\t  \n\t \n\t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-cubes\"></i> <span>Ingresos Productos</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"ingreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Ingresos de productos</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_ingresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Ingresos</a></li> -->\n\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-external-link-square\"></i> <span>Despachos facturas</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <!-- <li class=\"active\"><a routerLink=\"despacho\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar descarga</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_fac_pend_despachos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista facturas por despachar</a></li> -->\n\t\t\t<!-- <li (click)=\"ocultar_menu_moviles()\" class=\"active\"><a routerLink=\"lista_fac_despachadas\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista facturas despachadas</a></li> -->\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t  \n\t  \t <!-- <li *ngIf=\"auth.getIngresoBodega() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <i class=\"fa fa-forward\"></i> <span>Registro egresos</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n \n\t\t\t<!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"egreso_articulos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Realizar egreso</a></li> -->\n\t\t\t<!-- <li class=\"active\"(click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_egresos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista egresos</a></li> -->\n\n\n        <!-- </ul> -->\n      <!-- </li> -->\n\t  \n\t<!-- <li *ngIf=\"auth.getConfArticulos() != 'NO'\" class=\"treeview\"> -->\n        <!-- <a href=\"#\"> -->\n            <!-- <!-- <!-- <!-- <i class=\"glyphicon glyphicon-lamp\"></i>  --> \n\t\t\t <!-- <i class=\"glyphicon glyphicon-apple\"></i>  -->\n\t\t\t<!-- <span>PRODUCTOS</span> -->\n            <!-- <span class=\"pull-right-container\"> -->\n              <!-- <i class=\"fa fa-angle-left pull-right\"></i> -->\n            <!-- </span> -->\n          <!-- </a> -->\n        <!-- <ul class=\"treeview-menu\"> -->\n          <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Producto</a></li> -->\n\t\t  <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"lista_productos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Productos</a></li> -->\n\t\t\n\t\t<!-- </ul> -->\n      <!-- </li>  -->\n\n\t <li *ngIf=\"auth.getClientes() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-users\"></i> <span>CLIENTES</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n          <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Crear Cliente</a></li>\n\t\t  <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"consulta_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Consultar/Modif Cliente</a></li>\n          <!-- <li><a routerLink=\"dashboard2\"><i class=\"fa fa-circle-o\"></i> Dashboard v2</a></li> -->\n\t\t  <!-- <li><a routerLink=\"dashboard3\"><i class=\"fa fa-circle-o\"></i> Dashboard v3</a></li> -->\n        </ul>\n      </li> \n\t  \n\t  <!--  -->\n\t  \n\t <li *ngIf=\"auth.getConfAjustes() != 'NO'\"  class=\"treeview\">\n        <a href=\"#\">\n            <i class=\"fa fa-gears\"></i> <span>AJUSTES</span>\n            <span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n          <li class=\"active\" (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_config\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Configuracion general</a></li>\n\t\t  <!-- <li class=\"active\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"consulta_clientes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Consultar/Modif Cliente</a></li> -->\n\n        </ul>\n      </li> \n\t  \t  <!--####################### MULTINIVEL PEDIDOS#######################################-->\n      <li *ngIf=\"auth.getPedidos() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-plus\"></i> \n\t\t<span>PEDIDOS</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t\n\t\t\t   <!-- <a [routerLink]=\"['/profile']\" [queryParams]=\"{ruc: auth.getRUC()}\" class=\"nav-link\" >Comprobantes descargados</a> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de Pedidos</a></li>\n\t\t  <li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"crear_pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Agregar Pedido</a></li>\n\t\t <li  *ngIf=\"auth.getConfGeoloc() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"registrar_visita\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Registrar visita cliente</a></li>\n\t\t <li  *ngIf=\"auth.getConfGeoloc() != 'NO'\" (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"reporte_visita\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Reporte visita vendedores</a></li>\n\t\t <!-- <li><a href=\"#\"><i class=\"fa fa-circle-o\"></i>Lista de Pedidos</a></li> -->\n          <!-- <li><a href=\"#\"><i class=\"fa fa-circle-o\"></i>Agregar Pedido</a></li> -->\n        </ul>\n      </li>\n\t  \n\t <!--####################### MULTINIVEL PEDIDOS#######################################-->\n      <li *ngIf=\"auth.getConfPedidoMedico() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-heartbeat\"></i> \n\t\t<span>ORDEN FACTURACION</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t\n\t\t\t   <!-- <a [routerLink]=\"['/profile']\" [queryParams]=\"{ruc: auth.getRUC()}\" class=\"nav-link\" >Comprobantes descargados</a> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_ped_medicos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Lista de ordenes</a></li>\n\t\t  <li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"admin_pedidos_medicos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Agregar orden facturacion</a></li>\n\t\n        </ul>\n      </li>\n\t  \n\t  \n\t <li *ngIf=\"auth.getCalendario() != 'NO'\"  class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-calendar\"></i> \n\t\t<span>Caledario</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"agenda_calendario\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Ver calendario</a></li>\n        <li (click)=\"ocultar_menu_moviles()\" ><a routerLink=\"admin-reporte-pedidos\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-circle-o\"></i>Reporte de rutas por fechas</a></li>\n\t\t</ul>\n      </li>\n\t  \n\t  \n\t  <li *ngIf=\"auth.getTalleres() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<i class=\"fa fa-fw fa-wrench\"></i> \n\t\t<span>TALLERES</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a  routerLink=\"taller_orden\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li>\n\t\t<!-- <li><a [routerLinkActive]=\"['active']\" [routerLink]=\"['/admin/taller_orden', tokenid]\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_ordenes\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-reorder\"></i>Lista de ordenes</a></li>\n\t\t</ul>\n      </li>\n\t  \n\t  \n\t <li *ngIf=\"auth.getWhatsapp() != 'NO'\" class=\"treeview\">\n        <a href=\"#\">\n\t\t<!-- <i class=\"fa fa-fw fa-whatsapp\"></i>  -->\n\t\t<a class=\"tip btn bg-green btn-xs\"><i class=\"fa fa-2x fa-whatsapp\"></i></a> \n\t\t<span>CENTRO DE MSGs</span>\n\t\t\t<span class=\"pull-right-container\">\n              <i class=\"fa fa-angle-left pull-right\"></i>\n            </span>\n          </a>\n        <ul class=\"treeview-menu\">\n\t\t<!-- <li (click)=\"ocultar_menu_moviles()\"><a  routerLink=\"taller_orden\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear mensaje masivo</a></li> -->\n\t\t<!-- <li><a [routerLinkActive]=\"['active']\" [routerLink]=\"['/admin/taller_orden', tokenid]\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Crear Orden de trabajo</a></li> -->\n\t\t<li (click)=\"ocultar_menu_moviles()\"><a routerLink=\"lista_msg_whatsapp\" [queryParams]=\"{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}\" ><i class=\"fa fa-fw fa-reorder\"></i>Cola de mensajes</a></li>\n\t\t</ul>\n      </li>\n\n    </ul>\n  </section>\n  <!-- /.sidebar -->\n</aside>\n"
 
 /***/ }),
 
@@ -17404,6 +17404,277 @@ var AdminListaServiciosComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], AdminListaServiciosComponent);
     return AdminListaServiciosComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.css":
+/*!******************************************************************************************!*\
+  !*** ./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.css ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".example-full-width {\r\n  min-width: 150px;\r\n  min-height: 30px;\r\n  width: 100%;\r\n}\r\n\r\nmat-selection-list {\r\n  max-height: 200px;\r\n  overflow: auto;\r\n}\r\n\r\n.table-responsive-pedidos {\r\n    min-height: 0.01%;\r\n    overflow-x: auto;\r\n    overflow-y: auto;\r\n    max-height: 150px;\r\n}\r\n\r\n.redactor-box {\r\n    position: relative;\r\n    overflow: visible;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n.redactor-editor {\r\n    position: relative;\r\n    overflow: auto;\r\n    margin: 0 !important;\r\n    padding: 10px;\r\n    outline: none;\r\n    white-space: normal;\r\n    line-height: 1.6em;\r\n}\r\n\r\n/*\r\n   server-side-angular-way.component.css\r\n*/\r\n\r\n.no-data-available {\r\n  text-align: center;\r\n}\r\n\r\n/*\r\n   src/styles.css (i.e. your global style)\r\n*/\r\n\r\n.dataTables_empty {\r\n  display: none;\r\n}\r\n\r\ninput[type=date] {\r\n  height: 35px;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n  font-family: arial, sans-serif;\r\n  font-size: 18px;\r\n  padding: 0 3px;\r\n}\r\n\r\n/* /* border: DE AQUI ABAJO ES LA TABLA SCROLL; */\r\n\r\n/* table.scroll { */\r\n\r\n/* width: 100%; */\r\n\r\n/* border-spacing: 0; */\r\n\r\n/* /* border: 2px solid black; */\r\n\r\n/* } */\r\n\r\n/* table.scroll th, */\r\n\r\n/* table.scroll td, */\r\n\r\n/* table.scroll tr, */\r\n\r\n/* table.scroll thead, */\r\n\r\n/* table.scroll tbody { display: block; } */\r\n\r\n/* table.scroll thead tr { */\r\n\r\n/* /* fallback */\r\n\r\n/* width: 97%; */\r\n\r\n/* /* minus scroll bar width */\r\n\r\n/* width: -webkit-calc(100% - 16px); */\r\n\r\n/* width:    -moz-calc(100% - 16px); */\r\n\r\n/* width:         calc(100% - 16px); */\r\n\r\n/* } */\r\n\r\n/* table.scroll tr:after { */\r\n\r\n/* content: ' '; */\r\n\r\n/* display: block; */\r\n\r\n/* visibility: hidden; */\r\n\r\n/* clear: both; */\r\n\r\n/* } */\r\n\r\n/* table.scroll tbody { */\r\n\r\n/* height: 100px; */\r\n\r\n/* overflow-y: auto; */\r\n\r\n/* overflow-x: hidden; */\r\n\r\n/* } */\r\n\r\n/* table.scroll tbody td, */\r\n\r\n/* table.scroll thead th { */\r\n\r\n/* width: 19%; */\r\n\r\n/* float: left; */\r\n\r\n/* /* border-right: 1px solid black; */\r\n\r\n/* } */\r\n\r\n/* thead tr th {  */\r\n\r\n/* height: 30px; */\r\n\r\n/* line-height: 30px; */\r\n\r\n/* /*text-align: left;*/\r\n\r\n/* } */\r\n\r\n/* /* tbody { border-top: 2px solid black; } */\r\n\r\n/* tbody td:last-child, thead th:last-child { */\r\n\r\n/* border-right: none !important; */\r\n\r\n/* } */\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tbGlzdGEtdHJhbnNmZXJlbmNpYS9hZG1pbi1saXN0YS10cmFuc2ZlcmVuY2lhcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0VBQ2pCLGlCQUFpQjtFQUNqQixZQUFZO0NBQ2I7O0FBRUQ7RUFDRSxrQkFBa0I7RUFDbEIsZUFBZTtDQUNoQjs7QUFHRDtJQUNJLGtCQUFrQjtJQUNsQixpQkFBaUI7SUFDakIsaUJBQWlCO0lBQ2pCLGtCQUFrQjtDQUNyQjs7QUFFRDtJQUNJLG1CQUFtQjtJQUNuQixrQkFBa0I7SUFDbEIsdUJBQXVCO0NBQzFCOztBQUVEO0lBQ0ksbUJBQW1CO0lBQ25CLGVBQWU7SUFDZixxQkFBcUI7SUFDckIsY0FBYztJQUNkLGNBQWM7SUFDZCxvQkFBb0I7SUFDcEIsbUJBQW1CO0NBQ3RCOztBQUdEOztFQUVFOztBQUNGO0VBQ0UsbUJBQW1CO0NBQ3BCOztBQUVEOztFQUVFOztBQUNGO0VBQ0UsY0FBYztDQUNmOztBQUVEO0VBQ0UsYUFBYTtFQUNiLGVBQWU7RUFDZixZQUFZO0VBQ1osK0JBQStCO0VBQy9CLGdCQUFnQjtFQUNoQixlQUFlO0NBQ2hCOztBQUlELGtEQUFrRDs7QUFDbEQsb0JBQW9COztBQUNoQixrQkFBa0I7O0FBQ2xCLHdCQUF3Qjs7QUFDeEIsaUNBQWlDOztBQUNyQyxPQUFPOztBQUVQLHNCQUFzQjs7QUFDdEIsc0JBQXNCOztBQUN0QixzQkFBc0I7O0FBQ3RCLHlCQUF5Qjs7QUFDekIsNENBQTRDOztBQUU1Qyw2QkFBNkI7O0FBQ3pCLGlCQUFpQjs7QUFDakIsaUJBQWlCOztBQUNqQiwrQkFBK0I7O0FBQy9CLHVDQUF1Qzs7QUFDdkMsdUNBQXVDOztBQUN2Qyx1Q0FBdUM7O0FBQzNDLE9BQU87O0FBRVAsNkJBQTZCOztBQUN6QixtQkFBbUI7O0FBQ25CLHFCQUFxQjs7QUFDckIseUJBQXlCOztBQUN6QixrQkFBa0I7O0FBQ3RCLE9BQU87O0FBRVAsMEJBQTBCOztBQUN0QixvQkFBb0I7O0FBQ3BCLHVCQUF1Qjs7QUFDdkIseUJBQXlCOztBQUM3QixPQUFPOztBQUVQLDRCQUE0Qjs7QUFDNUIsNkJBQTZCOztBQUN6QixpQkFBaUI7O0FBQ2pCLGtCQUFrQjs7QUFDbEIsdUNBQXVDOztBQUMzQyxPQUFPOztBQUVQLG9CQUFvQjs7QUFDaEIsbUJBQW1COztBQUNuQix3QkFBd0I7O0FBQ3hCLHdCQUF3Qjs7QUFDNUIsT0FBTzs7QUFFUCwrQ0FBK0M7O0FBRS9DLGdEQUFnRDs7QUFDNUMsb0NBQW9DOztBQUN4QyxPQUFPIiwiZmlsZSI6InNyYy9hcHAvYWRtaW4vYWRtaW4tbGlzdGEtdHJhbnNmZXJlbmNpYS9hZG1pbi1saXN0YS10cmFuc2ZlcmVuY2lhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmV4YW1wbGUtZnVsbC13aWR0aCB7XHJcbiAgbWluLXdpZHRoOiAxNTBweDtcclxuICBtaW4taGVpZ2h0OiAzMHB4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG5tYXQtc2VsZWN0aW9uLWxpc3Qge1xyXG4gIG1heC1oZWlnaHQ6IDIwMHB4O1xyXG4gIG92ZXJmbG93OiBhdXRvO1xyXG59XHJcblxyXG5cclxuLnRhYmxlLXJlc3BvbnNpdmUtcGVkaWRvcyB7XHJcbiAgICBtaW4taGVpZ2h0OiAwLjAxJTtcclxuICAgIG92ZXJmbG93LXg6IGF1dG87XHJcbiAgICBvdmVyZmxvdy15OiBhdXRvO1xyXG4gICAgbWF4LWhlaWdodDogMTUwcHg7XHJcbn1cclxuXHJcbi5yZWRhY3Rvci1ib3gge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgb3ZlcmZsb3c6IHZpc2libGU7XHJcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xyXG59XHJcblxyXG4ucmVkYWN0b3ItZWRpdG9yIHtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIG92ZXJmbG93OiBhdXRvO1xyXG4gICAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG4gICAgb3V0bGluZTogbm9uZTtcclxuICAgIHdoaXRlLXNwYWNlOiBub3JtYWw7XHJcbiAgICBsaW5lLWhlaWdodDogMS42ZW07XHJcbn1cclxuXHJcblxyXG4vKlxyXG4gICBzZXJ2ZXItc2lkZS1hbmd1bGFyLXdheS5jb21wb25lbnQuY3NzXHJcbiovXHJcbi5uby1kYXRhLWF2YWlsYWJsZSB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4vKlxyXG4gICBzcmMvc3R5bGVzLmNzcyAoaS5lLiB5b3VyIGdsb2JhbCBzdHlsZSlcclxuKi9cclxuLmRhdGFUYWJsZXNfZW1wdHkge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9ZGF0ZV0ge1xyXG4gIGhlaWdodDogMzVweDtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICB3aWR0aDogMTAwJTtcclxuICBmb250LWZhbWlseTogYXJpYWwsIHNhbnMtc2VyaWY7XHJcbiAgZm9udC1zaXplOiAxOHB4O1xyXG4gIHBhZGRpbmc6IDAgM3B4O1xyXG59XHJcblxyXG5cclxuXHJcbi8qIC8qIGJvcmRlcjogREUgQVFVSSBBQkFKTyBFUyBMQSBUQUJMQSBTQ1JPTEw7ICovIFxyXG4vKiB0YWJsZS5zY3JvbGwgeyAqL1xyXG4gICAgLyogd2lkdGg6IDEwMCU7ICovXHJcbiAgICAvKiBib3JkZXItc3BhY2luZzogMDsgKi9cclxuICAgIC8qIC8qIGJvcmRlcjogMnB4IHNvbGlkIGJsYWNrOyAqLyBcclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRoLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGQsICovXHJcbi8qIHRhYmxlLnNjcm9sbCB0ciwgKi9cclxuLyogdGFibGUuc2Nyb2xsIHRoZWFkLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGJvZHkgeyBkaXNwbGF5OiBibG9jazsgfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRoZWFkIHRyIHsgKi9cclxuICAgIC8qIC8qIGZhbGxiYWNrICovIFxyXG4gICAgLyogd2lkdGg6IDk3JTsgKi9cclxuICAgIC8qIC8qIG1pbnVzIHNjcm9sbCBiYXIgd2lkdGggKi9cclxuICAgIC8qIHdpZHRoOiAtd2Via2l0LWNhbGMoMTAwJSAtIDE2cHgpOyAqL1xyXG4gICAgLyogd2lkdGg6ICAgIC1tb3otY2FsYygxMDAlIC0gMTZweCk7ICovXHJcbiAgICAvKiB3aWR0aDogICAgICAgICBjYWxjKDEwMCUgLSAxNnB4KTsgKi9cclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRyOmFmdGVyIHsgKi9cclxuICAgIC8qIGNvbnRlbnQ6ICcgJzsgKi9cclxuICAgIC8qIGRpc3BsYXk6IGJsb2NrOyAqL1xyXG4gICAgLyogdmlzaWJpbGl0eTogaGlkZGVuOyAqL1xyXG4gICAgLyogY2xlYXI6IGJvdGg7ICovXHJcbi8qIH0gKi9cclxuXHJcbi8qIHRhYmxlLnNjcm9sbCB0Ym9keSB7ICovXHJcbiAgICAvKiBoZWlnaHQ6IDEwMHB4OyAqL1xyXG4gICAgLyogb3ZlcmZsb3cteTogYXV0bzsgKi9cclxuICAgIC8qIG92ZXJmbG93LXg6IGhpZGRlbjsgKi9cclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRib2R5IHRkLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGhlYWQgdGggeyAqL1xyXG4gICAgLyogd2lkdGg6IDE5JTsgKi9cclxuICAgIC8qIGZsb2F0OiBsZWZ0OyAqL1xyXG4gICAgLyogLyogYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7ICovIFxyXG4vKiB9ICovXHJcblxyXG4vKiB0aGVhZCB0ciB0aCB7ICAqL1xyXG4gICAgLyogaGVpZ2h0OiAzMHB4OyAqL1xyXG4gICAgLyogbGluZS1oZWlnaHQ6IDMwcHg7ICovXHJcbiAgICAvKiAvKnRleHQtYWxpZ246IGxlZnQ7Ki8gXHJcbi8qIH0gKi9cclxuXHJcbi8qIC8qIHRib2R5IHsgYm9yZGVyLXRvcDogMnB4IHNvbGlkIGJsYWNrOyB9ICovIFxyXG5cclxuLyogdGJvZHkgdGQ6bGFzdC1jaGlsZCwgdGhlYWQgdGg6bGFzdC1jaGlsZCB7ICovXHJcbiAgICAvKiBib3JkZXItcmlnaHQ6IG5vbmUgIWltcG9ydGFudDsgKi9cclxuLyogfSAqLyJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      <!-- Page Header 1111 -->\n\t   Lista de tranferencias\n      <small>Consulta de las transferencias de bodegas</small>\n    </h1>\n    <ol class=\"breadcrumb\">\n      <li><i class=\"fa fa-dashboard\"></i>Transferencias</li>\n      <li class=\"active\">Lista de Tranferencias</li>\n    </ol>\n  </section>\n  \n    <div *ngIf=\"success\" class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"alert alert-dismissable\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"alert alert-success alert-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">X</button>\n            <h4>\t<i class=\"icon fa fa-check\"></i> Éxito</h4> Pedido agregado con éxito \n\t\t</div>\n    </div>\n\t\n\t<div *ngIf=\"success_act\" class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"alert alert-dismissable\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"alert alert-success alert-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">X</button>\n            <h4>\t<i class=\"icon fa fa-check\"></i> Éxito</h4> Pedido actualizado con éxito \n\t\t</div>\n    </div>\n\t\n\t<div *ngIf=\"espera_correo_facturacion\"  class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"callout callout-warning\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"callout callout-warning warning-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"callout\" class=\"close\" type=\"button\">X</button>\n            <h4><i class=\"icon fa fa-warning\"></i> Enviándo correo por favor espere ..!!!</h4>Enviando correo al Departamento de Facturación...!!!\n\t\t</div>\n    </div>\n\t\n\t<div *ngIf=\"espera_exitoso_facturacion\"   class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"alert alert-dismissable\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"alert alert-success alert-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">X</button>\n            <h4>\t<i class=\"icon fa fa-check\"></i> Éxito</h4> Correo enviado con exito al Departamento de Facturación...!!!\n\t\t</div>\n    </div>\n\t\n\t<div *ngIf=\"espera_correo_pedido\"  class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"callout callout-warning\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"callout callout-warning warning-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"callout\" class=\"close\" type=\"button\">X</button>\n            <h4><i class=\"icon fa fa-warning\"></i> Enviándo correo por favor espere ..!!!</h4>Enviando correo al Cliente...!!!\n\t\t</div>\n    </div>\n\t\n\t<div *ngIf=\"espera_exitoso_pedido\"   class=\"col-lg-12 alerts\">\n        <div id=\"custom-alerts\" style=\"display:none;\">\n            <div class=\"alert alert-dismissable\">\n                <div class=\"custom-msg\"></div>\n            </div>\n        </div>\n        <div class=\"alert alert-success alert-dismissable\">\n            <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">X</button>\n            <h4>\t<i class=\"icon fa fa-check\"></i> Éxito</h4> Correo enviado con exito al Cliente...!!!\n\t\t</div>\n    </div>\n\n<section class=\"content\">\n    <div class=\"row\">\n\t\n\t\n\t    <div class=\"col-xs-12\">\n            <div class=\"box box-primary\">\n\t\t\t\n\t\t\t\t<div class=\"box-header\">\n\t\t\t\t\t<label for=\"reference\">SELECCIONE RANGO DE FECHA DE TRANSFERENCIAS </label>\n                </div>\n\t\t\t\t <div class=\"box-header text-left\">\n\t\t\t\t <!-- <div class=\"col-md-1\"> -->\n\t\t\t\t <!-- <span class=\"info-box-icon bg-aqua\"><i class=\"fa fa-fw fa-user-secret\"></i></span> -->\n\t\t\t\t <!-- </div> -->\n\t\t\t\t \n\t\t\t\t  <div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<label for=\"fecha_desde\">Fecha desde: </label>\n\t\t\t\t\t\t\t\t<input [(ngModel)]=\"fecha_desde\" type=\"date\" name=\"fecha_desde\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"1997-01-01\" max=\"2030-12-31\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t </div>\n\n\t\t\t\t <div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<label for=\"fecha_hasta\">Fecha hasta: </label>\n\t\t\t\t\t\t\t\t<input [(ngModel)]=\"fecha_hasta\" type=\"date\" name=\"fecha_hasta\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"1997-01-01\" max=\"2030-12-31\">\n\t\t\t\t </div>\n\t\t\t\t\n\t\t\t\t<div class=\"col-md-2\">\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<input  type=\"submit\" (click)=\"buscar_ingreso_fecha()\"  name=\"Buscar\" value=\"Buscar por fecha\" class=\"btn btn-primary\">\n\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\n\t\t\t\n                <!-- <div class=\"box-header\"> -->\n                    <!-- <h3 class=\"box-title\">Utilice la tabla siguiente para navegar o filtrar los resultados.</h3> -->\n                <!-- </div> -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<!-- <div class=\"box-header\"> -->\n\t\t\t\t\t<!-- <div class=\"col-md-4\"> -->\n\t\t\t\t\t  <!-- <h3 class=\"box-title\">Filtrar por fecha de entrega del pedido</h3> -->\n\t\t\t\t\t\t<!-- <mat-form-field> -->\n\t\t\t\t\t\t<!-- <input matInput [matDatepicker]=\"picker\" placeholder=\"Escoja fecha\" [(ngModel)]=\"fecha_entrega_busqueda\" name=\"fectra\" > -->\n\t\t\t\t\t\t<!-- <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle> -->\n\t\t\t\t\t\t<!-- <mat-datepicker #picker></mat-datepicker> -->\n\t\t\t\t\t\t<!-- </mat-form-field> -->\n\t\t\t\t\t<!-- <button  type=\"button\" id=\"filtrar_fecha_entrega\" (click)=\"buscar_fecha_entrega()\" class=\"btn btn-primary\" title=\"filtrar\" ><i class=\"fa fa-fw fa-search\"></i></button> -->\n\t\t\t\t\t<!-- <button  type=\"button\" id=\"ver_listado_completo\" (click)=\"ver_listado_completo()\" class=\"btn btn-warning\" title=\"filtrar\" >Ver todo el listado</button> -->\n\t\t\t\t\t<!-- </div> -->\n                <!-- </div> -->\n\t\t\t\t\n                <div class=\"box-body\">\n\t\t\t\t<div class=\"table-responsive\">\n\t\t\t\t<!-- <table *ngIf=\"!loading\" datatable class=\"row-border hover\">  -->\n\t\t\t\t\t<div *ngIf=\"loading\" class=\"col-md-12\">\n\t\t\t\t\t\t  <div class=\"box box-primary\">\n\t\t\t\t\t\t\t<div class=\"text-center box-header\">\n\t\t\t\t\t\t\t  <h3 class=\"box-title \">Cargando. Generando tabla....!!!!</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"box-body\">\n\t\t\t\t\t\t\t  <!-- The body of the box -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"overlay\">\n\t\t\t\t\t\t\t  <i class=\"fa fa-refresh fa-spin\"></i>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<!-- end loading -->\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t  <!-- /.box -->\n\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t<table *ngIf=\"!loading\" datatable [dtOptions]=\"dtOptions\" class=\"table table-striped table-bordered table-condensed table-hover dataTable\"> \n\t\t\t\t<!-- <table *ngIf=\"!loading\" datatable [dtOptions]=\"dtOptions\" class=\"dataTable\">  -->\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t  <th>Fecha</th>\n\t\t\t\t\t\t  <th>Almacen</th>\n\t\t\t\t\t\t  <th>No</th>\n\t\t\t\t\t\t  <th>Usuario</th>\n\t\t\t\t\t\t  <th>Proveedor</th>\n\t\t\t\t\t\t  <th>Total(USD)</th>\n\t\t\t\t\t\t  <th>Observación</th>\n\t\t\t\t\t\t  <!-- <th>Estado</th> -->\n\t\t\t\t\t\t  <!-- <th>Fecha/hora entrega</th> -->\n\t\t\t\t\t\t  <!-- <th>Direcc entrega</th> -->\n\t\t\t\t\t\t  <!-- <th>Ruta asignada</th> -->\n\t\t\t\t\t\t  <th style=\"width:95px;\" role=\"columnheader\" rowspan=\"1\" colspan=\"1\" >Acciones</th>\n\t\t\t\t\t\t  \n\t\t\t\t\t\t</tr>\n\t\t\t\t\t  </thead>\n\t\t\t\t\t  \n\t\t\t\t\t<tbody *ngIf=\"(lista_pedidos?.length != 0) && (!loading) \">\n\t\t\t\t\t  <tr *ngFor=\"let el of lista_pedidos;\">\n\t\t\t\t\t\t  <td>{{el.fecfac}}</td>\n\t\t\t\t\t\t   <td>{{el.nomalm}}</td>\n\t\t\t\t\t\t  <td>{{el.numfac}}</td>\n\t\t\t\t\t\t  <td>{{el.codusu}}</td>\n\t\t\t\t\t\t  <td>{{el.nompro}}</td>\n\t\t\t\t\t\t  <td>{{el.totfac}}</td>\n\t\t\t\t\t\t  <td>{{el.observ}}</td>\n\t\t\t\t\t\t  <!-- <td>{{el.email}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.total_iva}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.observ}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.status}}</td> -->\n\t\t\t\t\t\t  <!-- <td *ngIf=\"el.fecha_entrega\">{{el.fecha_entrega}} / {{el.hora_entrega}}</td> -->\n\t\t\t\t\t\t  <!-- <td *ngIf=\"!el.fecha_entrega\" class=\"text-center\" style=\"color:red\">POR PLANIFICAR</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.direccion_entrega}} -->\n\t\t\t\t\t\t  <!-- </td> -->\n\t\t\t\t\t\t  <!-- <td> -->\n\t\t\t\t\t\t  <!-- <div *ngIf=\"el!== edit_ruta\" class=\"text-center\">{{el.ruta}} -->\n\t\t\t\t\t\t  \t<!-- <a *ngIf=\"el!== edit_ruta\" (click)=\"edit_ruta_pedido(el)\"  class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar ruta\"></i></a>  -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <!-- EL QUE SIRVE --> \n\t\t\t\t\t\t\t<!-- <select *ngIf=\"el===edit_ruta\" #ruta  name=\"change_iva\" class=\"form-control\" (change)=\"update_ruta(el.numtra,el.id_agencia,ruta.value)\"> -->\n\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione ruta</option> -->\n\t\t\t\t\t\t\t<!-- <option  *ngFor=\"let e of lista_rutas; let i = index;\"  [value]=\"e.idruta\" >{{e.nombre_ruta}}</option> -->\n\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t  <!-- </td> -->\n\t\t\t\t\t\t  <td class=\"\">\n\t\t\t\t\t\t    <div class=\"text-center\">\n                                <div class=\"btn-group\">\n\t\t\t\t\t\t\t\t\t<a  routerLink=\"/admin/ingreso_articulos\" [queryParams]=\"{usuario:usuario,empresa: empresa,numfac:el.numfac}\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar ingreso\"></i></a> \n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t  </td>\n\t\t\t\t\t  </tr>\n\t\t\t\t\t</tbody> \n\t\t\t\t</table>\n\t\t\t\t\n\t\t\t\t\t<!-- <table datatable [dtOptions]=\"dtOptions\" class=\"row-border hover\"> -->\n\t\t\t\t\t<!-- <table datatable [dtOptions]=\"dtOptions\" class=\"row-border hover\"> -->\n\t\t\t\t\t  <!-- <!-- <thead> --> \n\t\t\t\t\t\t<!-- <!-- <tr> --> \n\t\t\t\t\t\t  <!-- <!-- <th>ID</th> --> \n\t\t\t\t\t\t  <!-- <!-- <th>First name</th> --> \n\t\t\t\t\t\t  <!-- <!-- <th>Last name</th> -->\n\t\t\t\t\t\t<!-- <!-- </tr> --> \n\t\t\t\t\t  <!-- <!-- </thead> --> \n\t\t\t\t\t  <!-- <!-- <tbody *ngIf=\"persons?.length != 0\"> --> \n\t\t\t\t\t\t  <!-- <!-- <tr *ngFor=\"let person of persons\"> --> \n\t\t\t\t\t\t\t  <!-- <!-- <td>{{ person.id }}</td> --> \n\t\t\t\t\t\t\t  <!-- <!-- <td>{{ person.firstName }}</td> --> \n\t\t\t\t\t\t\t  <!-- <!-- <td>{{ person.lastName }}</td> --> \n\t\t\t\t\t\t  <!-- <!-- </tr> --> \n\t\t\t\t\t  <!-- <!-- </tbody> --> \n\t\t\t\t\t  <!-- <!-- <tbody *ngIf=\"persons?.length == 0\"> --> \n\t\t\t\t\t\t<!-- <!-- <tr> --> \n\t\t\t\t\t\t  <!-- <!-- <td colspan=\"3\" class=\"no-data-available\">No data!</td> --> \n\t\t\t\t\t\t<!-- <!-- </tr> --> \n\t\t\t\t\t  <!-- <!-- <tbody> --> \n\t\t\t\t\t  \n\t\t\t\t\t  <!-- <thead> -->\n\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t  <!-- <th>Fecha</th> -->\n\t\t\t\t\t\t  <!-- <th>No. Doc</th> -->\n\t\t\t\t\t\t  <!-- <th>Cod.Cli</th> -->\n\t\t\t\t\t\t  <!-- <th>Cliente</th> -->\n\t\t\t\t\t\t  <!-- <th>Total con IVA</th> -->\n\t\t\t\t\t\t  <!-- <th>Observación</th> -->\n\t\t\t\t\t\t  <!-- <th>Estado</th> -->\n\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t  <!-- </thead> -->\n\t\t\t\t\t  \n\t\t\t\t\t<!-- <tbody *ngIf=\"(lista_pedidos?.length != 0) && (!loading) \"> -->\n\t\t\t\t\t  <!-- <tr *ngFor=\"let el of lista_pedidos;\"> -->\n\t\t\t\t\t\t  <!-- <td>{{el.fectra}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.numtra}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.codcli}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.nomcli}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.total_iva}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.observ}}</td> -->\n\t\t\t\t\t\t  <!-- <td>{{el.status}}</td> -->\n\t\t\t\t\t  <!-- </tr> -->\n\t\t\t\t\t<!-- </tbody>  -->\n\t\t\t\t\t<!-- <tbody *ngIf=\"lista_pedidos?.length == 0\"> -->\n\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t  <!-- <td colspan=\"3\" class=\"no-data-available\">No data!</td> -->\n\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t  <!-- <tbody> -->\n\t\t\t\t\t<!-- </table> -->\n\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n        </div>\n   </div>\n</section>\n  <!-- /.content -->\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: AdminListaTranferenciasComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminListaTranferenciasComponent", function() { return AdminListaTranferenciasComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+// Variable in assets/js/scripts.js file
+
+
+
+
+var AdminListaTranferenciasComponent = /** @class */ (function () {
+    function AdminListaTranferenciasComponent(router, srv, route) {
+        this.router = router;
+        this.srv = srv;
+        this.route = route;
+        // dtOptions: DataTables.Settings = {};
+        this.dtOptions = {};
+        this.title = 'Example of Angular 8 DataTable';
+        this.loading = true;
+        this.espera_correo_facturacion = false;
+        this.espera_exitoso_facturacion = false;
+        this.espera_correo_pedido = false;
+        this.espera_exitoso_pedido = false;
+    }
+    // dtTrigger: Subject<any> = new Subject();
+    // public dtTrigger: Subject<any> = new Subject();
+    AdminListaTranferenciasComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (!this.srv.isLoggedIn()) {
+            this.router.navigateByUrl('/');
+        }
+        ;
+        this.route.queryParams.subscribe(function (params) {
+            console.log(params);
+            // Defaults to 0 if no query param provided.
+            // this.ruc = +params['ruc'] || 0;
+            _this.usuario = params['usuario'] || _this.route.snapshot.paramMap.get('usuario') || 0;
+            _this.empresa = params['empresa'] || _this.route.snapshot.paramMap.get('empresa') || 0;
+            _this.pedido_status = params['pedido'] || _this.route.snapshot.paramMap.get('pedido');
+        });
+        if (this.pedido_status == 'success') {
+            this.success = true;
+        }
+        else if (this.pedido_status == 'success_act') {
+            this.success_act = true;
+        }
+        console.log("SUCCESS STATUS");
+        console.log(this.success);
+        // this.usuario = this.route.snapshot.params.usuario;
+        // this.empresa = this.route.snapshot.paramMap.get('empresa');	
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['codagencia'] = this.srv.getCodAgencia();
+        datos['usuario'] = this.usuario;
+        console.log(this.usuario);
+        console.log(this.empresa);
+        console.log(datos);
+        // console.log ("##### DATATABLELEMENT  #####")
+        // console.log(this.datatableElement)
+        // localStorage.removeItem('listado_original')
+        // // ### Obtener fecha de día de 7 dias atras  
+        var newdate = new Date();
+        newdate.setDate(newdate.getDate() - 30); //
+        // this.fecha_desde  = new FormControl(new Date(newdate))
+        this.fecha_desde = Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(newdate, 'yyyy-MM-dd', 'en-US', '-0500');
+        console.log(this.fecha_desde);
+        // new FormControl(new Date());
+        // this.fecha_hasta  = new Date()
+        this.fecha_hasta = Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(new Date(), 'yyyy-MM-dd', 'en-US', '-0500');
+        datos['fecha_desde'] = this.fecha_desde;
+        datos['fecha_hasta'] = this.fecha_hasta;
+        this.srv.lista_ingresos(datos).subscribe(function (data) {
+            // if (data){
+            // this.loading = false;
+            // }
+            console.log(data);
+            console.log("EJECUTADA DATA");
+            _this.lista_pedidos_tabla = data;
+            // this.buildDtOptions(this.lista_pedidos)
+        });
+        setTimeout(function () {
+            console.log("TIME OUT");
+            // console.log(this.lista_pedidos)
+            _this.lista_pedidos = _this.lista_pedidos_tabla;
+            // localStorage.setItem('listado_original', this.lista_pedidos)
+            _this.listado_original = _this.lista_pedidos;
+            _this.dtOptions = {
+                // ajax: 'data/data.json',
+                order: [2, 'desc'],
+                dom: 'Bfrtip',
+                // buttons: ['print','excel'],  ///SI SIRVEEE
+                buttons: [{
+                        extend: 'print',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB'
+                    },
+                    {
+                        extend: 'excel',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB'
+                    }],
+                columnDefs: [
+                    // { width: 200, targets: 0 }
+                    { "width": "200px", "targets": 0 }
+                ],
+                fixedColumns: true,
+                pageLength: 10,
+                processing: true
+            };
+            _this.loading = false;
+            // this.rerender();
+        }, 3000);
+        AdminLTE.init();
+    }; //FIN ONINIT
+    AdminListaTranferenciasComponent.prototype.buscar_ingreso_fecha = function () {
+        var _this = this;
+        var datos = {};
+        this.loading = true;
+        datos['codemp'] = this.empresa;
+        datos['codagencia'] = this.srv.getCodAgencia();
+        datos['usuario'] = this.usuario;
+        datos['fecha_desde'] = this.fecha_desde;
+        datos['fecha_hasta'] = this.fecha_hasta;
+        this.srv.lista_ingresos(datos).subscribe(function (data) {
+            // if (data){
+            // this.loading = false;
+            // }
+            console.log(data);
+            console.log("EJECUTADA DATA");
+            _this.lista_pedidos_tabla = data;
+            // this.buildDtOptions(this.lista_pedidos)
+        });
+        setTimeout(function () {
+            console.log("TIME OUT");
+            // console.log(this.lista_pedidos)
+            _this.lista_pedidos = _this.lista_pedidos_tabla;
+            // localStorage.setItem('listado_original', this.lista_pedidos)
+            _this.listado_original = _this.lista_pedidos;
+            _this.dtOptions = {
+                // ajax: 'data/data.json',
+                order: [2, 'desc'],
+                dom: 'Bfrtip',
+                // buttons: ['print','excel'],  ///SI SIRVEEE
+                buttons: [{
+                        extend: 'print',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB'
+                    },
+                    {
+                        extend: 'excel',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB'
+                    }],
+                columnDefs: [
+                    // { width: 200, targets: 0 }
+                    { "width": "200px", "targets": 0 }
+                ],
+                fixedColumns: true,
+                pageLength: 10,
+                processing: true
+            };
+            _this.loading = false;
+            // this.rerender();
+        }, 3000);
+    };
+    AdminListaTranferenciasComponent.prototype.ver_listado_completo = function () {
+        var _this = this;
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['usuario'] = this.usuario;
+        datos['tipacc'] = this.srv.getTipacc();
+        this.srv.lista_pedidos(datos).subscribe(function (data) {
+            // if (data){
+            // this.loading = false;
+            // }
+            console.log(data);
+            console.log("EJECUTADA DATA");
+            _this.lista_pedidos_tabla = data;
+            _this.render_table(_this.lista_pedidos_tabla);
+            // this.buildDtOptions(this.lista_pedidos)
+        });
+        // this.render_table(this.listado_original);
+    };
+    AdminListaTranferenciasComponent.prototype.render_table = function (new_list) {
+        var _this = this;
+        this.loading = true;
+        this.lista_pedidos = undefined;
+        setTimeout(function () {
+            console.log("TIME OUT");
+            _this.lista_pedidos = new_list;
+            _this.dtOptions = {
+                order: [1, 'desc'],
+                dom: 'Bfrtip',
+                // buttons: ['print','excel'],  ///SI SIRVEEE
+                buttons: [{
+                        extend: 'print',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB' + _this.usuario
+                    },
+                    {
+                        extend: 'excel',
+                        filename: 'LISTA_INGRESOS_SIACI_WEB' + _this.usuario
+                    }],
+                columnDefs: [
+                    { "width": "200px", "targets": 0 }
+                ],
+                fixedColumns: true,
+                pageLength: 10,
+                processing: true
+            };
+            _this.loading = false;
+        }, 2000);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"]),
+        __metadata("design:type", angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"])
+    ], AdminListaTranferenciasComponent.prototype, "datatableElement", void 0);
+    AdminListaTranferenciasComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-admin-transferencias',
+            template: __webpack_require__(/*! ./admin-lista-transferencias.component.html */ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.html"),
+            styles: [__webpack_require__(/*! ./admin-lista-transferencias.component.css */ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+    ], AdminListaTranferenciasComponent);
+    return AdminListaTranferenciasComponent;
 }());
 
 
@@ -27100,7 +27371,7 @@ module.exports = ".example-full-width {\r\n  min-width: 150px;\r\n  min-height: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      <!-- Page Header 1111 -->\n\t   Punto de venta\n      <!-- <small>FECHA:{{jstoday}} ALMACEN:{{almacen_nombre}}/CAJA:{{caja}}/TURNO:{{turno}}</small> -->\n    </h1>\n    <ol class=\"breadcrumb\">\n      <!-- <li><i class=\"fa fa-dashboard\"></i>Punto de venta</li> -->\n      <!-- <li class=\"active\">Punto de venta</li> -->\n\t  \n\t  <!-- <li>FECHA</li> -->\n      <!-- <li class=\"active\">{{jstoday}}</li> -->\n\t  <li style=\"color:red\" >ALMACEN: </li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{almacen_nombre}}</li>\n\t  <li style=\"color:red\" >CAJA</li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{caja}}</li>\n\t  <li style=\"color:red\">TURNO:</li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{turno}}</li>\n\t  \n\t  \n\t  \n    </ol>\n  </section>\n\n  <!-- Main content -->\n  <section class=\"content\">\n\n    <!-- Your Page Content Here -->\n\t\n\t\n\t <div class=\"row\">\n        <div class=\"col-xs-12\">\n\t\t\n\t\t\t<div class=\"box box-primary\" *ngIf=\"loading_modulo\">\n\t\t\t\t\t<div class=\"text-center box-header\">\n\t\t\t\t\t  <h3 class=\"box-title \">Generando factura...Por favor espere...!!!!</h3>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"box-body\">\n\t\t\t\t\t  <!-- <!-- <!-- The body of the box -->  \n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"overlay\">\n\t\t\t\t\t  <i class=\"fa fa-refresh fa-spin\"></i>\n\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\n\t\t<!-- getActImportPedidoPdv() -->\n\t\t\n\t\t\n\t\t  <div class=\"nav-tabs-custom\" *ngIf=\"!loading_modulo\">\n            <ul class=\"nav nav-tabs\">\n\t\t\t    <!-- <li id=\"facturacion\"   class=\"active\" #facturacion ><a href=\"#tab_facturacion\" data-toggle=\"tab\" style=\"font-weight:bold;color:red\" (click)=\"cambio_vista_cliente('false')\" >FACTURACIÓN</a></li> -->\n                <!-- <li id=\"crear_cliente\" #crear_cliente ><a href=\"#tab_crear_cliente\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" (click)=\"cambio_vista_cliente('true')\" >CREACIÓN CLIENTE</a></li> -->\n\t\t\t\t\n\t\t\t\t<li id=\"facturacion\"    #facturacion class=\"active\" ><a href=\"#tab_facturacion\" data-toggle=\"tab\" style=\"font-weight:bold;color:red\" >FACTURACIÓN</a></li>\n                <li id=\"crear_cliente\" #crear_cliente ><a href=\"#tab_crear_cliente\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" >CREACIÓN CLIENTE</a></li>\n\t\t\t\t<li *ngIf=\"numtra == 0 && srv.getActImportPedidoPdv() == 'SI'\" id=\"importar_pedido\"  #importar_pedido ><a href=\"#tab_importar_pedido\"  data-toggle=\"tab\" style=\"font-weight:bold;color:green\" >IMPORTAR PEDIDO</a></li>\n\t\t\t</ul>\n\t\t\t\n\t\t\t<div class=\"tab-content\">\n\t\t\t<div class=\"tab-pane active\" id=\"tab_facturacion\" #tab_facturacion >\n\t\t\n            <!-- <div class=\"box box-primary\"> -->\n\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">DATOS DEL CLIENTE</h3>\n                </div>\n                <div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-3\"> -->\n\t\t\t\t\t\t\t\t<label style=\"font-weight:bold;color:red\" >Fecha factura </label>\n\t\t\t\t\t\t\t\t<input [(ngModel)]=\"fectra\" type=\"date\" name=\"fectra\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"2020-01-01\" max=\"2030-12-31\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\n\t\t\t\t\t  \n\t\t\t\t\t\n\t\t\t\t\n                        <div class=\"row\">\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-6\"> -->\n\t\t\t\t\t\t\t<!-- <label for=\"date\">IDENTIFICACIÓN</label>  -->\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" name=\"code\" id=\"add_item\"   [(ngModel)]=\"razon_social\" class=\"form-control ui-autocomplete-input\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- (click)=\"!FLAG_BUSQUEDA_CLIENTE ? FLAG_BUSQUEDA_CLIENTE = true : FLAG_BUSQUEDA_CLIENTE = false\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- placeholder=\"Ingrese cedula o ruc\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- > -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group-btn\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <select name=\"tipo_doc\" [(ngModel)]=\"tipo_doc\"  (change)=\"consumidor_final()\" class=\"form-control select2 tip\" style=\"width:100%;\"> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of tipo_doc_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.nom_doc}}</option> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- </select> --> \n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button type=\"button\" class=\"btn btn-danger\">Buscar</button> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button type=\"button\" class=\"btn btn-warning\">Crear cliente</button> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" (click)=\"!FLAG_BUSQUEDA_CLIENTE ? FLAG_BUSQUEDA_CLIENTE = true : FLAG_BUSQUEDA_CLIENTE = false\"> --> \n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <a id=\"add-customer\" class=\"external\" data-toggle=\"modal1\" data-target=\"#myModal1\"><i class=\"fa fa-2x fa-angle-down\" id=\"searchIcon\"></i></a> --> \n\t\t\t\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <a id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#myModal2\"><i class=\"fa fa-2x fa-plus-circle\" id=\"addIcon\"></i></a> --> \n\t\t\t\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<td class= \"text-center\">\n\t\t\t\t\t\t\t\t\t<label  class=\"switch\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"tipo_busqueda_cliente()\"><span class=\"slider round\"></span>\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"busqueda_cliente == 'IDENT'\" >BUSQUEDA POR CEDULA/RUC</label> \n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"busqueda_cliente == 'RZ'\" >BUSQUEDA RAZON SOCIAL</label> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'RZ'\" class=\"col-md-4\">\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t<label >BUSQUEDA POR RAZON SOCIAL</label>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_razon_social()\"  [(ngModel)]=\"patron_cliente\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" autocomplete=\"off\">\n\t\t\t\t\t\t\t\t<!-- <div (click)=\"busqueda_razon_social()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n                          \n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'IDENT'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<label for=\"date\">TIPO</label>\n\t\t\t\t\t\t\t\t\t<select name=\"tipo_doc\" [(ngModel)]=\"tipo_doc\"  (change)=\"consumidor_final()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of tipo_doc_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.nom_doc}}</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n                            <div  *ngIf=\"busqueda_cliente == 'IDENT'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <label>NÚMERO IDENT </label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" inputmode=\"numeric\" (keypress)='validaNumericosCantidad($event)'  placeholder=\"Ingrese Identificación\" name=\"ident\" value=\"\" class=\"form-control tip\" (keyup.enter)=\"busca_cliente()\" id=\"ident\" [(ngModel)]=\"ruc\">\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div  class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<br> \n\t\t\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"busqueda_cliente == 'IDENT'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busca_cliente()\">\n\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"busqueda_cliente == 'RZ'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\">\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"col-xs-7\"> \n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"cambio_crear_cliente\" (click)=\"switchtab()\" class=\"btn btn-warning\" title=\"Crear cliente\" ><i class=\"fa fa-fw fa-plus\"></i></button>\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<label for=\"reference\">NOMBRE Y APELLIDO Ó RAZÓN SOCIAL </label>\n\t\t\t\t\t\t\t\t<input *ngIf=\"!this.clientes\" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\t\t<input *ngIf=\"this.clientes \" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\"  value=\"{{razon_social}}\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\t\n\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_razon_social\">\n\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>\n\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t <th>Razon Social</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Tipo ident</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Num Identificacion</th>\n\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let rz of razon_social_lista;\">\n\t\t\t\t\t\t\t\t\t <td>{{rz.nomcli}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.tpIdCliente}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.rucced}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_cliente\" (change)=\"select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)\"  />\n\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">DETALLE A FACTURAR</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t<!-- <div class=\"row\"> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label>RETENCION IVA</label>                               -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"retencion_iva\" [(ngModel)]=\"retencion_iva\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_iva_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.porret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label>RETENC FUENTE</label>                               -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"retencion_fuente\" [(ngModel)]=\"retencion_fuente\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_fuente_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\n\n\n                        </div>\n\n\t\t\t\t\t\t<!--################## EJEMPLO COMBO CON SELECT############## -->\n\n\n\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div class=\"table-responsive\">\n\t\t\t\t\t\t\t\t\n                                   <table id=\"poTable\" class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n                                        <thead>\n                                            <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t<th>Código</th>\n                                                <th style=\"width:300px; padding-right:5px;\">Item</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Unid.</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Observación</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:100px; padding-right:5px;\" >Prec. Unit</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th>IVA%</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Cant.IVA</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- style=\"width:25px; padding-right:5px;\" -->\n                                                <th style=\"width:100px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Cantidad</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:100px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Descuento%</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:70px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">V.Desc</th>\n                                                <th>Subtotal</th>\n                                                <th class=\"col-xs-1 text-center\" (click)=\"delete_art_todo()\" style=\"width:25px;\"><i class=\"fa fa-trash-o\" title=\"Remover todos\" ></i></th>\n                                            </tr>\n                                        </thead>\n                                        <tbody *ngIf=\"articulos_pedido.length > 0\">\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let el of articulos_pedido;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"min-width:200px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- {{el.nomart}} -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #nomart class=\"form-control input-sm kb-pad text-center rquantity\" name=\"nomart\" type=\"text\" placeholder=\"Puede cambiar el nombre del articulo\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.nomart}}\"  (keyup.enter)=\"update_nomart(el.codart,el.index,nomart.value)\" (blur)=\"update_nomart(el.codart,el.index,nomart.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<textarea #nomart name=\"nomart\"  rows=\"3\" cols=\"2\" placeholder=\"Puede cambiar el nombre del articulo\"  value=\"{{el.nomart}}\" \n\t\t\t\t\t\t\t\t\t\t\t\t\t(blur)=\"update_nomart(el.codart,el.index,nomart.value)\" (change)=\"update_nomart(el.codart,el.index,nomart.value)\" (keypress)='validaEnter($event,nomart.value)'\n\t\t\t\t\t\t\t\t\t\t\t\t\t class=\"pa form-control kb-text\"></textarea>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #nomart class=\"form-control input-sm kb-pad text-center rquantity\" name=\"nomart\" type=\"text\" placeholder=\"Puede cambiar el nombre del articulo\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.nomart}}\"  (keyup.enter)=\"update_nomart(el.codart,el.index,nomart.value)\" (blur)=\"update_nomart(el.codart,el.index,nomart.value)\"> -->\n\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"width:40px; padding-right:5px;\">{{el.nomart}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.coduni}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #observacion class=\"form-control input-sm kb-pad text-center rquantity\" name=\"observacion[]\" type=\"text\" placeholder=\"{{el.observ}}\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"\"  (keyup.enter)=\"update_observ(el.codart, observacion.value)\" (blur)=\"update_observ(el.codart, observacion.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- USD {{el.prec01}}\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t <input #prec class=\"form-control input-sm kb-pad text-center rquantity\" name=\"precio\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t value=\"{{el.prec01}}\" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)=\"update_precio(el.codart,el.index,prec.value)\" (change)=\"update_precio(el.codart,el.index,prec.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">{{el.poriva}}%</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"padding:2px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\">USD {{el.precio_iva}}</div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td>\t\t\t\t\t\t\t\t\t\t\t\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- (change)= -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #cant class=\"form-control input-sm kb-pad text-center rquantity\" name=\"cantidad\" type=\"number\" inputmode=\"numeric\" -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.cant}}\" (keypress)='validaNumericosCantidad($event)' (keyup.enter)=\"update(el.codart, cant.value)\" (blur)=\"update(el.codart, cant.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t    <input #cant class=\"form-control input-sm kb-pad text-center rquantity\" name=\"cantidad\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.cant}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update(el.codart,el.index,cant.value)\" (change)=\"update(el.codart,el.index,cant.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input #porc_desc class=\"form-control input-sm kb-pad text-center rquantity\" name=\"porc_desc[]\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.punreo}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update_art_desc(el.codart,el.index,porc_desc.value)\" (change)=\"update_art_desc(el.codart,el.index,porc_desc.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #porc_desc class=\"form-control input-sm kb-pad text-center rquantity\" name=\"porc_desc[]\" type=\"number\" inputmode=\"numeric\" -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.punreo}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update_art_desc(el.codart, porc_desc.value)\" (blur)=\"update_art_desc(el.codart, porc_desc.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<td> <div class=\"text-center\">USD {{redondear(el.v_desc_art)}}</div> </td>\n\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> USD {{redondear(el.cant * el.prec01)}}</div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\"> USD {{redondear(el.subtotal_art)}}</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td (click)=\"delete_art(el.nomart,el.index)\" class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-trash-o tip pointer spodel\" title=\"Remover artículo\"></i>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n                                        </tbody>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<tbody *ngIf=\"articulos_pedido.length == 0\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\">Agregar el producto a través de la búsqueda en el campo de arriba</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\n                                    </table>\n\t\t\t\t\t\t\t\t\t\n                                </div>\n\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Habilitar descuentos\" class=\"btn btn-danger\" (click)=\"busca_articulo()\"> -->\n                            </div>\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t <div class=\"row\">\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='SI'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <!-- <label>PRODUCTO O SERVICIO</label>  -->\n\t\t\t\t\t\t\t\t\t<td class= \"text-center\">\n\t\t\t\t\t\t\t\t\t<label  class=\"switch\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"tipo_entrada()\"><span class=\"slider round\"></span>\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"tipo_busqueda\" >ARTÍCULO</label> \n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"!tipo_busqueda\" >SERVICIO</label> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='SI'\"  class=\"col-md-10\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO </label>\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"!tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO </label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_articulo()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar artículo\" class=\"btn btn-primary\" (click)=\"busca_articulo()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_servicio()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar servicio\" class=\"btn btn-danger\" (click)=\"busca_servicio()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='NO'\"  class=\"col-md-12\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO </label>\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"!tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO </label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_articulo()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar artículo\" class=\"btn btn-primary\" (click)=\"busca_articulo()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_servicio()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar servicio\" class=\"btn btn-danger\" (click)=\"busca_servicio()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_articulo\">\n\t\t\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_articulo}}>></p>\n\t\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t <th>Código</th>\n\t\t\t\t\t\t\t\t\t\t\t <th>Nombre</th>\n\t\t\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Precio unit</th>\n\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" >Dispon</th>\n\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t\t\t   <tbody role=\"alert\">\n\t\t\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let articulos of articulo;\">\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.nomart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"articulos!==edit_articulos\">{{articulos.prec01}}  </span>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" *ngIf=\"articulos===articulos\" [(ngModel)]=\"task.title\" (blur)=\"update()\" (keyup.enter)=\"update()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" *ngIf=\"articulos===edit_articulos\" > -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<select  *ngIf=\"articulos===edit_articulos\"  name=\"nuevo_precio_renglon\" [(ngModel)]=\"nuevo_precio_renglon\" (change)=\"edit_prec_renglon(articulos.codart)\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of lista_prec; let i = index;\" [selected] = \"i==0\" [value]=\"e.prec\">{{e.prec}}</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- {{articulos.prec01}} -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"srv.getConfEditPedido() != 'NO'\" routerLink=\"/admin/editar_pedidos\" [queryParams]=\"{usuario:usuario,empresa: empresa,pedido:el.numtra}\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar pedido\"></i></a>  -->\n\t\t\t\t\t\t\t\t\t\t\t<a *ngIf=\"articulos!==edit_articulos\"  (click)=\"edit_prec(articulos)\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar precio\"></i></a> \t\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.exiact}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\"> \n\t\t\t\t\t\t\t\t\t\t\t  <!-- <input  type=\"checkbox\"/> -->\n\t\t\t\t\t\t\t\t\t\t\t  <input  type=\"checkbox\" [(ngModel)]=\"articulos.isSelected\" name=\"list_name\" value=\"{{articulos.nomart}}\" (change)=\"isAllSelected()\"/>\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-md-5\">\n\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a factura\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\">\n\t\t\t\t\t\t\t\t\t\t<p>{{elements_checkedList.length}}  Items seleccionados</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">  <!-- INICIO HEADER RETENCIONES  -->\n\t\t\t\t\n\t\t\t\t<div *ngIf=\"srv.getConfRetencionesPdv()!= 'NO'\" class=\"form-group\">\n\t\t\t\t<table>\n\t\t\t\t<tr>\n\t\t\t\t <td>\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">RETENCIONES  </h3>\n\t\t\t\t</td>\n\t\t\t\t<td class=\"col-xs-6\"> \n\t\t\t\t\t <label class=\"switch\">\n\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"set_aplicar_retencion()\"><span class=\"slider round\"></span>\n\t\t\t\t\t</label>\n\t\t\t\t\t<h3 *ngIf=\"!aplicar_retencion\" style=\"font-weight:bold;\" class=\"box-title\">  (NO)</h3>\n\t\t\t\t\t<h3 *ngIf=\"aplicar_retencion\" style=\"font-weight:bold;\" class=\"box-title\">  (SI)</h3>\n\t\t\t\t</td>\n\t\t\t\t<!-- <td class=\"col-xs-2\"> -->\n\n\t\t\t\t<!-- </td> -->\n\t\t\t\t</tr>\n\t\t\t\t\n\t\t\t\t</table>\n\t\t\t\t</div><!-- FIN FORM GROUP  -->\n                \n\t\t\t\t</div>   <!-- FIN HEADER RETENCIONES  -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t<div *ngIf=\"aplicar_retencion\"  class=\"box-body\">  <!-- BODY APLICAR RETENCION  -->\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n                                    <label>RETENCION IVA</label>                              \n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<select name=\"retencion_iva\" [(ngModel)]=\"retencion_iva_select\" (change)=\"set_retencion_iva()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"0\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_iva_lista; let i = index;\" [selected] = \"i==undefined\" [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of retencion_iva_lista; let i = index;\"  [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t<label style=\"color:blue\" >Iva retenido:   USD {{redondear(ret_iva_aplicar)}}</label>  \n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n                                    <label>RETENC FUENTE</label>                              \n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<select name=\"retencion_fuente\" [(ngModel)]=\"retencion_fuente_select\" (change)=\"set_retencion_fuente()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"0\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of retencion_fuente_lista; let i = index;\"  [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_fuente_lista; let i = index;\" [selected] = \"i==undefined\" [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t<label style=\"color:blue\" >Fuente retenida:   USD {{redondear(ret_fuente_aplicar)}}</label>  \n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>    <!-- BODY APLICAR RETENCION  -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">TOTALES A FACTURAR</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<!-- <span class=\"info-box-icon bg-aqua\"><i class=\"ion ion-ios-cart-outline\"></i></span> -->\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-aqua\"><i class=\"fa fa-fw fa-cart-plus\"></i></span>\n\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span class=\"info-box-text\">SUBTOTAL</span>\n\t\t\t\t\t\t\t\t<span class=\"info-box-number\">USD {{ redondear (subtotal)}}</span>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <span class=\"info-box-number\">TOTALES KG</span> -->\n\t\t\t\t\t\t\t\t<span *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.NETO = <span style=\"color:green;font-weight: bold;\" >${{redondear(total_neto)}}</span></span>\n\t\t\t\t\t\t\t\t<!-- <span *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.DESC= <span style=\"color:red;font-weight: bold;\" >-${{redondear(desc_cant)}}</span></span> -->\n\t\t\t\t\t\t\t\t<span  *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.DESC= <span style=\"color:red;font-weight: bold;\" >-${{redondear(desc_cant)}}</span></span>\n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-green\"><i class=\" fa fa-fw fa-info-circle\"></i></span>\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span class=\"info-box-text\">TOTAL IVA</span>\n\t\t\t\t\t\t\t\t<span class=\"info-box-number\">USD {{ redondear (iva_cant_new)}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-yellow\"><i class=\"fa fa-fw fa-dollar\"></i></span>\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span  class=\"info-box-number \">TOTAL A FACTURAR</span>\n\t\t\t\t\t\t\t\t<span style=\"color:red\" class=\"info-box-number\">USD {{ redondear (total)}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div *ngIf=\"srv.getConfTotalRecibidoCambioPdv() != 'NO'\" class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>TOTAL RECIBIDO</label>                              \n\t\t\t\t\t\t\t\t\t<input type=\"text\" type=\"number\" inputmode=\"numeric\" style=\"color:red\" placeholder=\"INGRESE MONTO\" name=\"total_recibido\" value=\"\" (blur)=\"calc_cambio()\" (keyup.enter)=\"calc_cambio()\" id=\"total_recibido\" [(ngModel)]=\"total_recibido\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>CAMBIO</label>                              \n\t\t\t\t\t\t\t\t\t\t<input style=\"color:blue\" type=\"number\" inputmode=\"numeric\"  placeholder=\"cambio\" name=\"cambio\" disabled value=\"USD {{ redondear (cambio)}}\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> <!--  class=\"col-lg-12 -->\n\t\t\t\t</div> <!-- BODY -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<!-- public getConfPagoEfectivo(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_efectivo_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoCheque(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_cheque_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoTrans(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_trans_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoCredito(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_credito_pdv') -->\n   <!-- } -->\n   \n   <!-- getConfPagoTarjeta -->\n<!-- public getConfEdicionPlazoCredito(): string { -->\n\t  <!-- return localStorage.getItem('act_edicion_plazo_credito_pdv') -->\n   <!-- } -->\n\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">FORMA DE COBRO</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoEfectivo() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<!-- <input  type=\"checkbox\" [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\" value=\"1\" (change)=\"forma_pago('efectivo')\"/> -->\n\t\t\t\t\t\t\t        <label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\"  *ngIf=\"!check_credito\" [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\"  (change)=\"forma_pago('efectivo')\" > EFECTIVO\n\t\t\t\t\t\t\t\t\t<!-- <input type=\"checkbox\" *ngIf=\"check_credito\"  [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\" disabled > EFECTIVO -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_efectivo\"  type=\"number\" inputmode=\"numeric\" placeholder=\"Ingrese Monto\" name=\"monto_efectivo\" disabled  class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_efectivo\" type=\"number\" inputmode=\"numeric\" placeholder=\"Ingrese Monto\" name=\"monto_efectivo\"  style=\"color:blue\" [(ngModel)]=\"monto_efectivo\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoCheque() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\"  [(ngModel)]=\"check_cheque\" name=\"check_cheque\"  (change)=\"forma_pago('cheque')\" >\n\t\t\t\t\t\t\t\t\t\t\tCHEQUE\n\t\t\t\t\t\t\t\t\t\t</label>                              \n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_cheque\"  type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_cheque\" disabled value=\"\"  class=\"form-control tip \">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_cheque\"  type=\"text\"  placeholder=\"Num Cheque\" name=\"num_cheque\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_cheque\"  type=\"text\"  placeholder=\"Seleccione Banco\" name=\"banco\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_cheque\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_cheque\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_cheque\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_cheque\"  type=\"number\" inputmode=\"numeric\"  placeholder=\"Num Cheque\" name=\"num_cheque\" [(ngModel)]=\"num_cheque\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"check_cheque\"  type=\"text\"  placeholder=\"Seleccione Banco\" name=\"banco\"  value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_cheque\" name=\"bancos_lista\" [(ngModel)]=\"codban\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of bancos_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codban\">{{e.nomban}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoTarjeta() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\" [(ngModel)]=\"check_tarjeta\" name=\"check_tarjeta\"  (change)=\"forma_pago('tarjeta')\" >\n\t\t\t\t\t\t\t\t\t\tTARJETA\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_tarjeta\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_tarjeta\" disabled value=\"\"  class=\"form-control tip\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_tarjeta\" type=\"text\"  placeholder=\"Num Tarjeta\" name=\"num_tarjeta\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_tarjeta\" type=\"text\"  placeholder=\"Selecc Tarjeta\" name=\"tipo_tarjeta\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_tarjeta\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_tarjeta\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_tarjeta\" class=\"form-control tip info-box-number\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_tarjeta\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Cod Recab\" name=\"Cod Recab\"  [(ngModel)]=\"num_tarjeta\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"check_tarjeta\" type=\"text\"  placeholder=\"Selecc Tarjeta\" name=\"tipo_tarjeta\"  value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_tarjeta\" name=\"tarjeta_lista\" [(ngModel)]=\"codtar\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Selecc tipo</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of tarjetas_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codtar\">{{e.nomtar}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoTrans() == 'SI'\"  class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\" [(ngModel)]=\"check_trasf_dep\" name=\"check_trasf_dep\"  (change)=\"forma_pago('tranf')\" >\n\t\t\t\t\t\t\t\t\t\tTRANSFERENCIA / DEPOSITO\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_trasf_dep\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_transferencia\" disabled value=\"\"  class=\"form-control tip\">\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_trasf_dep\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_transferencia\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_transferencia\" class=\"form-control tip info-box-number\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_trasf_dep\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Num tranf/dep\" name=\"Codtranf\"  [(ngModel)]=\"num_tranf\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_trasf_dep\" name=\"cta_tranf\" [(ngModel)]=\"coddep\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Selecc tipo</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of cuentas_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.coddep\">{{e.coddep}}-{{e.banco}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoCredito() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" [(ngModel)]=\"check_credito\" name=\"check_credito\"  (change)=\"forma_pago('credito')\" >\n\t\t\t\t\t\t\t\t\t\tCREDITO\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<table *ngIf=\"!check_credito\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\" >Monto de credito</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_credito\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto credito USD\" name=\"monto_credito\" disabled value=\"\"  class=\"form-control tip\">\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</table>\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<table *ngIf=\"check_credito\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\">Monto de credito</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito\" disabled type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_credito\"  value=\"{{redondear (total)}}\" style=\"color:blue\" [(ngModel)]=\"monto_credito\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\">Num. de pagos</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='SI'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Numero de pagos\" name=\"num_pagos_credito\"  [(ngModel)]=\"num_pagos_credito\"  value=\"\" style=\"color:blue\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='NO'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Numero de pagos\" name=\"num_pagos_credito\"  [(ngModel)]=\"num_pagos_credito\"  value=\"\" style=\"color:blue\" disabled class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\" >Plazo de dias por pagos</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='SI'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Plazo de dias pagos\" name=\"plazo_dias_pagos\"  [(ngModel)]=\"plazo_dias_pagos\"  value=\"\" style=\"color:blue\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='NO'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Plazo de dias pagos\" name=\"plazo_dias_pagos\"  [(ngModel)]=\"plazo_dias_pagos\"  value=\"\" style=\"color:blue\" disabled class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</table>\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div *ngIf=\"srv.getConfPagoCredito() == 'SI'\" class=\"col-md-3\"> -->\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getActRegPlacaPDV() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<span  style=\"font-weight:bold;color:red\" >PLACA DEL VEHICULO</span>\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"checkbox\" [(ngModel)]=\"check_credito\" name=\"check_credito\"  (change)=\"forma_pago('credito')\" > -->\n\t\t\t\t\t\t\t\t\t\t<!-- CREDITO -->\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<table >\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"font-weight:bold;color:red\" ></td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- class=\"form-control tip info-box-number\" -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" [(ngModel)]=\"numplaca\" placeholder=\"Inserte placa del vehiculo\" name=\"placa_vehiculo\" value=\"\" class=\"form-control tip info-box-number\" style=\"font-weight:bold;color:blue\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_credito\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto credito USD\" name=\"monto_credito\" disabled value=\"\"  class=\"form-control tip\">\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</table>\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> <!--  class=\"col-lg-12 -->\n\t\t\t\t</div> <!-- BODY -->\n\n\t\t\t\t\n\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t<input *ngIf=\"(ver_factura==0)\"  type=\"submit\" (click)=\"generar_pdv()\"  name=\"add_purchase\" value=\"Facturar\" class=\"btn btn-primary\">\n\n\t\t\t\t\t<button type=\"button\" routerLink=\"/admin/lista_pdv\" [queryParams]=\"{usuario:usuario,empresa: empresa}\"  class=\"btn btn-success\">Ir a Lista facturas</button>\n\t\t\t\t\t<button *ngIf=\"srv.getConfAbrirCierreCaja()!= 'NO'\"  type=\"button\" id=\"reset\" (click)=\"cierre_caja()\" class=\"btn btn-danger\">Cerrar Caja</button>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t<!-- </div>  <!-- PRIMARY--> \n\t\t\t</div> <!-- /.tab-pane 1-->\n\t\t\t\n\t\t\t<div class=\"tab-pane\"  id=\"tab_crear_cliente\" #tab_crear_cliente>\n\t\t\t\t<app-admin-cliente status_cambio_vista_cliente=\"true\" #cliente_contenido></app-admin-cliente>\n            </div> <!-- /.tab-pane 2-->\n\t\t\t\n\t\t\t<div class=\"tab-pane\"  id=\"tab_importar_pedido\" #tab_importar_pedido>\n\t\t\t\n\t\t\t\n\t\t\t    <div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\n\t\t\t\t\t\t<!-- <div class=\"row\"> -->\n\t\t\t\t\t\t\t<!-- <!-- <div class=\"col-md-3\"> --> \n\t\t\t\t\t\t\t\t<!-- <label style=\"font-weight:bold;color:red\" >Fecha factura </label> -->\n\t\t\t\t\t\t\t\t<!-- <input [(ngModel)]=\"fectra\" type=\"date\" name=\"fectra\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"2020-01-01\" max=\"2030-12-31\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\n\t\t\t\t\t\t<!-- </div> -->\n\n\t\t\t\t\n\t\t\t\t\t  \n\t\t\t\t\t\n\t\t\t\t\n                        <div class=\"row\">\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'RZ'\" class=\"col-md-6\">\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t<label >BUSQUEDA DE PEDIDO / ORDEN DE TRABAJO POR RAZON SOCIAL</label>\n\t\t\n\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_pedido_razonsocial()\"   -->\n\t\t\t\t\t\t\t\t<!-- [(ngModel)]=\"patron_razon_social_pedido\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\"  -->\n\t\t\t\t\t\t\t\t<!-- autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t<input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_pedido_razonsocial()\"  \n\t\t\t\t\t\t\t\t[(ngModel)]=\"patron_razon_social_pedido\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" \n\t\t\t\t\t\t\t\tautocomplete=\"off\">\n\t\t\t\t\t\t\t\t<div (click)=\"busqueda_pedido_razonsocial()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t<a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a>\n\t\t\t\t\t\t\t\t</div> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_razon_social()\"  [(ngModel)]=\"patron_cliente\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t<!-- <div (click)=\"busqueda_razon_social()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t<!-- <div  class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <br>  -->\n\t\t\t\t\t\t\t\t\t<!-- <table> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <td> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"busqueda_cliente == 'IDENT'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busca_cliente()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"busqueda_cliente == 'RZ'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <td class=\"col-xs-7\">  --> \n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <button type=\"button\" id=\"cambio_crear_cliente\" (click)=\"switchtab()\" class=\"btn btn-warning\" title=\"Crear cliente\" ><i class=\"fa fa-fw fa-plus\"></i></button> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- </td> --> \n\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t\t\t\t\t<!-- </table> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n\t\t\t\t\t\t\t\n\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_pedido\">\n\t\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_razon_social_pedido}}>></p>\n\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t  \t<th class=\"text-center\">Selec</th>\n\t\t\t\t\t\t\t\t\t     <th class=\"text-center\">Numtrans</th>\n\t\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Fecha</th>\n\t\t\t\t\t\t\t\t\t\t <th>Razon Social</th>\n\t\t\t\t\t\t\t\t\t\t  <th>Total</th>\n\t\t\t\t\t\t\t\t\t\t <!-- <th class=\"text-center\">Num Identificacion</th> -->\n\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >TipoTrans</th>\n\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let rz of lista_pedidos;\">\n\t\t\t\t\t\t\t\t\t  \t<td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_cliente\" (change)=\"select_pedido_orden(rz.numtra,rz.tiptra)\"  />\n\t\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t  <td class=\"text-center\">{{rz.numtra}}</td>\n\t\t\t\t\t\t\t\t\t   <td class=\"text-center\">{{rz.fectra}}</td>\n\t\t\t\t\t\t\t\t\t\t <td>{{rz.nomcli}}</td>\n\t\t\t\t\t\t\t\t\t\t  <td>{{rz.totalpedido}}</td>\n\t\t\t\t\t\t\t\t\t\t  <!-- <td class=\"text-center\">{{rz.rucced}}</td> -->\n\t\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.nombre_tiptra}}</td>\n\n\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n            </div> <!-- /.tab-pane 2-->\n\t\t\t\n\t\t\t\n\t\t\t</div> <!-- /.tab-content -->\n\t\t\t</div> <!-- nav-tabs-custom -->\n\t\t</div>  <!-- col-xs-12 -->\n\t</div>  <!-- ROW -->\n </section>  \n  <!-- /.content -->\n</div>\n"
+module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      <!-- Page Header 1111 -->\n\t   Punto de venta\n      <!-- <small>FECHA:{{jstoday}} ALMACEN:{{almacen_nombre}}/CAJA:{{caja}}/TURNO:{{turno}}</small> -->\n    </h1>\n    <ol class=\"breadcrumb\">\n      <!-- <li><i class=\"fa fa-dashboard\"></i>Punto de venta</li> -->\n      <!-- <li class=\"active\">Punto de venta</li> -->\n\t  \n\t  <!-- <li>FECHA</li> -->\n      <!-- <li class=\"active\">{{jstoday}}</li> -->\n\t  <li style=\"color:red\" >ALMACEN: </li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{almacen_nombre}}</li>\n\t  <li style=\"color:red\" >CAJA</li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{caja}}</li>\n\t  <li style=\"color:red\">TURNO:</li>\n      <li style=\"font-weight:bold;\" class=\"active\">{{turno}}</li>\n\t  \n\t  \n\t  \n    </ol>\n  </section>\n\n  <!-- Main content -->\n  <section class=\"content\">\n\n    <!-- Your Page Content Here -->\n\t\n\t\n\t <div class=\"row\">\n        <div class=\"col-xs-12\">\n\t\t\n\t\t\t<div class=\"box box-primary\" *ngIf=\"loading_modulo\">\n\t\t\t\t\t<div class=\"text-center box-header\">\n\t\t\t\t\t  <h3 class=\"box-title \">Generando factura...Por favor espere...!!!!</h3>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"box-body\">\n\t\t\t\t\t  <!-- <!-- <!-- The body of the box -->  \n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"overlay\">\n\t\t\t\t\t  <i class=\"fa fa-refresh fa-spin\"></i>\n\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\n\t\t<!-- getActImportPedidoPdv() -->\n\t\t\n\t\t\n\t\t  <div class=\"nav-tabs-custom\" *ngIf=\"!loading_modulo\">\n            <ul class=\"nav nav-tabs\">\n\t\t\t    <!-- <li id=\"facturacion\"   class=\"active\" #facturacion ><a href=\"#tab_facturacion\" data-toggle=\"tab\" style=\"font-weight:bold;color:red\" (click)=\"cambio_vista_cliente('false')\" >FACTURACIÓN</a></li> -->\n                <!-- <li id=\"crear_cliente\" #crear_cliente ><a href=\"#tab_crear_cliente\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" (click)=\"cambio_vista_cliente('true')\" >CREACIÓN CLIENTE</a></li> -->\n\t\t\t\t\n\t\t\t\t<li id=\"facturacion\"    #facturacion class=\"active\" ><a href=\"#tab_facturacion\" data-toggle=\"tab\" style=\"font-weight:bold;color:red\" >FACTURACIÓN</a></li>\n                <li id=\"crear_cliente\" #crear_cliente ><a href=\"#tab_crear_cliente\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" >CREACIÓN CLIENTE</a></li>\n\t\t\t\t<li *ngIf=\"numtra == 0 && srv.getActImportPedidoPdv() == 'SI'\" id=\"importar_pedido\"  #importar_pedido ><a href=\"#tab_importar_pedido\"  data-toggle=\"tab\" style=\"font-weight:bold;color:green\" >IMPORTAR PEDIDO</a></li>\n\t\t\t</ul>\n\t\t\t\n\t\t\t<div class=\"tab-content\">\n\t\t\t<div class=\"tab-pane active\" id=\"tab_facturacion\" #tab_facturacion >\n\t\t\n            <!-- <div class=\"box box-primary\"> -->\n\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">DATOS DEL CLIENTE</h3>\n                </div>\n                <div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-3\"> -->\n\t\t\t\t\t\t\t\t<label style=\"font-weight:bold;color:red\" >Fecha factura </label>\n\t\t\t\t\t\t\t\t<input [(ngModel)]=\"fectra\" type=\"date\" name=\"fectra\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"2020-01-01\" max=\"2030-12-31\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\n\t\t\t\t\t  \n\t\t\t\t\t\n\t\t\t\t\n                        <div class=\"row\">\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-6\"> -->\n\t\t\t\t\t\t\t<!-- <label for=\"date\">IDENTIFICACIÓN</label>  -->\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" name=\"code\" id=\"add_item\"   [(ngModel)]=\"razon_social\" class=\"form-control ui-autocomplete-input\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- (click)=\"!FLAG_BUSQUEDA_CLIENTE ? FLAG_BUSQUEDA_CLIENTE = true : FLAG_BUSQUEDA_CLIENTE = false\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- placeholder=\"Ingrese cedula o ruc\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- > -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group-btn\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <select name=\"tipo_doc\" [(ngModel)]=\"tipo_doc\"  (change)=\"consumidor_final()\" class=\"form-control select2 tip\" style=\"width:100%;\"> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of tipo_doc_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.nom_doc}}</option> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- </select> --> \n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button type=\"button\" class=\"btn btn-danger\">Buscar</button> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button type=\"button\" class=\"btn btn-warning\">Crear cliente</button> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" (click)=\"!FLAG_BUSQUEDA_CLIENTE ? FLAG_BUSQUEDA_CLIENTE = true : FLAG_BUSQUEDA_CLIENTE = false\"> --> \n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <a id=\"add-customer\" class=\"external\" data-toggle=\"modal1\" data-target=\"#myModal1\"><i class=\"fa fa-2x fa-angle-down\" id=\"searchIcon\"></i></a> --> \n\t\t\t\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <a id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#myModal2\"><i class=\"fa fa-2x fa-plus-circle\" id=\"addIcon\"></i></a> --> \n\t\t\t\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<td class= \"text-center\">\n\t\t\t\t\t\t\t\t\t<label  class=\"switch\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"tipo_busqueda_cliente()\"><span class=\"slider round\"></span>\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"busqueda_cliente == 'IDENT'\" >BUSQUEDA POR CEDULA/RUC</label> \n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"busqueda_cliente == 'RZ'\" >BUSQUEDA RAZON SOCIAL</label> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'RZ'\" class=\"col-md-4\">\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t<label >BUSQUEDA POR RAZON SOCIAL</label>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_razon_social()\"  [(ngModel)]=\"patron_cliente\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" autocomplete=\"off\">\n\t\t\t\t\t\t\t\t<!-- <div (click)=\"busqueda_razon_social()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n                          \n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'IDENT'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<label for=\"date\">TIPO</label>\n\t\t\t\t\t\t\t\t\t<select name=\"tipo_doc\" [(ngModel)]=\"tipo_doc\"  (change)=\"consumidor_final()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of tipo_doc_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.nom_doc}}</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n                            <div  *ngIf=\"busqueda_cliente == 'IDENT'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <label>NÚMERO IDENT </label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" inputmode=\"numeric\" (keypress)='validaNumericosCantidad($event)'  placeholder=\"Ingrese Identificación\" name=\"ident\" value=\"\" class=\"form-control tip\" (keyup.enter)=\"busca_cliente()\" id=\"ident\" [(ngModel)]=\"ruc\">\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div  class=\"col-md-2\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<br> \n\t\t\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"busqueda_cliente == 'IDENT'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busca_cliente()\">\n\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"busqueda_cliente == 'RZ'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\">\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"col-xs-7\"> \n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"cambio_crear_cliente\" (click)=\"switchtab()\" class=\"btn btn-warning\" title=\"Crear cliente\" ><i class=\"fa fa-fw fa-plus\"></i></button>\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<label for=\"reference\">NOMBRE Y APELLIDO Ó RAZÓN SOCIAL </label>\n\t\t\t\t\t\t\t\t<input *ngIf=\"!this.clientes\" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\t\t<input *ngIf=\"this.clientes \" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\"  value=\"{{razon_social}}\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getActRegPlacaPDV() == 'SI'\" class=\"col-md-4\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<span  style=\"font-weight:bold;color:red\" >PLACA DEL VEHICULO</span>\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"busqueda_placa\" id=\"busqueda_placa\" (keyup.enter)=\"busqueda_pedido_razonsocial()\"   -->\n\t\t\t\t\t\t\t\t\t\t<!-- [(ngModel)]=\"patron_placa\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" [(ngModel)]=\"numplaca\" placeholder=\"Inserte placa del vehiculo\" name=\"placa_vehiculo\" value=\"\" \n\t\t\t\t\t\t\t\t\t\t\tclass=\"form-control tip info-box-number\" style=\"font-weight:bold;color:blue\" (keyup.enter)=\"busqueda_razonsocial_placa()\" >\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<div (click)=\"busqueda_razonsocial_placa()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t\t\t\t<a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a>\n\t\t\t\t\t\t\t\t\t\t\t</div> \n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" [(ngModel)]=\"numplaca\" placeholder=\"Inserte placa del vehiculo\" name=\"placa_vehiculo\" value=\"\" class=\"form-control tip info-box-number\" style=\"font-weight:bold;color:blue\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\t\n\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_razon_social\">\n\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>\n\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t <th>Razon Social</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Tipo ident</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Num Identificacion</th>\n\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let rz of razon_social_lista;\">\n\t\t\t\t\t\t\t\t\t <td>{{rz.nomcli}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.tpIdCliente}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.rucced}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_cliente\" (change)=\"select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)\"  />\n\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">DETALLE A FACTURAR</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t<!-- <div class=\"row\"> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label>RETENCION IVA</label>                               -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"retencion_iva\" [(ngModel)]=\"retencion_iva\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_iva_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.porret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label>RETENC FUENTE</label>                               -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"retencion_fuente\" [(ngModel)]=\"retencion_fuente\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_fuente_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\n\n\n                        </div>\n\n\t\t\t\t\t\t<!--################## EJEMPLO COMBO CON SELECT############## -->\n\n\n\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div class=\"table-responsive\">\n\t\t\t\t\t\t\t\t\n                                   <table id=\"poTable\" class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n                                        <thead>\n                                            <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t<th>Código</th>\n                                                <th style=\"width:300px; padding-right:5px;\">Item</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Unid.</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Observación</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:100px; padding-right:5px;\" >Prec. Unit</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th>IVA%</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Cant.IVA</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- style=\"width:25px; padding-right:5px;\" -->\n                                                <th style=\"width:100px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Cantidad</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:100px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Descuento%</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:70px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">V.Desc</th>\n                                                <th>Subtotal</th>\n                                                <th class=\"col-xs-1 text-center\" (click)=\"delete_art_todo()\" style=\"width:25px;\"><i class=\"fa fa-trash-o\" title=\"Remover todos\" ></i></th>\n                                            </tr>\n                                        </thead>\n                                        <tbody *ngIf=\"articulos_pedido.length > 0\">\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let el of articulos_pedido;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"min-width:200px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- {{el.nomart}} -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #nomart class=\"form-control input-sm kb-pad text-center rquantity\" name=\"nomart\" type=\"text\" placeholder=\"Puede cambiar el nombre del articulo\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.nomart}}\"  (keyup.enter)=\"update_nomart(el.codart,el.index,nomart.value)\" (blur)=\"update_nomart(el.codart,el.index,nomart.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<textarea #nomart name=\"nomart\"  rows=\"3\" cols=\"2\" placeholder=\"Puede cambiar el nombre del articulo\"  value=\"{{el.nomart}}\" \n\t\t\t\t\t\t\t\t\t\t\t\t\t(blur)=\"update_nomart(el.codart,el.index,nomart.value)\" (change)=\"update_nomart(el.codart,el.index,nomart.value)\" (keypress)='validaEnter($event,nomart.value)'\n\t\t\t\t\t\t\t\t\t\t\t\t\t class=\"pa form-control kb-text\"></textarea>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #nomart class=\"form-control input-sm kb-pad text-center rquantity\" name=\"nomart\" type=\"text\" placeholder=\"Puede cambiar el nombre del articulo\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.nomart}}\"  (keyup.enter)=\"update_nomart(el.codart,el.index,nomart.value)\" (blur)=\"update_nomart(el.codart,el.index,nomart.value)\"> -->\n\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"width:40px; padding-right:5px;\">{{el.nomart}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.coduni}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #observacion class=\"form-control input-sm kb-pad text-center rquantity\" name=\"observacion[]\" type=\"text\" placeholder=\"{{el.observ}}\"    -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"\"  (keyup.enter)=\"update_observ(el.codart, observacion.value)\" (blur)=\"update_observ(el.codart, observacion.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- USD {{el.prec01}}\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t <input #prec class=\"form-control input-sm kb-pad text-center rquantity\" name=\"precio\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t value=\"{{el.prec01}}\" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)=\"update_precio(el.codart,el.index,prec.value)\" (change)=\"update_precio(el.codart,el.index,prec.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">{{el.poriva}}%</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"padding:2px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\">USD {{el.precio_iva}}</div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td>\t\t\t\t\t\t\t\t\t\t\t\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- (change)= -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #cant class=\"form-control input-sm kb-pad text-center rquantity\" name=\"cantidad\" type=\"number\" inputmode=\"numeric\" -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.cant}}\" (keypress)='validaNumericosCantidad($event)' (keyup.enter)=\"update(el.codart, cant.value)\" (blur)=\"update(el.codart, cant.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t    <input #cant class=\"form-control input-sm kb-pad text-center rquantity\" name=\"cantidad\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.cant}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update(el.codart,el.index,cant.value)\" (change)=\"update(el.codart,el.index,cant.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input #porc_desc class=\"form-control input-sm kb-pad text-center rquantity\" name=\"porc_desc[]\" type=\"number\" inputmode=\"numeric\" step=\".01\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.punreo}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update_art_desc(el.codart,el.index,porc_desc.value)\" (change)=\"update_art_desc(el.codart,el.index,porc_desc.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #porc_desc class=\"form-control input-sm kb-pad text-center rquantity\" name=\"porc_desc[]\" type=\"number\" inputmode=\"numeric\" -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.punreo}}\" (keypress)='validaNumericos($event)' (keyup.enter)=\"update_art_desc(el.codart, porc_desc.value)\" (blur)=\"update_art_desc(el.codart, porc_desc.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<td> <div class=\"text-center\">USD {{redondear(el.v_desc_art)}}</div> </td>\n\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\"> USD {{redondear(el.cant * el.prec01)}}</div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\"> USD {{redondear(el.subtotal_art)}}</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td (click)=\"delete_art(el.nomart,el.index)\" class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-trash-o tip pointer spodel\" title=\"Remover artículo\"></i>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n                                        </tbody>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<tbody *ngIf=\"articulos_pedido.length == 0\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\">Agregar el producto a través de la búsqueda en el campo de arriba</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\n                                    </table>\n\t\t\t\t\t\t\t\t\t\n                                </div>\n\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Habilitar descuentos\" class=\"btn btn-danger\" (click)=\"busca_articulo()\"> -->\n                            </div>\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t <div class=\"row\">\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='SI'\" class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <!-- <label>PRODUCTO O SERVICIO</label>  -->\n\t\t\t\t\t\t\t\t\t<td class= \"text-center\">\n\t\t\t\t\t\t\t\t\t<label  class=\"switch\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"tipo_entrada()\"><span class=\"slider round\"></span>\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"tipo_busqueda\" >ARTÍCULO</label> \n\t\t\t\t\t\t\t\t\t<label  *ngIf=\"!tipo_busqueda\" >SERVICIO</label> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='SI'\"  class=\"col-md-10\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO </label>\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"!tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO </label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_articulo()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar artículo\" class=\"btn btn-primary\" (click)=\"busca_articulo()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_servicio()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar servicio\" class=\"btn btn-danger\" (click)=\"busca_servicio()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfSeleccArtServPdv()=='NO'\"  class=\"col-md-12\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO </label>\n\t\t\t\t\t\t\t\t\t<label *ngIf=\"!tipo_busqueda\" >BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO </label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL ARTÍCULO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_articulo()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar artículo\" class=\"btn btn-primary\" (click)=\"busca_articulo()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"text\" placeholder=\"BÚSQUEDA POR CÓDIGO O POR NOMBRE DEL SERVICIO \" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\" (keyup.enter)=\"busca_servicio()\"  [(ngModel)]=\"patron_articulo\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!tipo_busqueda\"  type=\"submit\" name=\"busca_articulo\" value=\"Buscar servicio\" class=\"btn btn-danger\" (click)=\"busca_servicio()\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_articulo\">\n\t\t\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_articulo}}>></p>\n\t\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t <th>Código</th>\n\t\t\t\t\t\t\t\t\t\t\t <th>Nombre</th>\n\t\t\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Precio unit</th>\n\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" >Dispon</th>\n\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t\t\t   <tbody role=\"alert\">\n\t\t\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let articulos of articulo;\">\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.nomart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"articulos!==edit_articulos\">{{articulos.prec01}}  </span>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" *ngIf=\"articulos===articulos\" [(ngModel)]=\"task.title\" (blur)=\"update()\" (keyup.enter)=\"update()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" *ngIf=\"articulos===edit_articulos\" > -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<select  *ngIf=\"articulos===edit_articulos\"  name=\"nuevo_precio_renglon\" [(ngModel)]=\"nuevo_precio_renglon\" (change)=\"edit_prec_renglon(articulos.codart)\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of lista_prec; let i = index;\" [selected] = \"i==0\" [value]=\"e.prec\">{{e.prec}}</option>\n\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- {{articulos.prec01}} -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"srv.getConfEditPedido() != 'NO'\" routerLink=\"/admin/editar_pedidos\" [queryParams]=\"{usuario:usuario,empresa: empresa,pedido:el.numtra}\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar pedido\"></i></a>  -->\n\t\t\t\t\t\t\t\t\t\t\t<a *ngIf=\"articulos!==edit_articulos\"  (click)=\"edit_prec(articulos)\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar precio\"></i></a> \t\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.exiact}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\"> \n\t\t\t\t\t\t\t\t\t\t\t  <!-- <input  type=\"checkbox\"/> -->\n\t\t\t\t\t\t\t\t\t\t\t  <input  type=\"checkbox\" [(ngModel)]=\"articulos.isSelected\" name=\"list_name\" value=\"{{articulos.nomart}}\" (change)=\"isAllSelected()\"/>\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-md-5\">\n\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a factura\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\">\n\t\t\t\t\t\t\t\t\t\t<p>{{elements_checkedList.length}}  Items seleccionados</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">  <!-- INICIO HEADER RETENCIONES  -->\n\t\t\t\t\n\t\t\t\t<div *ngIf=\"srv.getConfRetencionesPdv()!= 'NO'\" class=\"form-group\">\n\t\t\t\t<table>\n\t\t\t\t<tr>\n\t\t\t\t <td>\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">RETENCIONES  </h3>\n\t\t\t\t</td>\n\t\t\t\t<td class=\"col-xs-6\"> \n\t\t\t\t\t <label class=\"switch\">\n\t\t\t\t\t<input type=\"checkbox\" checked (click)=\"set_aplicar_retencion()\"><span class=\"slider round\"></span>\n\t\t\t\t\t</label>\n\t\t\t\t\t<h3 *ngIf=\"!aplicar_retencion\" style=\"font-weight:bold;\" class=\"box-title\">  (NO)</h3>\n\t\t\t\t\t<h3 *ngIf=\"aplicar_retencion\" style=\"font-weight:bold;\" class=\"box-title\">  (SI)</h3>\n\t\t\t\t</td>\n\t\t\t\t<!-- <td class=\"col-xs-2\"> -->\n\n\t\t\t\t<!-- </td> -->\n\t\t\t\t</tr>\n\t\t\t\t\n\t\t\t\t</table>\n\t\t\t\t</div><!-- FIN FORM GROUP  -->\n                \n\t\t\t\t</div>   <!-- FIN HEADER RETENCIONES  -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t<div *ngIf=\"aplicar_retencion\"  class=\"box-body\">  <!-- BODY APLICAR RETENCION  -->\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n                                    <label>RETENCION IVA</label>                              \n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<select name=\"retencion_iva\" [(ngModel)]=\"retencion_iva_select\" (change)=\"set_retencion_iva()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"0\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_iva_lista; let i = index;\" [selected] = \"i==undefined\" [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of retencion_iva_lista; let i = index;\"  [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option>\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t<label style=\"color:blue\" >Iva retenido:   USD {{redondear(ret_iva_aplicar)}}</label>  \n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n                                    <label>RETENC FUENTE</label>                              \n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<select name=\"retencion_fuente\" [(ngModel)]=\"retencion_fuente_select\" (change)=\"set_retencion_fuente()\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"0\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of retencion_fuente_lista; let i = index;\"  [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of retencion_fuente_lista; let i = index;\" [selected] = \"i==undefined\" [value]=\"e.porret+'|'+e.codret\">{{e.nomret}}</option> -->\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t<label style=\"color:blue\" >Fuente retenida:   USD {{redondear(ret_fuente_aplicar)}}</label>  \n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>    <!-- BODY APLICAR RETENCION  -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">TOTALES A FACTURAR</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<!-- <span class=\"info-box-icon bg-aqua\"><i class=\"ion ion-ios-cart-outline\"></i></span> -->\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-aqua\"><i class=\"fa fa-fw fa-cart-plus\"></i></span>\n\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span class=\"info-box-text\">SUBTOTAL</span>\n\t\t\t\t\t\t\t\t<span class=\"info-box-number\">USD {{ redondear (subtotal)}}</span>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <span class=\"info-box-number\">TOTALES KG</span> -->\n\t\t\t\t\t\t\t\t<span *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.NETO = <span style=\"color:green;font-weight: bold;\" >${{redondear(total_neto)}}</span></span>\n\t\t\t\t\t\t\t\t<!-- <span *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.DESC= <span style=\"color:red;font-weight: bold;\" >-${{redondear(desc_cant)}}</span></span> -->\n\t\t\t\t\t\t\t\t<span  *ngIf=\"desc_cant > 0\" class=\"info-box-text\">T.DESC= <span style=\"color:red;font-weight: bold;\" >-${{redondear(desc_cant)}}</span></span>\n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-green\"><i class=\" fa fa-fw fa-info-circle\"></i></span>\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span class=\"info-box-text\">TOTAL IVA</span>\n\t\t\t\t\t\t\t\t<span class=\"info-box-number\">USD {{ redondear (iva_cant_new)}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-6 col-xs-12\">\n\t\t\t\t\t\t\t<div class=\"info-box\">\n\t\t\t\t\t\t\t<span class=\"info-box-icon bg-yellow\"><i class=\"fa fa-fw fa-dollar\"></i></span>\n\t\t\t\t\t\t\t<div class=\"info-box-content\">\n\t\t\t\t\t\t\t\t<span  class=\"info-box-number \">TOTAL A FACTURAR</span>\n\t\t\t\t\t\t\t\t<span style=\"color:red\" class=\"info-box-number\">USD {{ redondear (total)}}</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div *ngIf=\"srv.getConfTotalRecibidoCambioPdv() != 'NO'\" class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>TOTAL RECIBIDO</label>                              \n\t\t\t\t\t\t\t\t\t<input type=\"text\" type=\"number\" inputmode=\"numeric\" style=\"color:red\" placeholder=\"INGRESE MONTO\" name=\"total_recibido\" value=\"\" (blur)=\"calc_cambio()\" (keyup.enter)=\"calc_cambio()\" id=\"total_recibido\" [(ngModel)]=\"total_recibido\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>CAMBIO</label>                              \n\t\t\t\t\t\t\t\t\t\t<input style=\"color:blue\" type=\"number\" inputmode=\"numeric\"  placeholder=\"cambio\" name=\"cambio\" disabled value=\"USD {{ redondear (cambio)}}\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> <!--  class=\"col-lg-12 -->\n\t\t\t\t</div> <!-- BODY -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<!-- public getConfPagoEfectivo(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_efectivo_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoCheque(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_cheque_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoTrans(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_trans_pdv') -->\n   <!-- } -->\n<!-- public getConfPagoCredito(): string { -->\n\t  <!-- return localStorage.getItem('act_pago_credito_pdv') -->\n   <!-- } -->\n   \n   <!-- getConfPagoTarjeta -->\n<!-- public getConfEdicionPlazoCredito(): string { -->\n\t  <!-- return localStorage.getItem('act_edicion_plazo_credito_pdv') -->\n   <!-- } -->\n\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-header\">\n                    <h3 style=\"font-weight:bold;\" class=\"box-title\">FORMA DE COBRO</h3>\n                </div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoEfectivo() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t<!-- <input  type=\"checkbox\" [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\" value=\"1\" (change)=\"forma_pago('efectivo')\"/> -->\n\t\t\t\t\t\t\t        <label>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\"  *ngIf=\"!check_credito\" [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\"  (change)=\"forma_pago('efectivo')\" > EFECTIVO\n\t\t\t\t\t\t\t\t\t<!-- <input type=\"checkbox\" *ngIf=\"check_credito\"  [(ngModel)]=\"check_efectivo\" name=\"check_efectivo\" disabled > EFECTIVO -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_efectivo\"  type=\"number\" inputmode=\"numeric\" placeholder=\"Ingrese Monto\" name=\"monto_efectivo\" disabled  class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_efectivo\" type=\"number\" inputmode=\"numeric\" placeholder=\"Ingrese Monto\" name=\"monto_efectivo\"  style=\"color:blue\" [(ngModel)]=\"monto_efectivo\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoCheque() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\"  [(ngModel)]=\"check_cheque\" name=\"check_cheque\"  (change)=\"forma_pago('cheque')\" >\n\t\t\t\t\t\t\t\t\t\t\tCHEQUE\n\t\t\t\t\t\t\t\t\t\t</label>                              \n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_cheque\"  type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_cheque\" disabled value=\"\"  class=\"form-control tip \">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_cheque\"  type=\"text\"  placeholder=\"Num Cheque\" name=\"num_cheque\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_cheque\"  type=\"text\"  placeholder=\"Seleccione Banco\" name=\"banco\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_cheque\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_cheque\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_cheque\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_cheque\"  type=\"number\" inputmode=\"numeric\"  placeholder=\"Num Cheque\" name=\"num_cheque\" [(ngModel)]=\"num_cheque\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"check_cheque\"  type=\"text\"  placeholder=\"Seleccione Banco\" name=\"banco\"  value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_cheque\" name=\"bancos_lista\" [(ngModel)]=\"codban\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of bancos_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codban\">{{e.nomban}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoTarjeta() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\" [(ngModel)]=\"check_tarjeta\" name=\"check_tarjeta\"  (change)=\"forma_pago('tarjeta')\" >\n\t\t\t\t\t\t\t\t\t\tTARJETA\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_tarjeta\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_tarjeta\" disabled value=\"\"  class=\"form-control tip\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_tarjeta\" type=\"text\"  placeholder=\"Num Tarjeta\" name=\"num_tarjeta\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!check_tarjeta\" type=\"text\"  placeholder=\"Selecc Tarjeta\" name=\"tipo_tarjeta\" disabled value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_tarjeta\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_tarjeta\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_tarjeta\" class=\"form-control tip info-box-number\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_tarjeta\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Cod Recab\" name=\"Cod Recab\"  [(ngModel)]=\"num_tarjeta\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"check_tarjeta\" type=\"text\"  placeholder=\"Selecc Tarjeta\" name=\"tipo_tarjeta\"  value=\"\" class=\"form-control tip\"> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_tarjeta\" name=\"tarjeta_lista\" [(ngModel)]=\"codtar\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Selecc tipo</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of tarjetas_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.codtar\">{{e.nomtar}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoTrans() == 'SI'\"  class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" *ngIf=\"!check_credito\" [(ngModel)]=\"check_trasf_dep\" name=\"check_trasf_dep\"  (change)=\"forma_pago('tranf')\" >\n\t\t\t\t\t\t\t\t\t\tTRANSFERENCIA / DEPOSITO\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_trasf_dep\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Monto USD\" name=\"monto_transferencia\" disabled value=\"\"  class=\"form-control tip\">\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_trasf_dep\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_transferencia\"  value=\"\" style=\"color:blue\" [(ngModel)]=\"monto_transferencia\" class=\"form-control tip info-box-number\">\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_trasf_dep\" type=\"number\" inputmode=\"numeric\"  placeholder=\"Num tranf/dep\" name=\"Codtranf\"  [(ngModel)]=\"num_tranf\"  value=\"\" class=\"form-control tip\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<select *ngIf=\"check_trasf_dep\" name=\"cta_tranf\" [(ngModel)]=\"coddep\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" selected>Selecc tipo</option>\n\t\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of cuentas_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.coddep\">{{e.coddep}}-{{e.banco}}</option>\n\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div *ngIf=\"srv.getConfPagoCredito() == 'SI'\" class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" [(ngModel)]=\"check_credito\" name=\"check_credito\"  (change)=\"forma_pago('credito')\" >\n\t\t\t\t\t\t\t\t\t\tCREDITO\n\t\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<table *ngIf=\"!check_credito\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\" >Monto de credito</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!check_credito\" type=\"number\" inputmode=\"numeric\" placeholder=\"Monto credito USD\" name=\"monto_credito\" disabled value=\"\"  class=\"form-control tip\">\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</table>\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<table *ngIf=\"check_credito\">\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\">Monto de credito</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito\" disabled type=\"number\" inputmode=\"numeric\" placeholder=\"Monto USD\" name=\"monto_credito\"  value=\"{{redondear (total)}}\" style=\"color:blue\" [(ngModel)]=\"monto_credito\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\">Num. de pagos</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='SI'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Numero de pagos\" name=\"num_pagos_credito\"  [(ngModel)]=\"num_pagos_credito\"  value=\"\" style=\"color:blue\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='NO'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Numero de pagos\" name=\"num_pagos_credito\"  [(ngModel)]=\"num_pagos_credito\"  value=\"\" style=\"color:blue\" disabled class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"font-weight:bold;\" >Plazo de dias por pagos</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='SI'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Plazo de dias pagos\" name=\"plazo_dias_pagos\"  [(ngModel)]=\"plazo_dias_pagos\"  value=\"\" style=\"color:blue\" class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"check_credito && srv.getConfEdicionPlazoCredito()=='NO'\" type=\"number\" inputmode=\"numeric\" placeholder=\"Plazo de dias pagos\" name=\"plazo_dias_pagos\"  [(ngModel)]=\"plazo_dias_pagos\"  value=\"\" style=\"color:blue\" disabled class=\"form-control tip info-box-number\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t</table>\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div *ngIf=\"srv.getConfPagoCredito() == 'SI'\" class=\"col-md-3\"> -->\n\n\n\t\t\t\t\t\t</div>\n\n\n\t\t\t\t\t</div> <!--  class=\"col-lg-12 -->\n\n\t\t\t\t</div> <!-- BODY -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t<div class=\"box-header\">\n\t\t\t\t\t\t<h3 style=\"font-weight:bold;\" class=\"box-title\">OBSERVACIÓNES DE LA FACTURA</h3>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"box-body\">\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<textarea [(ngModel)]=\"observacion_factura\"  name=\"observacion\"  rows=\"2\" cols=\"2\" placeholder=\"Puede escribir observaciones de la factura\"  value=\"\" class=\"pa form-control kb-text\"></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\n\t\t\t\t\n\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t<input *ngIf=\"(ver_factura==0)\"  type=\"submit\" (click)=\"generar_pdv()\"  name=\"add_purchase\" value=\"Facturar\" class=\"btn btn-primary\">\n\n\t\t\t\t\t<button type=\"button\" routerLink=\"/admin/lista_pdv\" [queryParams]=\"{usuario:usuario,empresa: empresa}\"  class=\"btn btn-success\">Ir a Lista facturas</button>\n\t\t\t\t\t<button *ngIf=\"srv.getConfAbrirCierreCaja()!= 'NO'\"  type=\"button\" id=\"reset\" (click)=\"cierre_caja()\" class=\"btn btn-danger\">Cerrar Caja</button>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t<!-- </div>  <!-- PRIMARY--> \n\t\t\t</div> <!-- /.tab-pane 1-->\n\t\t\t\n\t\t\t<div class=\"tab-pane\"  id=\"tab_crear_cliente\" #tab_crear_cliente>\n\t\t\t\t<app-admin-cliente status_cambio_vista_cliente=\"true\" #cliente_contenido></app-admin-cliente>\n            </div> <!-- /.tab-pane 2-->\n\t\t\t\n\t\t\t<div class=\"tab-pane\"  id=\"tab_importar_pedido\" #tab_importar_pedido>\n\t\t\t\n\t\t\t\n\t\t\t    <div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n\t\t\t\t\n\t\t\t\t\t\t<!-- <div class=\"row\"> -->\n\t\t\t\t\t\t\t<!-- <!-- <div class=\"col-md-3\"> --> \n\t\t\t\t\t\t\t\t<!-- <label style=\"font-weight:bold;color:red\" >Fecha factura </label> -->\n\t\t\t\t\t\t\t\t<!-- <input [(ngModel)]=\"fectra\" type=\"date\" name=\"fectra\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"2020-01-01\" max=\"2030-12-31\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <!-- </div> --> \n\t\t\t\t\t\t\n\t\t\t\t\t\t<!-- </div> -->\n\n\t\t\t\t\n\t\t\t\t\t  \n\t\t\t\t\t\n\t\t\t\t\n                        <div class=\"row\">\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div *ngIf=\"busqueda_cliente == 'RZ'\" class=\"col-md-6\">\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t<label >BUSQUEDA DE PEDIDO / ORDEN DE TRABAJO POR RAZON SOCIAL</label>\n\t\t\n\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_pedido_razonsocial()\"   -->\n\t\t\t\t\t\t\t\t<!-- [(ngModel)]=\"patron_razon_social_pedido\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\"  -->\n\t\t\t\t\t\t\t\t<!-- autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t<input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_pedido_razonsocial()\"  \n\t\t\t\t\t\t\t\t[(ngModel)]=\"patron_razon_social_pedido\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" \n\t\t\t\t\t\t\t\tautocomplete=\"off\">\n\t\t\t\t\t\t\t\t<div (click)=\"busqueda_pedido_razonsocial()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t<a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a>\n\t\t\t\t\t\t\t\t</div> \n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_razon_social()\"  [(ngModel)]=\"patron_cliente\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t<!-- <div (click)=\"busqueda_razon_social()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t<!-- <div  class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <br>  -->\n\t\t\t\t\t\t\t\t\t<!-- <table> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <td> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"busqueda_cliente == 'IDENT'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busca_cliente()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"busqueda_cliente == 'RZ'\" type=\"submit\" name=\"busca_cliente\" value=\"Buscar\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <td class=\"col-xs-7\">  --> \n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <button type=\"button\" id=\"cambio_crear_cliente\" (click)=\"switchtab()\" class=\"btn btn-warning\" title=\"Crear cliente\" ><i class=\"fa fa-fw fa-plus\"></i></button> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- </td> --> \n\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t\t\t\t\t<!-- </table> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n\t\t\t\t\t\t\t\n\n                        </div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_pedido\">\n\t\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_razon_social_pedido}}>></p>\n\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t  \t<th class=\"text-center\">Selec</th>\n\t\t\t\t\t\t\t\t\t     <th class=\"text-center\">Numtrans</th>\n\t\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Fecha</th>\n\t\t\t\t\t\t\t\t\t\t <th>Razon Social</th>\n\t\t\t\t\t\t\t\t\t\t  <th>Total</th>\n\t\t\t\t\t\t\t\t\t\t <!-- <th class=\"text-center\">Num Identificacion</th> -->\n\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >TipoTrans</th>\n\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let rz of lista_pedidos;\">\n\t\t\t\t\t\t\t\t\t  \t<td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_cliente\" (change)=\"select_pedido_orden(rz.numtra,rz.tiptra)\"  />\n\t\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t  <td class=\"text-center\">{{rz.numtra}}</td>\n\t\t\t\t\t\t\t\t\t   <td class=\"text-center\">{{rz.fectra}}</td>\n\t\t\t\t\t\t\t\t\t\t <td>{{rz.nomcli}}</td>\n\t\t\t\t\t\t\t\t\t\t  <td>{{rz.totalpedido}}</td>\n\t\t\t\t\t\t\t\t\t\t  <!-- <td class=\"text-center\">{{rz.rucced}}</td> -->\n\t\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.nombre_tiptra}}</td>\n\n\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\n\t\t\t\t\t</div>  <!--  class=\"col-lg-12 -->  \n\t\t\t\t</div> <!-- BODY-->\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n            </div> <!-- /.tab-pane 2-->\n\t\t\t\n\t\t\t\n\t\t\t</div> <!-- /.tab-content -->\n\t\t\t</div> <!-- nav-tabs-custom -->\n\t\t</div>  <!-- col-xs-12 -->\n\t</div>  <!-- ROW -->\n </section>  \n  <!-- /.content -->\n</div>\n"
 
 /***/ }),
 
@@ -27180,6 +27451,7 @@ var AdminPosComponent = /** @class */ (function () {
         this.num_tarjeta = '';
         this.num_tranf = '';
         this.numplaca = null;
+        this.observacion_factura = null;
         this.loading_modulo = false;
         this.exist_pedido = false;
         // public now: Date = new Date();
@@ -27429,6 +27701,7 @@ var AdminPosComponent = /** @class */ (function () {
             _this.fectra = data['fecfac'];
             _this.totalBaseIva = data['totbas'];
             _this.numplaca = data['numplaca'];
+            _this.observacion_factura = data['observ'];
             console.log("##### TOTAL BASE ####");
             console.log(data['totbas']);
         });
@@ -27631,6 +27904,32 @@ var AdminPosComponent = /** @class */ (function () {
         }
         else {
             alert("Por favor llenar el campo Razon Social");
+        }
+    };
+    AdminPosComponent.prototype.busqueda_razonsocial_placa = function () {
+        var _this = this;
+        if (this.numplaca) {
+            var datos = {};
+            datos['codemp'] = this.empresa;
+            datos['patron_placa'] = this.numplaca;
+            this.srv.busqueda_razon_social_placa(datos).subscribe(function (data) {
+                // console.log(data)
+                var longitud_data = data.length;
+                if (longitud_data > 0) {
+                    console.log(data);
+                    _this.razon_social_lista = data;
+                    _this.exist_razon_social = true;
+                    // this.searching_articulo = false
+                }
+                else {
+                    alert("Razon Social no encontrado con la palabra PLACA ingresada <<" + _this.numplaca + ">>");
+                    // this.searching_articulo = false
+                    _this.exist_razon_social = false;
+                }
+            });
+        }
+        else {
+            alert("Por favor llenar el campo PLACA");
         }
     };
     AdminPosComponent.prototype.select_razon_social = function (ident, ruc, rz, correo, codcli, dircli) {
@@ -27917,7 +28216,7 @@ var AdminPosComponent = /** @class */ (function () {
                     dato.v_desc_art = ((dato['punreo'] * dato['prec01']) / 100) * dato.cant;
                     dato.subtotal_art = (dato['prec01'] * dato.cant) - dato.v_desc_art;
                     //REDONDEADO subtotal_art
-                    dato.subtotal_art = Math.round(dato.subtotal_art * 100) / 100;
+                    dato.subtotal_art = Math.round(dato.subtotal_art * 1000) / 1000; //PARA REDONDEAR 3 DECIMALES Y SETEAR CO MAS EXACTITUD LOS TOTALES
                     dato.precio_iva = (dato.subtotal_art * dato['poriva']) / 100;
                     //REDONDEADO PRECIO IVA
                     dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
@@ -27996,6 +28295,7 @@ var AdminPosComponent = /** @class */ (function () {
         var datos = {};
         datos['codart'] = codart;
         datos['codemp'] = this.empresa;
+        datos['codcli'] = this.dato_cliente['codcli'];
         this.srv.get_prec_product(datos).subscribe(function (data) {
             console.log(data);
             // console.log(data['prec02'])
@@ -28005,7 +28305,8 @@ var AdminPosComponent = /** @class */ (function () {
             // {"tipo": "R", "nom_doc": "RUC"},
             // {"tipo": "P", "nom_doc": "PASAPORTE"}
             // ];
-            _this.lista_prec = [{ "prec": data[0].prec01 }, { "prec": data[0].prec02 }, { "prec": data[0].prec03 }, { "prec": data[0].prec04 }, { "prec": data[0].prec05 }];
+            _this.lista_prec = data;
+            // this.lista_prec =[{"prec": data[0].prec01},{"prec": data[0].prec02},{"prec": data[0].prec03},{"prec": data[0].prec04},{"prec": data[0].prec05}];
             console.log(_this.lista_prec);
         });
         return "01";
@@ -28460,6 +28761,7 @@ var AdminPosComponent = /** @class */ (function () {
             encabezado_pdv['totdes'] = this.desc_cant;
             encabezado_pdv['pordes'] = this.desc_porcentaje;
             encabezado_pdv['numplaca'] = this.numplaca;
+            encabezado_pdv['observ'] = this.observacion_factura;
             // encabezado_pdv['codret'] = '0'
             // encabezado_pdv['porret'] = '0'
             // encabezado_pdv['valret'] = '0'
@@ -29817,6 +30119,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_config_admin_config_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./../admin-config/admin-config.component */ "./src/app/admin/admin-config/admin-config.component.ts");
 /* harmony import */ var _admin_pedidos_medicos_admin_pedidos_medicos_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./../admin-pedidos-medicos/admin-pedidos-medicos.component */ "./src/app/admin/admin-pedidos-medicos/admin-pedidos-medicos.component.ts");
 /* harmony import */ var _admin_lista_ped_medicos_admin_lista_ped_medicos_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./../admin-lista-ped-medicos/admin-lista-ped-medicos.component */ "./src/app/admin/admin-lista-ped-medicos/admin-lista-ped-medicos.component.ts");
+/* harmony import */ var _admin_transferencias_admin_transferencias_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./../admin-transferencias/admin-transferencias.component */ "./src/app/admin/admin-transferencias/admin-transferencias.component.ts");
+/* harmony import */ var _admin_lista_transferencia_admin_lista_transferencias_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./../admin-lista-transferencia/admin-lista-transferencias.component */ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29828,6 +30132,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { AdminDashboard1Component } from './../admin-dashboard1/admin-dashboard1.component';
+
+
 
 
 
@@ -30038,6 +30344,14 @@ var AdminRoutingModule = /** @class */ (function () {
                             {
                                 path: 'lista_ped_medicos',
                                 component: _admin_lista_ped_medicos_admin_lista_ped_medicos_component__WEBPACK_IMPORTED_MODULE_39__["AdminListaPedidosMedicosComponent"]
+                            },
+                            {
+                                path: 'transf_bodegas',
+                                component: _admin_transferencias_admin_transferencias_component__WEBPACK_IMPORTED_MODULE_40__["AdminTransfBodegaComponent"]
+                            },
+                            {
+                                path: 'lista_transferencias',
+                                component: _admin_lista_transferencia_admin_lista_transferencias_component__WEBPACK_IMPORTED_MODULE_41__["AdminListaTranferenciasComponent"]
                             }
                         ]
                     }
@@ -32688,6 +33002,2590 @@ var AdminOrdenTallerComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/admin/admin-transferencias/admin-transferencias.component.css":
+/*!*******************************************************************************!*\
+  !*** ./src/app/admin/admin-transferencias/admin-transferencias.component.css ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".example-full-width {\r\n  min-width: 150px;\r\n  min-height: 30px;\r\n  width: 100%;\r\n}\r\n\r\nmat-selection-list {\r\n  max-height: 200px;\r\n  overflow: auto;\r\n}\r\n\r\nul.nav li {\r\n background-color:#d3e7f2;\r\n}\r\n\r\n/* ul.nav li.selected { */\r\n\r\n/* background-color:red; */\r\n\r\n/* } */\r\n\r\n.table-responsive-pedidos {\r\n    min-height: 0.01%;\r\n    overflow-x: auto;\r\n    overflow-y: auto;\r\n    max-height: 150px;\r\n}\r\n\r\n.redactor-box {\r\n    position: relative;\r\n    overflow: visible;\r\n    border: 1px solid #ccc;\r\n}\r\n\r\n.redactor-editor {\r\n    position: relative;\r\n    overflow: auto;\r\n    margin: 0 !important;\r\n    padding: 10px;\r\n    outline: none;\r\n    white-space: normal;\r\n    line-height: 1.6em;\r\n}\r\n\r\n.switch {\r\n  position: relative;\r\n  display: inline-block;\r\n  width: 60px;\r\n  height: 34px;\r\n}\r\n\r\n.switch input { \r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.slider {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  /*background-color:   #00a65a; VERDE*/\r\n  /*background-color:   #2196F3; AZUL */\r\n  \r\n  background-color:   #d73925;\r\n \r\n  /* background-color: #ccc; */\r\n  -webkit-transition: .4s;\r\n  transition: .4s;\r\n}\r\n\r\n.slider:before {\r\n  position: absolute;\r\n  content: \"\";\r\n  height: 26px;\r\n  width: 26px;\r\n  left: 4px;\r\n  bottom: 4px;\r\n  background-color: white;\r\n  -webkit-transition: .4s;\r\n  transition: .4s;\r\n}\r\n\r\ninput:checked + .slider {\r\n  background-color: #2196F3;\r\n}\r\n\r\ninput:focus + .slider {\r\n  box-shadow: 0 0 1px #2196F3;\r\n}\r\n\r\ninput:checked + .slider:before {\r\n  -webkit-transform: translateX(26px);\r\n  transform: translateX(26px);\r\n}\r\n\r\n/* Rounded sliders */\r\n\r\n.slider.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider.round:before {\r\n  border-radius: 50%;\r\n}\r\n\r\n.slider_detalle {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  /*background-color:   #00a65a; VERDE*/\r\n  /*background-color:   #2196F3; AZUL */\r\n  \r\n  background-color:   #e3d7d5;\r\n \r\n  /* background-color: #ccc; */\r\n  -webkit-transition: .4s;\r\n  transition: .4s;\r\n}\r\n\r\n.slider_detalle:before {\r\n  position: absolute;\r\n  content: \"\";\r\n  height: 26px;\r\n  width: 26px;\r\n  left: 4px;\r\n  bottom: 4px;\r\n  background-color: white;\r\n  -webkit-transition: .4s;\r\n  transition: .4s;\r\n}\r\n\r\ninput:checked + .slider_detalle {\r\n  background-color: #2AA443;\r\n}\r\n\r\ninput:focus + .slider_detalle {\r\n  box-shadow: 0 0 1px #2AA443;\r\n}\r\n\r\ninput:checked + .slider_detalle:before {\r\n  -webkit-transform: translateX(26px);\r\n  transform: translateX(26px);\r\n}\r\n\r\n/* Rounded sliders */\r\n\r\n.slider_detalle.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider_detalle.round:before {\r\n  border-radius: 50%;\r\n}\r\n\r\n/* .fondo { */\r\n\r\n/* background: #ffff0082; */\r\n\r\n/* } */\r\n\r\n/* .fondo { */\r\n\r\n/* background: yellow; */\r\n\r\n/* } */\r\n\r\n.fondo:valid {\r\n  background: #ffff0082;\r\n}\r\n\r\n/* /* border: DE AQUI ABAJO ES LA TABLA SCROLL; */\r\n\r\n/* table.scroll { */\r\n\r\n/* width: 100%; */\r\n\r\n/* border-spacing: 0; */\r\n\r\n/* /* border: 2px solid black; */\r\n\r\n/* } */\r\n\r\n/* table.scroll th, */\r\n\r\n/* table.scroll td, */\r\n\r\n/* table.scroll tr, */\r\n\r\n/* table.scroll thead, */\r\n\r\n/* table.scroll tbody { display: block; } */\r\n\r\n/* table.scroll thead tr { */\r\n\r\n/* /* fallback */\r\n\r\n/* width: 97%; */\r\n\r\n/* /* minus scroll bar width */\r\n\r\n/* width: -webkit-calc(100% - 16px); */\r\n\r\n/* width:    -moz-calc(100% - 16px); */\r\n\r\n/* width:         calc(100% - 16px); */\r\n\r\n/* } */\r\n\r\n/* table.scroll tr:after { */\r\n\r\n/* content: ' '; */\r\n\r\n/* display: block; */\r\n\r\n/* visibility: hidden; */\r\n\r\n/* clear: both; */\r\n\r\n/* } */\r\n\r\n/* table.scroll tbody { */\r\n\r\n/* height: 100px; */\r\n\r\n/* overflow-y: auto; */\r\n\r\n/* overflow-x: hidden; */\r\n\r\n/* } */\r\n\r\n/* table.scroll tbody td, */\r\n\r\n/* table.scroll thead th { */\r\n\r\n/* width: 19%; */\r\n\r\n/* float: left; */\r\n\r\n/* /* border-right: 1px solid black; */\r\n\r\n/* } */\r\n\r\n/* thead tr th {  */\r\n\r\n/* height: 30px; */\r\n\r\n/* line-height: 30px; */\r\n\r\n/* /*text-align: left;*/\r\n\r\n/* } */\r\n\r\n/* /* tbody { border-top: 2px solid black; } */\r\n\r\n/* tbody td:last-child, thead th:last-child { */\r\n\r\n/* border-right: none !important; */\r\n\r\n/* } */\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vYWRtaW4tdHJhbnNmZXJlbmNpYXMvYWRtaW4tdHJhbnNmZXJlbmNpYXMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7RUFDakIsWUFBWTtDQUNiOztBQUVEO0VBQ0Usa0JBQWtCO0VBQ2xCLGVBQWU7Q0FDaEI7O0FBRUQ7Q0FDQyx5QkFBeUI7Q0FDekI7O0FBQ0QsMEJBQTBCOztBQUN6QiwyQkFBMkI7O0FBQzVCLE9BQU87O0FBR1A7SUFDSSxrQkFBa0I7SUFDbEIsaUJBQWlCO0lBQ2pCLGlCQUFpQjtJQUNqQixrQkFBa0I7Q0FDckI7O0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLHVCQUF1QjtDQUMxQjs7QUFFRDtJQUNJLG1CQUFtQjtJQUNuQixlQUFlO0lBQ2YscUJBQXFCO0lBQ3JCLGNBQWM7SUFDZCxjQUFjO0lBQ2Qsb0JBQW9CO0lBQ3BCLG1CQUFtQjtDQUN0Qjs7QUFHRDtFQUNFLG1CQUFtQjtFQUNuQixzQkFBc0I7RUFDdEIsWUFBWTtFQUNaLGFBQWE7Q0FDZDs7QUFFRDtFQUNFLFdBQVc7RUFDWCxTQUFTO0VBQ1QsVUFBVTtDQUNYOztBQUNEO0VBQ0UsbUJBQW1CO0VBQ25CLGdCQUFnQjtFQUNoQixPQUFPO0VBQ1AsUUFBUTtFQUNSLFNBQVM7RUFDVCxVQUFVO0VBQ1Ysc0NBQXNDO0VBQ3RDLHNDQUFzQzs7RUFFdEMsNEJBQTRCOztFQUU1Qiw2QkFBNkI7RUFDN0Isd0JBQXdCO0VBQ3hCLGdCQUFnQjtDQUNqQjs7QUFFRDtFQUNFLG1CQUFtQjtFQUNuQixZQUFZO0VBQ1osYUFBYTtFQUNiLFlBQVk7RUFDWixVQUFVO0VBQ1YsWUFBWTtFQUNaLHdCQUF3QjtFQUN4Qix3QkFBd0I7RUFDeEIsZ0JBQWdCO0NBQ2pCOztBQUVEO0VBQ0UsMEJBQTBCO0NBQzNCOztBQUVEO0VBQ0UsNEJBQTRCO0NBQzdCOztBQUVEO0VBQ0Usb0NBQW9DO0VBRXBDLDRCQUE0QjtDQUM3Qjs7QUFFRCxxQkFBcUI7O0FBQ3JCO0VBQ0Usb0JBQW9CO0NBQ3JCOztBQUVEO0VBQ0UsbUJBQW1CO0NBQ3BCOztBQVVEO0VBQ0UsbUJBQW1CO0VBQ25CLGdCQUFnQjtFQUNoQixPQUFPO0VBQ1AsUUFBUTtFQUNSLFNBQVM7RUFDVCxVQUFVO0VBQ1Ysc0NBQXNDO0VBQ3RDLHNDQUFzQzs7RUFFdEMsNEJBQTRCOztFQUU1Qiw2QkFBNkI7RUFDN0Isd0JBQXdCO0VBQ3hCLGdCQUFnQjtDQUNqQjs7QUFFRDtFQUNFLG1CQUFtQjtFQUNuQixZQUFZO0VBQ1osYUFBYTtFQUNiLFlBQVk7RUFDWixVQUFVO0VBQ1YsWUFBWTtFQUNaLHdCQUF3QjtFQUN4Qix3QkFBd0I7RUFDeEIsZ0JBQWdCO0NBQ2pCOztBQUVEO0VBQ0UsMEJBQTBCO0NBQzNCOztBQUVEO0VBQ0UsNEJBQTRCO0NBQzdCOztBQUVEO0VBQ0Usb0NBQW9DO0VBRXBDLDRCQUE0QjtDQUM3Qjs7QUFFRCxxQkFBcUI7O0FBQ3JCO0VBQ0Usb0JBQW9CO0NBQ3JCOztBQUVEO0VBQ0UsbUJBQW1CO0NBQ3BCOztBQUlELGNBQWM7O0FBQ2QsNEJBQTRCOztBQUM1QixPQUFPOztBQUNQLGNBQWM7O0FBQ2QseUJBQXlCOztBQUN6QixPQUFPOztBQUVQO0VBQ0Usc0JBQXNCO0NBQ3ZCOztBQU1ELGtEQUFrRDs7QUFDbEQsb0JBQW9COztBQUNoQixrQkFBa0I7O0FBQ2xCLHdCQUF3Qjs7QUFDeEIsaUNBQWlDOztBQUNyQyxPQUFPOztBQUVQLHNCQUFzQjs7QUFDdEIsc0JBQXNCOztBQUN0QixzQkFBc0I7O0FBQ3RCLHlCQUF5Qjs7QUFDekIsNENBQTRDOztBQUU1Qyw2QkFBNkI7O0FBQ3pCLGlCQUFpQjs7QUFDakIsaUJBQWlCOztBQUNqQiwrQkFBK0I7O0FBQy9CLHVDQUF1Qzs7QUFDdkMsdUNBQXVDOztBQUN2Qyx1Q0FBdUM7O0FBQzNDLE9BQU87O0FBRVAsNkJBQTZCOztBQUN6QixtQkFBbUI7O0FBQ25CLHFCQUFxQjs7QUFDckIseUJBQXlCOztBQUN6QixrQkFBa0I7O0FBQ3RCLE9BQU87O0FBRVAsMEJBQTBCOztBQUN0QixvQkFBb0I7O0FBQ3BCLHVCQUF1Qjs7QUFDdkIseUJBQXlCOztBQUM3QixPQUFPOztBQUVQLDRCQUE0Qjs7QUFDNUIsNkJBQTZCOztBQUN6QixpQkFBaUI7O0FBQ2pCLGtCQUFrQjs7QUFDbEIsdUNBQXVDOztBQUMzQyxPQUFPOztBQUVQLG9CQUFvQjs7QUFDaEIsbUJBQW1COztBQUNuQix3QkFBd0I7O0FBQ3hCLHdCQUF3Qjs7QUFDNUIsT0FBTzs7QUFFUCwrQ0FBK0M7O0FBRS9DLGdEQUFnRDs7QUFDNUMsb0NBQW9DOztBQUN4QyxPQUFPIiwiZmlsZSI6InNyYy9hcHAvYWRtaW4vYWRtaW4tdHJhbnNmZXJlbmNpYXMvYWRtaW4tdHJhbnNmZXJlbmNpYXMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leGFtcGxlLWZ1bGwtd2lkdGgge1xyXG4gIG1pbi13aWR0aDogMTUwcHg7XHJcbiAgbWluLWhlaWdodDogMzBweDtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxubWF0LXNlbGVjdGlvbi1saXN0IHtcclxuICBtYXgtaGVpZ2h0OiAyMDBweDtcclxuICBvdmVyZmxvdzogYXV0bztcclxufVxyXG5cclxudWwubmF2IGxpIHtcclxuIGJhY2tncm91bmQtY29sb3I6I2QzZTdmMjtcclxufVxyXG4vKiB1bC5uYXYgbGkuc2VsZWN0ZWQgeyAqL1xyXG4gLyogYmFja2dyb3VuZC1jb2xvcjpyZWQ7ICovXHJcbi8qIH0gKi9cclxuXHJcblxyXG4udGFibGUtcmVzcG9uc2l2ZS1wZWRpZG9zIHtcclxuICAgIG1pbi1oZWlnaHQ6IDAuMDElO1xyXG4gICAgb3ZlcmZsb3cteDogYXV0bztcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbiAgICBtYXgtaGVpZ2h0OiAxNTBweDtcclxufVxyXG5cclxuLnJlZGFjdG9yLWJveCB7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBvdmVyZmxvdzogdmlzaWJsZTtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XHJcbn1cclxuXHJcbi5yZWRhY3Rvci1lZGl0b3Ige1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgb3ZlcmZsb3c6IGF1dG87XHJcbiAgICBtYXJnaW46IDAgIWltcG9ydGFudDtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbiAgICBvdXRsaW5lOiBub25lO1xyXG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcclxuICAgIGxpbmUtaGVpZ2h0OiAxLjZlbTtcclxufVxyXG5cclxuXHJcbi5zd2l0Y2gge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgd2lkdGg6IDYwcHg7XHJcbiAgaGVpZ2h0OiAzNHB4O1xyXG59XHJcblxyXG4uc3dpdGNoIGlucHV0IHsgXHJcbiAgb3BhY2l0eTogMDtcclxuICB3aWR0aDogMDtcclxuICBoZWlnaHQ6IDA7XHJcbn1cclxuLnNsaWRlciB7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICB0b3A6IDA7XHJcbiAgbGVmdDogMDtcclxuICByaWdodDogMDtcclxuICBib3R0b206IDA7XHJcbiAgLypiYWNrZ3JvdW5kLWNvbG9yOiAgICMwMGE2NWE7IFZFUkRFKi9cclxuICAvKmJhY2tncm91bmQtY29sb3I6ICAgIzIxOTZGMzsgQVpVTCAqL1xyXG4gIFxyXG4gIGJhY2tncm91bmQtY29sb3I6ICAgI2Q3MzkyNTtcclxuIFxyXG4gIC8qIGJhY2tncm91bmQtY29sb3I6ICNjY2M7ICovXHJcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiAuNHM7XHJcbiAgdHJhbnNpdGlvbjogLjRzO1xyXG59XHJcblxyXG4uc2xpZGVyOmJlZm9yZSB7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIGNvbnRlbnQ6IFwiXCI7XHJcbiAgaGVpZ2h0OiAyNnB4O1xyXG4gIHdpZHRoOiAyNnB4O1xyXG4gIGxlZnQ6IDRweDtcclxuICBib3R0b206IDRweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcclxuICAtd2Via2l0LXRyYW5zaXRpb246IC40cztcclxuICB0cmFuc2l0aW9uOiAuNHM7XHJcbn1cclxuXHJcbmlucHV0OmNoZWNrZWQgKyAuc2xpZGVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjE5NkYzO1xyXG59XHJcblxyXG5pbnB1dDpmb2N1cyArIC5zbGlkZXIge1xyXG4gIGJveC1zaGFkb3c6IDAgMCAxcHggIzIxOTZGMztcclxufVxyXG5cclxuaW5wdXQ6Y2hlY2tlZCArIC5zbGlkZXI6YmVmb3JlIHtcclxuICAtd2Via2l0LXRyYW5zZm9ybTogdHJhbnNsYXRlWCgyNnB4KTtcclxuICAtbXMtdHJhbnNmb3JtOiB0cmFuc2xhdGVYKDI2cHgpO1xyXG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlWCgyNnB4KTtcclxufVxyXG5cclxuLyogUm91bmRlZCBzbGlkZXJzICovXHJcbi5zbGlkZXIucm91bmQge1xyXG4gIGJvcmRlci1yYWRpdXM6IDM0cHg7XHJcbn1cclxuXHJcbi5zbGlkZXIucm91bmQ6YmVmb3JlIHtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbn1cclxuXHJcblxyXG5cclxuXHJcblxyXG5cclxuXHJcblxyXG5cclxuLnNsaWRlcl9kZXRhbGxlIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIHRvcDogMDtcclxuICBsZWZ0OiAwO1xyXG4gIHJpZ2h0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICAvKmJhY2tncm91bmQtY29sb3I6ICAgIzAwYTY1YTsgVkVSREUqL1xyXG4gIC8qYmFja2dyb3VuZC1jb2xvcjogICAjMjE5NkYzOyBBWlVMICovXHJcbiAgXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogICAjZTNkN2Q1O1xyXG4gXHJcbiAgLyogYmFja2dyb3VuZC1jb2xvcjogI2NjYzsgKi9cclxuICAtd2Via2l0LXRyYW5zaXRpb246IC40cztcclxuICB0cmFuc2l0aW9uOiAuNHM7XHJcbn1cclxuXHJcbi5zbGlkZXJfZGV0YWxsZTpiZWZvcmUge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICBjb250ZW50OiBcIlwiO1xyXG4gIGhlaWdodDogMjZweDtcclxuICB3aWR0aDogMjZweDtcclxuICBsZWZ0OiA0cHg7XHJcbiAgYm90dG9tOiA0cHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XHJcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiAuNHM7XHJcbiAgdHJhbnNpdGlvbjogLjRzO1xyXG59XHJcblxyXG5pbnB1dDpjaGVja2VkICsgLnNsaWRlcl9kZXRhbGxlIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMkFBNDQzO1xyXG59XHJcblxyXG5pbnB1dDpmb2N1cyArIC5zbGlkZXJfZGV0YWxsZSB7XHJcbiAgYm94LXNoYWRvdzogMCAwIDFweCAjMkFBNDQzO1xyXG59XHJcblxyXG5pbnB1dDpjaGVja2VkICsgLnNsaWRlcl9kZXRhbGxlOmJlZm9yZSB7XHJcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZVgoMjZweCk7XHJcbiAgLW1zLXRyYW5zZm9ybTogdHJhbnNsYXRlWCgyNnB4KTtcclxuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVgoMjZweCk7XHJcbn1cclxuXHJcbi8qIFJvdW5kZWQgc2xpZGVycyAqL1xyXG4uc2xpZGVyX2RldGFsbGUucm91bmQge1xyXG4gIGJvcmRlci1yYWRpdXM6IDM0cHg7XHJcbn1cclxuXHJcbi5zbGlkZXJfZGV0YWxsZS5yb3VuZDpiZWZvcmUge1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxufVxyXG5cclxuXHJcblxyXG4vKiAuZm9uZG8geyAqL1xyXG4vKiBiYWNrZ3JvdW5kOiAjZmZmZjAwODI7ICovXHJcbi8qIH0gKi9cclxuLyogLmZvbmRvIHsgKi9cclxuLyogYmFja2dyb3VuZDogeWVsbG93OyAqL1xyXG4vKiB9ICovXHJcblxyXG4uZm9uZG86dmFsaWQge1xyXG4gIGJhY2tncm91bmQ6ICNmZmZmMDA4MjtcclxufVxyXG5cclxuXHJcblxyXG5cclxuXHJcbi8qIC8qIGJvcmRlcjogREUgQVFVSSBBQkFKTyBFUyBMQSBUQUJMQSBTQ1JPTEw7ICovIFxyXG4vKiB0YWJsZS5zY3JvbGwgeyAqL1xyXG4gICAgLyogd2lkdGg6IDEwMCU7ICovXHJcbiAgICAvKiBib3JkZXItc3BhY2luZzogMDsgKi9cclxuICAgIC8qIC8qIGJvcmRlcjogMnB4IHNvbGlkIGJsYWNrOyAqLyBcclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRoLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGQsICovXHJcbi8qIHRhYmxlLnNjcm9sbCB0ciwgKi9cclxuLyogdGFibGUuc2Nyb2xsIHRoZWFkLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGJvZHkgeyBkaXNwbGF5OiBibG9jazsgfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRoZWFkIHRyIHsgKi9cclxuICAgIC8qIC8qIGZhbGxiYWNrICovIFxyXG4gICAgLyogd2lkdGg6IDk3JTsgKi9cclxuICAgIC8qIC8qIG1pbnVzIHNjcm9sbCBiYXIgd2lkdGggKi9cclxuICAgIC8qIHdpZHRoOiAtd2Via2l0LWNhbGMoMTAwJSAtIDE2cHgpOyAqL1xyXG4gICAgLyogd2lkdGg6ICAgIC1tb3otY2FsYygxMDAlIC0gMTZweCk7ICovXHJcbiAgICAvKiB3aWR0aDogICAgICAgICBjYWxjKDEwMCUgLSAxNnB4KTsgKi9cclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRyOmFmdGVyIHsgKi9cclxuICAgIC8qIGNvbnRlbnQ6ICcgJzsgKi9cclxuICAgIC8qIGRpc3BsYXk6IGJsb2NrOyAqL1xyXG4gICAgLyogdmlzaWJpbGl0eTogaGlkZGVuOyAqL1xyXG4gICAgLyogY2xlYXI6IGJvdGg7ICovXHJcbi8qIH0gKi9cclxuXHJcbi8qIHRhYmxlLnNjcm9sbCB0Ym9keSB7ICovXHJcbiAgICAvKiBoZWlnaHQ6IDEwMHB4OyAqL1xyXG4gICAgLyogb3ZlcmZsb3cteTogYXV0bzsgKi9cclxuICAgIC8qIG92ZXJmbG93LXg6IGhpZGRlbjsgKi9cclxuLyogfSAqL1xyXG5cclxuLyogdGFibGUuc2Nyb2xsIHRib2R5IHRkLCAqL1xyXG4vKiB0YWJsZS5zY3JvbGwgdGhlYWQgdGggeyAqL1xyXG4gICAgLyogd2lkdGg6IDE5JTsgKi9cclxuICAgIC8qIGZsb2F0OiBsZWZ0OyAqL1xyXG4gICAgLyogLyogYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgYmxhY2s7ICovIFxyXG4vKiB9ICovXHJcblxyXG4vKiB0aGVhZCB0ciB0aCB7ICAqL1xyXG4gICAgLyogaGVpZ2h0OiAzMHB4OyAqL1xyXG4gICAgLyogbGluZS1oZWlnaHQ6IDMwcHg7ICovXHJcbiAgICAvKiAvKnRleHQtYWxpZ246IGxlZnQ7Ki8gXHJcbi8qIH0gKi9cclxuXHJcbi8qIC8qIHRib2R5IHsgYm9yZGVyLXRvcDogMnB4IHNvbGlkIGJsYWNrOyB9ICovIFxyXG5cclxuLyogdGJvZHkgdGQ6bGFzdC1jaGlsZCwgdGhlYWQgdGg6bGFzdC1jaGlsZCB7ICovXHJcbiAgICAvKiBib3JkZXItcmlnaHQ6IG5vbmUgIWltcG9ydGFudDsgKi9cclxuLyogfSAqLyJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-transferencias/admin-transferencias.component.html":
+/*!********************************************************************************!*\
+  !*** ./src/app/admin/admin-transferencias/admin-transferencias.component.html ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"content-wrapper\">\n  <!-- Content Header (Page header) -->\n  <section class=\"content-header\">\n    <h1>\n      <!-- Page Header 1111 -->\n\t   Transferencias de bodega\n      <small>Proceso de transferencia entre bodegas</small>\n    </h1>\n    <ol class=\"breadcrumb\">\n      <li><i class=\"fa fa-dashboard\"></i>Transferencias</li>\n      <li class=\"active\">Transf de bodega</li>\n    </ol>\n  </section>\n\n  <!-- Main content -->\n  <section class=\"content\">\n\n    <!-- Your Page Content Here -->\n\t\n\t<!-- <div class=\"row\" *ngIf=\"loading_modulo\"  > -->\n\t\t<!-- <div class=\"col-md-12\"> -->\n\t\t  <!-- <div class=\"box box-primary\"> -->\n\t\t\t<!-- <div class=\"text-center box-header\"> -->\n\t\t\t  <!-- <h3 class=\"box-title \">Por favor espere</h3> -->\n\t\t\t<!-- </div> -->\n\t\t\t<!-- <div class=\"box-body\"> -->\n\t\t\t  <!-- <!-- <!-- <!-- The body of the box -->   \n\t\t\t<!-- </div> -->\n\t\t\t<!-- <div class=\"overlay\"> -->\n\t\t\t  <!-- <i class=\"fa fa-refresh fa-spin\"></i> -->\n\t\t\t<!-- </div> -->\n\t\t\t<!-- <!-- <!-- <!-- end loading -->   \n\t\t  <!-- </div> -->\n\t\t  <!-- <!-- <!-- <!-- /.box -->  \n\t\t<!-- </div> -->\n\t<!-- </div> -->\n\t\n\t\n\t <div class=\"row\" >\n        <div class=\"col-xs-12\">\n\t\t\n\t\t\n\t\t\t<div class=\"box box-primary\" *ngIf=\"loading_modulo\">\n\t\t\t\t<div class=\"text-center box-header\">\n\t\t\t\t  <h3 class=\"box-title \">Por favor espere...!!!!</h3>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"box-body\">\n\t\t\t\t  <!-- <!-- <!-- The body of the box -->  \n\t\t\t\t</div>\n\t\t\t\t<div class=\"overlay\">\n\t\t\t\t  <i class=\"fa fa-refresh fa-spin\"></i>\n\t\t\t\t</div>\n\t\t\t\t<!-- <!-- <!-- end loading -->  \n\t\t\t</div>\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t<div class=\"nav-tabs-custom\"  *ngIf=\"!loading_modulo\">\n            <ul class=\"nav nav-tabs\">\n\t\t\t    <!-- <li id=\"facturacion\"   class=\"active\" #facturacion ><a href=\"#tab_facturacion\" data-toggle=\"tab\" style=\"font-weight:bold;color:red\" (click)=\"cambio_vista_cliente('false')\" >FACTURACIÓN</a></li> -->\n                <!-- <li id=\"crear_cliente\" #crear_cliente ><a href=\"#tab_crear_cliente\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" (click)=\"cambio_vista_cliente('true')\" >CREACIÓN CLIENTE</a></li> -->\n\t\t\t\t\n\t\t\t\t<li id=\"datos_orden\"   class=\"active\" #datos_orden ><a href=\"#tab_datos_orden\" data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" >Datos Ingreso</a></li>\n                <li *ngIf=\"tab_habilitar_datos_orden\" id=\"datos_vehiculo\"  #datos_vehiculo ><a href=\"#tab_datos_vehiculo\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\"  >Datos Vehiculo</a></li>\n\t\t\t\t<li *ngIf=\"tab_habilitar_datos_orden\" id=\"datos_detalle_vehiculo\"  #datos_detalle_vehiculo ><a href=\"#tab_datos_detalle_vehiculo\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" >Detalle Vehiculo</a></li>\n\t\t\t\t<li *ngIf=\"tab_habilitar_datos_orden\" id=\"fotos_vehiculo\"  #fotos_vehiculo ><a href=\"#tab_fotos_vehiculo\"  data-toggle=\"tab\" style=\"font-weight:bold;color:blue\" >Fotos Vehiculo</a></li>\n\t\t\t</ul>\n\t\t\t\n\t\t\t<div class=\"tab-content\">\n\t\t\t<div class=\"tab-pane active\" id=\"tab_datos_orden\" #tab_datos_orden >\n\t\t\t\t\t\n\t\t\t\t<div class=\"box-body\">\n                    <div class=\"col-lg-12\">\n                        <form class=\"validation fv-form fv-form-bootstrap\" enctype=\"multipart/form-data\" method=\"post\" accept-charset=\"utf-8\" novalidate=\"novalidate\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<button type=\"submit\" class=\"fv-hidden-submit\" style=\"display: none; width: 0px; height: 0px;\"></button>\n\t\t\t\t\t<!-- <input type=\"hidden\" name=\"spos_token\" value=\"63b87f6a60dc5db5380a9ae6f8ae9725\" style=\"display:none;\"> -->\n                        <div class=\"row\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <label for=\"date\">INGRESO NUM\n\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"!edit_fecha_creacion\"  (click)=\"edit_fecha_creacion = true\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar fecha de creacion\"></i></a>  -->\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t<input *ngIf=\"numtra\"  type=\"text\" name=\"date\" value=\"{{numtra}}\" class=\"form-control tip\" id=\"date\" required=\"required\" disabled>\n\t\t\t\t\t\t\t\t\t<input style=\"font-weight:bold;color:red\" *ngIf=\"!numtra\"  type=\"text\" name=\"date\" value=\"Nueva Transf\" class=\"form-control tip\" id=\"date\" required=\"required\" disabled>\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\n\t\t\t\t\t\t\t<div class=\"col-md-2\">\n                                <div class=\"form-group\">\n                                    <label for=\"date\">FECHA CREACION\n\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"!edit_fecha_creacion\"  (click)=\"edit_fecha_creacion = true\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar fecha de creacion\"></i></a>  -->\n\t\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!edit_fecha_creacion\" type=\"text\" name=\"date\" value=\"{{fectra}}\" class=\"form-control tip\" id=\"date\" required=\"required\" disabled> -->\n\t\t\t\t\t\t\t\t\t<input *ngIf='!accion_actualizar' type=\"text\" name=\"date\" value=\"{{fectra}}\" class=\"form-control tip\" id=\"date\" required=\"required\" disabled>\n\t\t\t\t\t\t\t\t\t<input *ngIf='accion_actualizar' type=\"text\" name=\"date\" value=\"{{fectra}}\" class=\"form-control tip\" id=\"date\" required=\"required\" disabled>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<mat-form-field *ngIf=\"edit_fecha_creacion\">\n\t\t\t\t\t\t\t\t<input matInput [matDatepicker]=\"picker\" placeholder=\"Escoja fecha\" [(ngModel)]=\"fectra\" name=\"fectra\" >\n\t\t\t\t\t\t\t\t<mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n\t\t\t\t\t\t\t\t<mat-datepicker #picker></mat-datepicker>\n\t\t\t\t\t\t\t\t</mat-form-field>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t<!-- ################################  INICIO FECHA DE ENTREGA ##################################################-->\t\t\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label >FECHA DE ENTREGA -->\n\t\t\t\t\t\t\t\t\t<!-- <!-- <a *ngIf=\"!edit_fecha_entrega\"  (click)=\"edit_fecha_entrega = true\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar fecha de entrega\"></i></a>  --> \n\t\t\t\t\t\t\t\t\t<!-- </label> -->\n\t\t\t\t\t\t\t\t\t<!-- <!-- <input *ngIf=\"!edit_fecha_entrega\" type=\"text\" name=\"date_entrega\" value=\"{{fecha_entrega}}\" class=\"form-control tip\" id=\"date_entrega\" required=\"required\" disabled> --> \n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <!-- <mat-form-field *ngIf=\"edit_fecha_entrega\"> --> \n\t\t\t\t\t\t\t\t<!-- <mat-form-field *ngIf=\"exist_fecha_entrega\"> -->\n\t\t\t\t\t\t\t\t<!-- <input matInput [matDatepicker]=\"picker\" placeholder=\"Escoja fecha\" [formControl]=\"fecha_entrega\" > -->\n\t\t\t\t\t\t\t\t<!-- <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle> -->\n\t\t\t\t\t\t\t\t<!-- <mat-datepicker #picker></mat-datepicker> -->\n\t\t\t\t\t\t\t\t<!-- </mat-form-field> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <h4 style=\"color:red;\" *ngIf=\"!exist_fecha_entrega\">POR PLANIFICAR</h4> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <!-- <button type=\"button\" id=\"busqueda_razon_social\" (click)=\"busqueda_razon_social()\" class=\"btn btn-primary\" title=\"Buscar razon social\" ><i class=\"fa fa-fw fa-search\"></i></button> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n                            <!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n\t\t\t\t\t\t\t<!-- <br>  -->\n\t\t\t\t\t\t\t<!-- <!-- <input type=\"submit\" name=\"busqueda_razon_social\" value=\"Buscar razon social\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\"> --> \n\t\t\t\t\t\t\t<!-- <!-- <button type=\"button\" id=\"busqueda_razon_social\" (click)=\"busqueda_razon_social()\" class=\"btn btn-primary\" title=\"Buscar razon social\" ><i class=\"fa fa-fw fa-search\"></i></button> --> \n\t\t\t\t\t\t\t<!-- <button *ngIf=\"exist_fecha_entrega\" type=\"button\" id=\"busqueda_razon_social\" (click)=\"exist_fecha_entrega = false\" class=\"btn btn-danger\" title=\"Buscar razon social\" >PLANIFICAR ENTREGA LUEGO</button> -->\n\t\t\t\t\t\t\t<!-- <button *ngIf=\"!exist_fecha_entrega\"  type=\"button\" id=\"busqueda_razon_social\" (click)=\"exist_fecha_entrega = true\" class=\"btn btn-primary\" title=\"Buscar razon social\" >PLANIFICAR ENTREGA</button> -->\n\t\t\t\t\t\t\t<!-- <!-- <i class=\"fa fa-edit\" title=\"Editar fecha de creacion\"></i> --> \n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t<!-- ################################  FIN FECHA DE ENTREGA ##################################################-->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label for=\"date\">AGENCIA</label> -->\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"agencia\" [(ngModel)]=\"agencia\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of agencia_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.nom_agencia\">{{e.nom_agencia}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n\t\t\t\t\t\t\t<div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<div class=\"form-group\">\n                                    <label for=\"date\">ALMACEN ORIGEN</label>\n\t\t\t\t\t\t\t\t\t<select *ngIf=\"almacenes_lista_origen.length > 0\" name=\"bodega_origen\" [(ngModel)]=\"almacen\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of almacenes_lista_origen; let i = index;\" [value]=\"e.codalm\">{{e.nomalm}}</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <label *ngIf=\"almacenes_lista.length == 0\" ><span style=\"font-weight:bold;color:red\"> Usuario no posee Bodega Mat Prima/ Prod Terminado asignado</span></label> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select *ngIf=\"numtra && almacenes_lista.length > 0\" name=\"bodega\" [(ngModel)]=\"almacen_arr\" class=\"form-control select2 tip\" (change)=\"set_tipo_ingreso()\" disabled style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [value]=\"e.codalm+'|'+e.nombre_almacen\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> --> \n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t   <div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<div class=\"form-group\">\n                                    <label for=\"date\">ALMACEN DESTINO</label>\n\t\t\t\t\t\t\t\t\t<select *ngIf=\"almacenes_lista_destino.length > 0\" name=\"bodega_destino\" [(ngModel)]=\"almacen\" class=\"form-control select2 tip\" style=\"width:100%;\">\n\t\t\t\t\t\t\t\t\t<option [ngValue]=\"undefined\" disabled  selected>Seleccione</option>\n\t\t\t\t\t\t\t\t\t<option *ngFor=\"let e of almacenes_lista_destino; let i = index;\" [value]=\"e.codalm\">{{e.nomalm}}</option>\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <label *ngIf=\"almacenes_lista.length == 0\" ><span style=\"font-weight:bold;color:red\"> Usuario no posee Bodega Mat Prima/ Prod Terminado asignado</span></label> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select *ngIf=\"numtra && almacenes_lista.length > 0\" name=\"bodega\" [(ngModel)]=\"almacen_arr\" class=\"form-control select2 tip\" (change)=\"set_tipo_ingreso()\" disabled style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [value]=\"e.codalm+'|'+e.nombre_almacen\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> --> \n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-3\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label for=\"date\">TIPO DE PROCESO</label> -->\n\t\t\t\t\t\t\t\t\t<!-- <select *ngIf=\"!numtra && almacenes_lista.length > 0\" name=\"bodega\" [(ngModel)]=\"almacen_arr\" class=\"form-control select2 tip\" (change)=\"set_tipo_ingreso()\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [value]=\"e.codalm+'|'+e.nombre_almacen\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <!-- <option><span style=\"font-weight:bold;color:red\"> Usuario no posee Bodega Mat Prima/ Prod Terminado asignado</span></option> --> \n\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> --> \n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <label *ngIf=\"almacenes_lista.length == 0\" ><span style=\"font-weight:bold;color:red\"> Usuario no posee Bodega Mat Prima/ Prod Terminado asignado</span></label> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select *ngIf=\"numtra && almacenes_lista.length > 0\" name=\"bodega\" [(ngModel)]=\"almacen_arr\" class=\"form-control select2 tip\" (change)=\"set_tipo_ingreso()\" disabled style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [value]=\"e.codalm+'|'+e.nombre_almacen\">{{e.nombre_almacen}}</option> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <!-- <option *ngFor=\"let e of almacenes_lista; let i = index;\" [selected] = \"i==1\" [value]=\"e.codalm\">{{e.nombre_almacen}}</option> --> \n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <label for=\"reference\">CLIENTE DE LA ORDEN PRODUCCION:  <span style=\"font-weight:bold;color:blue\">{{orden_produccion}}</span></label> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <label for=\"date\">TIPO IDENTIFICACIÓN</label> -->\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"tipo_doc\" [(ngModel)]=\"tipo_doc\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of tipo_doc_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.nom_doc}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n                            <!-- <div class=\"col-md-2\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label for=\"reference\">CÉDULA/RUC </label> -->\n\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" (keypress)='validaNumericosCantidad($event)'  placeholder=\"Búsqueda por cédula/ruc\" name=\"reference\" value=\"\" class=\"form-control tip\" (keyup.enter)=\"busca_cliente()\" id=\"reference\" [(ngModel)]=\"ruc\"> -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n                            <!-- </div> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-1\"> -->\n\t\t\t\t\t\t\t<!-- <br> -->\n\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"busca_cliente\" value=\"Buscar cliente\" class=\"btn btn-primary\" (click)=\"busca_cliente();check_agencia=false\"> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-1\"> -->\n\t\t\t\t\t\t\t<!-- <br>  -->\n\t\t\t\t\t\t\t<!-- <!-- <input type=\"submit\" name=\"busqueda_razon_social\" value=\"Buscar razon social\" class=\"btn btn-primary\" (click)=\"busqueda_razon_social()\"> --> \n\t\t\t\t\t\t\t<!-- <button type=\"button\" id=\"busqueda_razon_social\" (click)=\"busqueda_razon_social()\" class=\"btn btn-primary\" title=\"Buscar razon social\" ><i class=\"fa fa-fw fa-search\"></i></button> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t<div *ngIf=\"this.numtra != 0\" class=\"col-md-1\">\n\t\t\t\t\t\t\t<br> \n\t\t\t\t\t\t\t<button type=\"button\"  id=\"nueva_orden\" (click)=\"test_reenvio()\" class=\"btn btn-warning\" title=\"Nueva Ingreso\" ><i class=\"fa fa-fw fa-pencil-square-o\"></i>Nueva Ingreso</button>\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n                        </div>\n\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_razon_social\">\n\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_proveedor}}>></p>\n\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t <th>Razon Social</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Tipo ident</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Num Identificacion</th>\n\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let rz of razon_social_lista;\">\n\t\t\t\t\t\t\t\t\t <td>{{rz.nompro}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.tipo_identifica}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{rz.rucced}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_cliente\" (change)=\"select_razon_social(rz.tipo_identifica,rz.rucced,rz.nompro,rz.email,rz.codpro,rz.dirpro)\"  />\n\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_orden_produccion\">\n\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_orden_prod}}>></p>\n\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t <th>Num Orden</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Cliente</th>\n\t\t\t\t\t\t\t\t\t <!-- <th class=\"text-center\">Num Identificacion</th> -->\n\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let op of lista_orden_produccion_pendientes;\">\n\t\t\t\t\t\t\t\t\t <td>{{op.numtra}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{op.clientes}}</td>\n\t\t\t\t\t\t\t\t\t <!-- <td class=\"text-center\">{{rz.rucced}}</td> -->\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_orden_prod\" (change)=\"select_orden_produccion(op.numtra,op.clientes)\"  />\n\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"form-group\"  *ngIf=\"this.exist_orden_compra\">\n\t\t\t\t\t\t<p>Resultado de la busqueda por <<{{this.patron_orden_compra}}>></p>\n\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t<table class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n\t\t\t\t\t\t\t   <thead>\n\t\t\t\t\t\t\t\t  <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t <th>Num Orden</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Proveedor</th>\n\t\t\t\t\t\t\t\t\t <th class=\"text-center\">Observación</th>\n\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t   </thead>\n\t\t\t\t\t\t\t   <tbody>\n\t\t\t\t\t\t\t\t  <tr  *ngFor=\"let oc of lista_orden_produccion_pendientes;\">\n\t\t\t\t\t\t\t\t\t <td>{{oc.numtra}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{oc.nompro}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\">{{oc.observ}}</td>\n\t\t\t\t\t\t\t\t\t <td class=\"text-center\"> \n\t\t\t\t\t\t\t\t\t  <input  type=\"radio\"  name=\"radio_orden_compra\" (change)=\"select_orden_compra(oc.numtra,oc.nompro)\"  />\n\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t  <!-- <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" [(ngModel)]=\"check_agencia\" (change)=\"validar_exist_agencia('P')\"  value=\"principal\"> -->\n\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-4\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t<label for=\"reference\">BUSQUEDA CLIENTE RELACIONADO</label>\n\t\t\t\t\t\t\t\t<!-- <input type=\"text\" placeholder=\"Ingrese razón social\" name=\"razon social\" value=\"\" class=\"form-control tip\" id=\"razon social\" (keyup.enter)=\"busqueda_razon_social()\"   [(ngModel)]=\"patron_proveedor\"> -->\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input \t type=\"text\" name=\"buspro\" id=\"buspro\"  value=\"\" placeholder=\"Ingrese razón social\" (keyup.enter)=\"busqueda_razon_social()\" [(ngModel)]=\"patron_proveedor\" class=\"form-control ui-autocomplete-input text-center \" autocomplete=\"off\">\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<div  class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"busqueda_razon_social()\" id=\"add-customer\" class=\"external\"><i class=\"fa fa fa-2x fa-search\" id=\"addIcon\"></i></a>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n                            <div class=\"col-md-4\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<label for=\"reference\">NOMBRE Y APELLIDO Ó RAZÓN SOCIAL </label>\n\t\t\t\t\t\t\t\t<input *ngIf=\"!this.proveedores\" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\t\t<input *ngIf=\"this.proveedores \" type=\"text\" placeholder=\"Nombre ó Razón Social\" id=\"add_item\"  value=\"{{razon_social}}\" class=\"form-control ui-autocomplete-input\" autocomplete=\"off\" disabled>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n                            </div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t <div class=\"col-md-3\">\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label for=\"reference\">EMAIL DEL CLIENTE</label> -->\n\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!this.proveedores && !this.cambiar_email\"  type=\"text\" placeholder=\"Email a enviar el pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" disabled> -->\n\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"this.proveedores && !this.cambiar_email\"  type=\"text\" value=\"{{email_cliente}}\" name=\"reference\" class=\"form-control tip\" disabled> -->\n\t\t\t\t\t\t\t\t\t<!-- <input #nuevo_correo  *ngIf=\"this.cambiar_email\"  type=\"email\" placeholder=\"Ingrese nuevo correo\" value=\"\" name=\"reference\" class=\"form-control tip\" (blur)=\"update_email(nuevo_correo.value)\"  (keyup.enter)=\"update_email(nuevo_correo.value)\" > -->\n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div class=\"form-group\">\n                                    <label for=\"category\">AGENCIA</label>   \n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<input \t type=\"text\" name=\"tipo_inventario\" id=\"tipo_inventario\"  value=\"{{srv.getAgencia()}}\"   class=\"form-control ui-autocomplete-input text-center\" disabled autocomplete=\"off\">\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"tipo_inventario\" [(ngModel)]=\"tipo_ingreso\" class=\"form-control select2 tip\" style=\"width:100%;\" disabled> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of tipo_ingreso_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.tipo\">{{e.descripcion}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\n                            </div>\n\n                     \n\t\t\t\t\t </div>\n\t\t\t\t\t \n\t\t\t\t\t \t<div *ngIf= \"nomcli\" class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-12\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t<label for=\"reference\">CLIENTE DE LA ORDEN PRODUCCION:  <span style=\"font-weight:bold;color:blue\">{{orden_produccion}}</span></label>\n\t\t\t\t\t\t\t\t\t<input \t type=\"text\" name=\"nomcli\" id=\"nomcli\"  value=\"\" placeholder=\"Ingrese razón social\"  [(ngModel)]=\"nomcli\" disabled class=\"form-control ui-autocomplete-input text-center \" style=\"font-weight:bold;color:red\"  autocomplete=\"off\">\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div *ngIf= \"nompro\" class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-12\">\n                                <div class=\"form-group\">\n\t\t\t\t\t\t\t\t<label for=\"reference\">PROVEEDOR DE LA ORDEN DE COMPRA:  <span style=\"font-weight:bold;color:blue\">{{orden_compra}}</span></label>\n\t\t\t\t\t\t\t\t\t<input \t type=\"text\" name=\"nompro\" id=\"nompro\"  value=\"\" placeholder=\"Ingrese razón social\"  [(ngModel)]=\"nompro\" disabled class=\"form-control ui-autocomplete-input text-center \" style=\"font-weight:bold;color:red\"  autocomplete=\"off\">\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<!-- <div class=\"row\"> -->\n\t\t\t\t\t\t\t<!-- <div class=\"col-md-4\"> -->\n                                <!-- <div class=\"form-group\"> -->\n                                    <!-- <label for=\"category\">CIUDAD</label>                               -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <select name=\"city\" [(ngModel)]=\"ciudad\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of ciudad_lista; let i = index;\" [selected] = \"i==0\" [value]=\"e.nomgeo\">{{e.nomgeo}}</option> -->\n\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n                                \n\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<!-- </div> -->\n\n                        <!-- </div> -->\n        \n\t\t\t\t\t\t<!--################## EJEMPLO COMBO CON SELECT############## -->\n\n\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div class=\"table-responsive\">\n\t\t\t\t\t\t\t\t\n                                   <table id=\"poTable\" class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n                                        <thead>\n                                            <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t<th>Código</th>\n                                                <th>Producto</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Unid.</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<th *ngIf=\"srv.getTipacc() == 'T'\" style=\"width:25px; padding-right:15px;\" rowspan=\"1\" colspan=\"1\" >Costo Unit</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Porc. IVA</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Cant.IVA</th> -->\n                                                <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Cantidad</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">Desc%</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">V.Descuento</th> -->\n                                                <th>Subtotal</th>\n\t\t\t\t\t\t\t\t\t\t\t\t <th>Series</th>\n\t\t\t\t\t\t\t\t\t\t\t\t <th>Observación</th>\n                                                <th class=\"col-xs-1 text-center\" (click)=\"delete_art_todo()\" style=\"width:25px;\"><i class=\"fa fa-trash-o\" title=\"Remover todos\" ></i></th>\n                                            </tr>\n                                        </thead>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<tbody *ngIf=\"articulos_pedido.length > 0\">\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let el of articulos_pedido;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"min-width:100px;\">{{el.nomart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td  >{{el.coduni}}</td>\n\n\t\t\t\t\t\t\t\t\t\t\t\t<td *ngIf=\"srv.getTipacc() == 'T'\" style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t <input #cospro class=\"form-control input-sm kb-pad text-center rquantity\" name=\"costo\" type=\"number\"  \n\t\t\t\t\t\t\t\t\t\t\t\t\t value=\"{{el.cospro}}\" (keypress)='validaNumericos($event,cospro.value)' (change)=\"update_costo(el.codart,el.index,cospro.value)\"  (keyup.enter)=\"update_costo(el.codart,el.index,cospro.value)\" (blur)=\"update_costo(el.codart,el.index,cospro.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"padding:2px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t <!-- <div *ngIf=\"el!== edit_iva_art\" class=\"text-center\">{{el.poriva}}%  -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t <!-- <!-- EL QUE SIRVE --> \n\t\t\t\t\t\t\t\t\t\t\t\t <!-- <select *ngIf=\"el===edit_iva_art\" #iva  name=\"change_iva\" class=\"form-control\" (change)=\"update_iva_art(el.codart,el.index,iva.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t <!-- <option [ngValue]=\"undefined\" disabled  selected>Selec</option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t <!-- <option  *ngFor=\"let e of iva_siaci; let i = index;\"  [value]=\"e.poriva+'|'+e.codiva\" >{{e.poriva}}-({{e.codiva}}) -->\n\t\t\t\t\t\t\t\t\t\t\t\t <!-- </option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t <!-- </select> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"padding:2px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"text-center\">USD {{el.precio_iva}}</div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input #cant class=\"form-control input-sm kb-pad text-center rquantity\" name=\"cantidad\" type=\"number\"  \n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.cant}}\" (keypress)='validaNumericos($event,cant.value)' (keyup.enter)=\"update(el.codart,el.index,cant.value)\" (change)=\"update(el.codart,el.index,cant.value)\" (blur)=\"update(el.codart,el.index,cant.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td style=\"padding:2px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input #porc_desc class=\"form-control input-sm kb-pad text-center rquantity\" name=\"porc_desc[]\" type=\"text\"   -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- value=\"{{el.punreo}}\" (keypress)='validaNumericos($event,porc_desc.value)' (keyup.enter)=\"update_art_desc(el.codart,el.index,porc_desc.value)\" (blur)=\"update_art_desc(el.codart,el.index, porc_desc.value)\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td> <div class=\"text-center\">USD {{redondear(el.v_desc_art)}}</div> </td> -->\n\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"padding:2px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\"> USD {{redondear(el.subtotal_art)}}</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<button *ngIf=\"el.maneja_serie=='S'\" class=\"btn btn-success\" (click)=\"view_serie_renglon(el.codart,el.cant,el.coduni)\" id=\"btnUpload\" data-toggle=\"modal\" data-target=\"#series_modal\">Series</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"el.maneja_serie!='S'\" >No maneja serie</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"((el.observ) && (el.observ =='Puede agregar detalles del artículo'))\" #observacion class=\"form-control input-sm kb-pad text-center rquantity\" name=\"observacion[]\" type=\"text\" placeholder=\"{{el.observ}}\"   \n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"\"  (keyup.enter)=\"update_observ(el.codart,el.index,observacion.value)\" (blur)=\"update_observ(el.codart,el.index,observacion.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"((el.observ) && (el.observ !='Puede agregar detalles del artículo'))\"#observacion class=\"form-control input-sm kb-pad text-center rquantity\" name=\"observacion[]\" type=\"text\" placeholder=\"Puede agregar detalles del artículo\"   \n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"{{el.observ}}\"  (keyup.enter)=\"update_observ(el.codart,el.index,observacion.value)\" (blur)=\"update_observ(el.codart,el.index,observacion.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input *ngIf=\"!el.observ\" #observacion class=\"form-control input-sm kb-pad text-center rquantity\" name=\"observacion[]\" type=\"text\" placeholder=\"Puede agregar detalles del artículo\"   \n\t\t\t\t\t\t\t\t\t\t\t\t\tvalue=\"\"  (keyup.enter)=\"update_observ(el.codart,el.index,observacion.value)\" (blur)=\"update_observ(el.codart,el.index,observacion.value)\">\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td (click)=\"delete_art(el.nomart,el.index)\" class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-trash-o tip pointer spodel\" title=\"Remover artículo\"></i>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr>\n\n\t\t\t\t\t\t\t\t\t\t\t<!-- <td class=\"text-center\" colspan=\"12\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"tipo_busqueda\"  #busqueda_art1 class=\"form-control input-sm kb-pad text-center rquantity\" name=\"busqueda1\" type=\"text\" placeholder=\"FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER\" value=\"\" (keyup.enter)=\"busca_articulo()\" [(ngModel)]=\"patron_articulo\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input *ngIf=\"!tipo_busqueda\" #busqueda_ser1 class=\"form-control input-sm kb-pad text-center rquantity\" name=\"busqueda_serv\" type=\"text\" placeholder=\"FAVOR INGRESAR CÓDIGO O NOMBRE DEL SERVICIO Y PRESIONAR LA TECLA ENTER\" value=\"\" (keyup.enter)=\"busca_servicio()\" [(ngModel)]=\"patron_articulo\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <td class=\"text-center\" colspan=\"1\"> -->\n\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button *ngIf=\"tipo_busqueda\" class=\"btn btn-danger\" id=\"btnUpload\"  (click)=\"busca_articulo()\">Buscar</button> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <button *ngIf=\"!tipo_busqueda\" class=\"btn btn-danger\" id=\"btnUpload\"  (click)=\"busca_servicio()\">Buscar</button> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngIf=\"searching_articulo\">\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngIf=\"this.exist_articulo\">\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t\t\t\t\t <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th>Código</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th>Nombre</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t <!-- <th class=\"text-center\">Precio unit</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t <!-- <th style=\"width:25px; padding-right:5px;\" >Dispon</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a ingreso\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let articulos of articulo;\">\n\t\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.nomart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <!-- <td class=\"text-center\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span *ngIf=\"articulos!==edit_articulos\">{{articulos.prec01}}  </span> -->\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <select  *ngIf=\"articulos===edit_articulos\"  name=\"nuevo_precio_renglon\" [(ngModel)]=\"nuevo_precio_renglon\" (change)=\"edit_prec_renglon(articulos.codart)\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of lista_prec; let i = index;\" [selected] = \"i==0\" [value]=\"e.prec\">{{e.prec}}</option> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"articulos!==edit_articulos\"  (click)=\"edit_prec(articulos)\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar precio\"></i></a> \t -->\n\t\t\t\t\t\t\t\t\t\t\t <!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t <!-- <td class=\"\">{{articulos.exiact}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\"> \n\t\t\t\t\t\t\t\t\t\t\t  <!-- <input  type=\"checkbox\"/> -->\n\t\t\t\t\t\t\t\t\t\t\t  <input  type=\"checkbox\" [(ngModel)]=\"articulos.isSelected\" name=\"list_name\" value=\"{{articulos.nomart}}\" (change)=\"isAllSelected()\"/>\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\n\t\t\t\t\t\t\t\t\t\t  <!-- <input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a ingreso\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\"> -->\n\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\n                                        </tbody>\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<tbody *ngIf=\"articulos_pedido.length == 0\">\n\t\t\t\t\t\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <td class=\"text-center\" colspan=\"13\"> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"text\" name=\"code\" id=\"add_item\"  placeholder=\"FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER\" [(ngModel)]=\"patron_articulo\" class=\"form-control ui-autocomplete-input text-center \"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" > -->\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\" data-toggle=\"modal1\" data-target=\"#myModal1\"><i class=\"fa fa-3x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a href=\"#\" id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#myModal\"><i class=\"fa fa-3x fa-barcode\" id=\"addIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <td class=\"text-center\" colspan=\"1\"> --> \n\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <button *ngIf=\"tipo_busqueda\" class=\"btn btn-danger\" id=\"btnUpload\"  (click)=\"busca_articulo()\">Buscar</button> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- <button *ngIf=\"!tipo_busqueda\" class=\"btn btn-danger\" id=\"btnUpload\"  (click)=\"busca_servicio()\">Buscar</button> --> \n\n\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- </td> --> \n\t\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngIf=\"searching_articulo\">\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\"><h4>BUSCANDO ARTÍCULO POR FAVOR ESPERE...!!!!</h4></td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngIf=\"this.exist_articulo\">\n\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-center\" colspan=\"12\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"table-responsive-pedidos\">\n\t\t\t\t\t\t\t\t\t\t\t\t <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th>Código</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th>Nombre</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th *ngIf=\"getTipacc == 'T'\"  class=\"text-center\">Cost unit</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t <!-- <th style=\"width:25px; padding-right:5px;\" >Dispon</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\" >Selec</th>\n\t\t\t\t\t\t\t\t\t\t\t\t  </tr>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a ingreso\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let articulos of articulo;\">\n\t\t\t\t\t\t\t\t\t\t  \n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.codart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\">{{articulos.nomart}}</td>\n\t\t\t\t\t\t\t\t\t\t\t <td *ngIf=\"getTipacc == 'T'\"  class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"articulos!==edit_articulos\">{{articulos.cospro}}  </span>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <select  *ngIf=\"articulos===edit_articulos\"  name=\"nuevo_precio_renglon\" [(ngModel)]=\"nuevo_precio_renglon\" (change)=\"edit_prec_renglon(articulos.codart)\" class=\"form-control select2 tip\" style=\"width:100%;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option [ngValue]=\"undefined\" disabled  selected>Seleccione</option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option *ngFor=\"let e of lista_prec; let i = index;\" [selected] = \"i==0\" [value]=\"e.prec\">{{e.prec}}</option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </select> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a *ngIf=\"articulos!==edit_articulos\"  (click)=\"edit_prec(articulos)\" class=\"tip btn btn-warning btn-xs\"><i class=\"fa fa-edit\" title=\"Editar precio\"></i></a> \t -->\n\t\t\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t\t\t <!-- <td class=\"\">{{articulos.exiact}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t <td class=\"\"> \n\t\t\t\t\t\t\t\t\t\t\t  <!-- <input  type=\"checkbox\"/> -->\n\t\t\t\t\t\t\t\t\t\t\t  <input  type=\"checkbox\" [(ngModel)]=\"articulos.isSelected\" name=\"list_name\" value=\"{{articulos.nomart}}\" (change)=\"isAllSelected()\"/>\n\t\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t\t\t\t  </tr>\n\n\t\t\t\t\t\t\t\t\t\t  <!-- <input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a ingreso\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\"> -->\n\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"table-responsive-pedidos\">\t\t\t\t\t\t\t\t\t -->\n\t\t\t\t\t\t\t\t\t\t<!-- *ngIf=\"!searching_articulo\" -->\n\t\t\t\t\t\t\t\t\t\t<!--  -->\t\t\t\t\t\t\n\n\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t</tbody>\n\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t <tfoot *ngIf=\"articulos_pedido.length > 0\">\n\t\t\t\t\t\t\t\t\t\t\t<!-- <tr class=\"active\"> -->\n                                                <!-- <th></th> -->\n                                                <!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Subtotal</th> -->\n                                                <!-- <th><div class=\"text-center\">USD {{ redondear (subtotal)}}</div></th> -->\n                                                <!-- <th style=\"width:25px;\"></th> -->\n\t\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- <tr class=\"active\"> -->\n                                                <!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th></th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th>Total IVA</th> -->\n                                                <!-- <th class=\"text-center\">USD {{ redondear (iva_cant_new)}}</th> -->\n                                                <!-- <th style=\"width:25px;\"></th> -->\n                                            <!-- </tr> -->\n\t\t\t\t\t\t\t\t\t\t\t<tr class=\"active\">\n                                                <th></th>\n                                                <th *ngIf=\"srv.getTipacc() == 'T'\" ></th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th>Total</th>\n                                                <th class=\"text-center\">USD {{ redondear (total)}}</th>\n                                                <th style=\"width:25px;\"></th>\n                                            </tr>\n\t\t\t\t\t\t\t\t\t</tfoot>\n\t\t\t\t\t\t\t\t\n                                    </table>\n\t\t\t\t\t\t\t<!-- <div  *ngIf=\"this.exist_articulo && articulos_pedido.length == 0\" class=\"col-md-5\"> -->\n\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar a ingreso\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\"> -->\n\t\t\t\t\t\t\t\t<!-- <p>{{elements_checkedList.length}}  Items seleccionados</p> -->\n\t\t\t\t\t\t\t<!-- </div> -->\n                                </div>\n                            </div>\n                        </div>\n\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t<!-- <div class=\"input-group\"> -->\n\t\t\t\t\t\n\t\t\t\t\t\t<!-- <input type=\"text\" name=\"buscart\" id=\"buscart\"  value=\"\" placeholder=\"FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER\" (keyup.enter)=\"busca_articulo()\" [(ngModel)]=\"patron_articulo\" class=\"form-control ui-autocomplete-input text-center \" autocomplete=\"off\"> -->\n\t\t\t\t\t\t<!-- <!-- <!-- <!-- <input [(ngModel)]=\"observacion_pedido\" value=\"{{observacion_pedido}}\" type=\"text\" placeholder=\"Puede escribir observaciones del pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\"> --> \n\t\t\t\t\t\t<!-- <div (click)=\"busca_articulo()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" > -->\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t<!-- <div class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t<!-- <a href=\"#\" id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#myModal\"><i class=\"fa fa-2x fa-barcode\" id=\"addIcon\"></i></a> -->\n\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\n\t\t<!-- <input *ngIf=\"!scan\" type=\"submit\" name=\"prender_cam\" (click)=\"scan=true\" value=\"prender scan\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#series_modal2\" > -->\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\n\t\t\t\t\t\t<input \t type=\"text\" name=\"buscart\" id=\"buscart\"  value=\"\" placeholder=\"FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER\" (keyup.enter)=\"busca_articulo()\" [(ngModel)]=\"patron_articulo\" class=\"form-control ui-autocomplete-input text-center \" autocomplete=\"off\">\n\t\t\t\t\t\n\t\t\t\t\t\t<div  (click)=\"busca_articulo()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" >\n\t\t\t\t\t\t\t\t<a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div  class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t<a (click)=\"scan_patron_articulo=true\" id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#series_modal2\"><i class=\"fa fa-2x fa-barcode\" id=\"addIcon\"></i></a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div *ngIf=\"this.exist_articulo\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\" (click)=\"inserta_pedido()\">\n\t\t\t\t\t\t\t<input type=\"submit\" name=\"inserta_pedido\" value=\"Insertar\" class=\"btn btn-danger\" (click)=\"inserta_pedido()\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t<!-- <div  class=\"input-group\">\t -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input   type=\"text\" name=\"search_customer\" id=\"search_customer\" (keyup.enter)=\"busqueda_razon_social()\"  [(ngModel)]=\"patron_cliente\"  class=\"form-control ui-autocomplete-input\" placeholder=\"Ingrese el nombre del cliente\" autocomplete=\"off\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t     <!-- <div (click)=\"busqueda_razon_social()\" class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a id=\"add-customer\" class=\"external\"><i class=\"fa fa-2x fa-search\" id=\"searchIcon\"></i></a> -->\n\t\t\t\t\t\t\t\t\t\t\t\t    <!-- </div> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t<!-- <div class=\"form-group\"> -->\n\t\t\t\t\t<!-- <label for=\"note\">OBSERVACIÓN ADICIONAL PARA EL PEDIDO PRUEBA</label> -->\n\t\t\t\t\t\n\t\t\t\t\t<!-- <input [(ngModel)]=\"observacion_pedido\" value=\"{{observacion_pedido}}\" type=\"text\" placeholder=\"Puede escribir observaciones del pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\"> -->\n\t\t\t\t\t\t\n\t\t\t\t\t<!-- <input [(ngModel)]=\"observacion_pedido\" value=\"{{observacion_pedido}}\" type=\"text\" placeholder=\"Puede escribir observaciones del pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\"> -->\n\n\t\t\t\t<!-- </div> -->\n\n\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t<label for=\"note\">OBSERVACIÓN ADICIONAL PARA EL INGRESO</label>\n\t\t\t\t\t<!-- <input value=\"{{observacion_pedido}}\" #observ_general (keyup.enter)=\"update_observ_general(observ_general.value)\" (blur)=\"update_observ_general(observ_general.value)\" type=\"text\" placeholder=\"Puede escribir observaciones del pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\"> -->\n\t\t\t\t\t<input [(ngModel)]=\"observacion_pedido\" value=\"{{observacion_pedido}}\" type=\"text\" placeholder=\"Puede escribir observaciones del pedido\" name=\"reference\" value=\"\" class=\"form-control tip\" id=\"reference\">\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t<!-- <div *ngIf=\"scan\"> -->\n\t\t\t\t\t<!-- <!-- <zxing-scanner [formats]=\"['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']\" ></zxing-scanner> --> \n\t\t\t\t\t\n\t\t\t\t\t<!-- <!-- <zxing-scanner [formats]=\"['UPC_EAN_EXTENSION','UPC_E','UPC_A','QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX', 'AZTEC', 'CODABAR', 'CODE_39', 'CODE_93', 'EAN_8', 'ITF', 'MAXICODE' ,'PDF_417' ,'RSS_14','RSS_EXPANDED']\"  (scanSuccess)=\"handleQrCodeResult($event)\"></zxing-scanner> -->\n\t\t\t\t\t\n\t\t\t\t\t\t<!-- <!-- (scanError)=\"scanErrorHandler($event)\"  --> \n\t\t\t\t\t<!-- <!-- (scanFailure)=\"scanFailureHandler($event)\"  --> \n\t\t\t\t\t<!-- <!-- (scanComplete)=\"scanCompleteHandler($event)\" --> \n\t\t\t\t\t<!-- <!-- (scanFailure)=\"scanFailureHandler($event)\" --> \n\t\t\t\t\t\n\t\t\t\t\t<!-- <zxing-scanner  -->\n\t\t\t\t\t<!-- [enable]=\"scannerEnabled\" -->\n\t\t\t\t\t<!-- [formats]=\"formatsEnabled\"   -->\n\t\t\t\t\t<!-- (scanSuccess)=\"handleQrCodeResult($event)\"> -->\n\t\t\t\t\t<!-- </zxing-scanner> -->\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <!-- <zxing-scanner --> \n\t\t\t\t\t<!-- <!-- [scannerEnabled]=\"scannerEnabled\" --> \n\t\t\t\t\t<!-- <!-- [autofocusEnabled]=\"autofocusEnabled\" --> \n\t\t\t\t\t<!-- <!-- [device]=\"selectedDevice\" --> \n\t\t\t\t\t<!-- <!-- [cssClass]=\"'small-video'\" --> \n\t\t\t\t\t<!-- <!-- (camerasFound)=\"displayCameras($event)\" --> \n\t\t\t\t\t<!-- <!-- (scanSuccess)=\"handleQrCodeResult($event)\" --> \n\t\t\t\t\t<!-- <!-- ></zxing-scanner> --> \n\n\n\t\t\t\t<!-- </div> -->\n\n\t\t\t\t<!-- <span *ngIf=\"scan_result\"> EXITOSO {{scan_value}} </span> -->\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t<!-- <div *ngIf=\"scan\">\t -->\n\t\t\t\t\t<!-- <zxing-scanner [formats]=\"['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']\" ></zxing-scanner> -->\n\t\t\t\t<!-- </div> -->\n\n\t\t\t\t<!-- <button class=\"btn btn-success\" (click)=\"view_serie_renglon(el.codart)\" id=\"btnUpload\" data-toggle=\"modal\" data-target=\"#series_modal\">Series</button> -->\n\n\t\t\t\t<!-- <input *ngIf=\"!scan\" type=\"submit\" name=\"prender_cam\" (click)=\"scan=true\" value=\"prender scan\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#series_modal2\" > -->\n\t\t\t\t<!-- <input *ngIf=\"scan\" type=\"submit\" name=\"apagar_scan\" (click)=\"scan=false\" value=\"apagar scan\" class=\"btn btn-danger\"> -->\n\t\t\t\t<!-- <input type=\"submit\" name=\"escanear\" (click)=\"scannerEnabled=true\"  value=\"escanear\" class=\"btn btn-info\"> -->\n\t\t\t\t<!-- <input type=\"submit\" name=\"apagar escanear\" (click)=\"scannerEnabled=false\"  value=\"apagar escanear\" class=\"btn btn-info\"> -->\n\n\t\t\t\t</div>\n\n<!--################## INICIO MODAL ###########################-->\n\t\t\t<div class=\"modal fade in\" id=\"series_modal\" data-backdrop=\"static\" data-keyboard=\"false\" tabindex=\"-1\" role=\"dialog\">\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t  <div class=\"modal-dialog\" role=\"document\">\n\t\t\t\t\t\t\t\t\t<div class=\"modal-content\">\n\t\t\t\t\t\t\t\t\t  <div class=\"modal-header\">\n\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\" click=\"close_serie_renglon()\" ><span aria-hidden=\"true\">&times;</span></button>\n\t\t\t\t\t\t\t\t\t\t<h4 class=\"modal-title\">Manejo de Series/lote</h4>\n\t\t\t\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t\t\t\t  <div class=\"modal-body\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<div class=\"font16\">\n\t\t\t\t\t\t\t\t\t\t\t<table class=\"table table-bordered table-condensed\" style=\"margin-bottom: 0;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"border-right-color: #FFF !important;\" width=\"25%\">SERIE/LOTE</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-right\" width=\"25%\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span id=\"item_count\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <!-- {{articulos_suma_cant}} --> \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input  [(ngModel)]=\"serie_lote_form\" name=\"serie\" type=\"text\"   id=\"serie\" class=\"pa form-control kb-pad amount\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </span> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input \t type=\"text\" name=\"serie\" id=\"serie\"  value=\"\" placeholder=\"Ingrese serie/lote\" [(ngModel)]=\"serie_lote_form\" class=\"form-control ui-autocomplete-input text-center \" autocomplete=\"off\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div  class=\"input-group-addon no-print\" style=\"padding: 2px 5px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"scan_valor_serie=true;\" id=\"add-customer\" class=\"external\" data-toggle=\"modal\" data-target=\"#series_modal2\"><i class=\"fa fa-2x fa-barcode\" id=\"addIcon\"></i></a>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"border-right-color: #FFF !important;\" width=\"25%\">FECHA CADUCIDAD</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-right\" width=\"25%\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span id=\"twt\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input  [(ngModel)]=\"fecha_cad_form\" name=\"caducidad\" type=\"text\"   id=\"caducidad\" class=\"pa form-control kb-pad amount\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input [(ngModel)]=\"fecha_cad_form\" type=\"date\" name=\"begin\" placeholder=\"dd-mm-yyyy\" value=\"\" min=\"1997-01-01\" max=\"2030-12-31\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"border-right-color: #FFF !important;\">CANTIDAD  \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"(cant_art_serie_renglon != 0)\" style=\"font-weight:bold;color:red\">(No exceder de {{cant_art_serie_renglon}})</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-right\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span id=\"total_paying\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input  [(ngModel)]=\"cantidad_form\" name=\"cant_ing\" type=\"number\"  placeholder=\"Ingrese cantidad\" id=\"cant_ing\" class=\"pa form-control kb-pad amount\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"border-right-color: #FFF !important;\">CANT UNID x PRESENTACION   -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </th> -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td class=\"text-right\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span id=\"total_paying\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input  [(ngModel)]=\"cant_unid_present\" name=\"cant_unid_present\" type=\"number\"  placeholder=\"Cant x present\" id=\"cant_unid_present\" class=\"pa form-control kb-pad amount\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </span> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"border-right-color: #FFF !important;\">UBICACION</th>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-right\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span id=\"balance\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input  [(ngModel)]=\"ubicacion\" name=\"ubicacion\" type=\"ubicacion\"  placeholder=\"Ingrese Ubicación\"  id=\"ubicacion\" class=\"pa form-control kb-pad amount\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <tr> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"border-right-color: #FFF !important;\"> CANT x PRESENT  ({{coduni_renglon}})</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td class=\"text-right\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span id=\"balance\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <input  [(ngModel)]=\"cant_unid_present\" name=\"cant_unid_present\" type=\"number\"  placeholder=\"Ingrese cantidad\"  id=\"cant_unid_present\" class=\"pa form-control kb-pad amount\"> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </span> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- </tr> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"border-right-color: #FFF !important;\">UBICACION</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class=\"text-right\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <button *ngIf=\"cant_art_renglon == cantidad_form\" type=\"button\" class=\"btn btn-primary\" (click)=\"insertar_serie_renglon()\">Insertar</button> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button *ngIf=\"(cant_art_serie_renglon != 0)\" type=\"button\" class=\"btn btn-primary\" (click)=\"insertar_serie_renglon()\">Insertar</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"(cant_art_serie_renglon == 0)\" style=\"font-weight:bold;color:red\"> Cantidad de ingreso por serie COMPLETA </span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span *ngIf=\"cantidad_form < cant_art_renglon\" style=\"font-weight:bold;color:red\">Cantidad de serie llena</span> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <span  style=\"font-weight:bold;color:red\">Cantidad de serie llena</span> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<div>\t\t\n\t\t\t\t\t\t\t\t<div class=\"table-responsive\">\n                                   <table id=\"poTable\" class=\"table table-striped table-bordered table-condensed table-hover dataTable\">\n                                        <thead>\n                                            <tr class=\"active\" role=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t\t<th>SERIE/LOTE</th>\n                                                <th>F.CADUCIDAD</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">CANT INGRESO.</th>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">PRESENT.</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <th style=\"width:25px; padding-right:5px;\" rowspan=\"1\" colspan=\"1\">NUM ETIQ.</th> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<th>UBICACION</th>\n                                                <th class=\"col-xs-1 text-center\" (click)=\"delete_serie()\" style=\"width:25px;\"><i class=\"fa fa-2x fa-trash-o\" title=\"Remover todos\" ></i></th>\n                                            </tr>\n                                        </thead>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<tbody>\n\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<tr *ngFor=\"let el of serie_renglon;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.serie}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"min-width:100px;\">{{el.caducidad}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.cant}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td>{{el.cant_unid_present}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <td>{{el.num_etiqueta}}</td> -->\n\t\t\t\t\t\t\t\t\t\t\t\t<td>{{el.ubicacion}}</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td  class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"btn-group\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<i (click)=\"delete_renglon_serie(el.codserie,el.codart,el.cant)\" class=\"fa fa-2x fa-trash-o tip pointer spodel\" title=\"Remover renglon\"></i>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a (click)=\"edit_articulos=el\"  class=\"tip btn btn-warning btn-xs\" ><i class=\"fa fa-plus\" title=\"Agregar ciudad\" >Agregar Ciudad</i></a> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"edit_renglon_serie(el.codserie,el.codart,el.serie,el.caducidad,el.ubicacion,el.cant,el.cant_unid_present)\" class=\"tip btn btn-warning btn-xs\" ><i class=\"fa fa-2x fa-pencil-square-o\" title=\"editar_serie\" ></i></a> \n\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <a (click)=\"generar_dbf(el)\" class=\"tip btn btn-danger btn-xs\" ><i class=\"fa fa-2x fa-print\" title=\"Generar impresion\" ></i></a>  -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\n                                        </tbody>\n\t\t\t\t\t\t\t\t\n                                    </table>\n                                </div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t  </div>\n\t\t\t\t  <div class=\"modal-footer\">\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"close_serie_renglon()\"  data-dismiss=\"modal\">Cerrar</button>\n\t\t\t\t\t<!-- <button type=\"button\" class=\"btn btn-primary\">Generar factura</button> -->\n\t\t\t\t  </div>\n\t\t\t\t</div><!-- /.modal-content -->\n\t\t\t  </div><!-- /.modal-dialog -->\n\t\t\t</div><!-- /.modal -->\n<!--################## FIN MODAL ###########################-->\n\n<!--################## INICIO MODAL ###########################-->\n\t\t\t<div class=\"modal fade in\" id=\"series_modal2\"  data-backdrop=\"static\" data-keyboard=\"false\" tabindex=\"-1\" role=\"dialog\">\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t  <div class=\"modal-dialog\" role=\"document\">\n\t\t\t\t\t\t\t\t\t<div class=\"modal-content\">\n\t\t\t\t\t\t\t\t\t  <div class=\"modal-header\">\n\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"close\" (click)=\"close_scanner()\" data-dismiss=\"modal\" #closeBtnScan aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n\t\t\t\t\t\t\t\t\t\t<h4 class=\"modal-title\">SCANNER CAMARA</h4>\n\t\t\t\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t\t\t\t  <div class=\"modal-body\">\n\t\t\t\t\t\t\t\t\t  <div>\n\t\t\t\t\t\t\t\t\t  <!-- <div> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <zxing-scanner [formats]=\"['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']\" ></zxing-scanner> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <zxing-scanner [formats]=\"['UPC_EAN_EXTENSION','UPC_E','UPC_A','QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX', 'AZTEC', 'CODABAR', 'CODE_39', 'CODE_93', 'EAN_8', 'ITF', 'MAXICODE' ,'PDF_417' ,'RSS_14','RSS_EXPANDED']\"  (scanSuccess)=\"handleQrCodeResult($event)\"></zxing-scanner> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t<!-- (scanError)=\"scanErrorHandler($event)\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- (scanFailure)=\"scanFailureHandler($event)\"  -->\n\t\t\t\t\t\t\t\t\t\t<!-- (scanComplete)=\"scanCompleteHandler($event)\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- (scanFailure)=\"scanFailureHandler($event)\" -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- [enable]=\"scannerEnabled\" -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<zxing-scanner *ngIf=\"scan_patron_articulo\"\n\t\t\t\t\t\t\t\t\t\t[(device)]=\"currentDevice\"\n\t\t\t\t\t\t\t\t\t\t[tryHarder]=\"tryHarder\"\n\t\t\t\t\t\t\t\t\t\t[formats]=\"formatsEnabled\"  \n\t\t\t\t\t\t\t\t\t\t(scanSuccess)=\"handleQrCodeResult($event,'art')\">\n\t\t\t\t\t\t\t\t\t\t</zxing-scanner>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<zxing-scanner *ngIf=\"scan_valor_serie\"\n\t\t\t\t\t\t\t\t\t\t[(device)]=\"currentDevice\"\n\t\t\t\t\t\t\t\t\t\t[tryHarder]=\"tryHarder\"\n\t\t\t\t\t\t\t\t\t\t[formats]=\"formatsEnabled\"  \n\t\t\t\t\t\t\t\t\t\t(scanSuccess)=\"handleQrCodeResult($event,'serie')\">\n\t\t\t\t\t\t\t\t\t\t</zxing-scanner>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<!-- <zxing-scanner -->\n\t\t\t\t\t\t\t\t\t\t<!-- [scannerEnabled]=\"scannerEnabled\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- [autofocusEnabled]=\"autofocusEnabled\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- [device]=\"selectedDevice\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- [cssClass]=\"'small-video'\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- (camerasFound)=\"displayCameras($event)\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- (scanSuccess)=\"handleQrCodeResult($event)\" -->\n\t\t\t\t\t\t\t\t\t\t<!-- ></zxing-scanner> -->\n\n\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"modal-footer\">\n\t\t\t\t\t\t\t\t\t\t<!-- <span *ngIf=\"scan_result\"> EXITOSO {{scan_value}} </span> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"apagar_scan\" (click)=\"scan=false\" value=\"apagar scan\" class=\"btn btn-danger\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"escanear\" (click)=\"scannerEnabled=true\"  value=\"escanear\" class=\"btn btn-info\"> -->\n\t\t\t\t\t\t\t\t\t\t<!-- <input type=\"submit\" name=\"apagar escanear\" (click)=\"scannerEnabled=false\"  value=\"apagar escanear\" class=\"btn btn-info\"> -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"close_scanner()\" data-dismiss=\"modal\">Cerrar</button>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div><!-- /.modal-content -->\n\t\t\t\t\t\t\t\t</div><!-- /.modal-dialog -->\n\t\t\t</div><!-- /.modal -->\n<!--################## FIN MODAL ###########################-->\n\n\n                        <div *ngIf=\"!numtra\" class=\"form-group\">\n                            <input *ngIf=\"(articulos_pedido.length == 0)\"  #generar_pe type=\"submit\"  disabled name=\"add_purchase\" value=\"Guardar Transferencia\" class=\"btn btn-primary\">\n\t\t\t\t\t\t\t<input *ngIf=\"(articulos_pedido.length > 0 && dato_proveedor)\" #generar_pe type=\"submit\" (click)=\"generar_ingreso()\"  name=\"add_purchase\" value=\"Guardar Transferencia\" class=\"btn btn-primary\">\n\t\t\t\t\t\t\t<input  #regresar_lista  routerLink=\"/admin/lista_transferencias\" [queryParams]=\"{usuario:usuario,empresa:empresa}\" type=\"submit\"  name=\"regresar_lista\" value=\"Ir a lista de transferencias\" class=\"btn btn-danger\">\n\t\t\t\t\t\t\t<!-- <input *ngIf=\"(articulos_pedido.length > 0 && dato_proveedor)\" #generar_pe type=\"submit\" (click)=\"generar_cod_barra()\"  name=\"add_purchase\" value=\"Guardar codigo\" class=\"btn btn-primary\"> -->\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div *ngIf=\"numtra\" class=\"form-group\">\n                            <input *ngIf=\"(articulos_pedido.length == 0)\"  #generar_pe type=\"submit\"  disabled name=\"add_purchase\" value=\"Guardar Transferencia\" class=\"btn btn-primary\">\n\t\t\t\t\t\t\t<input *ngIf=\"(articulos_pedido.length > 0)\" #generar_pe type=\"submit\" (click)=\"actualizar_pedido()\"  name=\"add_purchase\" value=\"Guardar Transferencia\" class=\"btn btn-primary\">\n\t\t\t\t\t\t\t<input  #regresar_lista  routerLink=\"/admin/lista_transferencias\" [queryParams]=\"{usuario:usuario,empresa:empresa}\" type=\"submit\"  name=\"regresar_lista\" value=\"Ir a lista de transferencias\" class=\"btn btn-danger\">\n\t\t\t\t\t\t</div>\n                      \n\t\t\t\t\t  </form>    \n\t\t\t\t\t</div>\n                    <div class=\"clearfix\"></div>\n                </div>\n            </div> <!-- /.FIN tab-pane 1 -->\n\t\t\t\n\n\t\t\t\n\t\t\t<div class=\"tab-pane\"  id=\"tab_datos_vehiculo\" #tab_datos_vehiculo>\n\t\t\t\t<!-- <app-admin-cliente status_cambio_vista_cliente=\"true\" #cliente_contenido></app-admin-cliente> -->\n\t\t\t\t<!-- <h1>SEGUNDA TAB</h1> -->\n\t\t\t\t\n            </div> <!-- /.tab-pane 2-->\n\t\t\t\n\t\t <div class=\"tab-pane\"  id=\"tab_datos_detalle_vehiculo\" #tab_datos_detalle_vehiculo>\n\n         </div> <!-- /.tab-pane 3-->\n\t\t\t\n\t\t<div class=\"tab-pane\"  id=\"tab_fotos_vehiculo\" #tab_fotos_vehiculo>\n\t\t\n        </div> <!-- /.tab-VEHICULO 2-->\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t</div> <!-- /.tab-content -->\n\t\t\t</div> <!-- nav-tabs-custom -->\n\t\t\t\n\t\t\n\n\t\t\t\n\t\t\t\n\t\t\t\n        </div>\n    </div>\n\n\n\n </section>\n  <!-- /.content -->\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/admin/admin-transferencias/admin-transferencias.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/admin/admin-transferencias/admin-transferencias.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: AdminTransfBodegaComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminTransfBodegaComponent", function() { return AdminTransfBodegaComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var ngx_image_compress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-image-compress */ "./node_modules/ngx-image-compress/fesm2015/ngx-image-compress.js");
+/* harmony import */ var _zxing_library__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @zxing/library */ "./node_modules/@zxing/library/esm/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+// Variable in assets/js/scripts.js file
+
+
+
+
+
+
+
+var AdminTransfBodegaComponent = /** @class */ (function () {
+    // BarcodeFormat.AZTEC,
+    // BarcodeFormat.CODABAR,
+    // BarcodeFormat.CODE_39,
+    // BarcodeFormat.CODE_93,
+    // BarcodeFormat.CODE_128,
+    // BarcodeFormat.DATA_MATRIX,
+    // BarcodeFormat.EAN_8,
+    // BarcodeFormat.EAN_13,
+    // BarcodeFormat.ITF,
+    // BarcodeFormat.MAXICODE,
+    // BarcodeFormat.PDF_417,
+    // BarcodeFormat.QR_CODE,
+    // BarcodeFormat.RSS_14,
+    // BarcodeFormat.RSS_EXPANDED,
+    // BarcodeFormat.UPC_A,
+    // BarcodeFormat.UPC_E,
+    // BarcodeFormat.UPC_EAN_EXTENSION,
+    // allowedFormats = [ BarcodeFormat.EAN_13  ];
+    // [formats]="['UPC_EAN_EXTENSION','UPC_E','UPC_A','QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX', 'AZTEC', 'CODABAR', 'CODE_39', 'CODE_93', 'EAN_8', 'ITF', 'MAXICODE' ,'PDF_417' ,'RSS_14','RSS_EXPANDED']"
+    function AdminTransfBodegaComponent(router, srv, route, imageCompress) {
+        var _this = this;
+        this.router = router;
+        this.srv = srv;
+        this.route = route;
+        this.imageCompress = imageCompress;
+        this.myControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]();
+        this.myControl2 = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]();
+        this.today = new Date();
+        this.desc_cant = 0;
+        this.iva_cant = 0;
+        this.iva_cant_new = 0;
+        this.desc_porcentaje = 0;
+        this.iva_porcentaje = 0;
+        this.subtotal_desc = 0;
+        this.ciudad_lista = [];
+        this.pais_lista = [];
+        this.vendedores_lista = [];
+        this.observacion_pedido = null;
+        this.lista_prec = [];
+        this.change_iva = false;
+        this.searching_articulo = false;
+        this.exist_fecha_entrega = true;
+        // fecha_entrega = undefined
+        this.fecha_entrega = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](new Date());
+        this.scan_patron_articulo = false;
+        this.scan_valor_serie = false;
+        this.jstoday = '';
+        this.fectra = '';
+        // public date : string;
+        // proveedores;
+        this.usuario = '';
+        this.empresa = '';
+        this.ruc = '';
+        this.patron_articulo = '';
+        this.cantidad_nueva = '';
+        // editART: ARTICULO
+        this.editART = [];
+        this.options = [];
+        this.articulo = [];
+        this.elements_checkedList = [];
+        this.articulos_pedido = [];
+        // SELECT * FROM "DBA"."detalle_vehiculo"----EXTINTOR, ACCESORIROS
+        // SELECT * FROM "DBA"."adicionales"------MARCA MODELO AÑO DEL CARRO
+        // SELECT * FROM "DBA"."mapa_vehiculo"------MAPA VEHICULO
+        this.tipo_doc_lista = [
+            { "tipo": "C", "nom_doc": "CEDULA" },
+            { "tipo": "R", "nom_doc": "RUC" },
+            { "tipo": "P", "nom_doc": "PASAPORTE" }
+        ];
+        this.tipo_combustible_lista = [
+            { "combustible": "GASOLINA" },
+            { "combustible": "DIESEL" },
+            { "combustible": "ELECTRICO" },
+            { "combustible": "HIBRIDO" }
+        ];
+        ///////VARIABLE PARA SUBIDA DE FOTOS ///////////
+        this.progress = 0;
+        this.subida_exitosa = false;
+        this.nombre_archivo = 'Seleccione archivo';
+        ///////DETALLE VEHICULO///////////
+        this.antena = false;
+        this.llave_rueda = false;
+        this.gata = false;
+        this.tapagas = false;
+        this.matricula = false;
+        this.encendedor = false;
+        this.plumas = false;
+        this.tuerca = false;
+        this.botiquin = false;
+        this.cubresol = false;
+        this.llanta = false;
+        this.espejos = false;
+        this.compac = false;
+        this.emblemas = false;
+        this.alarma = false;
+        this.radio = false;
+        this.herramientas = false;
+        this.combustible = false;
+        this.cont_puerta = false;
+        this.tapacubos = false;
+        this.moquetas = false;
+        this.extinguidor = false;
+        this.triangulos = false;
+        this.alogenos = false;
+        this.pantalla_radio = false;
+        ///////FORMULARIO MANEJO DE SERIES///////////	
+        this.serie_renglon = [];
+        this.series_ingreso_bodega = [];
+        this.anio = '2000';
+        this.num_pasajeros = '5';
+        this.tipo_ingreso_lista = [
+            { "tipo": "E", "descripcion": "AJUSTE INVENTARIO" },
+            { "tipo": "I", "descripcion": "IMPORTACIONES" }
+        ];
+        this.tipo_ingreso = "E";
+        this.almacenes_lista = [
+        // {"codalm": "01", "nomalm": "PRINCIPAL"}
+        // {"tipo": "I", "descripcion": "IMPORTACIONES"}
+        ];
+        this.accion_actualizar = false;
+        this.exist_orden_compra = false;
+        this.patron_orden_compra = null;
+        this.exist_orden_produccion = false;
+        this.patron_orden_prod = null;
+        this.loading_modulo = false;
+        // location.reload()
+        // allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX, BarcodeFormat.AZTEC,BarcodeFormat.CODABAR,  BarcodeFormat.CODE_39, BarcodeFormat.CODE_93, BarcodeFormat.EAN_8, BarcodeFormat.ITF, BarcodeFormat.MAXICODE, BarcodeFormat.PDF_417, BarcodeFormat.RSS_14, BarcodeFormat.RSS_EXPANDED   ];
+        // formatsEnabled: BarcodeFormat[] = [
+        // BarcodeFormat.CODE_128,
+        // BarcodeFormat.DATA_MATRIX,
+        // BarcodeFormat.EAN_13,
+        // BarcodeFormat.QR_CODE,
+        // ];
+        this.formatsEnabled = [
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].AZTEC,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].CODABAR,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].CODE_39,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].CODE_93,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].CODE_128,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].DATA_MATRIX,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].EAN_8,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].EAN_13,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].ITF,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].MAXICODE,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].PDF_417,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].QR_CODE,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].RSS_14,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].RSS_EXPANDED,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].UPC_A,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].UPC_E,
+            _zxing_library__WEBPACK_IMPORTED_MODULE_7__["BarcodeFormat"].UPC_EAN_EXTENSION,
+        ];
+        this.tryHarder = false;
+        this.currentDevice = null;
+        this.scannerEnabled = false;
+        this.route.params.subscribe(function (val) {
+            if (!_this.srv.isLoggedIn()) {
+                _this.router.navigateByUrl('/');
+            }
+            ;
+            _this.route.queryParams.subscribe(function (params) {
+                console.log(params);
+                // location.reload()
+                // Defaults to 0 if no query param provided.
+                // this.ruc = +params['ruc'] || 0;
+                _this.usuario = params['usuario'] || _this.route.snapshot.paramMap.get('usuario') || 0;
+                _this.empresa = params['empresa'] || _this.route.snapshot.paramMap.get('empresa') || 0;
+                _this.numtra = params['numfac'] || _this.route.snapshot.paramMap.get('numfac') || 0;
+                console.log("LUEGO DE ENTRADA");
+                if (_this.numtra == 0) {
+                    _this.reload_orden_nueva();
+                    _this.accion_actualizar = false;
+                }
+                else {
+                    _this.reload_orden();
+                    _this.accion_actualizar = true;
+                }
+            });
+            console.log(_this.usuario);
+            console.log(_this.empresa);
+            console.log(_this.numtra);
+            // let codbarra = '01478610062000201721031010201210';
+            // let fecha_cad_barra = codbarra.substring(18,24)
+            // console.log (fecha_cad_barra)
+            // let dia = fecha_cad_barra.substring(0,2)
+            // let mes = fecha_cad_barra.substring(2,4)
+            // let anio ='20'+fecha_cad_barra.substring(4,6)
+            // // this.serie_lote_form=this.scan_value.substring(26,32)
+            // let fecha_cad_form_1 = anio+'-'+mes+'-'+dia
+            // console.log (fecha_cad_form_1)
+            // // this.jstoday = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '-0500');
+            // this.jstoday = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+            // this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+            // console.log (this.jstoday)
+            // console.log (this.fectra)
+            // this.fecult_new = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+            // // this.fecha_entrega = this.fectra
+            // // this.fecha_entrega = new FormControl(new Date())
+            // // let serializedDate = new FormControl((new Date()).toISOString());
+            // console.log (this.today)
+            // console.log (this.fecha_entrega)
+            // // console.log (serializedDate)
+            // ////PARA BUSCAR IVA Y SETEAR IVA DEFECTO
+            // this.srv.iva().subscribe(data => {
+            // console.log ("**** IVA DE SIACI ***")
+            // console.log (data)
+            // this.iva_siaci = data;
+            // });
+            // ////PARA BUSCAR CIUDAD 17000012
+            // const datos = {};
+            // datos['codemp'] = this.empresa;		
+            // console.log (datos)
+            // this.srv.ciudad(datos).subscribe(
+            // data => {
+            // console.log("OBTENIENDO CIUDAD")
+            // console.log(data)
+            // // let option_defecto = {"codemp": "01", "codgeo": "0", "nomgeo": "*** Seleccione ciudad ***"};
+            // let option_defecto_final = {"codemp": "01", "codgeo": "0", "nomgeo": "*** OTRA CIUDAD ***"};
+            // this.ciudad_lista = data
+            // // this.ciudad_lista.unshift(option_defecto)
+            // this.ciudad_lista.push(option_defecto_final)
+            // console.log("CIUDAD LISTA")
+            // console.log(this.ciudad_lista)
+            // // this.ciudad_lista = option_defecto
+            // });
+            // this.srv.vendedores(datos).subscribe(
+            // data => {
+            // console.log("OBTENIENDO VENDEDORES")
+            // console.log(data)
+            // this.vendedores_lista = data
+            // this.vendedor = "01"
+            // });
+            // if (this.numtra){
+            // this.reset()
+            // datos['numtra'] = this.numtra;	
+            // datos['usuario'] = this.usuario;
+            // this.buscar_encabezado_ingreso(datos);
+            // this.buscar_renglones_ingresos(datos);
+            // this.lista_imagenes();
+            // this.get_detalle_vehiculo();
+            // this.get_datos_vehiculo();
+            // this.tab_habilitar_datos_orden=true
+            // }else{
+            // this.reset()
+            // }
+            // console.log ("#### CONFIGURACION CORREO PEDIDOS ####")
+            // console.log (this.srv.getConfCorreoPedCli())			 
+        }); //FIN ROUTING
+    } //FIN CONSTRUCTOR
+    AdminTransfBodegaComponent.prototype.ngOnInit = function () {
+        AdminLTE.init();
+    };
+    AdminTransfBodegaComponent.prototype.handleQrCodeResult = function (event, param) {
+        var _this = this;
+        var snd = new Audio("data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=");
+        snd.play();
+        window.navigator.vibrate([1000]);
+        //this.scan_result = true
+        this.scan_value = event;
+        if (param == 'art') {
+            // this.scan_value = '7862109177580'
+            this.patron_articulo = this.scan_value;
+            this.busca_articulo();
+        }
+        if (param == 'serie') {
+            // this.scan_value = '7862109177580'
+            //                    7861006200020
+            // 01478610062000201721031010201210
+            // this.scan_value = '01478610062000201721031010201210'
+            //26 al 32 es lote
+            //12 al 21 es fecha 210310   ---trasformar a YYYY-MM-DD
+            // let fecha_cad_barra = this.scan_value.substring(18,24)
+            // let anio = '20'+fecha_cad_barra.substring(0,2)
+            // let mes = fecha_cad_barra.substring(2,4)
+            // let dia =fecha_cad_barra.substring(4,6)
+            var datos = {};
+            datos['codemp'] = this.empresa;
+            datos['codart'] = this.codart_renglon;
+            datos['codbarra'] = this.scan_value;
+            // datos['codart'] = '7861006200020'
+            this.srv.conf_codbarra_art(datos).subscribe(function (data) {
+                console.log("OBTENIENDO CONF CODBARRA");
+                console.log(data);
+                // let fecha_cad_barra = this.scan_value.substring(18,24)
+                // let anio = '20'+fecha_cad_barra.substring(0,2)
+                // let mes = fecha_cad_barra.substring(2,4)
+                // let dia =fecha_cad_barra.substring(4,6)
+                //para llenar formulario de los lotes
+                // this.serie_lote_form=this.scan_value.substring(26,32)
+                // this.fecha_cad_form = anio+'-'+mes+'-'+dia
+                if (data['lote_ini'] != 'NO') {
+                    var codart_barra = _this.scan_value.substring(data['codart_ini'], data['codart_ini'] + data['codart_cant']);
+                    if (codart_barra == _this.codart_renglon) {
+                        var fecha_cad_barra = _this.scan_value.substring(data['caduca_ini'], data['caduca_ini'] + data['caduca_cant']);
+                        var anio = '20' + fecha_cad_barra.substring(0, 2);
+                        var mes = fecha_cad_barra.substring(2, 4);
+                        var dia = fecha_cad_barra.substring(4, 6);
+                        _this.serie_lote_form = _this.scan_value.substring(data['lote_ini'], data['lote_ini'] + data['lote_cant']);
+                        _this.fecha_cad_form = anio + '-' + mes + '-' + dia;
+                    }
+                    else {
+                        alert("Articulo escaneado COD ARTICULO << " + codart_barra + " >>  no posee el mismo código del producto a registrar. Es el articulo correcto ??");
+                    }
+                }
+                else {
+                    alert("No se pudo obtener LOTE/FECHA..Favor validar Cod Barra en la ficha de este artículo");
+                }
+                // alert (data['num_uni_present']+'-'+data['presentacion']+'-'+data['codart_ini']+'-'+data['codart_cant']+'-'+data['lote_ini']+'-'+data['lote_cant']+'-'+data['caduca_ini']+'-'+data['caduca_cant'])
+            });
+        }
+        this.closeBtnScan.nativeElement.click();
+    };
+    AdminTransfBodegaComponent.prototype.scanErrorHandler = function (event) {
+        // this.scan_result = true
+        // this.scan_value = event
+        alert("ScanErrorHandler");
+        alert(event);
+    };
+    AdminTransfBodegaComponent.prototype.scanFailureHandler = function (event) {
+        // this.scan_result = true
+        // this.scan_value = event
+        alert("scanFailure");
+        alert(event);
+    };
+    AdminTransfBodegaComponent.prototype.scanCompleteHandler = function (event) {
+        alert("scanCompleteHandler");
+        alert(event);
+    };
+    // ######## RELOAD ORDEN NUEVA   ##########
+    AdminTransfBodegaComponent.prototype.reload_orden_nueva = function () {
+        var _this = this;
+        this.tab_habilitar_datos_orden = false;
+        window.scrollTo(0, 0);
+        this.reset();
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        // datos['patron_proveedor'] = 'PROVEEDORE GENERAL';
+        datos['codagencia'] = this.srv.getCodAgencia();
+        datos['usuario'] = this.usuario;
+        datos['tipo_accion'] = 'INGRESO';
+        console.log(datos);
+        //Variables originales  
+        this.tipo_busqueda = true;
+        this.proveedores = false;
+        this.exist_articulo = false;
+        this.exist_razon_social = false;
+        this.edit_cant = false;
+        this.masterSelected = false;
+        this.cantidad_nueva = '1';
+        this.cambiar_email = false;
+        this.jstoday = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        this.fectra = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        console.log(this.jstoday);
+        console.log(this.fectra);
+        this.fecult_new = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        console.log(this.today);
+        console.log(this.fecha_entrega);
+        // this.srv.almacen(datos).subscribe(
+        // data => {
+        // console.log("OBTENIENDO LISTA DE ALMACENES EN ESTE CENTRO DE COSTO")
+        // console.log(data)
+        // this.almacenes_lista = data
+        // });
+        datos['tipo_consulta'] = 'O';
+        this.srv.almacen_origen_destino(datos).subscribe(function (data) {
+            console.log("OBTENIENDO LISTA DE ALMACENES ORIGEN");
+            console.log(data);
+            _this.almacenes_lista_origen = data;
+        });
+        datos['tipo_consulta'] = 'D';
+        this.srv.almacen_origen_destino(datos).subscribe(function (data) {
+            console.log("OBTENIENDO LISTA DE ALMACENES DESTINO");
+            console.log(data);
+            _this.almacenes_lista_destino = data;
+        });
+        // this.srv.lista_bodegas_centro_costo(datos).subscribe(
+        // data => {
+        // console.log("OBTENIENDO LISTA DE ALMACENES EN ESTE CENTRO DE COSTO")
+        // console.log(data)
+        // this.almacenes_lista = data
+        // });
+        // this.srv.usuario_defecto_produccion(datos).subscribe(
+        // data => {
+        // console.log("OBTENIENDO USUARIO DEFECTO")
+        // console.log(data)
+        // let datos = {}
+        // datos ['codemp'] = this.empresa
+        // if (data['razon_social'] != 'NO DISPONIBLE') {
+        // datos ['patron_proveedor'] = data['razon_social']
+        // this.srv.busqueda_proveedor(datos).subscribe(
+        // data => {
+        // console.log("OBTENIENDO PROVEEDOR")
+        // console.log(data)
+        // // select_razon_social(ident,ruc,rz,correo,codpro,dirpro)
+        // this.select_razon_social(data[0].tipo_identifica,data[0].rucced,data[0].nompro,data[0].email,data[0].codpro,data[0].dirpro)
+        // });
+        // }
+        // });
+        console.log("#### CONFIGURACION CORREO PEDIDOS ####");
+        console.log(this.srv.getConfCorreoPedCli());
+    };
+    //#################  CARGAR ORDEN PARA ACTUALIZAR ##################
+    AdminTransfBodegaComponent.prototype.reload_orden = function () {
+        var _this = this;
+        this.loading_modulo = true;
+        window.scrollTo(0, 0);
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        console.log(datos);
+        //Variables originales  
+        this.tipo_busqueda = true;
+        this.proveedores = false;
+        this.exist_articulo = false;
+        this.exist_razon_social = false;
+        this.edit_cant = false;
+        this.masterSelected = false;
+        this.cambiar_email = false;
+        this.jstoday = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        this.fectra = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        console.log(this.jstoday);
+        console.log(this.fectra);
+        this.fecult_new = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+        console.log(this.today);
+        console.log(this.fecha_entrega);
+        // this.reset()
+        datos['numfac'] = this.numtra;
+        datos['usuario'] = this.usuario;
+        datos['codagencia'] = this.srv.getCodAgencia();
+        this.buscar_encabezado_ingreso(datos);
+        // this.srv.lista_bodegas_centro_costo(datos).subscribe(
+        // data => {
+        // console.log("OBTENIENDO LISTA DE ALMACENES EN ESTE CENTRO DE COSTO")
+        // console.log(data)
+        // this.almacenes_lista = data
+        // // select_razon_social(ident,ruc,rz,correo,codpro,dirpro)
+        // // this.vendedores_lista = data
+        // // this.vendedor = "01"
+        // });
+        this.srv.almacen(datos).subscribe(function (data) {
+            console.log("OBTENIENDO LISTA DE ALMACENES EN ESTE CENTRO DE COSTO");
+            console.log(data);
+            _this.almacenes_lista = data;
+        });
+    };
+    AdminTransfBodegaComponent.prototype.set_tipo_ingreso = function () {
+        console.log("SET TIPO DE INGRESO");
+        var almacen_arr = this.almacen_arr.split("|");
+        this.almacen = almacen_arr[0];
+        this.nombre_almacen = almacen_arr[1];
+        this.articulos_pedido = [];
+        if (almacen_arr[1] == 'Materia prima') {
+            this.nomcli = null;
+        }
+        if (almacen_arr[1] == 'Producto terminado') {
+            this.nompro = null;
+        }
+        this.orden_compra = undefined;
+        this.orden_produccion = undefined;
+        this.patron_orden_compra = null;
+        this.patron_orden_prod = null;
+        // let datos = {}
+        // datos['usuario'] = this.usuario;
+        // datos['empresa'] = this.empresa;
+        // this.router.navigate(['/admin/ingreso_articulos', datos]);
+    };
+    AdminTransfBodegaComponent.prototype.busqueda_orden_produccion = function () {
+        var _this = this;
+        console.log("SET TIPO DE INGRESO");
+        var datos = {};
+        datos['orden_produccion'] = this.orden_produccion;
+        datos['codemp'] = this.empresa;
+        this.srv.busqueda_orden_produccion(datos).subscribe(function (data) {
+            console.log(data);
+            if (data['nomcli'] != 'NO EXISTE') {
+                _this.nomcli = data['nomcli'];
+            }
+            else {
+                alert("Orden de produccion no existe o no esta procesada");
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.busqueda_orden_compra = function () {
+        var _this = this;
+        console.log("SET TIPO DE INGRESO");
+        var datos = {};
+        datos['orden_compra'] = this.orden_compra;
+        datos['codemp'] = this.empresa;
+        this.srv.busqueda_orden_compra(datos).subscribe(function (data) {
+            console.log(data);
+            if (data['nompro'] != 'NO EXISTE') {
+                _this.nompro = data['nompro'];
+            }
+            else {
+                alert("Orden de compra no existe en SIACI");
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.busqueda_ordenes_produccion_pendientes = function () {
+        var _this = this;
+        console.log("SET TIPO DE INGRESO");
+        var datos = {};
+        datos['patron_orden_prod'] = this.patron_orden_prod;
+        datos['codemp'] = this.empresa;
+        datos['estado_orden'] = 'S';
+        this.srv.busqueda_ordenes_produccion_pendientes(datos).subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                _this.exist_orden_produccion = true;
+                _this.lista_orden_produccion_pendientes = data;
+            }
+            else {
+                alert("Orden de produccion no encontrada en SIACI");
+                _this.exist_orden_produccion = false;
+                _this.patron_orden_prod = null;
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.busqueda_ordenes_compra_pendientes = function () {
+        var _this = this;
+        console.log("SET TIPO DE INGRESO");
+        var datos = {};
+        datos['patron_orden_compra'] = this.patron_orden_compra;
+        datos['codemp'] = this.empresa;
+        this.srv.busqueda_ordenes_compra_pendientes(datos).subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                _this.exist_orden_compra = true;
+                _this.lista_orden_produccion_pendientes = data;
+            }
+            else {
+                alert("Orden de compra no encontrada en SIACI");
+                _this.exist_orden_compra = false;
+                _this.patron_orden_compra = null;
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.select_orden_produccion = function (numtra, clientes) {
+        this.orden_produccion = numtra;
+        this.nomcli = clientes;
+        this.exist_orden_produccion = false;
+    };
+    AdminTransfBodegaComponent.prototype.select_orden_compra = function (numtra, nompro) {
+        var _this = this;
+        this.orden_compra = numtra;
+        this.nompro = nompro;
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['patron_proveedor'] = nompro;
+        this.srv.busqueda_proveedor(datos).subscribe(function (data) {
+            console.log("OBTENIENDO PROVEEDOR");
+            console.log(data);
+            _this.select_razon_social(data[0].tipo_identifica, data[0].rucced, data[0].nompro, data[0].email, data[0].codpro, data[0].dirpro);
+        });
+        this.exist_orden_compra = false;
+        var datos_compra = {};
+        datos_compra['codemp'] = this.empresa;
+        datos_compra['usuario'] = this.usuario;
+        datos_compra['numtra'] = this.orden_compra;
+        this.srv.get_renglones_orden_compra(datos_compra).subscribe(function (data) {
+            console.log("****RENGLONES ORDEN DE COMPRA*****");
+            console.log(data);
+            _this.articulos_pedido = [];
+            var articulos_pedido_temporal = [];
+            _this.subtotal = 0;
+            _this.iva_porcentaje = 0;
+            _this.iva_cant = 0;
+            // this.total = 0
+            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+                var data_traduccion = data_1[_i];
+                console.log("### RENGLON ###");
+                console.log(data_traduccion);
+                // let index_art 
+                // if (articulos_pedido_temporal.length == 0){
+                // index_art = articulos_pedido_temporal.length
+                // }else {
+                // console.log (Math.max.apply(Math, articulos_pedido_temporal.map(function(o) { return o.index; })))
+                // index_art = (Math.max.apply(Math, articulos_pedido_temporal.map(function(o) { return o.index; })))+1
+                // }
+                console.log("### RENGLON TRADUCCION###");
+                console.log(data_traduccion);
+                articulos_pedido_temporal.push(data_traduccion);
+            }
+            _this.articulos_pedido = articulos_pedido_temporal;
+            _this.subtotal = _this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0);
+            _this.iva_cant_new = _this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.precio_iva); }, 0);
+            // this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new
+            _this.exist_articulo = false;
+            console.log("### ARMADO TRADUCCION ARTICULO PEDIDO ###");
+            console.log(_this.articulos_pedido);
+        });
+    };
+    AdminTransfBodegaComponent.prototype.test_reenvio = function () {
+        var datos = {};
+        datos['usuario'] = this.usuario;
+        datos['empresa'] = this.empresa;
+        this.router.navigate(['/admin/ingreso_articulos', datos]);
+    };
+    AdminTransfBodegaComponent.prototype.buscar_encabezado_ingreso = function (datos) {
+        var _this = this;
+        this.srv.get_encabezado_ingreso(datos).subscribe(function (data) {
+            _this.reset();
+            console.log("ENCABEZADO_ORDEN");
+            console.log(data);
+            _this.ruc = data['identificacion'];
+            _this.tipo_doc = data['tpIdCliente'];
+            _this.vendedor = data['codven'];
+            _this.fectra = data['fecfac'];
+            _this.subtotal = data['totnet'];
+            _this.iva_cant_new = data['iva_cantidad'];
+            _this.total = data['totfac'];
+            _this.almacen = data['codalm'];
+            _this.nombre_almacen = data['nomalm'];
+            _this.almacen_arr = _this.almacen + '|' + _this.nombre_almacen;
+            _this.observacion_pedido = data['observ'];
+            if (_this.nombre_almacen == 'Producto terminado') {
+                _this.orden_produccion = data['numtra'];
+                _this.busqueda_orden_produccion();
+            }
+            // if (this.nombre_almacen == 'Materia prima'){
+            // this.orden_compra =  data['numtra']
+            // this.busqueda_orden_compra()
+            // }
+            var datos = {};
+            datos['numtra'] = _this.numtra;
+            datos['usuario'] = _this.usuario;
+            datos['codemp'] = _this.empresa;
+            datos['codalm'] = _this.almacen;
+            // this.select_razon_social(ident,ruc,rz,correo,codpro,dirpro)
+            _this.select_razon_social(data['tipo_identifica'], data['rucced'], data['nompro'], data['email'], data['codpro'], data['dirpro']);
+            _this.buscar_renglones_ingresos(datos);
+        });
+    };
+    AdminTransfBodegaComponent.prototype.buscar_renglones_ingresos = function (datos) {
+        var _this = this;
+        var data_traduccion = {};
+        this.srv.get_renglones_ingreso(datos).subscribe(function (data) {
+            console.log("****RENGLONES ORDEN *****");
+            console.log(data);
+            _this.articulos_pedido = [];
+            var articulos_pedido_temporal = [];
+            _this.subtotal = 0;
+            _this.iva_porcentaje = 0;
+            _this.iva_cant = 0;
+            // this.total = 0
+            for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+                var data_traduccion_1 = data_2[_i];
+                console.log("### RENGLON ###");
+                console.log(data_traduccion_1);
+                // let index_art 
+                // if (articulos_pedido_temporal.length == 0){
+                // index_art = articulos_pedido_temporal.length
+                // }else {
+                // console.log (Math.max.apply(Math, articulos_pedido_temporal.map(function(o) { return o.index; })))
+                // index_art = (Math.max.apply(Math, articulos_pedido_temporal.map(function(o) { return o.index; })))+1
+                // }
+                console.log("### RENGLON TRADUCCION###");
+                console.log(data_traduccion_1);
+                articulos_pedido_temporal.push(data_traduccion_1);
+            }
+            _this.articulos_pedido = articulos_pedido_temporal;
+            _this.subtotal = _this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0);
+            _this.iva_cant_new = _this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.precio_iva); }, 0);
+            // this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new
+            _this.exist_articulo = false;
+            console.log("### ARMADO TRADUCCION ARTICULO PEDIDO ###");
+            console.log(_this.articulos_pedido);
+        });
+        this.srv.get_series_ingreso_bodega(datos).subscribe(function (data) {
+            console.log("****SERIE ORDEN *****");
+            console.log(data);
+            _this.series_ingreso_bodega = data;
+        });
+        this.loading_modulo = false;
+    };
+    AdminTransfBodegaComponent.prototype.tipo_entrada = function () {
+        console.log("tipo de entrada...!!!");
+        console.log(this.tipo_busqueda);
+        if (this.tipo_busqueda == false) {
+            this.tipo_busqueda = true;
+        }
+        else {
+            this.tipo_busqueda = false;
+        }
+        console.log("tipo de entrada luego del cambio...!!!");
+        console.log(this.tipo_busqueda);
+    };
+    AdminTransfBodegaComponent.prototype.set_id_nombre_rutas = function (tipo_agencia) {
+        var _this = this;
+        console.log(this.id_nombre_ruta_seleccionado);
+        // this.id_direccion_sucursal_seleccionado=undefined
+        console.log(this.id_direccion_sucursal_seleccionado);
+        var id_nombre_ruta_seleccionado_array = this.id_nombre_ruta_seleccionado.split("|", 2);
+        // console.log(id_nombre_ruta_seleccionado_array[0])
+        this.idruta = id_nombre_ruta_seleccionado_array[0];
+        this.nombre_ruta = id_nombre_ruta_seleccionado_array[1];
+        if (tipo_agencia == 'S') {
+            console.log("BUSCANDO SUCURSALES EN RUTA " + this.nombre_ruta);
+            var datos_sucurdales = {};
+            datos_sucurdales['empresa'] = this.empresa;
+            datos_sucurdales['codpro'] = this.dato_proveedor['codpro'];
+            datos_sucurdales['tipo_agencia'] = tipo_agencia;
+            datos_sucurdales['idruta'] = this.idruta;
+            console.log(datos_sucurdales);
+            this.srv.get_sucursales(datos_sucurdales).subscribe(function (data) {
+                console.log("OBTENIENDO DIRECCIONES RUTAS SUCURSALES");
+                console.log(data);
+                _this.lista_surcursales = data;
+            });
+        }
+        // this.id_direccion_sucursal_seleccionado = ""
+    };
+    AdminTransfBodegaComponent.prototype.set_id_dir_sucursal = function () {
+        console.log(this.id_direccion_sucursal_seleccionado);
+        var id_direccion_sucursal_seleccionado_array = this.id_direccion_sucursal_seleccionado.split("|", 2);
+        // console.log(id_nombre_ruta_seleccionado_array[0])
+        this.id_agencia = id_direccion_sucursal_seleccionado_array[0];
+        this.dir_agencia = id_direccion_sucursal_seleccionado_array[1];
+    };
+    AdminTransfBodegaComponent.prototype.validar_exist_agencia = function (tipo_agencia) {
+        var _this = this;
+        console.log("check_agencia");
+        console.log(this.check_agencia);
+        // console.log("check_agencia_sucursal")
+        // console.log(this.check_agencia_sucursal)
+        if (this.dato_proveedor) {
+            console.log("validar_AGENCIA");
+            var datos_val_ppal = {};
+            datos_val_ppal['codemp'] = this.empresa;
+            datos_val_ppal['codpro'] = this.dato_proveedor['codpro'];
+            datos_val_ppal['tipo_agencia'] = tipo_agencia;
+            console.log(datos_val_ppal);
+            this.srv.validar_exist_agencia(datos_val_ppal).subscribe(function (data) {
+                console.log("OBTENIENDO DATOS AGENCIA");
+                console.log(data);
+                if (data['idruta']) {
+                    if (tipo_agencia == 'P') {
+                        _this.idruta = data['idruta'];
+                        _this.nombre_ruta = data['nombre_ruta'];
+                        _this.id_agencia = data['id_agencia'];
+                        _this.dir_agencia = data['dir_agencia'];
+                        _this.val_exist_ppal = true;
+                    }
+                    if (tipo_agencia == 'S') {
+                        console.log("SETEANDO VALORES DE RUTAS Y DIRECCION EN UNDEFINED");
+                        _this.idruta = undefined;
+                        _this.nombre_ruta = undefined;
+                        _this.id_agencia = undefined;
+                        _this.dir_agencia = undefined;
+                        _this.val_exist_sucursal = true;
+                    }
+                }
+                else {
+                    console.log("NO HAY SEDE PRINCIPAL DEFINIDA, POR FAVOR DEFINIRLA");
+                    if (tipo_agencia == 'P') {
+                        console.log("NO HAY SEDE PRINCIPAL DEFINIDA, POR FAVOR DEFINIRLA");
+                        _this.val_exist_ppal = false;
+                        _this.dir_agencia = _this.dato_proveedor['dirpro'];
+                    }
+                    if (tipo_agencia == 'S') {
+                        console.log("NO HAY SEDE SUCURSAL DEFINIDA, POR FAVOR DEFINIRLA");
+                        _this.val_exist_sucursal = false;
+                        _this.dir_agencia = '';
+                    }
+                    // this.val_exist_ppal = false
+                }
+            });
+        }
+        else {
+            alert("Por favor ingrese los datos del cliente...!!!");
+            this.check_agencia = false;
+        }
+    }; //####  FIN VALIDAR PRINCIPAL
+    AdminTransfBodegaComponent.prototype.guardar_nueva_agencia = function (tipo_agencia) {
+        var _this = this;
+        console.log("ENTRADA CREAR AGENCIA");
+        console.log(tipo_agencia);
+        if (this.idruta && (this.dir_agencia.length > 0)) {
+            var datos_crear_agencia = {};
+            datos_crear_agencia['empresa'] = this.empresa;
+            datos_crear_agencia['tipo_agencia'] = tipo_agencia;
+            datos_crear_agencia['codpro'] = this.dato_proveedor['codpro'];
+            datos_crear_agencia['nompro'] = this.dato_proveedor['nompro'];
+            datos_crear_agencia['dir_agencia'] = this.dir_agencia;
+            datos_crear_agencia['idruta'] = this.idruta;
+            console.log('##### DATOS CREAR AGENCIA #######');
+            console.log(datos_crear_agencia);
+            this.srv.crear_nueva_agencia(datos_crear_agencia).subscribe(function (data) {
+                console.log("CREANDO NUEVA AGENCIA");
+                console.log(data);
+                _this.id_agencia = data['id_agencia'];
+                if (tipo_agencia == 'P') {
+                    _this.val_exist_ppal = true;
+                    _this.id_nombre_ruta_seleccionado = undefined;
+                    alert("Nueva agencia principal generada con éxito");
+                }
+                if (tipo_agencia == 'S') {
+                    _this.val_exist_sucursal = true;
+                    _this.id_nombre_ruta_seleccionado = undefined;
+                    alert("Nueva agencia sucursal generada con éxito");
+                }
+                // if (data['idruta']){
+                // this.idruta = data['idruta']
+                // this.nombre_ruta = data['nombre_ruta']
+                // this.id_agencia = data['id_agencia']
+                // this.dir_agencia = data['dir_agencia'] 
+                // this.val_exist_ppal = true
+                // }else {
+                // console.log("NO HAY SEDE PRINCIPAL DEFINIDA, POR FAVOR DEFINIRLA")
+                // this.val_exist_ppal = false
+                // this.dir_agencia = this.dato_proveedor['dirpro']
+                // }
+            });
+        }
+        else {
+            alert("Por favor seleccionar ruta en donde se encuentra la agencia, y llenar la direccion de la agencia principal o sucursal a crear");
+        }
+    };
+    AdminTransfBodegaComponent.prototype.edit_art = function (el) {
+        console.log("ENTRADA ARTICULO A EDITAR");
+        // console.log(el)
+        this.editART = el;
+        this.edit_cant = true;
+        console.log(this.editART);
+    };
+    AdminTransfBodegaComponent.prototype.delete_art = function (el, index) {
+        console.log("ENTRADA ARTICULO A ELIMINAR");
+        console.log(el);
+        var json_eliminar = this.articulos_pedido;
+        // var nomart = el
+        json_eliminar = json_eliminar.filter(function (dato) {
+            if (dato.index == index) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            // return dato;
+        });
+        console.log(json_eliminar); //json original
+        this.articulos_pedido = json_eliminar;
+        this.subtotal = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0));
+        this.iva_cant = this.redondear((this.subtotal * this.iva_porcentaje) / 100);
+        this.iva_cant_new = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.precio_iva); }, 0));
+        this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new;
+    };
+    AdminTransfBodegaComponent.prototype.delete_art_todo = function () {
+        console.log("ENTRADA ARTICULO A ELIMINAR TODOOOOO");
+        this.articulos_pedido = [];
+        this.subtotal = this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0);
+        this.iva_porcentaje = 0;
+        this.iva_cant = 0;
+        this.total = 0;
+    };
+    AdminTransfBodegaComponent.prototype.redondear = function (el) {
+        // console.log("ENTRADA ARTICULO REDONDEAR")
+        // console.log(el)
+        return Math.round(el * 100) / 100;
+    };
+    AdminTransfBodegaComponent.prototype.busca_cliente = function () {
+        var _this = this;
+        if (this.ruc) {
+            var datos = {};
+            datos['ruc'] = this.ruc;
+            datos['codemp'] = this.empresa;
+            datos['tpIdCliente'] = this.tipo_doc;
+            this.srv.clientes(datos).subscribe(function (data) {
+                // console.log(data)
+                _this.dato_proveedor = data;
+                if (data['rucced']) {
+                    // console.log(data)
+                    // console.log(data['nompro'])
+                    _this.razon_social = data['nompro'];
+                    _this.email_proveedor = data['email'];
+                    _this.proveedores = true;
+                }
+                else {
+                    var documento = '';
+                    if (_this.tipo_doc == 'C') {
+                        documento = 'CEDULA';
+                    }
+                    else if (_this.tipo_doc == 'R') {
+                        documento = 'RUC';
+                    }
+                    else if (_this.tipo_doc == 'P') {
+                        documento = 'PASAPORTE';
+                    }
+                    alert("Cliente con " + documento + " " + _this.ruc + " no encontrado");
+                }
+            });
+        }
+        else {
+            alert("Por favor ingrese el Tipo de Documento/ Num de documento del cliente");
+        }
+    };
+    AdminTransfBodegaComponent.prototype.busqueda_razon_social = function () {
+        var _this = this;
+        if (this.patron_proveedor) {
+            var datos = {};
+            datos['codemp'] = this.empresa;
+            datos['patron_proveedor'] = this.patron_proveedor;
+            this.srv.busqueda_proveedor(datos).subscribe(function (data) {
+                // console.log(data)
+                var longitud_data = data.length;
+                if (longitud_data > 0) {
+                    console.log(data);
+                    _this.razon_social_lista = data;
+                    _this.exist_razon_social = true;
+                    // this.searching_articulo = false
+                }
+                else {
+                    alert("Razon Social no encontrado con la palabra clave ingresada <<" + _this.patron_proveedor + ">>");
+                    // this.searching_articulo = false
+                    _this.exist_razon_social = false;
+                }
+            });
+        }
+        else {
+            alert("Por favor llenar el campo Razon Social");
+        }
+    };
+    AdminTransfBodegaComponent.prototype.select_razon_social = function (ident, ruc, rz, correo, codpro, dirpro) {
+        console.log("Seleccion de cliente");
+        this.dato_proveedor = { "nompro": rz, "rucced": ruc, "email": correo, "codpro": codpro, "dirpro": dirpro };
+        // ['codemp', 'nompro','rucced','codpro','email','dirpro','ciucli','telcli','telcli2']
+        this.tipo_doc = ident;
+        this.ruc = ruc;
+        this.razon_social = rz;
+        this.email_proveedor = correo;
+        console.log(rz);
+        this.proveedores = true;
+        this.exist_razon_social = false;
+        this.patron_proveedor = undefined;
+    };
+    AdminTransfBodegaComponent.prototype.busca_articulo = function () {
+        var _this = this;
+        // if (this.patron_articulo && this.dato_proveedor && this.almacen ){
+        if (this.patron_articulo && this.dato_proveedor) {
+            this.searching_articulo = true;
+            var datos = {};
+            datos['nomart'] = this.patron_articulo;
+            datos['codemp'] = this.empresa;
+            datos['codpro'] = this.dato_proveedor["codpro"];
+            if (this.nombre_almacen == 'Producto terminado') {
+                datos['numtra'] = this.orden_produccion;
+            }
+            if (this.nombre_almacen == 'Materia prima') {
+                datos['numtra'] = this.orden_compra;
+            }
+            datos['nombre_almacen'] = this.nombre_almacen;
+            // if ((this.nombre_almacen == 'Producto terminado' && this.orden_produccion) || (this.nombre_almacen == 'Materia prima' && this.orden_compra)){
+            this.srv.articulos_ingresos(datos).subscribe(function (data) {
+                var longitud_data = data.length;
+                if (longitud_data > 0) {
+                    console.log(data);
+                    _this.articulo = data;
+                    _this.exist_articulo = true;
+                    _this.searching_articulo = false;
+                    if (_this.articulo.length == 1) {
+                        console.log("inserto de una vez");
+                        _this.elements_checkedList.push(_this.articulo[0]);
+                        _this.inserta_pedido();
+                    }
+                }
+                else {
+                    alert("Antículo no encontrado con la palabra clave ingresada <<" + _this.patron_articulo + ">>");
+                    _this.searching_articulo = false;
+                    _this.exist_articulo = false;
+                    _this.patron_articulo = undefined;
+                }
+            });
+            // }else {
+            // alert ("Producto no encontrado con el patron << "+this.patron_articulo+" >>")
+            // // if (this.nombre_almacen == 'Producto terminado'){
+            // // alert ("Para PRODUCTO TERMINADO favor ingresar ORDEN DE PRODUCCION")
+            // // }
+            // // if (this.nombre_almacen == 'Materia prima'){
+            // // alert ("Para MATERIA PRIMA favor ingresar ORDEN DE COMPRA")
+            // // }
+            // // this.searching_articulo = false
+            // }
+        }
+        else {
+            alert("Por favor ingrese el Proveedor/Tipo de ingreso y Articulo a buscar");
+            this.searching_articulo = false;
+        }
+    };
+    AdminTransfBodegaComponent.prototype.busca_servicio = function () {
+        var _this = this;
+        if (this.patron_articulo) {
+            var datos = {};
+            datos['nomart'] = this.patron_articulo;
+            datos['codemp'] = this.empresa;
+            datos['codpro'] = this.dato_proveedor["codpro"];
+            console.log("BUSCO SERVICIO");
+            this.srv.servicios(datos).subscribe(function (data) {
+                // console.log(data)
+                // console.log (data[1]['nomart'])
+                var longitud_data = data.length;
+                if (longitud_data > 0) {
+                    console.log(data);
+                    // console.log(data['nomart'])
+                    // console.log (data[1]['nomart'])
+                    _this.articulo = data;
+                    _this.exist_articulo = true;
+                    // this.filteredarticulo = this.myControl2.valueChanges.pipe(
+                    // startWith(''),
+                    // map(value => this._filter2(value))
+                    // ); 
+                }
+                else {
+                    alert("Servicio no encontrado con la palabra clave ingresada <<" + _this.patron_articulo + ">>");
+                }
+            });
+        }
+        else {
+            alert("Por favor llene el campo artículo");
+        }
+    };
+    AdminTransfBodegaComponent.prototype.get_prec_produc = function (codart) {
+        var _this = this;
+        console.log("###creado lista de precios##");
+        console.log(codart);
+        // 6Q0199517A
+        var datos = {};
+        datos['codart'] = codart;
+        datos['codemp'] = this.empresa;
+        datos['codpro'] = this.dato_proveedor["codpro"];
+        this.srv.get_prec_product(datos).subscribe(function (data) {
+            console.log(data);
+            _this.lista_prec = data;
+            // for (checked_json of this.elements_checkedList)
+            // for (let precios of data[0]){
+            // console.log ("LISTA DE PRECIOS BD")
+            // console.log (precios)
+            // }
+            // console.log(data['prec02'])
+            // console.log(data[0].prec01)
+            // [
+            // {"tipo": "C", "nom_doc": "CEDULA"},
+            // {"tipo": "R", "nom_doc": "RUC"},
+            // {"tipo": "P", "nom_doc": "PASAPORTE"}
+            // ];
+            // this.lista_prec =[{"prec": data[0].prec1},
+            // {"prec": data[0].prec2},
+            // {"prec": data[0].prec3},
+            // {"prec": data[0].prec4},
+            // {"prec": data[0].prec5}];
+            console.log(_this.lista_prec);
+        });
+        return "01";
+    };
+    AdminTransfBodegaComponent.prototype.get_prec_servicio = function (codart) {
+        var _this = this;
+        console.log("###creado lista de precios servicio##");
+        console.log(codart);
+        // 6Q0199517A
+        var datos = {};
+        datos['codart'] = codart;
+        datos['codemp'] = this.empresa;
+        datos['codpro'] = this.dato_proveedor["codpro"];
+        this.srv.get_prec_servicio(datos).subscribe(function (data) {
+            console.log(data);
+            // this.lista_prec =[{"prec": data[0].prec01},{"prec": data[0].prec02},{"prec": data[0].prec03},{"prec": data[0].prec04}];
+            _this.lista_prec = data;
+            console.log(_this.lista_prec);
+        });
+        return "01";
+    };
+    // public edit_prec(articulos){
+    // console.log ("##### EDIT PREC  ####")
+    // console.log (articulos)
+    // console.log (articulos["codart"])
+    // this.edit_articulos=articulos
+    // this.get_prec_produc(articulos["codart"])
+    // }
+    AdminTransfBodegaComponent.prototype.edit_prec = function (articulos) {
+        console.log("##### EDIT PREC  ####");
+        console.log(articulos);
+        console.log(articulos["codart"]);
+        this.edit_articulos = articulos;
+        console.log("##### TIPO BUSQUEDA  ####");
+        console.log(this.tipo_busqueda);
+        if (this.tipo_busqueda) {
+            this.get_prec_produc(articulos["codart"]);
+        }
+        else {
+            this.get_prec_servicio(articulos["codart"]);
+        }
+    };
+    AdminTransfBodegaComponent.prototype.edit_prec_renglon = function (cod) {
+        console.log("##### CAMBIAR PRECIO RENGLON ####");
+        console.log(this.nuevo_precio_renglon);
+        if (!this.nuevo_precio_renglon) {
+            this.nuevo_precio_renglon = 0;
+        }
+        console.log(cod);
+        var nuevo_precio_renglon_1 = parseFloat(this.nuevo_precio_renglon);
+        console.log("#### ARREGLO DE ARTICULOS  ###");
+        console.log(this.articulo);
+        this.articulo.map(function (dato) {
+            console.log("VOY ARREGLO DE ARTICULOS ");
+            if (dato.codart == cod) {
+                dato.prec01 = nuevo_precio_renglon_1;
+                //ACTUALIZO EL MONTO DEL IVA
+                dato.precio_iva = (dato.prec01 * dato['poriva']) / 100;
+                //REDONDEADO PRECIO IVA
+                dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
+            }
+            return dato;
+        });
+        console.log("#### ARREGLO DE ARTICULOS LUEGO DEL CAMBIO  ###");
+        console.log(this.articulo);
+        this.edit_articulos = undefined; //para desmarcar renglon
+        this.lista_prec = []; // para eliminar array de consulta de precios
+        this.nuevo_precio_renglon = undefined; //para reiniciar el nuevo precio
+    };
+    AdminTransfBodegaComponent.prototype.update_iva_art = function (codart, index, value_iva_new) {
+        console.log("ACTUALIZAR IVA PARA ARTICULO");
+        console.log("####  CODIDO ART ########");
+        console.log(codart);
+        console.log("####  IVA NUEVO ########");
+        console.log(value_iva_new);
+        var value_iva_new_array = value_iva_new.split("|");
+        var poriva_new = value_iva_new_array[0];
+        var codiva_new = value_iva_new_array[1];
+        // console.log("####  CODIGO IVA ########")
+        // console.log(codiva_new)
+        if (codart) {
+            this.articulos_pedido.map(function (dato) {
+                console.log("VOY ACTUALIZAR PRECIO");
+                if (dato.index == index) {
+                    console.log("ACTUALIZANDO PORIVA");
+                    dato.poriva = poriva_new;
+                    dato.codiva = codiva_new;
+                    dato.v_desc_art = ((dato['punreo'] * dato['prec01']) / 100) * dato.cant;
+                    dato.subtotal_art = (dato['prec01'] * dato.cant) - dato.v_desc_art;
+                    //REDONDEADO subtotal_art
+                    dato.subtotal_art = Math.round(dato.subtotal_art * 100) / 100;
+                    dato.precio_iva = (dato.subtotal_art * dato['poriva']) / 100;
+                    //REDONDEADO PRECIO IVA
+                    dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
+                }
+                return dato;
+            });
+            this.subtotal = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0));
+            this.iva_cant = this.redondear((this.subtotal * this.iva_porcentaje) / 100);
+            this.iva_cant_new = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.precio_iva); }, 0));
+            this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new;
+            // this.update_total_desc (this.desc_porcentaje) 
+            console.log("Total: ", this.subtotal);
+        }
+        else {
+            alert("Cantidad del código << " + codart + " >> debe contener un valor...por favor validar");
+        }
+        console.log(this.articulos_pedido);
+        this.edit_iva_art = undefined;
+    };
+    AdminTransfBodegaComponent.prototype.edit_iva_articulo = function (el) {
+        console.log("##### EDIT IVA ART  ####");
+        console.log(el);
+        console.log(el["codart"]);
+        this.edit_iva_art = el;
+        // this.get_prec_produc(articulos["codart"])
+    };
+    AdminTransfBodegaComponent.prototype.update_costo = function (codart, index, costo) {
+        console.log("ACTUALIZAR LISTA PARA PRECIO");
+        console.log("####  CODIGO ########");
+        console.log(codart);
+        console.log("####  CANTIDAD NUEVA ########");
+        console.log(costo);
+        // var cant_new =cant
+        if (codart && costo) {
+            this.articulos_pedido.map(function (dato) {
+                console.log("VOY ACTUALIZAR PRECIO");
+                if (dato.index == index) {
+                    console.log("ACTUALIZANDO PRECIO");
+                    dato.cospro = costo;
+                    dato.v_desc_art = ((dato['punreo'] * dato['cospro']) / 100) * dato.cant;
+                    dato.subtotal_art = (dato['cospro'] * dato.cant) - dato.v_desc_art;
+                    //REDONDEADO subtotal_art
+                    dato.subtotal_art = Math.round(dato.subtotal_art * 100) / 100;
+                    dato.precio_iva = (dato.subtotal_art * dato['poriva']) / 100;
+                    //REDONDEADO PRECIO IVA
+                    dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
+                }
+                return dato;
+            });
+            this.subtotal = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0));
+            // this.iva_cant = this.redondear((this.subtotal*this.iva_porcentaje)/100)
+            // this.iva_cant_new = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0));
+            this.total = this.subtotal;
+            // this.update_total_desc (this.desc_porcentaje) 
+            console.log("Total: ", this.subtotal);
+        }
+        else {
+            alert("Cantidad del código << " + codart + " >> debe contener un valor...por favor validar");
+        }
+        console.log(this.articulos_pedido);
+        this.editART = undefined;
+    };
+    AdminTransfBodegaComponent.prototype.update = function (codart, index, cant) {
+        console.log("ACTUALIZAR LISTA");
+        console.log("####  NOMBRE ########");
+        console.log(codart);
+        console.log("####  CANTIDAD NUEVA ########");
+        console.log(cant);
+        var cant_new = Number(cant);
+        if (codart && cant_new) {
+            if (cant_new === 0) {
+                alert("Cantidad del código << " + codart + " >> debe ser mayor a 0..por favor validar");
+            }
+            else {
+                this.articulos_pedido.map(function (dato) {
+                    console.log("VOY ACTUALIZAR NUMERO");
+                    if (dato.index == index) {
+                        console.log("ACTUALIZANDO CANTIDAD");
+                        dato.cant = cant_new;
+                        // dato.precio_iva =  ((dato['poriva']*dato['prec01'])/100)*dato.cant;
+                        //REDONDEADO PRECIO IVA
+                        // dato.precio_iva = Math.round(dato.precio_iva* 100) / 100;
+                        dato.v_desc_art = ((dato['punreo'] * dato['cospro']) / 100) * dato.cant;
+                        dato.subtotal_art = (dato['cospro'] * dato.cant) - dato.v_desc_art;
+                        //REDONDEADO subtotal_art
+                        dato.subtotal_art = Math.round(dato.subtotal_art * 100) / 100;
+                        dato.precio_iva = (dato.subtotal_art * dato['poriva']) / 100;
+                        //REDONDEADO PRECIO IVA
+                        dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
+                    }
+                    return dato;
+                });
+                // this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.prec01 * obj.cant),0);
+                this.subtotal = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0));
+                // this.iva_cant = this.redondear((this.subtotal*this.iva_porcentaje)/100)
+                // this.iva_cant_new = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0));
+                this.total = this.subtotal;
+                // this.update_total_desc (this.desc_porcentaje) 
+                console.log("Total: ", this.subtotal);
+            }
+        }
+        else {
+            alert("Cantidad del código << " + codart + " >> debe contener un valor...por favor validar");
+        }
+        console.log(this.articulos_pedido);
+        this.editART = undefined;
+        this.cantidad_nueva = '1';
+    };
+    AdminTransfBodegaComponent.prototype.validaNumericos = function (event, value) {
+        console.log("validando_numero");
+        console.log(event);
+        console.log(value);
+        // console.log (event.key)
+        // console.log (event.explicitOriginalTarget.value)
+        // console.log (event.explicitOriginalTarget.value.indexOf("."))
+        // if (event.explicitOriginalTarget.value.indexOf(".") == -1){
+        // console.log ("deberia escribir el punto")
+        // }else{
+        // console.log ("NO deberia escribir el punto")
+        // return false;     
+        // }
+        if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 46)) {
+            ////si hay otra punto como separador decimal, no escribir ese punto
+            if ((value.indexOf(".") != -1) && (event.key == ".")) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    };
+    AdminTransfBodegaComponent.prototype.validaNumericosCantidad = function (event) {
+        if (event.charCode >= 48 && event.charCode <= 57) {
+            return true;
+        }
+        return false;
+    };
+    AdminTransfBodegaComponent.prototype.update_art_desc = function (codart, index, desc_art) {
+        console.log("ACTUALIZAR LISTA DESCUENTO ARTICULO");
+        console.log("####  NOMBRE ########");
+        console.log(codart);
+        console.log("####  DESCUENTO A APLICAR A ARTICULO ########");
+        console.log(desc_art);
+        var desc_art_new = desc_art;
+        if (codart && desc_art_new) {
+            this.articulos_pedido.map(function (dato) {
+                console.log("VOY ACTUALIZAR DESC % y Valor de descuento");
+                if (dato.index == index) {
+                    console.log("ACTUALIZANDO DESC");
+                    dato.punreo = desc_art_new;
+                    // dato.precio_iva =  ((dato['poriva']*dato['prec01'])/100)*dato.cant;
+                    // //REDONDEADO PRECIO IVA
+                    // dato.precio_iva = Math.round(dato.precio_iva* 100) / 100;
+                    dato.v_desc_art = ((dato['punreo'] * dato['cospro']) / 100) * dato.cant;
+                    dato.subtotal_art = (dato['cospro'] * dato.cant) - dato.v_desc_art;
+                    //REDONDEADO subtotal articulo
+                    dato.subtotal_art = Math.round(dato.subtotal_art * 100) / 100;
+                    dato.precio_iva = (dato.subtotal_art * dato['poriva']) / 100;
+                    //REDONDEADO PRECIO IVA
+                    dato.precio_iva = Math.round(dato.precio_iva * 100) / 100;
+                }
+                return dato;
+            });
+            this.subtotal = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0));
+            this.iva_cant = this.redondear((this.subtotal * this.iva_porcentaje) / 100);
+            this.iva_cant_new = this.redondear(this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.precio_iva); }, 0));
+            // this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.prec01 * obj.cant),0);
+            console.log("IVA_NEW ", this.iva_cant_new);
+            this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new;
+            console.log("TOTAL_LUEGO_DESC_ART: ", this.total);
+            // this.update_total_desc (this.desc_porcentaje) 
+            // console.log("subtotal: ", this.subtotal)
+        }
+        else {
+            alert("Descuento del código << " + codart + " >> debe contener un valor...por favor validar");
+        }
+        console.log(this.articulos_pedido);
+        this.editART = undefined;
+        // this.cantidad_nueva = '1';
+    };
+    AdminTransfBodegaComponent.prototype.update_total_desc = function (desc) {
+        console.log("####  DESCUENTO ########");
+        console.log(desc);
+        this.desc_porcentaje = desc;
+        this.desc_cant = (this.subtotal * desc) / 100;
+        // return Math.round(el * 100) / 100;
+        this.desc_cant = Math.round(this.desc_cant * 100) / 100;
+        this.subtotal_desc = this.subtotal - this.desc_cant;
+        this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new;
+        console.log("####  TOTAL CON DESC  ########");
+        console.log(this.total);
+        console.log("####  DESC CANTIDAD  ########");
+        console.log(this.desc_cant);
+        console.log("####  DESC PORCENTAJE  ########");
+        console.log(this.desc_porcentaje);
+        console.log("####  SUBTOTAL_CON_DESCUENTO ########");
+        console.log(this.subtotal_desc);
+        // return (this.desc_cant)
+    };
+    AdminTransfBodegaComponent.prototype.update_total_iva = function (iva) {
+        console.log("####  IVA INGRESADO ########");
+        this.iva_porcentaje = iva;
+        console.log("IVA INGRESADO= " + this.iva_porcentaje);
+        this.iva_cant = (this.subtotal * this.iva_porcentaje) / 100;
+        this.total = this.subtotal + this.iva_cant;
+    };
+    AdminTransfBodegaComponent.prototype.update_ciudad = function (ciudad) {
+        console.log("#### CIUDAD SELECCIONADA ########");
+        console.log(ciudad);
+        this.ciudad = ciudad;
+    }; //FIN UPDATE_CIUDAD
+    AdminTransfBodegaComponent.prototype.update_email = function (email) {
+        console.log("#### EMAIL NUEVO ########");
+        console.log(email);
+        if (this.validateEmail(email)) {
+            this.email_proveedor = email;
+            console.log(this.email_proveedor);
+        }
+        else {
+            alert("Formato de Email no válido");
+            this.cambiar_email = false;
+        }
+    }; //FIN UPDATE_EMAIL
+    AdminTransfBodegaComponent.prototype.validateEmail = function (email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    };
+    AdminTransfBodegaComponent.prototype.update_observ = function (codart, index, obsev) {
+        console.log("####  observacion ########");
+        console.log(obsev);
+        if (codart && obsev) {
+            this.articulos_pedido.map(function (dato) {
+                console.log("VOY ACTUALIZAR OBSERVACION ARTICULO");
+                if (dato.index == index) {
+                    dato.observ = obsev;
+                }
+                return dato;
+            });
+        }
+        console.log(this.articulos_pedido);
+    };
+    AdminTransfBodegaComponent.prototype.update_observ_general = function (obsev_g) {
+        console.log("####  observacion general ########");
+        console.log(obsev_g);
+        this.observacion_pedido = obsev_g;
+    };
+    AdminTransfBodegaComponent.prototype.inserta_pedido = function () {
+        var checked_json;
+        var duplicado = false;
+        this.patron_articulo = undefined;
+        // console.log (this.elements_checkedList)
+        // this.elements_checkedList = this.artSelectionList.selectedOptions.selected.map(s => s.value);
+        if (this.elements_checkedList.length > 0) {
+            for (var _i = 0, _a = this.elements_checkedList; _i < _a.length; _i++) {
+                checked_json = _a[_i];
+                console.log("NOMBRE DE ARTICULO A INSERTAR");
+                console.log(checked_json['codart']);
+                if (!duplicado) {
+                    console.log("VOY A AGREGAR");
+                    console.log(this.articulos_pedido.length);
+                    if (this.articulos_pedido.length == 0) {
+                        checked_json['index'] = this.articulos_pedido.length + 1;
+                    }
+                    else {
+                        console.log(Math.max.apply(Math, this.articulos_pedido.map(function (o) { return o.index; })));
+                        checked_json['index'] = (Math.max.apply(Math, this.articulos_pedido.map(function (o) { return o.index; }))) + 1;
+                    }
+                    checked_json['cant'] = '1';
+                    checked_json['observ'] = 'Puede agregar detalles del artículo';
+                    checked_json['subtotal_art'] = checked_json['cospro'];
+                    checked_json['v_desc_art'] = (checked_json['punreo'] * checked_json['cospro']) / 100;
+                    this.articulos_pedido.push(checked_json);
+                    console.log("###### REGISTRO INSERTADO #####");
+                    console.log(this.articulos_pedido);
+                    // checked_json['serie'] = [{serie:"2108B1011A",caducidad:"00/00/0000",cant:20,ubicacion:"EJIDO"}]
+                }
+            }
+            console.log("####  INSERTA PEDIDO CON IVA  ######");
+            console.log(this.iva_porcentaje);
+            // seccion vieja pedidos
+            // this.iva_cant_new = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0);
+            // this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new
+            this.subtotal = this.articulos_pedido.reduce(function (acc, obj) { return acc + (obj.subtotal_art); }, 0);
+            this.total = this.subtotal;
+            this.elements_checkedList = [];
+            this.articulo = [];
+            this.exist_articulo = false;
+            console.log(this.elements_checkedList);
+        }
+        else {
+            alert("Por favor seleccione algún artículo");
+        }
+    };
+    AdminTransfBodegaComponent.prototype._filter = function (value) {
+        console.log(this.options);
+        console.log("filtro 1");
+        return this.options.map(function (x) { return x.nompro; }).filter(function (option) { return option.toLowerCase().includes(value.toLowerCase()); });
+    };
+    AdminTransfBodegaComponent.prototype._filter2 = function (value) {
+        console.log("filtro 2");
+        return this.articulo.map(function (y) { return y.nomart; }).filter(function (option) { return option.toLowerCase().includes(value.toLowerCase()); });
+    };
+    AdminTransfBodegaComponent.prototype.view_serie_renglon = function (codart, cant_art, coduni) {
+        // 1H1422055
+        // return array.filter(function(e) {
+        // return e[key] == value;
+        // });
+        // this.series_ingreso_bodega[]
+        this.serie_renglon = this.series_ingreso_bodega.filter(function (e) { return e['codart'] == codart; });
+        this.codart_renglon = codart;
+        this.cant_art_renglon = cant_art;
+        this.coduni_renglon = coduni;
+        if (this.serie_renglon.length == 0) {
+            this.cant_art_serie_renglon = cant_art;
+        }
+        else {
+            this.cant_art_serie_renglon = this.cant_art_renglon - this.serie_renglon.reduce(function (acc, obj) { return acc + (obj.cant); }, 0);
+        }
+        console.log(this.cant_art_serie_renglon);
+        // cant
+        // }
+    };
+    AdminTransfBodegaComponent.prototype.close_serie_renglon = function () {
+        this.serie_renglon = [];
+        this.serie_lote_form = undefined;
+        this.fecha_cad_form = undefined;
+        this.cantidad_form = undefined;
+        this.ubicacion = undefined;
+        this.codart_renglon = undefined;
+        this.cant_art_renglon = undefined;
+        this.cant_art_serie_renglon = undefined;
+        this.cant_unid_present = undefined;
+    };
+    AdminTransfBodegaComponent.prototype.close_scanner = function () {
+        // this.scan=false;
+        this.scan_valor_serie = false;
+        this.scan_patron_articulo = false;
+    };
+    AdminTransfBodegaComponent.prototype.insertar_serie_renglon = function () {
+        console.log(this.cantidad_form);
+        console.log(this.cant_art_renglon);
+        // if (this.serie_renglon.length > 0){
+        // this.cant_art_renglon   = this.cant_art_serie_renglon
+        // }
+        var serie_buscar = this.serie_lote_form;
+        // let busca_serie =  this.serie_renglon.filter(function(e) {return e['serie'] == serie_buscar;});
+        // console.log ("#### SERIE DUPLICADA ####")
+        // console.log (busca_serie)
+        // if (busca_serie.length == 0) {
+        if (this.fecha_cad_form && this.serie_lote_form && this.cantidad_form && this.ubicacion) {
+            if (this.cantidad_form <= this.cant_art_serie_renglon) {
+                var datos = {};
+                datos['codemp'] = this.empresa;
+                datos['numserie'] = this.serie_lote_form;
+                datos['codart'] = this.codart_renglon;
+                datos['codalm'] = this.almacen;
+                datos['tipo_validacion'] = 'INGRESO';
+                var serie_buscar_1 = this.serie_lote_form;
+                var codart_buscar_1 = this.codart_renglon;
+                var busca_serie = this.serie_renglon.filter(function (e) { return e['serie'] == serie_buscar_1 && e['codart'] == codart_buscar_1; });
+                console.log("#### SERIE DUPLICADA ####");
+                console.log(busca_serie);
+                if (busca_serie.length > 0) {
+                    alert("Esta serie/lote << " + this.serie_lote_form + " >> duplicada, se va sumar al lote ingresado.!!!");
+                    var cant_f_1 = this.cantidad_form;
+                    this.serie_renglon.map(function (dato) {
+                        console.log("VOY ACTUALIZAR NUMERO");
+                        if (dato.serie == serie_buscar_1 && dato.codart == codart_buscar_1) {
+                            console.log("ACTUALIZANDO CANTIDAD EN SERIE " + serie_buscar_1);
+                            dato.cant = dato.cant + cant_f_1;
+                            dato.disponible = dato.disponible + cant_f_1;
+                        }
+                        return dato;
+                    });
+                    this.serie_lote_form = undefined;
+                    this.fecha_cad_form = undefined;
+                    this.cantidad_form = undefined;
+                    this.ubicacion = undefined;
+                    this.cant_unid_present = undefined;
+                    console.log(this.serie_renglon);
+                    console.log("#### SERIES INGRESO BODEGA #####");
+                    console.log(this.series_ingreso_bodega);
+                }
+                else {
+                    var num_etiqueta = this.cantidad_form / this.cant_unid_present;
+                    console.log(this.cant_unid_present);
+                    var datos_1 = { codart: this.codart_renglon, serie: this.serie_lote_form, caducidad: this.fecha_cad_form, cant: this.cantidad_form, ubicacion: this.ubicacion.toUpperCase(), num_etiqueta: num_etiqueta, cant_unid_present: this.cant_unid_present, disponible: this.cantidad_form };
+                    // let datos = {codart: this.codart_renglon,serie: this.serie_lote_form,caducidad:this.fecha_cad_form,cant:this.cantidad_form,ubicacion:this.ubicacion.toUpperCase()} 
+                    if (this.serie_renglon.length == 0) {
+                        datos_1['codserie'] = this.serie_renglon.length + 1;
+                    }
+                    else {
+                        // console.log (Math.max.apply(Math, this.serie_renglon.map(function(o) { return o.index; })))
+                        datos_1['codserie'] = (Math.max.apply(Math, this.serie_renglon.map(function (o) { return o.codserie; }))) + 1;
+                    }
+                    this.serie_renglon.push(datos_1);
+                    console.log(this.serie_renglon);
+                    this.series_ingreso_bodega.push(datos_1);
+                    console.log(this.cant_art_serie_renglon);
+                    console.log(this.serie_renglon.reduce(function (acc, obj) { return acc + (obj.cant); }, 0));
+                    this.cant_art_serie_renglon = this.cant_art_renglon - this.serie_renglon.reduce(function (acc, obj) { return acc + (obj.cant); }, 0);
+                    console.log(this.cant_art_serie_renglon);
+                    this.serie_lote_form = undefined;
+                    this.fecha_cad_form = undefined;
+                    this.cantidad_form = undefined;
+                    this.ubicacion = undefined;
+                    this.cant_unid_present = undefined;
+                    console.log("#### SERIES INGRESO BODEGA #####");
+                    console.log(this.series_ingreso_bodega);
+                }
+            }
+            else {
+                alert("La cantidad ingresada para esta serie excede a la cantidad a ingresar en la bodega");
+            }
+        }
+        else {
+            alert("Favor llenar todos los campos");
+        }
+    };
+    // insertar_serie_renglon() {
+    // console.log (this.cantidad_form)
+    // console.log (this.cant_art_renglon)
+    // // if (this.serie_renglon.length > 0){
+    // // this.cant_art_renglon   = this.cant_art_serie_renglon
+    // // }
+    // let serie_buscar = this.serie_lote_form
+    // let busca_serie =  this.serie_renglon.filter(function(e) {return e['serie'] == serie_buscar;});
+    // console.log (busca_serie)
+    // if (busca_serie.length == 0) {
+    // if (this.fecha_cad_form && this.serie_lote_form && this.cantidad_form && this.ubicacion){
+    // if (this.cantidad_form <= this.cant_art_serie_renglon){
+    // let datos = {}
+    // datos['codemp'] = this.empresa
+    // datos['numserie'] = this.serie_lote_form
+    // datos['codart']=this.codart_renglon
+    // datos['codalm']=this.almacen
+    // this.srv.valida_serie_articulo(datos).subscribe(
+    // data => {
+    // console.log("OBTENIENDO DATOS DE SERIE ARTICULO")
+    // console.log(data)
+    // if (data['numfac_org'] == 'NO EXISTE'){
+    // let num_etiqueta = this.cantidad_form/this.cant_unid_present
+    // console.log (this.cant_unid_present)
+    // let datos = {codart: this.codart_renglon,serie: this.serie_lote_form,caducidad:this.fecha_cad_form,cant:this.cantidad_form,ubicacion:this.ubicacion.toUpperCase(),num_etiqueta:num_etiqueta,cant_unid_present:this.cant_unid_present} 
+    // // let datos = {codart: this.codart_renglon,serie: this.serie_lote_form,caducidad:this.fecha_cad_form,cant:this.cantidad_form,ubicacion:this.ubicacion.toUpperCase()} 
+    // if (this.serie_renglon.length == 0){
+    // datos['codserie'] = this.serie_renglon.length+1
+    // }else {
+    // // console.log (Math.max.apply(Math, this.serie_renglon.map(function(o) { return o.index; })))
+    // datos['codserie'] = (Math.max.apply(Math, this.serie_renglon.map(function(o) { return o.codserie; })))+1
+    // }
+    // this.serie_renglon.push(datos)
+    // console.log(this.serie_renglon)
+    // this.series_ingreso_bodega.push(datos)
+    // console.log (this.cant_art_serie_renglon)
+    // console.log (this.serie_renglon.reduce((acc,obj,) => acc + (obj.cant),0))
+    // this.cant_art_serie_renglon = this.cant_art_renglon-this.serie_renglon.reduce((acc,obj,) => acc + (obj.cant),0)
+    // console.log (this.cant_art_serie_renglon)
+    // this.serie_lote_form = undefined
+    // this.fecha_cad_form = undefined
+    // this.cantidad_form = undefined
+    // this.ubicacion = undefined
+    // this.cant_unid_present = undefined
+    // }else{
+    // alert ("Esta serie/lote << "+this.serie_lote_form+" >> ya fue ingresada a bodega para este producto..!!!")
+    // }
+    // });
+    // }else{
+    // alert("La cantidad ingresada para esta serie excede a la cantidad a ingresar en la bodega")
+    // }
+    // }else {
+    // alert ("Favor llenar todos los campos")
+    // }
+    // }else{
+    // alert ("La serie "+this.serie_lote_form+" ya existe en este ingreso de series")
+    // }
+    // }
+    AdminTransfBodegaComponent.prototype.delete_renglon_serie = function (codserie, codart, cant) {
+        console.log("ENTRADA ARTICULO A ELIMINAR");
+        console.log(codserie);
+        console.log(codart);
+        var json_eliminar = this.series_ingreso_bodega;
+        var json_eliminar_view = this.serie_renglon;
+        json_eliminar = json_eliminar.filter(function (dato) {
+            if (dato.codserie == codserie && dato.codart == codart) {
+                console.log("NO ELIMINO");
+                return false;
+            }
+            else {
+                console.log("ELIMINO");
+                return true;
+            }
+            // return dato;
+        });
+        json_eliminar_view = json_eliminar_view.filter(function (dato) {
+            if (dato.codserie == codserie && dato.codart == codart) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            // return dato;
+        });
+        this.series_ingreso_bodega = json_eliminar;
+        this.serie_renglon = json_eliminar_view;
+        // console.log (this.series_ingreso_bodega)	
+        this.cant_art_serie_renglon = this.cant_art_serie_renglon + cant;
+    };
+    AdminTransfBodegaComponent.prototype.edit_renglon_serie = function (codserie, codart, serie, caducidad, ubicacion, cant, cant_unid_present) {
+        console.log("ENTRADA ARTICULO A ELIMINAR");
+        console.log(codserie);
+        console.log(codart);
+        console.log(cant);
+        console.log(caducidad);
+        console.log(serie);
+        this.delete_renglon_serie(codserie, codart, cant);
+        // let json_eliminar_view = this.serie_renglon
+        // let json_eliminar = this.series_ingreso_bodega
+        // json_eliminar_view = json_eliminar_view.filter(function(dato){
+        // if(dato.codserie == codserie && dato.codart == codart ){
+        // return false
+        // }else {
+        // return true 
+        // }
+        // // return dato;
+        // });	 
+        // this.serie_renglon = json_eliminar_view
+        this.codart_renglon = codart;
+        this.serie_lote_form = serie;
+        this.fecha_cad_form = caducidad;
+        this.ubicacion = ubicacion;
+        this.cantidad_form = cant;
+        this.cant_unid_present = cant_unid_present;
+        console.log(this.cantidad_form);
+    };
+    AdminTransfBodegaComponent.prototype.delete_serie = function () {
+        var codart = this.codart_renglon;
+        var json_eliminar = this.series_ingreso_bodega;
+        var json_eliminar_view = this.serie_renglon;
+        json_eliminar = json_eliminar.filter(function (dato) {
+            if (dato.codart == codart) {
+                console.log("NO ELIMINO");
+                return false;
+            }
+            else {
+                console.log("ELIMINO");
+                return true;
+            }
+            // return dato;
+        });
+        json_eliminar_view = json_eliminar_view.filter(function (dato) {
+            if (dato.codart == codart) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            // return dato;
+        });
+        this.series_ingreso_bodega = json_eliminar;
+        this.serie_renglon = json_eliminar_view;
+        // console.log (this.series_ingreso_bodega)
+        this.cant_art_serie_renglon = this.cant_art_renglon;
+    };
+    AdminTransfBodegaComponent.prototype.generar_dbf = function (el) {
+        if (confirm("¿Estas seguro de generar el archivo de impresion de etiqueta para este lote ?")) {
+            console.log(el);
+            el['codemp'] = this.empresa;
+            this.srv.crear_dbf(el).subscribe(function (data) {
+                if (data['STATUS'] == 'EXITOSO') {
+                    alert("Archivo de impresion generada con EXITO..!!!");
+                }
+                if (data['STATUS'] == 'COD BARRA LOTE NO GENERADO') {
+                    alert("ERROR..Cod de barra de este lote NO está registrado en SIACI...Archivo de impresion no generado!!!");
+                }
+            });
+        }
+    };
+    // delete_art (el,index) {
+    // console.log("ENTRADA ARTICULO A ELIMINAR")
+    // console.log(el)
+    // let json_eliminar = this.articulos_pedido
+    // // var nomart = el
+    // json_eliminar = json_eliminar.filter(function(dato){
+    // if(dato.index == index){
+    // return false
+    // }else {
+    // return true 
+    // }
+    // // return dato;
+    // });	 
+    // console.log(json_eliminar);//json original
+    // this.articulos_pedido = json_eliminar	
+    // this.subtotal = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.subtotal_art),0));	
+    // this.iva_cant = this.redondear((this.subtotal*this.iva_porcentaje)/100)
+    // this.iva_cant_new = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0));	
+    // this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new	
+    // }
+    // #################PROCESO CHECKBOX
+    AdminTransfBodegaComponent.prototype.checkUncheckAll = function () {
+        for (var i = 0; i < this.articulo.length; i++) {
+            this.articulo[i].isSelected = this.masterSelected;
+        }
+        this.getCheckedItemList();
+    };
+    AdminTransfBodegaComponent.prototype.isAllSelected = function () {
+        this.masterSelected = this.articulo.every(function (item) {
+            return item.isSelected == true;
+        });
+        this.getCheckedItemList();
+    };
+    AdminTransfBodegaComponent.prototype.getCheckedItemList = function () {
+        this.elements_checkedList = [];
+        for (var i = 0; i < this.articulo.length; i++) {
+            if (this.articulo[i].isSelected)
+                this.elements_checkedList.push(this.articulo[i]);
+        }
+        // this.elements_checkedList = JSON.stringify(this.elements_checkedList);
+        console.log('getCheckedItemList');
+        console.log(this.elements_checkedList);
+    };
+    // #################FIN PROCESO CHECKBOX
+    AdminTransfBodegaComponent.prototype.validar_cantidades_totales_series = function () {
+        //OBTENGO LOS ARTICULOS QUE MANEJEN SERIES/LOTES Y QUE TENGAN REGISTRADO LOTES
+        var articulos_pedido_maneja_serie = this.articulos_pedido.filter(function (e) { return (e['maneja_serie'] == 'S'); });
+        console.log("######  FILTRADO MANEJA SERIE ######");
+        console.log(articulos_pedido_maneja_serie);
+        var suma_cant_egreso = articulos_pedido_maneja_serie.reduce(function (acc, obj) { return acc + (obj.cant); }, 0);
+        console.log("######  SUMA CANT EGRESO ######");
+        console.log(suma_cant_egreso);
+        //OBTENGO LA SUMA DE LOS QUE TENGA LOTES
+        var suma_cant_series = this.series_ingreso_bodega.reduce(function (acc, obj) { return acc + (obj.cant); }, 0);
+        console.log("######  SUMA CANT SERIE ######");
+        console.log(suma_cant_series);
+        if (suma_cant_egreso != suma_cant_series) {
+            // alert ("EGRESO INCOMPLETO: Favor validar las cantidades de los renglones del egresos con las cantidades de las series/lotes a descargar")
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    AdminTransfBodegaComponent.prototype.generar_cod_barra = function () {
+        if (this.series_ingreso_bodega.length > 0) {
+            for (var _i = 0, _a = this.series_ingreso_bodega; _i < _a.length; _i++) {
+                var rs = _a[_i];
+                rs['codclipro'] = this.dato_proveedor['codpro'];
+                rs['estado'] = 'D';
+                rs['tipo'] = 'ING';
+                rs['disponible'] = rs['cant'];
+                rs['codemp'] = this.empresa;
+                rs['codalm'] = this.almacen;
+                rs['fectra'] = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500');
+                rs['usuario'] = this.usuario;
+                rs['nombre_almacen'] = this.nombre_almacen;
+                // this.srv.guardar_series_ingreso_bodega(rs).subscribe(
+                // result => {
+                // contador_series++
+                // console.log (result)
+                this.srv.guardar_cod_barra_lote(rs).subscribe(function (result) {
+                    console.log(result);
+                    console.log("COD BARRA Registrado con Exito");
+                });
+                // if (contador_series == this.series_ingreso_bodega.length){
+                // alert ("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!")
+                // let datos = {}
+                // datos['numfac'] = numtra;	
+                // datos['usuario'] = this.usuario;
+                // datos['empresa'] = this.empresa;
+                // this.router.navigate(['/admin/ingreso_articulos', datos]);
+                // this.loading_modulo = false
+                // }
+            }
+        }
+    };
+    AdminTransfBodegaComponent.prototype.generar_ingreso = function () {
+        var _this = this;
+        console.log("GENERAR INGRESO");
+        console.log("DATOS CLIENTE");
+        console.log(this.dato_proveedor);
+        console.log("ARTICULOS PEDIDO");
+        console.log(this.articulos_pedido.length);
+        this.loading_modulo = true;
+        // if ((this.dato_proveedor) && (this.articulos_pedido.length > 0)){
+        if (this.validar_cantidades_totales_series()) {
+            // if (confirm(msg_fecha)){
+            var encabezado_ingreso = this.dato_proveedor;
+            encabezado_ingreso['codusu'] = this.usuario;
+            encabezado_ingreso['codemp'] = this.empresa;
+            encabezado_ingreso['codalm'] = this.almacen;
+            encabezado_ingreso['conpag'] = this.tipo_ingreso;
+            // if (this.nomcli){
+            // encabezado_ingreso['orden_produccion'] =  this.orden_produccion 
+            // }else{
+            // encabezado_ingreso['orden_produccion'] =  null
+            // encabezado_ingreso['orden_compra'] =  this.orden_compra
+            // }
+            // if (this.fectra == this.jstoday){
+            // encabezado_ingreso['fectra'] = this.fectra
+            // }else{
+            encabezado_ingreso['fecfac'] = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500');
+            // }
+            encabezado_ingreso['totfac'] = this.redondear(this.total);
+            encabezado_ingreso['observ'] = this.observacion_pedido;
+            var status_encabezado_1;
+            var numtra_1;
+            console.log(encabezado_ingreso);
+            console.log("DATO PROVEEDOR");
+            console.log(this.dato_proveedor);
+            console.log("ENTRO A GENERAR EL PEDIDO SIMPLE");
+            this.srv.generar_encabezado_ingreso_bodega_simple(encabezado_ingreso).subscribe(function (data) {
+                status_encabezado_1 = data['status'];
+                numtra_1 = data['numtra'];
+                console.log(data);
+                if (status_encabezado_1 == 'INSERTADO CON EXITO') {
+                    console.log('SE CREAN LOS RENGLONES');
+                    var renglones_pedido = void 0;
+                    var numren = 1;
+                    var numite = 1;
+                    var longitud_renglones = _this.articulos_pedido.length;
+                    var contador_proceso = 0;
+                    var contador_series = 0;
+                    var array_renglones = [];
+                    for (var _i = 0, _a = _this.articulos_pedido; _i < _a.length; _i++) {
+                        renglones_pedido = _a[_i];
+                        renglones_pedido['numren'] = numren++;
+                        renglones_pedido['numfac'] = numtra_1;
+                        renglones_pedido['codemp'] = _this.empresa;
+                        array_renglones.push(renglones_pedido);
+                    } //FIN RECORRIDO RENGLONES PEDIDOS
+                    console.log("JSON a INSERTAR DE LOS ARTICULOS DEL PEDIDO");
+                    console.log(array_renglones); //{ COMPROBANTE: "Factura", SERIE_COMPROBANTE: "033-115-000071888", RUC_EMISOR: "1790016919001", RAZON_SOCIAL_EMISOR: "CORPORACION FAVORITA C.A.", FECHA_EMISION: "28/02/2019", FECHA_AUTORIZACION: "28/02/2019 17:32:27", TIPO_EMISION: "NORMAL", IDENTIFICACION_RECEPTOR: "", CLAVE_ACCESO: "0903132538", NUMERO_AUTORIZACION: "2802201901179001691900120331150000718880713001612", … }
+                    _this.srv.generar_renglones_ingreso_bodega_simple(array_renglones).subscribe(function (result) {
+                        console.log(result);
+                        console.log("####  CONTADOR PROCESO INICIO #####");
+                        contador_proceso++;
+                        console.log(contador_proceso);
+                        var datos = {};
+                        datos['usuario'] = _this.usuario;
+                        datos['empresa'] = _this.empresa;
+                        datos['pedido'] = 'success';
+                        console.log(datos);
+                        // if (contador_proceso == longitud_renglones){
+                        if (_this.series_ingreso_bodega.length > 0) {
+                            var _loop_1 = function (rs) {
+                                rs['codclipro'] = _this.dato_proveedor['codpro'];
+                                rs['estado'] = 'D';
+                                rs['tipo'] = 'ING';
+                                rs['disponible'] = rs['cant'];
+                                rs['numfac'] = numtra_1;
+                                rs['codemp'] = _this.empresa;
+                                rs['codalm'] = _this.almacen;
+                                rs['fectra'] = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(_this.fectra, 'yyyy-MM-dd', 'en-US', '-0500');
+                                rs['usuario'] = _this.usuario;
+                                rs['nombre_almacen'] = _this.nombre_almacen;
+                                rs['accion'] = 'crear';
+                                _this.srv.guardar_series_ingreso_bodega(rs).subscribe(function (result) {
+                                    contador_series++;
+                                    console.log(result);
+                                    _this.srv.guardar_cod_barra_lote(rs).subscribe(function (result) {
+                                        console.log(result);
+                                        console.log("COD BARRA Registrado con Exito");
+                                    });
+                                    if (contador_series == _this.series_ingreso_bodega.length) {
+                                        alert("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!");
+                                        var datos_2 = {};
+                                        datos_2['numfac'] = numtra_1;
+                                        datos_2['usuario'] = _this.usuario;
+                                        datos_2['empresa'] = _this.empresa;
+                                        _this.router.navigate(['/admin/ingreso_articulos', datos_2]);
+                                        _this.loading_modulo = false;
+                                    }
+                                });
+                            };
+                            for (var _i = 0, _a = _this.series_ingreso_bodega; _i < _a.length; _i++) {
+                                var rs = _a[_i];
+                                _loop_1(rs);
+                            }
+                        }
+                        else {
+                            alert("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!");
+                            var datos_3 = {};
+                            datos_3['numfac'] = numtra_1;
+                            datos_3['usuario'] = _this.usuario;
+                            datos_3['empresa'] = _this.empresa;
+                            _this.router.navigate(['/admin/ingreso_articulos', datos_3]);
+                            _this.loading_modulo = false;
+                        }
+                        // }
+                    }, function (error) {
+                        console.error(error);
+                    });
+                } //FIN INGRESO EXITOSO
+                if (status_encabezado_1 == 'AGENCIA NO POSEE SECUENCIA PARA INGRESOS DEFINIDA') {
+                    alert('Agencia ' + _this.srv.getAgencia() + ' no posee secuencias asignada en el proceso de Ingreso..!!! Ingreso NO Guardado..!!');
+                    var datos = {};
+                    datos['usuario'] = _this.usuario;
+                    datos['empresa'] = _this.empresa;
+                    _this.router.navigate(['/admin/lista_ingresos', datos]);
+                } //FIN VALIDACION SECUENCIA FALLIDA
+            });
+            // } // FIN CONFIRMA FECHA DE ENTREGA
+        }
+        else {
+            alert("INGRESO INCOMPLETO: Por favor validar las cantidades de series/lotes a descargar con las cantidades de los articulos registradas en el ingreso");
+            this.loading_modulo = false;
+        }
+    }; //FIN GENERA PEDIDO
+    AdminTransfBodegaComponent.prototype.actualizar_pedido = function () {
+        var _this = this;
+        console.log("GENERAR INGRESO");
+        console.log("DATOS CLIENTE");
+        console.log(this.dato_proveedor);
+        console.log("ARTICULOS PEDIDO");
+        console.log(this.articulos_pedido.length);
+        this.loading_modulo = true;
+        // if ((this.dato_proveedor) && (this.articulos_pedido.length > 0) && (this.email_proveedor) ){
+        if ((this.dato_proveedor) && (this.articulos_pedido.length > 0)) {
+            // if (confirm(msg_fecha)){
+            var encabezado_ingreso = this.dato_proveedor;
+            encabezado_ingreso['numfac'] = this.numtra;
+            encabezado_ingreso['codusu'] = this.usuario;
+            encabezado_ingreso['codemp'] = this.empresa;
+            encabezado_ingreso['codalm'] = this.almacen;
+            encabezado_ingreso['conpag'] = this.tipo_ingreso;
+            if (this.nomcli) {
+                encabezado_ingreso['orden_produccion'] = this.orden_produccion;
+            }
+            else {
+                encabezado_ingreso['orden_produccion'] = null;
+            }
+            // if (this.fectra == this.jstoday){
+            // encabezado_ingreso['fectra'] = this.fectra
+            // }else{
+            encabezado_ingreso['fecfac'] = Object(_angular_common__WEBPACK_IMPORTED_MODULE_4__["formatDate"])(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500');
+            // }
+            encabezado_ingreso['totfac'] = this.redondear(this.total);
+            encabezado_ingreso['observ'] = this.observacion_pedido;
+            var status_encabezado_2;
+            var numtra = void 0;
+            console.log(encabezado_ingreso);
+            console.log("DATO CLIENTE");
+            console.log(this.dato_proveedor);
+            console.log("ENTRO A GENERAR EL PEDIDO");
+            this.srv.actualizar_encabezado_ingreso(encabezado_ingreso).subscribe(function (data) {
+                status_encabezado_2 = data['status'];
+                // numtra= data['numtra']
+                console.log(data);
+                if (status_encabezado_2 == 'ACTUALIZADO CON EXITO') {
+                    console.log('SE CREAN LOS RENGLONES');
+                    var renglones_pedido = void 0;
+                    var numren = 1;
+                    var numite = 1;
+                    var longitud_renglones = _this.articulos_pedido.length;
+                    var contador_proceso = 0;
+                    var contador_series = 0;
+                    var array_renglones = [];
+                    for (var _i = 0, _a = _this.articulos_pedido; _i < _a.length; _i++) {
+                        renglones_pedido = _a[_i];
+                        renglones_pedido['numren'] = numren++;
+                        renglones_pedido['numfac'] = _this.numtra;
+                        renglones_pedido['codemp'] = _this.empresa;
+                        array_renglones.push(renglones_pedido);
+                    } //FIN RECORRIDO RENGLONES PEDIDOS
+                    console.log("JSON a INSERTAR DE LOS ARTICULOS DEL INGRESO");
+                    console.log(array_renglones); //{ COMPROBANTE: "Factura", SERIE_COMPROBANTE: "033-115-000071888", RUC_EMISOR: "1790016919001", RAZON_SOCIAL_EMISOR: "CORPORACION FAVORITA C.A.", FECHA_EMISION: "28/02/2019", FECHA_AUTORIZACION: "28/02/2019 17:32:27", TIPO_EMISION: "NORMAL", IDENTIFICACION_RECEPTOR: "", CLAVE_ACCESO: "0903132538", NUMERO_AUTORIZACION: "2802201901179001691900120331150000718880713001612", … }
+                    _this.srv.generar_renglones_ingreso_bodega(array_renglones).subscribe(function (result) {
+                        console.log(result);
+                        console.log("####  CONTADOR PROCESO INICIO #####");
+                        contador_proceso++;
+                        console.log(contador_proceso);
+                        var datos = {};
+                        datos['usuario'] = _this.usuario;
+                        datos['empresa'] = _this.empresa;
+                        datos['pedido'] = 'success';
+                        console.log(datos);
+                        // if (contador_proceso == longitud_renglones){
+                        if (_this.series_ingreso_bodega.length > 0) {
+                            for (var _i = 0, _a = _this.series_ingreso_bodega; _i < _a.length; _i++) {
+                                var rs = _a[_i];
+                                rs['codclipro'] = _this.dato_proveedor['codpro'];
+                                rs['estado'] = 'D';
+                                rs['tipo'] = 'ING';
+                                rs['disponible'] = rs['cant'];
+                                rs['numfac'] = _this.numtra;
+                                rs['codemp'] = _this.empresa;
+                                rs['codalm'] = _this.almacen;
+                                rs['accion'] = 'actualizar';
+                                _this.srv.guardar_series_ingreso_bodega(rs).subscribe(function (result) {
+                                    contador_series++;
+                                    console.log(result);
+                                    if (contador_series == _this.series_ingreso_bodega.length) {
+                                        alert("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!");
+                                        _this.loading_modulo = false;
+                                        var datos_4 = {};
+                                        datos_4['numfac'] = _this.numtra;
+                                        datos_4['usuario'] = _this.usuario;
+                                        datos_4['empresa'] = _this.empresa;
+                                        _this.router.navigate(['/admin/ingreso_articulos', datos_4]);
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            alert("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!");
+                            _this.loading_modulo = false;
+                            var datos_5 = {};
+                            datos_5['numfac'] = _this.numtra;
+                            datos_5['usuario'] = _this.usuario;
+                            datos_5['empresa'] = _this.empresa;
+                            _this.router.navigate(['/admin/ingreso_articulos', datos_5]);
+                        }
+                        // }
+                    }, function (error) {
+                        console.error(error);
+                    });
+                } //FIN INGRESO EXITOSO
+            });
+            // } // FIN CONFIRMA FECHA DE ENTREGA
+        }
+        else {
+            alert("Por favor llenar el campo Datos del cliente/Artículos del pedido/Correo electrónico..!!!");
+        }
+    }; //FIN ACTUALIZAR PEDIDO
+    AdminTransfBodegaComponent.prototype.crear_dbf = function () {
+        var datos = {};
+        this.srv.crear_dbf(datos).subscribe(function (data) { });
+    };
+    // actualizar_pedido() { 
+    // console.log ("ACTUALIZAR PEDIDO")
+    // if ((this.articulos_pedido.length > 0)){
+    // // if ((this.articulos_pedido.length > 0) && (this.email_proveedor)){
+    // let encabezado_ingreso= {}
+    // encabezado_ingreso['numtra'] = this.numtra;
+    // encabezado_ingreso['codus1'] = this.usuario;
+    // encabezado_ingreso['codemp'] = this.empresa;
+    // encabezado_ingreso['fecult'] = this.fecult_new
+    // encabezado_ingreso['codven'] = this.vendedor
+    // // if (this.edit_fecha_creacion){
+    // // encabezado_ingreso['fectra'] = formatDate(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500')
+    // // }else{
+    // // console.log (this.fectra.replace( /(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1"))
+    // let fectra_format = this.fectra.replace( /(\d{2})-(\d{2})-(\d{4})/, "$3-$2-$1")
+    // console.log (fectra_format)
+    // encabezado_ingreso['fectra'] = fectra_format
+    // // }
+    // encabezado_ingreso['totnet'] = this.redondear(this.subtotal)
+    // encabezado_ingreso['iva_cantidad'] = this.redondear(this.iva_cant_new)
+    // encabezado_ingreso['observ']  = this.observacion_pedido
+    // encabezado_ingreso['codpro']  = this.dato_proveedor['codpro']
+    // if (!this.ciudad) {
+    // this.ciudad="NO DISPONIBLE"
+    // }
+    // encabezado_ingreso['ciucli']  = this.ciudad
+    // console.log ("#### encabezado_ingreso ########")
+    // console.log (encabezado_ingreso)
+    // let status_encabezado
+    // // let numtra
+    // // console.log (encabezado_ingreso)
+    // // console.log ("DATO CLIENTE")
+    // // console.log (this.dato_proveedor)
+    // // console.log("ENTRO A GENERAR EL PEDIDO")
+    // this.srv.actualizar_encabezado_ingreso(encabezado_ingreso).subscribe(
+    // data => {
+    // status_encabezado= data['status']
+    // // numtra= data['numtra']
+    // console.log(data)
+    // if (status_encabezado == 'ACTUALIZADO CON EXITO'){
+    // console.log(' ###### SE ACTULIZAN LOS RENGLONES ######')
+    // let renglones_pedido
+    // let numren = 1
+    // let numite = 1
+    // var longitud_renglones = this.articulos_pedido.length
+    // var contador_proceso = 0
+    // for (renglones_pedido of this.articulos_pedido) {
+    // renglones_pedido['numren'] = numren++
+    // renglones_pedido['numtra'] = this.numtra
+    // renglones_pedido['codemp']= this.empresa
+    // if (renglones_pedido['codart'].indexOf("\\") != -1) { //if hay / en el codigo de articulo
+    // renglones_pedido['numite']= numite++
+    // }
+    // console.log("JSON a INSERTAR DE LOS ARTICULOS DEL PEDIDO");
+    // console.log(renglones_pedido); //{ COMPROBANTE: "Factura", SERIE_COMPROBANTE: "033-115-000071888", RUC_EMISOR: "1790016919001", RAZON_SOCIAL_EMISOR: "CORPORACION FAVORITA C.A.", FECHA_EMISION: "28/02/2019", FECHA_AUTORIZACION: "28/02/2019 17:32:27", TIPO_EMISION: "NORMAL", IDENTIFICACION_RECEPTOR: "", CLAVE_ACCESO: "0903132538", NUMERO_AUTORIZACION: "2802201901179001691900120331150000718880713001612", … }
+    // this.srv.actualizar_renglones_orden(renglones_pedido).subscribe(
+    // result => {
+    // console.log("####  CONTADOR PROCESO INICIO #####")
+    // contador_proceso++
+    // console.log(contador_proceso)
+    // console.log(result)
+    // let datos = {};
+    // datos['usuario'] = this.usuario;
+    // datos['empresa'] = this.empresa;
+    // datos['numtra'] = this.numtra;
+    // console.log(datos)
+    // console.log("####  CONTADOR PROCESO #####")
+    // console.log(contador_proceso)
+    // console.log("####  LONGITUD PROCESO #####")
+    // console.log(longitud_renglones)
+    // if (contador_proceso == longitud_renglones){
+    // if (this.srv.getConfCorreoPedCli() == 'SI'){
+    // console.log("### HABILITADO CORREO###")
+    // this.correo_pedido(this.numtra,this.email_proveedor)
+    // }
+    // alert ("INGRESO DE BODEGA  GUARDADA EXITOSAMENTE....!!!!")
+    // // this.router.navigate(['/admin/taller_orden', datos]);
+    // // this.router.navigate(['/admin/lista_ordenes', datos]);
+    // }
+    // },
+    // error => {
+    // console.error(error)
+    // }
+    // )
+    // }//FIN RECORRIDO RENGLONES PEDIDOS
+    // }
+    // }
+    // ); 
+    // }else {
+    // alert("Por favor llenar el campo Artículos del pedido/Correo electrónico..!!!")
+    // }
+    // }//FIN ACTUALIZAR PEDIDO
+    AdminTransfBodegaComponent.prototype.correo_pedido = function (numtra, email) {
+        console.log("CORREO FACTURACION");
+        console.log(numtra);
+        console.log(email);
+        // alert("Por favor ingrese RUC del cliente");
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['usuario'] = this.usuario;
+        datos['num_ped'] = numtra;
+        datos['asunto'] = 'pedido';
+        datos['email'] = email;
+        this.srv.mail(datos).subscribe(function (data) {
+            console.log(data);
+        });
+    }; //FIN ENVIO CORREO PEDIDO
+    AdminTransfBodegaComponent.prototype.reset = function () {
+        this.proveedores = false;
+        this.exist_articulo = false;
+        this.edit_cant = false;
+        this.masterSelected = false;
+        this.cantidad_nueva = '';
+        this.cambiar_email = false;
+        this.razon_social = undefined;
+        this.email_proveedor = undefined;
+        this.ciudad = undefined;
+        this.articulo = [];
+        this.articulos_pedido = [];
+        this.subtotal = 0;
+        this.iva_porcentaje = 0;
+        this.iva_cant = 0;
+        this.total = 0;
+        this.observacion_pedido = null;
+        this.dato_proveedor = undefined;
+        this.series_ingreso_bodega = [];
+        this.serie_renglon = [];
+        this.almacen_arr = undefined;
+        this.nombre_almacen = undefined;
+        this.nomcli = undefined;
+        this.orden_produccion = undefined;
+        // this.numtra = undefined
+    }; //FIN ENVIO CORREO PEDIDO
+    // FUNCIONES PARA ADMINISTRAR FOTOS    ////
+    AdminTransfBodegaComponent.prototype.lista_imagenes = function () {
+        var _this = this;
+        var datos_img = {};
+        datos_img['dir'] = this.empresa + '_' + this.numtra;
+        this.srv.lista_img(datos_img).subscribe(function (data) {
+            console.log("#######  LISTA DE FOTOS   ##########");
+            console.log(data);
+            _this.fotos = data;
+        });
+    };
+    AdminTransfBodegaComponent.prototype.fileChange = function (element) {
+        var _this = this;
+        this.loading = true;
+        this.subida_exitosa = false;
+        this.uploadedFiles = element.target.files;
+        console.log("ARCHIVO CARGADO");
+        console.log(this.uploadedFiles);
+        this.nombre_archivo = this.uploadedFiles[0].name;
+        var reader = new FileReader();
+        console.log("ARCHIVO COMPRESION");
+        reader.onload = function (element) {
+            _this.localUrl = element.target.result;
+            // console.log (this.localUrl)
+            _this.compressFile(_this.localUrl, _this.nombre_archivo);
+        };
+        console.log(element.target.files[0]);
+        reader.readAsDataURL(element.target.files[0]);
+    };
+    AdminTransfBodegaComponent.prototype.compressFile = function (image, fileName) {
+        var _this = this;
+        console.log("INICIO COMPRIMIR ARCHIVO");
+        console.log(image);
+        console.log(fileName);
+        var orientation = -1;
+        this.sizeOfOriginalImage = this.imageCompress.byteCount(image) / (1024 * 1024);
+        console.warn('Size in bytes is now:', this.sizeOfOriginalImage);
+        this.imageCompress.compressFile(image, orientation, 50, 50).then(function (result) {
+            _this.imgResultAfterCompress = result;
+            _this.localCompressedURl = result;
+            _this.sizeOFCompressedImage = _this.imageCompress.byteCount(result) / (1024 * 1024);
+            console.warn('Size in bytes after compression:', _this.sizeOFCompressedImage); // create file from byte
+            var imageName = fileName;
+            console.log(result);
+            // call method that creates a blob from dataUri
+            var imageBlob = _this.dataURItoBlob(_this.imgResultAfterCompress.split(',')[1]);
+            //imageFile created below is the new compressed file which can be send to API in form data
+            // const imageFile = new File([result], imageName, { type: 'image/jpeg' });
+            _this.imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
+            console.log(_this.imageFile);
+            _this.uploadedFiles = _this.imageFile;
+            _this.loading = false;
+        });
+    };
+    AdminTransfBodegaComponent.prototype.dataURItoBlob = function (dataURI) {
+        var byteString = window.atob(dataURI);
+        var arrayBuffer = new ArrayBuffer(byteString.length);
+        var int8Array = new Uint8Array(arrayBuffer);
+        for (var i = 0; i < byteString.length; i++) {
+            int8Array[i] = byteString.charCodeAt(i);
+        }
+        var blob = new Blob([int8Array], { type: 'image/jpeg' });
+        return blob;
+    };
+    AdminTransfBodegaComponent.prototype.upload = function () {
+        var _this = this;
+        this.subida_exitosa = false;
+        this.formData = new FormData();
+        this.formData.append("uploads", this.uploadedFiles, this.nombre_archivo);
+        this.formData.append("dir", this.empresa + "_" + this.numtra);
+        console.log("#### FORMDATA  #####");
+        console.log(this.formData);
+        this.srv.uploadFile(this.formData).subscribe(function (event) {
+            switch (event.type) {
+                case _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpEventType"].Sent:
+                    console.log('Request has been made!');
+                    break;
+                case _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpEventType"].ResponseHeader:
+                    console.log('Response header has been received!');
+                    break;
+                case _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpEventType"].UploadProgress:
+                    _this.progress = Math.round(event.loaded / event.total * 100);
+                    console.log("Uploaded! " + _this.progress + "%");
+                    break;
+                case _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpEventType"].Response:
+                    console.log('Archivo subido con exito!', event.body);
+                    _this.lista_imagenes();
+                    setTimeout(function () {
+                        _this.progress = 0;
+                        _this.subida_exitosa = true;
+                        _this.imageFile = false;
+                        _this.nombre_archivo = 'Seleccione archivo';
+                    }, 1500);
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.eliminar_imagen = function (nombre) {
+        var _this = this;
+        var datos = {};
+        datos['nombre'] = nombre;
+        datos['dir'] = this.empresa + '_' + this.numtra;
+        // let datos_img= {}
+        this.srv.eliminar_imagen(datos).subscribe(function (res) {
+            console.log('response received is ', res);
+            // console.log(res['resultado']);
+            // if (res['resultado'] == 'Archivo subido exitosamente'){
+            // this.subida_exitosa = true
+            // }
+            _this.lista_imagenes();
+        });
+    };
+    AdminTransfBodegaComponent.prototype.reset_detalle_vehiculo = function () {
+        ///////DETALLE VEHICULO///////////
+        this.antena = false;
+        this.llave_rueda = false;
+        this.gata = false;
+        this.tapagas = false;
+        this.matricula = false;
+        this.encendedor = false;
+        this.plumas = false;
+        this.tuerca = false;
+        this.botiquin = false;
+        this.cubresol = false;
+        this.llanta = false;
+        this.espejos = false;
+        this.compac = false;
+        this.emblemas = false;
+        this.alarma = false;
+        this.radio = false;
+        this.herramientas = false;
+        this.combustible = false;
+        this.cont_puerta = false;
+        this.tapacubos = false;
+        this.moquetas = false;
+        this.extinguidor = false;
+        this.triangulos = false;
+        this.alogenos = false;
+        this.pantalla_radio = false;
+        ///////FIN DETALLE VEHICULO///////////
+    };
+    AdminTransfBodegaComponent.prototype.get_detalle_vehiculo = function () {
+        var _this = this;
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['numtra'] = this.numtra;
+        this.srv.get_detalle_vehiculo(datos).subscribe(function (data) {
+            console.log(data);
+            // this.antena = true ?
+            data['antena'] == 1 ? _this.antena = true : _this.antena = false;
+            data['llave_ruedas'] == 1 ? _this.llave_rueda = true : _this.llave_rueda = false;
+            data['gata'] == 1 ? _this.gata = true : _this.gata = false;
+            data['tapagas'] == 1 ? _this.tapagas = true : _this.tapagas = false;
+            data['matricula'] == 1 ? _this.matricula = true : _this.matricula = false;
+            data['encendedor'] == 1 ? _this.encendedor = true : _this.encendedor = false;
+            data['plumas'] == 1 ? _this.plumas = true : _this.plumas = false;
+            data['botiquin'] == 1 ? _this.botiquin = true : _this.botiquin = false;
+            data['cubresol'] == 1 ? _this.cubresol = true : _this.cubresol = false;
+            data['llanta'] == 1 ? _this.llanta = true : _this.llanta = false;
+            data['espejos'] == 1 ? _this.espejos = true : _this.espejos = false;
+            data['compac'] == 1 ? _this.compac = true : _this.compac = false;
+            data['alarma'] == 1 ? _this.alarma = true : _this.alarma = false;
+            data['radio'] == 1 ? _this.radio = true : _this.radio = false;
+            data['herram'] == 1 ? _this.herramientas = true : _this.herramientas = false;
+            data['combustible'] == 1 ? _this.combustible = true : _this.combustible = false;
+            data['tapacubos'] == 1 ? _this.tapacubos = true : _this.tapacubos = false;
+            data['moquetas'] == 1 ? _this.moquetas = true : _this.moquetas = false;
+            data['extinguidor'] == 1 ? _this.extinguidor = true : _this.extinguidor = false;
+            data['triangulos'] == 1 ? _this.triangulos = true : _this.triangulos = false;
+            data['alogenos'] == 1 ? _this.alogenos = true : _this.alogenos = false;
+            data['pantallaradio'] == 1 ? _this.pantalla_radio = true : _this.pantalla_radio = false;
+            data['seguro_aros'] == 1 ? _this.tuerca = true : _this.tuerca = false;
+            data['signos'] == 1 ? _this.emblemas = true : _this.emblemas = false;
+            data['controlpuerta'] == 1 ? _this.cont_puerta = true : _this.cont_puerta = false;
+            // console.log(res['resultado']);
+            // if (res['resultado'] == 'Archivo subido exitosamente'){
+            // this.subida_exitosa = true
+            // }
+            // this.lista_imagenes();
+        });
+    };
+    AdminTransfBodegaComponent.prototype.guardar_detalle_vehiculo = function () {
+        var datos = {};
+        datos['antena'] = this.antena;
+        datos['llave_ruedas'] = this.llave_rueda;
+        datos['gata'] = this.gata;
+        datos['tapagas'] = this.tapagas;
+        datos['matricula'] = this.matricula;
+        datos['encendedor'] = this.encendedor;
+        datos['plumas'] = this.plumas;
+        datos['botiquin'] = this.botiquin;
+        datos['cubresol'] = this.cubresol;
+        datos['llanta'] = this.llanta;
+        datos['espejos'] = this.espejos;
+        datos['compac'] = this.compac;
+        datos['alarma'] = this.alarma;
+        datos['radio'] = this.radio;
+        datos['herram'] = this.herramientas;
+        datos['combustible'] = this.combustible;
+        datos['tapacubos'] = this.tapacubos;
+        datos['moquetas'] = this.moquetas;
+        datos['extinguidor'] = this.extinguidor;
+        datos['triangulos'] = this.triangulos;
+        datos['alogenos'] = this.alogenos;
+        datos['pantallaradio'] = this.pantalla_radio;
+        datos['seguro_aros'] = this.tuerca;
+        datos['signos'] = this.emblemas;
+        datos['controlpuerta'] = this.cont_puerta;
+        datos['codemp'] = this.empresa;
+        datos['numtra'] = this.numtra;
+        this.srv.guardar_detalle_vehiculo(datos).subscribe(function (data) {
+            console.log('RESULTADO GUARDADO ', data);
+            if (data['resultado'] == 'exitoso') {
+                alert("Detalles guardado exitosamente");
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.guardar_datos_vehiculo = function () {
+        var datos = {};
+        // data['antena'] == 1 ? this.antena = true : this.antena = false
+        datos['marca'] = this.marca ? this.marca : this.marca = '';
+        // datos['marca'] = this.marca
+        datos['modelo'] = this.modelo ? this.modelo : this.modelo = '';
+        datos['chasis'] = this.sn_chassis ? this.sn_chassis : this.sn_chassis = '';
+        datos['motor'] = this.sn_motor ? this.sn_motor : this.sn_motor = '';
+        datos['color'] = this.color ? this.color : this.color = '';
+        datos['ano'] = this.anio ? this.anio : this.anio = '2000';
+        datos['ram'] = this.ram ? this.ram : this.ram = '';
+        datos['paisorigen'] = this.pais_origen ? this.pais_origen : this.pais_origen = '';
+        datos['combustible'] = this.tipo_combustible ? this.tipo_combustible : this.tipo_combustible = '';
+        datos['klm'] = this.km_recorrido ? this.km_recorrido : this.km_recorrido = '';
+        datos['cilindraje'] = this.cilindraje ? this.cilindraje : this.cilindraje = '';
+        datos['pasajeros'] = this.num_pasajeros ? this.num_pasajeros : this.num_pasajeros = '';
+        datos['clase'] = this.clase ? this.clase : this.clase = '';
+        datos['subclase'] = this.subclase ? this.subclase : this.subclase = '';
+        //placa
+        datos['torque'] = this.placa ? this.placa : this.placa = '';
+        //matricula
+        datos['caja'] = this.num_matricula ? this.num_matricula : this.num_matricula = '';
+        datos['codemp'] = this.empresa;
+        datos['codart'] = this.numtra;
+        this.srv.guardar_datos_vehiculo(datos).subscribe(function (data) {
+            // console.log('RESULTADO GUARDADO ', data);
+            if (data['resultado'] == 'exitoso') {
+                alert("Datos guardado exitosamente");
+            }
+        });
+    };
+    AdminTransfBodegaComponent.prototype.get_datos_vehiculo = function () {
+        var _this = this;
+        var datos = {};
+        datos['codemp'] = this.empresa;
+        datos['codart'] = this.numtra;
+        this.srv.get_datos_vehiculo(datos).subscribe(function (data) {
+            console.log(data);
+            data["marca"] != undefined ? _this.marca = data["marca"] : _this.marca = undefined;
+            data["modelo"] != undefined ? _this.modelo = data["modelo"] : _this.modelo = undefined;
+            data["ano"] != undefined ? _this.anio = data["ano"] : _this.anio = '2000';
+            data["torque"] != undefined ? _this.placa = data["torque"] : _this.placa = undefined;
+            data["caja"] != undefined ? _this.num_matricula = data["caja"] : _this.num_matricula = undefined;
+            data["color"] != undefined ? _this.color = data["color"] : _this.color = undefined;
+            data["paisorigen"] != undefined ? _this.pais_origen = data["paisorigen"] : _this.pais_origen = undefined;
+            data["klm"] != undefined ? _this.km_recorrido = data["klm"] : _this.km_recorrido = undefined;
+            data["combustible"] != undefined ? _this.tipo_combustible = data["combustible"] : _this.tipo_combustible = undefined;
+            data["motor"] != undefined ? _this.sn_motor = data["motor"] : _this.sn_motor = undefined;
+            data["chasis"] != undefined ? _this.sn_chassis = data["chasis"] : _this.sn_chassis = undefined;
+            data["cilindarje"] != undefined ? _this.cilindraje = data["cilindarje"] : _this.cilindraje = undefined;
+            data["ram"] != undefined ? _this.ram = data["ram"] : _this.ram = undefined;
+            data["clase"] != undefined ? _this.clase = data["clase"] : _this.clase = undefined;
+            data["subclase"] != undefined ? _this.subclase = data["subclase"] : _this.subclase = undefined;
+            data["pasajeros"] != undefined ? _this.num_pasajeros = data["pasajeros"] : _this.num_pasajeros = undefined;
+            // console.log (data["modelo"])
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datos_orden'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "datos_orden", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datos_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "datos_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datos_detalle_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "datos_detalle_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('fotos_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "fotos_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('tab_datos_orden'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "tab_datos_orden", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('tab_datos_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "tab_datos_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('tab_datos_detalle_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "tab_datos_detalle_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('tab_fotos_vehiculo'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "tab_fotos_vehiculo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('closeBtnScan'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AdminTransfBodegaComponent.prototype, "closeBtnScan", void 0);
+    AdminTransfBodegaComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-admin-transferencias',
+            template: __webpack_require__(/*! ./admin-transferencias.component.html */ "./src/app/admin/admin-transferencias/admin-transferencias.component.html"),
+            styles: [__webpack_require__(/*! ./admin-transferencias.component.css */ "./src/app/admin/admin-transferencias/admin-transferencias.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            ngx_image_compress__WEBPACK_IMPORTED_MODULE_6__["NgxImageCompressService"]])
+    ], AdminTransfBodegaComponent);
+    return AdminTransfBodegaComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/admin/admin-view-pedido/admin-view-pedido.component.css":
 /*!*************************************************************************!*\
   !*** ./src/app/admin/admin-view-pedido/admin-view-pedido.component.css ***!
@@ -33070,13 +35968,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_config_admin_config_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./admin-config/admin-config.component */ "./src/app/admin/admin-config/admin-config.component.ts");
 /* harmony import */ var _admin_pedidos_medicos_admin_pedidos_medicos_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./admin-pedidos-medicos/admin-pedidos-medicos.component */ "./src/app/admin/admin-pedidos-medicos/admin-pedidos-medicos.component.ts");
 /* harmony import */ var _admin_lista_ped_medicos_admin_lista_ped_medicos_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./admin-lista-ped-medicos/admin-lista-ped-medicos.component */ "./src/app/admin/admin-lista-ped-medicos/admin-lista-ped-medicos.component.ts");
-/* harmony import */ var ng_select2__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ng-select2 */ "./node_modules/ng-select2/fesm2015/ng-select2.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/index.js");
-/* harmony import */ var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @zxing/ngx-scanner */ "./node_modules/@zxing/ngx-scanner/fesm5/zxing-ngx-scanner.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _admin_transferencias_admin_transferencias_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./admin-transferencias/admin-transferencias.component */ "./src/app/admin/admin-transferencias/admin-transferencias.component.ts");
+/* harmony import */ var _admin_lista_transferencia_admin_lista_transferencias_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./admin-lista-transferencia/admin-lista-transferencias.component */ "./src/app/admin/admin-lista-transferencia/admin-lista-transferencias.component.ts");
+/* harmony import */ var ng_select2__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ng-select2 */ "./node_modules/ng-select2/fesm2015/ng-select2.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/index.js");
+/* harmony import */ var _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! @zxing/ngx-scanner */ "./node_modules/@zxing/ngx-scanner/fesm5/zxing-ngx-scanner.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33139,31 +36039,33 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var AdminModule = /** @class */ (function () {
     function AdminModule() {
     }
     AdminModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["NgModule"])({
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_49__["BrowserModule"],
-                angular_datatables__WEBPACK_IMPORTED_MODULE_52__["DataTablesModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_50__["BrowserAnimationsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatInputModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_51__["FormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_51__["ReactiveFormsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatListModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__["BrowserModule"],
+                angular_datatables__WEBPACK_IMPORTED_MODULE_54__["DataTablesModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_52__["BrowserAnimationsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatInputModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_53__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_53__["ReactiveFormsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatListModule"],
                 _fullcalendar_angular__WEBPACK_IMPORTED_MODULE_25__["FullCalendarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_54__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_56__["MatDatepickerModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_19__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyDdtXEK3JAS8o_-ZhtjiyNLaGoJyrMI3tM'
                 }),
                 _angular_common__WEBPACK_IMPORTED_MODULE_8__["CommonModule"],
                 _admin_routing_admin_routing_module__WEBPACK_IMPORTED_MODULE_0__["AdminRoutingModule"],
-                ng_select2__WEBPACK_IMPORTED_MODULE_48__["NgSelect2Module"],
-                _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_53__["ZXingScannerModule"]
+                ng_select2__WEBPACK_IMPORTED_MODULE_50__["NgSelect2Module"],
+                _zxing_ngx_scanner__WEBPACK_IMPORTED_MODULE_55__["ZXingScannerModule"]
             ],
             declarations: [
                 _admin_component__WEBPACK_IMPORTED_MODULE_6__["AdminComponent"],
@@ -33209,7 +36111,9 @@ var AdminModule = /** @class */ (function () {
                 _admin_servicios_admin_servicios_component__WEBPACK_IMPORTED_MODULE_44__["AdminServiciosComponent"],
                 _admin_config_admin_config_component__WEBPACK_IMPORTED_MODULE_45__["AdminConfigComponent"],
                 _admin_pedidos_medicos_admin_pedidos_medicos_component__WEBPACK_IMPORTED_MODULE_46__["AdminPedidosMedicosComponent"],
-                _admin_lista_ped_medicos_admin_lista_ped_medicos_component__WEBPACK_IMPORTED_MODULE_47__["AdminListaPedidosMedicosComponent"]
+                _admin_lista_ped_medicos_admin_lista_ped_medicos_component__WEBPACK_IMPORTED_MODULE_47__["AdminListaPedidosMedicosComponent"],
+                _admin_transferencias_admin_transferencias_component__WEBPACK_IMPORTED_MODULE_48__["AdminTransfBodegaComponent"],
+                _admin_lista_transferencia_admin_lista_transferencias_component__WEBPACK_IMPORTED_MODULE_49__["AdminListaTranferenciasComponent"]
             ],
             exports: [_admin_component__WEBPACK_IMPORTED_MODULE_6__["AdminComponent"]]
         })
@@ -33259,7 +36163,9 @@ var ApiService = /** @class */ (function () {
         // public apiUrl = 'http://192.168.101.4';
         //public apiUrl = 'http://192.168.100.11';
         // public apiUrl = 'https://192.168.100.11';
-        this.apiUrl = 'https://localhost';
+        // public apiUrl = 'https://192.168.101.2';
+        // public apiUrl = 'https://192.168.0.24';
+        this.apiUrl = 'https://127.0.0.1';
         this.port = '5009';
         console.log(this.apiUrl);
         console.log(this.port);
@@ -33459,6 +36365,9 @@ var ApiService = /** @class */ (function () {
     ApiService.prototype.getActRegPlacaPDV = function () {
         return localStorage.getItem('reg_placa_pdv');
     };
+    ApiService.prototype.getActTransfBodega = function () {
+        return localStorage.getItem('transf_bodega');
+    };
     // localStorage.setItem('act_articulos', param['act_articulos'])
     // localStorage.setItem('act_servicios', param['act_servicios'])
     // localStorage.setItem('act_egr_bod', param['act_egr_bod'])
@@ -33533,6 +36442,7 @@ var ApiService = /** @class */ (function () {
         window.localStorage.removeItem('act_conteo_fisico');
         window.localStorage.removeItem('import_ped_pdv');
         window.localStorage.removeItem('reg_placa_pdv');
+        window.localStorage.removeItem('transf_bodega');
         this.router.navigateByUrl('/');
     };
     ApiService.prototype.login = function (param) {
@@ -33811,8 +36721,10 @@ var ApiService = /** @class */ (function () {
         localStorage.setItem('act_conteo_fisico', param['act_conteo_fisico']);
         localStorage.setItem('import_ped_pdv', param['import_ped_pdv']);
         localStorage.setItem('reg_placa_pdv', param['reg_placa_pdv']);
+        localStorage.setItem('transf_bodega', param['transf_bodega']);
         // servicio_defecto_pdv: "PEM"
         // 'act_articulos','act_servicios','act_egr_bod'
+        // insert into parametros_siaciweb (codemp,parametro,valor,descripcion,clave_json) values ('01','ACTIVAR_TRANSFERENCIAS','NO','Valores permitido SI/NO. Habilita la funcionalidad de las tranferencias entre bodegas','transf_bodega');
         // ACTIVAR_TOTAL_RECIBIDO_CAMBIO
         this.geoloc = localStorage.getItem('geoloc_recv');
         console.log(this.geoloc);
@@ -34117,6 +37029,12 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype.busqueda_pedido_razonsocial = function (param) {
         return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_pedido_razonsocial', param);
+    };
+    ApiService.prototype.almacen_origen_destino = function (param) {
+        return this.http.post(this.apiUrl + ':' + this.port + '/almacen_origen_destino', param);
+    };
+    ApiService.prototype.busqueda_razon_social_placa = function (param) {
+        return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_placa', param);
     };
     ApiService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({

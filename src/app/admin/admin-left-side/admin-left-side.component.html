@@ -129,6 +129,19 @@
 				 </ul>
 			  </li>
 			  
+			   <li *ngIf="auth.getActTransfBodega() != 'NO'" class="treeview">
+				 <a href="#"><i class="fa fa-exchange"></i> Trasferencia de bodega
+				 <span class="pull-right-container">
+				 <i class="fa fa-angle-left pull-right"></i>
+				 </span>
+				 </a>
+				 <ul class="treeview-menu" style="display: none;">
+				 
+				 	<li class="active" (click)="ocultar_menu_moviles()"><a routerLink="transf_bodegas" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Realizar transferencia</a></li>
+					<li class="active"(click)="ocultar_menu_moviles()" ><a routerLink="lista_transferencias" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista transferencia</a></li>
+				 </ul>
+			  </li>
+			  
 			  <!-- <li *ngIf="auth.getEgresoBodega() != 'NO'" class="treeview"> -->
 				 <!-- <a href="#"><i class="fa fa-forward"></i> Conteo Físico -->
 				 <!-- <span class="pull-right-container"> -->

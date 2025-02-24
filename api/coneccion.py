@@ -6,18 +6,18 @@ import sys
 # datos para conectarse a la base siaci
 ####################HACIA EL INDICADO POR SPAGFIG  ############### Venezuela01
 
-hKey = winreg.OpenKey(winreg.HKEY_CURRENT_USER,"Software\ODBC\ODBC.INI\spagfic")
-registrov = str(winreg.QueryValueEx(hKey, "CommLinks")).split('=')[1].split('}')[0]
-registrov = registrov.strip()
-server = registrov.replace(';',',')
-server = server.split(',')
+# hKey = winreg.OpenKey(winreg.HKEY_CURRENT_USER,"Software\ODBC\ODBC.INI\spagfic")
+# registrov = str(winreg.QueryValueEx(hKey, "CommLinks")).split('=')[1].split('}')[0]
+# registrov = registrov.strip()
+# server = registrov.replace(';',',')
+# server = server.split(',')
 
-registrov = str(winreg.QueryValueEx(hKey, "DatabaseName"))
-registrov = registrov.strip().split(',')[0].replace('"','').replace("'","").replace('(','')
-database = registrov
+# registrov = str(winreg.QueryValueEx(hKey, "DatabaseName"))
+# registrov = registrov.strip().split(',')[0].replace('"','').replace("'","").replace('(','')
+# database = registrov
 
-host = server[0]
-eng = database
+# host = server[0]
+# eng = database
 pwd='197304'
 uid='dba'
 

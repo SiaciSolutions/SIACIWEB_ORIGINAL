@@ -17,7 +17,10 @@ export class ApiService {
     // public apiUrl = 'https://192.168.100.11';
  
   // public apiUrl = 'https://192.168.101.2';
-    public apiUrl = 'https://localhost';
+    // public apiUrl = 'https://192.168.0.24';
+	public apiUrl = 'https://127.0.0.1';
+		// public apiUrl = 'https://192.168.101.6';
+	
   // public apiUrl = 'https://192.168.0.13';
   // public apiUrl = 'https://192.168.101.7';
     
@@ -263,6 +266,10 @@ public getConfCambioVendedorPed(): string {
 	  return localStorage.getItem('reg_placa_pdv')
  }
  
+     public getActTransfBodega(): string {
+	  return localStorage.getItem('transf_bodega')
+ }
+ 
  
  
    
@@ -363,6 +370,9 @@ public getConfCambioVendedorPed(): string {
 		window.localStorage.removeItem('act_conteo_fisico')
 	    window.localStorage.removeItem('import_ped_pdv')
 		window.localStorage.removeItem('reg_placa_pdv')
+		window.localStorage.removeItem('transf_bodega')
+		
+		
 
 		
 		
@@ -711,11 +721,13 @@ public getConfCambioVendedorPed(): string {
 	  localStorage.setItem('act_conteo_fisico', param['act_conteo_fisico'])
 	  localStorage.setItem('import_ped_pdv', param['import_ped_pdv'])
 	  localStorage.setItem('reg_placa_pdv', param['reg_placa_pdv'])
+	  localStorage.setItem('transf_bodega', param['transf_bodega'])
 	  
 	  
 	  // servicio_defecto_pdv: "PEM"
 	  // 'act_articulos','act_servicios','act_egr_bod'
 	  
+	  // insert into parametros_siaciweb (codemp,parametro,valor,descripcion,clave_json) values ('01','ACTIVAR_TRANSFERENCIAS','NO','Valores permitido SI/NO. Habilita la funcionalidad de las tranferencias entre bodegas','transf_bodega');
 	  
 
 	  
@@ -1111,6 +1123,17 @@ public getConfCambioVendedorPed(): string {
         busqueda_pedido_razonsocial(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_pedido_razonsocial', param);
   }
+  
+          almacen_origen_destino(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/almacen_origen_destino', param);
+  }
+  
+  busqueda_razon_social_placa(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_placa', param);
+  }
+  
+  
+
   
   
   

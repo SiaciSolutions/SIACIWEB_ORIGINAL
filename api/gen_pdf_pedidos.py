@@ -111,11 +111,12 @@ class GEN_PDF():
 		sql = """
 		SELECT p.numtra,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra ,c.rucced,c.nombres,c.dircli,c.telcli,c.email,p.soli_gra,
         p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
-		(SELECT nomven FROM vendedorescob v, usuario u where v.codus1 = u.codus1 and v.codusu = u.codusu and u.codus1='{}' and u.codemp='{}'), 
-		round((p.totnet+iva_cantidad),2) as total_pedido,p.iva_pctje,p.condiciones_pago,p.info_adicional,p.tiempo_entrega
+		(SELECT nomven FROM vendedorescob v where v.codus1='{}' and v.codemp='{}'), 
+        round((p.totnet+iva_cantidad),2) as total_pedido,p.iva_pctje,p.condiciones_pago,p.info_adicional,p.tiempo_entrega
 		FROM encabezadopedpro p, clientes c
 		where p.numtra = '{}' and p.tiptra = {} and p.codemp='{}'
 		and p.codcli=c.codcli
+        and p.codemp = c.codemp
 		""".format(codusl,codemp,numtra,tiptra,codemp)
 		curs.execute(sql)
 		r = curs.fetchone()
@@ -203,15 +204,25 @@ class GEN_PDF():
 			reg_encabezado = dict(zip(campos, reg))
 			renglones_pedido.append(reg_encabezado)
 		print (renglones_pedido) 
+		# conn.close()
+
+		sql = """SELECT VALOR FROM "DBA"."parametros_siaciweb" where parametro='FORMATO_PEDIDO' AND CODEMP='{}'""".format(codemp)
+		curs.execute(sql)
+		r = curs.fetchone()
+		print (r)
+        
+		ruta_plantilla_pedidos=r[0]
+        
 		conn.close()
 
 
-
-
-		tpl=DocxTemplate(APP_PATH+'\\PLANTILLA_PEDIDOS\\PEDIDO_PLANTILLA_PYTHON3.docx')# The image must be already saved on the disk
+        
+		# tpl=DocxTemplate(APP_PATH+'\\PLANTILLA_PEDIDOS\\PEDIDO_PLANTILLA_PYTHON3.docx')# The image must be already saved on the disk
+		tpl=DocxTemplate(APP_PATH+ruta_plantilla_pedidos)# The image must be already saved on the disk
         # reading images from url is not supported
 		# logo = InlineImage(tpl, 'C:\\SISTEMA\\LOGO_PEDIDO.png', width=Mm(100) ,height=Mm(20))
-		logo = InlineImage(tpl,logoemp, width=Mm(90) ,height=Mm(18))
+		# logo = InlineImage(tpl,logoemp, width=Mm(90) ,height=Mm(18))
+		logo = InlineImage(tpl,logoemp)
         
 		context = { 'fectra' : fectra,
 					'num_pedido' : num_pedido,

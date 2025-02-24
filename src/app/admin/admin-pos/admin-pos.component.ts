@@ -100,6 +100,7 @@ export class AdminPosComponent implements OnInit {
 	public num_tranf = ''
 	lista_pedidos
 	numplaca = null
+	public observacion_factura = null
 	
 	loading_modulo = false
 	
@@ -478,6 +479,7 @@ export class AdminPosComponent implements OnInit {
 		   this.fectra = data['fecfac']
 		   this.totalBaseIva = data['totbas']
 		   this.numplaca=data['numplaca']
+		   this.observacion_factura = data['observ']
 		   console.log ("##### TOTAL BASE ####")
 		   console.log (data['totbas'])
 
@@ -760,6 +762,40 @@ export class AdminPosComponent implements OnInit {
 			}); 
 		}else  { 
 			alert("Por favor llenar el campo Razon Social");
+		}
+	 }
+	 
+	 
+	busqueda_razonsocial_placa() { 
+	if (this.numplaca){
+		const datos = {};
+		datos['codemp'] = this.empresa;
+		datos['patron_placa'] = this.numplaca;
+			this.srv.busqueda_razon_social_placa(datos).subscribe(data => {
+				// console.log(data)
+				
+				
+				let longitud_data = data.length
+
+			if (longitud_data > 0 ) {
+				console.log(data)
+
+				this.razon_social_lista = data;
+				this.exist_razon_social = true;
+				// this.searching_articulo = false
+				
+		
+				
+			}else {
+				alert("Razon Social no encontrado con la palabra PLACA ingresada <<"+this.numplaca+">>");
+				// this.searching_articulo = false
+				this.exist_razon_social = false;
+			}
+				
+
+			}); 
+		}else  { 
+			alert("Por favor llenar el campo PLACA");
 		}
 	 }
 	 
@@ -1093,7 +1129,7 @@ export class AdminPosComponent implements OnInit {
 		
 		dato.subtotal_art = (dato['prec01']*dato.cant)-dato.v_desc_art
 		//REDONDEADO subtotal_art
-		dato.subtotal_art =  Math.round(dato.subtotal_art* 100) / 100;
+		dato.subtotal_art =  Math.round(dato.subtotal_art* 1000) / 1000;  //PARA REDONDEAR 3 DECIMALES Y SETEAR CO MAS EXACTITUD LOS TOTALES
 		
 		dato.precio_iva= (dato.subtotal_art*dato['poriva'])/100
 		//REDONDEADO PRECIO IVA
@@ -1202,6 +1238,7 @@ export class AdminPosComponent implements OnInit {
 		let datos = {};
 		datos['codart']  = codart
 		datos['codemp']  = this.empresa;
+		datos['codcli']  = this.dato_cliente['codcli']
 		this.srv.get_prec_product(datos).subscribe(
 			data => {
 				console.log(data)
@@ -1212,8 +1249,8 @@ export class AdminPosComponent implements OnInit {
 			// {"tipo": "R", "nom_doc": "RUC"},
 			// {"tipo": "P", "nom_doc": "PASAPORTE"}
 		// ];
-				
-			this.lista_prec =[{"prec": data[0].prec01},{"prec": data[0].prec02},{"prec": data[0].prec03},{"prec": data[0].prec04},{"prec": data[0].prec05}];
+			this.lista_prec=data
+			// this.lista_prec =[{"prec": data[0].prec01},{"prec": data[0].prec02},{"prec": data[0].prec03},{"prec": data[0].prec04},{"prec": data[0].prec05}];
 			console.log(this.lista_prec )
 			}
 			); 
@@ -1826,6 +1863,7 @@ export class AdminPosComponent implements OnInit {
 	 encabezado_pdv['totdes']  = this.desc_cant
 	 encabezado_pdv['pordes']  = this.desc_porcentaje
 	 encabezado_pdv['numplaca'] = this.numplaca
+	 encabezado_pdv['observ'] = this.observacion_factura
 	 
 	 // encabezado_pdv['codret'] = '0'
 	 // encabezado_pdv['porret'] = '0'
