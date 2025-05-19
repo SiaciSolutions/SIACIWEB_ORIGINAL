@@ -127,6 +127,7 @@ def login():
   print ("EDITAR_PEDIDO ACTIVO= "+coneccion.EDITAR_PEDIDO)
 
   r = curs.fetchone()
+  print (r)
   if (coneccion.CONF_PARAM_BD == 'NO'):
      if r:
        reg=(r[0],r[1],r[2],r[3],coneccion.GEOLOC,coneccion.PUNTO_VENTA,coneccion.ENVIAR_CORREO_PEDIDO_CLIENTE,coneccion.ENVIAR_CORREO_FACTURACION,coneccion.EDITAR_PEDIDO,
@@ -172,7 +173,7 @@ def login():
        print (d)
     else:
        d = {'codus1': False} 
-
+  print (d)
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
@@ -3503,7 +3504,7 @@ def lista_ventas_pdv():
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
  
-  campos = ['faccli', 'codcli','fecfac','codalm','codusu','totfac','nomcli','caja','tiptar','tipche','tipefe','serie','turno','nomalm','nomcaj','auth','status','conpag','pdf','numfac','descripcionerror','tiptrans','ticket','factok']
+  campos = ['faccli', 'codcli','fecfac','codalm','codusu','totfac','nomcli','caja','tiptar','tipche','tipefe','serie','turno','nomalm','nomcaj','auth','status','conpag','pdf','numfac','descripcionerror','tiptrans','ticket','factok','numplaca']
   
   sql = """ SELECT pv.faccli,pv.codcli,pv.fecfac,pv.codalm,pv.codusu,pv.totfac,pv.nomcli,pv.numcaj,pv.tiptar,pv.tipche,pv.tipefe,pv.serie,pv.turno,
   (select nomalm from almacenes a1 where a1.codalm=pv.codalm and a1.codemp=pv.codemp),
@@ -3512,7 +3513,7 @@ def lista_ventas_pdv():
   (select f.estadodocumento from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
   pv.conpag,pv.numfac,
    (select f.descripcionerror from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
-   pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.pdf' as ticket_url, pv.factok
+   pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.pdf' as ticket_url, pv.factok, pv.numplaca
   FROM encabezadopuntosventa pv
   where pv.codalm = '{}' and pv.codemp='{}'
   and pv.fecfac between '{}' and '{}'
@@ -3531,11 +3532,11 @@ def lista_ventas_pdv():
     # print (r[15])
     # urlfile = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/images/'
     ticket_file= datos['api_url'] + '/ticket/'+r[21]
-    r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],'no_existe_auth',r[18],r[19],r[20],ticket_file,r[22])
+    r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],'no_existe_auth',r[18],r[19],r[20],ticket_file,r[22],r[23])
     if (r[15]):
        urlfile = datos['api_url'] + '/pdf_file/'+datos['codemp']+'_'
        pdf = urlfile + r[15] + '.pdf'
-       r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],pdf,r[18],r[19],r[20],ticket_file,r[22])
+       r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],pdf,r[18],r[19],r[20],ticket_file,r[22],r[23])
     d = dict(zip(campos, r_salida))
     # print (d)
     arrresp.append(d)
@@ -5204,7 +5205,7 @@ def crear_cliente():
       sql = """
       insert into clientes 
       (codemp,codcli,nomcli,rucced,dircli,telcli,telcli2,estatus,apliva,limcre,lispre,codusu,fecult,ciucli,codven,email,seccli,tipo,nombres,codcla,tpIdCliente,tipovendedor,parteRel,posfechados,rise_op,oblidado_op,pordes,numpag,plapag,saldo,forpag,precanterior,codsub,codprov,tipocliente)
-      values ('{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N','{}','{}')
+      values ('{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}')
       """.format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'])
       print (sql) 
       curs.execute(sql)
@@ -5236,7 +5237,7 @@ def actualizar_cliente():
 	  
   print ("###### ACTUALIZO CLIENTE  ####")
   sql = """
-  update clientes set nomcli='{}',nombres='{}',dircli='{}', telcli='{}', telcli2={}, ciucli='{}', email='{}', rucced='{}', tpIdCliente='{}',tipo='{}', codprov='{}'
+  update clientes set nomcli='{}',nombres='{}',dircli='{}', telcli='{}', telcli2={}, ciucli='{}', email='{}', rucced='{}', tpIdCliente='{}',tipo='{}', codprov={}
   where codemp='{}' and codcli='{}' 
   """.format(datos['nomcli'],datos['nomcli'],datos['dircli'],datos['telcli'],datos['telcli2'],datos['ciucli'],datos['email'],datos['rucced'],datos['tpIdCliente'],datos['tipo'],datos['codprov'],datos['codemp'],datos['codcli'])
   print (sql) 

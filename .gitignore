@@ -35,6 +35,20 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+yarn-error.log
+/build
+dist/
+/e2e
+api/build/
+api/dist/
+api/__pycache__
+src/assets/images_index
+src/assets/img_articulos
+src/assets/img_despachos
+src/assets/img_talleres
+src/assets/img_ing_productos
+src/assets/img
+src/assets/AUDIOS_PRUEBAS
 
 # TypeScript v1 declaration files
 typings/
@@ -59,3 +73,5 @@ typings/
 
 # next.js build output
 .next
+
+#

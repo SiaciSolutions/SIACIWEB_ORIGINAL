@@ -147,10 +147,13 @@
 						  <th>faccli</th>
 						  <th>Usuario</th>
 						  <th>Cliente</th>
+						  <th *ngIf="srv.getActRegPlacaPDV() == 'SI'" >Placa</th>
 						  <th>Total (USD)</th>
 						  <th>Forma de pago</th>
 						  <th>Status</th>
 						  <th>Acciones</th>
+						  
+						  
 						  
 						  <!-- <th>Observación</th> -->
 						  <!-- <th>Estado</th> -->
@@ -173,6 +176,7 @@
 						  <td>{{el.faccli}}</td>
 						  <td>{{el.codusu}}</td>
 						  <td>{{el.nomcli}}</td>
+						  <td *ngIf="srv.getActRegPlacaPDV() == 'SI'" >{{el.numplaca}}</td>
 						  <td>{{el.totfac}}</td>
 					   <td>
 						   <!-- <span *ngIf="" >{{el.totfac}}</span> -->
