@@ -343,6 +343,22 @@
 		</ul>
       </li>
 
+	<li class="treeview">
+        <a href="#">
+		<i class="fa fa-truck"></i> 
+		<span>ENVIOS / 快递</span>
+			<span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		
+			   <!-- <a [routerLink]="['/profile']" [queryParams]="{ruc: auth.getRUC()}" class="nav-link" >Comprobantes descargados</a> -->
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_envios" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Envios/ 发货清单</a></li>
+		  <li *ngIf="auth.getTipacc() == 'P'" (click)="ocultar_menu_moviles()"><a routerLink="solicitud_envio" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Crear Solicitud/ 添加快递</a></li>
+        </ul>
+      </li>
+
     </ul>
   </section>
   <!-- /.sidebar -->

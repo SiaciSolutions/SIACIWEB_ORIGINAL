@@ -116,6 +116,7 @@ export class AdminPedidosComponent implements OnInit {
 	accion_actualizar = false
 	almacenes_lista
 	almacen
+	edit_fecha_creacion
 	
     tiptra
 	// getConfCambioVendedorPed()
@@ -135,7 +136,7 @@ export class AdminPedidosComponent implements OnInit {
 
   constructor(
   private router: Router, 
-  private srv: ApiService, 
+  public srv: ApiService, 
   private route: ActivatedRoute) 
   
   { 

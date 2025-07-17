@@ -143,6 +143,20 @@
 					>
                         <i class="fa fa-align-justify"></i> Lista Ped Medico               
 					</a>
+
+					<a *ngIf="srv.getTipacc() == 'P'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/solicitud_envio" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-truck"></i> Crear Solicitud/ 添加快递          
+					</a>
+					<a  class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_envios" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                        <i class="fa fa-align-justify"></i> Lista de Envios/ 发货清单         
+					</a>
+
+				<!-- *ngIf="srv.getTipacc() = 'P'"-->	
+
 					
 					
 					

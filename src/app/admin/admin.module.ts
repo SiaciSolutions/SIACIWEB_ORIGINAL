@@ -49,8 +49,9 @@ import { AdminPedidosMedicosComponent } from './admin-pedidos-medicos/admin-pedi
 import { AdminListaPedidosMedicosComponent } from './admin-lista-ped-medicos/admin-lista-ped-medicos.component';
 import { AdminTransfBodegaComponent } from './admin-transferencias/admin-transferencias.component';
 import { AdminListaTranferenciasComponent } from './admin-lista-transferencia/admin-lista-transferencias.component';
-
-
+import { AdminSolicitudEnvioComponent } from './admin-solicitud-envio/admin-solicitud-envio.component';
+import { AdminListaEnviosComponent } from './admin-lista-envios/admin-lista-envios.component';
+import { SafeUrlPipe } from './safe-url.pipe';
 
 
 
@@ -65,6 +66,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { DataTablesModule } from 'angular-datatables';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 
 
 
@@ -155,7 +157,10 @@ import {
 	AdminPedidosMedicosComponent,
 	AdminListaPedidosMedicosComponent,
 	AdminTransfBodegaComponent,
-	AdminListaTranferenciasComponent
+	AdminListaTranferenciasComponent,
+	AdminSolicitudEnvioComponent,
+	AdminListaEnviosComponent,
+	SafeUrlPipe
 
 	
   ],

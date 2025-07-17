@@ -21,7 +21,7 @@ export class AdminDashboard3Component implements OnInit {
 
   constructor(
  private router: Router, 
-  private srv: ApiService, 
+  public srv: ApiService, 
   private route: ActivatedRoute
   ) { }
 

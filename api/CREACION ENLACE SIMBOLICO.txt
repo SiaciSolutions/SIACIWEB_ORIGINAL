@@ -18,4 +18,65 @@ Mklink /D  C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_talleres_de
 
 Mklink /D  C:\sistema\SIACIWEB\api\img_talleres_desa C:\sistema\SIACIWEB\nginx-1.14.2\html\assets\img_talleres
 
+Mklink /D  C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_envio_cliente C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_envio_cliente
+
+Mklink /D  C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\api\img_envio_courier C:\DESA_ANGULAR\TEST_PEDIDO_PDV_TALLERES_CAJA_REG\src\assets\img_envio_courier
+
+uploadFile_paquete_cliente
+
+lista_paquete_jetta
+
+
+https://www.instagram.com/reel/DLDC4QDuN4P/
+
+@app.route("/upload_imagen_ing_producto", methods=['POST'])
+def upload_imagen_ing_producto():
+ if request.method == 'POST':
+  datos = request
+ 
+  print (request)
+  print (request.form)
+ 
+
+  # numtra = request.form["dir"][3:]
+  codemp = request.form["codemp"]
+  codIngProd = request.form["codIngProd"]
+  
+  print (request.form["codemp"])
+  print (request.form["codIngProd"])
+  # print (codemp)
+  print (request.files)
+  print (request.files['uploads'])
+  
+  f = request.files['uploads']
+  filename = secure_filename(f.filename)
+  directorio = app.config['UPLOAD_FOLDER_ING_PRODUCTOS']
+
+  f.save(os.path.join(directorio, filename))
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  sql = """ update ing_de_producto set ruta_img = '{}' where codEmpresa = '{}' and codIngProd='{}'
+  """.format(directorio+'\\'+filename,codemp,codIngProd)
+  print (sql) 
+  curs = conn.cursor()
+  curs.execute(sql)
+  conn.commit()
+  curs.close()
+  
+  result = {'resultado': 'Archivo subido exitosamente'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+
+
+FIN DEL MODULO DE ENVIOS COURIER
+
+UPLOAD_FOLDER_ENVIO_CLIENTE
+
+
+Mklink /D  C:\DESA_ANGULAR\NGINX_TESTING_JETTA\api\img_envio_cliente C:\DESA_ANGULAR\NGINX_TESTING_JETTA\nginx-1.14.2\html\assets\img_envio_cliente
+Mklink /D  C:\DESA_ANGULAR\NGINX_TESTING_JETTA\api\img_envio_jetta C:\DESA_ANGULAR\NGINX_TESTING_JETTA\nginx-1.14.2\html\assets\img_envio_jetta
+
 

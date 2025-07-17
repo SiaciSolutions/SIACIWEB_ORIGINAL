@@ -10,39 +10,22 @@
 					<!-- </div> -->
 					<!-- <h1>Portal Login</h1> -->
 					<img mat-card-image src="../../assets/SIACI.png" alt="SIACI">
-					<h2>Iniciar sesión</h2>
+					<h2>Iniciar sesión (登入)</h2>
 					<div class="login-bottom">
 					<form>
 						<!-- <input type="text" placeholder="Usuario SIACI" required=" ">					 -->
 						<!-- <input type="password" class="password" placeholder="Password" required=" ">	 -->
 						
-						<input type="text" name="usuario" placeholder="Usuario SIACI" required=" " [(ngModel)]="ruc" >					
-						<input type="password" name="password" class="password" placeholder="Password" required=" " [(ngModel)]="password" >	
+						<input type="text" name="usuario" placeholder="Usuario (使用者)" required=" " [(ngModel)]="ruc" >					
+						<input type="password" name="password" class="password" placeholder="Password (線索)" required=" " [(ngModel)]="password" >	
 						
-					<!-- <mat-form-field> -->
-					  <!-- <mat-label>Empresa</mat-label> -->
-					  <!-- <mat-select name="empresa" [(ngModel)]="empresa"> -->
-						<!-- <mat-option *ngFor="let e of empresas" [value]="e.codemp"> -->
-						  <!-- {{e.nomemp}} -->
-						<!-- </mat-option> -->
-					  <!-- </mat-select> -->
-					<!-- </mat-form-field> -->
 					
-					 <label >EMPRESA</label>
+<!-- 					 <label >EMPRESA</label>
 						<select name="empresa" [(ngModel)]="empresa" class="form-control select2 tip" style="width:100%;" >
 						<option [ngValue]="undefined" disabled  selected> Seleccione</option>
 						<option *ngFor="let e of empresas; let i = index;"  [value]="e.codemp">{{e.codemp}}-{{e.nomemp}}</option>
-						</select>
-					<input *ngIf = "login_exitoso==false"  type="submit" value="login" (click)="hacer_login()">
-					
-					<!-- <mat-form-field *ngIf = "login_exitoso==true" > -->
-					  <!-- <mat-label>Seleccione Agencia</mat-label> -->
-					  <!-- <mat-select name="codagencia" [(ngModel)]="agencia"> -->
-						<!-- <mat-option *ngFor="let e of agencia_lista" [value]="e.codagencia+'|'+e.nomalm"> -->
-						  <!-- {{e.codagencia+'-'+e.nomalm}} -->
-						<!-- </mat-option> -->
-					  <!-- </mat-select> -->
-					<!-- </mat-form-field> -->
+						</select> -->
+					<input *ngIf = "login_exitoso==false"  type="submit" value="login 進入" (click)="hacer_login()">
 					
 					<label *ngIf = "login_exitoso==true" >Agencia</label>
 						<select *ngIf = "login_exitoso==true"  name="codagencia" [(ngModel)]="agencia" class="form-control select2 tip" style="width:100%;" >
@@ -53,14 +36,13 @@
 
 						<input *ngIf = "login_exitoso==true"  type="submit" value="Ingresar" (click)="ingresar()">
 					</form>
-					<!-- <a href="#"><p>Forgot your password? Click Here</p></a> -->
 					</div>
 				 <!-- </mat-card> -->
 				</div>
 			</div>
 		<div class="footer">
 			<!-- <p>&copy 2015 Flat Portal Login Form . All rights reserved | Design by <a href="http://w3layouts.com">W3layouts.</a></p> -->
-			<p>© 2022 SIACI SOLUTIONS . Todos los derechos reservados</p>
+			<p>© 2025 EVOLNEG BUSINESS SOLUTIONS . Todos los derechos reservados</p>
 		</div>
 
 </body>

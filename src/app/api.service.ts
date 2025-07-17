@@ -18,7 +18,10 @@ export class ApiService {
  
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
-	public apiUrl = 'https://127.0.0.1';
+	//public apiUrl = 'https://127.0.0.1';
+  	//public apiUrl = 'https://192.168.1.7';
+  public apiUrl = 'https://192.168.0.17';
+    
 		// public apiUrl = 'https://192.168.101.6';
 	
   // public apiUrl = 'https://192.168.0.13';
@@ -41,12 +44,12 @@ export class ApiService {
   
   
   
-  constructor(private http: HttpClient,private router: Router) { 
+  constructor(public http: HttpClient,public router: Router) { 
     console.log(this.apiUrl)
   console.log(this.port)
   }
   
-  // private getUser(): string {
+  // public getUser(): string {
 	  // let usuario='supervisor'
 	  // console.log("DENTRO DE GET USER")
 	  // console.log(this.empresa)
@@ -59,19 +62,19 @@ export class ApiService {
         // return usuario
     // }/////
 	
-   private getUsuario(): string {
+   public getUsuario(): string {
 	  let usuario=localStorage.getItem('usuario_recv')
       return usuario.toUpperCase()
     }
-   private getEmpresa(): string {
+   public getEmpresa(): string {
 	  let usuario=localStorage.getItem('empresa_recv')
       return usuario
     }
-   private getConfGeoloc(): string {
+   public getConfGeoloc(): string {
 	  let geoloc=localStorage.getItem('geoloc_recv')
       return geoloc
     }
-   private getConfPV(): string {
+   public getConfPV(): string {
 	  return localStorage.getItem('punto_venta_recv')
     }
    public getConfCorreoPedCli(): string {
@@ -1131,6 +1134,114 @@ public getConfCambioVendedorPed(): string {
   busqueda_razon_social_placa(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_placa', param);
   }
+  //############## PARA LOS ENVIOS DE COURIER
+    generar_encabezado_pdv_envios(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_encabezado_pdv_envios', param);
+  }
+      get_encabezado_pdv_envios(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_pdv_envios', param);
+  }
+        actualizar_encabezado_pdv_envios(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_pdv_envios', param);
+  }
+
+    lista_envios_courier(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_envios_courier', param);
+  }
+
+    buscar_servicio_peso(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/buscar_servicio_peso', param);
+  }
+
+    ciudades_laarcourier(): Observable<any> {
+      return this.http.get('https://api.laarcourier.com:9727/ciudades');
+  }
+    generar_guia_courier(param): Observable<any> {
+      return this.http.post(this.apiUrl + ':' + this.port + '/generar_guia_courier', param);
+  }
+
+  get_guia_courier(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_guia_courier', param);
+  }
+
+  actualizar_guia_courier(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_guia_courier', param);
+  }
+
+  transmitir_datos_courier(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/transmitir_datos_courier', param);
+  }
+
+
+  revision_guia_laar(param): Observable<any> {
+    return this.http.get('https://api.laarcourier.com:9727/guias/v2/'+param);
+  }
+  
+  ciudades_servientrega(): Observable<any> {
+/*       return this.http.get('https://181.39.87.158:8021/api/ciudades/[\'logistic.jettali\',\'123456\']'); */
+      
+       return this.http.get(this.apiUrl + ':' + this.port + '/ciudades_servientrega');
+  }
+  transmitir_datos_courier_servientrega(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/transmitir_datos_courier_servientrega', param);
+  }
+
+  revision_guia_serv(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/revision_guia_serv', param);
+  }
+  
+
+  traducir_palabra_chino(param): Observable<any> {
+    return this.http.post('https://libretranslate.com/translate/', param);
+  }
+
+  ////  ##### SERVICIOS DE SUBA DE ARCHIVO (FOTOS)   //////
+  uploadFile_paquete_cliente(formData) {
+
+    return this.http.post(this.apiUrl + ':' + this.port + '/uploadFile_paquete_cliente', formData, {
+        reportProgress: true,
+        observe: 'events'
+      }).pipe(
+        catchError(this.errorMgmt)
+      )
+    }
+
+  uploadFile_paquete_jetta(formData) {
+
+    return this.http.post(this.apiUrl + ':' + this.port + '/uploadFile_paquete_jetta', formData, {
+        reportProgress: true,
+        observe: 'events'
+      }).pipe(
+        catchError(this.errorMgmt)
+      )
+    }
+
+  lista_paquete_cliente(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_paquete_cliente',param)
+    }
+  eliminar_imagen_paquete_cliente(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_imagen_paquete_cliente',param)
+    }
+  
+  lista_paquete_jetta(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_paquete_jetta',param)
+    }
+
+  eliminar_imagen_paquete_jetta(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_imagen_paquete_jetta',param)
+    }
+  guia_sig() {
+    return this.http.get(this.apiUrl + ':' + this.port + '/guia_sig')
+    }
+  
+  cambio_carpeta_fotos_cliente(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/cambio_carpeta_fotos_cliente',param)
+    }
+  
+  
+
+    
+
   
   
 

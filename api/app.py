@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response, request, send_from_directory, jsonify, json 
+from flask import Flask, render_template, make_response, request, send_from_directory, jsonify, json ,Response
 from flask_cors import CORS
 # from flask_twisted import Twisted
 from pymongo import MongoClient
@@ -26,6 +26,13 @@ from werkzeug.utils import secure_filename
 import shutil
 import glob
 from dbfpy3 import dbf
+import requests
+from requests.exceptions import SSLError
+import base64
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from bs4 import BeautifulSoup
+import random
 
 
 
@@ -54,6 +61,8 @@ urlmail = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/mail/'
 # app.config['UPLOAD_FOLDER'] = 'C:\\wamp\\www\\TEST_acople_webfe_PEDIDO_PDV_TALLERES\\src\\assets\\img_talleres'
 app.config['UPLOAD_FOLDER'] = APP_PATH+'\\img_talleres_desa'
 app.config['UPLOAD_FOLDER_ARTICULOS'] = APP_PATH+'\\img_articulos'
+app.config['UPLOAD_FOLDER_ENVIO_CLIENTE'] = APP_PATH+'\\img_envio_cliente'
+app.config['UPLOAD_FOLDER_ENVIO_JETTA'] = APP_PATH+'\\img_envio_jetta'
 
 
 # nginx-1.14.2\html\assets\
@@ -104,6 +113,277 @@ def convert_decimal(d):
 	total_pedido = str(total_pedido).replace(' ','.')
 	total_pedido = str(total_pedido).replace(',00','')
 	return total_pedido
+
+def TOKEN_AUTH(url):
+
+    url = url+'/authenticate'
+    print (url)
+    result = ''
+    cabecera1 = {'Content-type': 'application/json'}
+    
+    # {
+# "ClientApiKey":"c6ad1784-d2d5-470d-8b60-cc16cf8faeb6",
+# "Username":"contabilidad-ec",
+# "Password":"1dfe31115da3"
+# }
+
+    Username = "prueba.jettalogistic.api"
+    Password = "azFwe2pS"
+    json = """{
+		      "Username": "%s",
+          "Password": "%s"
+		  }"""
+    datos = json % (Username,Password)
+
+    try:
+        solicitud = requests.post(url, headers = cabecera1, data = datos)
+        print (solicitud)
+        if solicitud.status_code == 200:
+            recv = solicitud.json()
+            # print (recv['STATUS'])
+            # print (recv)
+            result = {'STATUS':'RESPUESTA EXITOSA','TOKEN':recv['token']}
+        else:
+            result = {'STATUS':'RESPUESTA FALLIDA'}
+           
+    except Exception as e:
+        print (str(e))
+        result = {'STATUS':'RESPUESTA FALLIDA'}
+    return result
+
+def ENVIAR_GUIA_LAAR(url,token,rucremitente,codciudadrem,nomremitente,dirrem,tlfcelrem,rucdestinatario,
+codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,codtipoServicio,nopiezas,
+peso,valorDeclarado,contenido,comentario):
+
+
+    url = url+'/guias/contado'
+    print (url)
+    print (token)
+    result = ''
+    cabecera1 = {'Content-type': 'application/json','Authorization':'Bearer '+token}
+    print (codciudadrem,nomremitente,dirrem,tlfcelrem,rucdestinatario,
+    codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,codtipoServicio,nopiezas,
+    peso,valorDeclarado,contenido,comentario)
+
+    json = """
+          {
+            "origen": {
+            "identificacionO": "%s",
+            "ciudadO": "%s",
+            "nombreO": "%s",
+            "direccion": "%s",
+            "referencia": "",
+            "numeroCasa": "",
+            "postal": "",
+            "telefono": "%s",
+            "celular": "%s"
+            },
+            "destino": {
+            "identificacionD": "%s",
+            "ciudadD": "%s",
+            "nombreD": "%s",
+            "direccion": "%s",
+            "referencia": "",           
+            "numeroCasa": "",
+            "postal": "",
+            "telefono": "%s",
+            "celular": "%s"
+            },
+            "numeroGuia": "",
+            "tipoServicio": "%s",
+            "noPiezas": %d,
+            "peso": %d,
+            "valorDeclarado": %d,
+            "contiene": "%s",
+            "tamanio": "",
+            "cod": false,
+            "costoflete": 0,
+            "costoproducto": 0,
+            "tipocobro": 0,
+            "comentario": "%s",
+            "fechaPedido": "",
+            "extras": {
+            "Campo1": "",
+            "Campo2": "",
+            "Campo3": ""
+            }
+          }"""
+    datos = json % (rucremitente,codciudadrem,nomremitente,dirrem,tlfcelrem,tlfcelrem,rucdestinatario,
+    codciudaddest,nomdestinatario,dirdest,tlfceldest,tlfceldest,codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario)
+    print (datos)
+    
+    try:
+        solicitud = requests.post(url, headers = cabecera1, data = datos)
+        print (solicitud)
+        if solicitud.status_code == 200:
+            recv = solicitud.json()
+            # print (recv['STATUS'])
+            # print (recv)
+            print (recv)
+            result = recv
+        else:
+            result = {'STATUS':'RESPUESTA FALLIDA'}
+           
+    except Exception as e:
+        print (str(e))
+        result = {'STATUS':'RESPUESTA FALLIDA'}
+    return result
+
+def ENVIAR_GUIA_SERV(url,comentario,codciudadrem,codciudaddest,rucdestinatario,nomdestinatario,dirdest,tlfceldest,rucremitente,nomremitente,dirrem,tlfcelrem,
+    codtipoServicio,contenido,nopiezas,valorDeclarado,peso):
+    print ("***** DENTRO DE ENVIAR GUIA SERV ****")
+
+
+    url = url+'/api/guiawebs'
+    print (url)
+    result = ''
+    cabecera1 = {'Content-type': 'application/json'}
+    login_creacion = 'logistic.jettali'
+    password = '123456'
+    print (comentario,codciudadrem,codciudaddest,rucdestinatario,nomdestinatario,dirdest,tlfceldest,rucremitente,nomremitente,dirrem,tlfcelrem,
+    codtipoServicio,contenido,nopiezas,valorDeclarado,peso)
+
+    json = """
+        {
+        "id_tipo_logistica":1,
+        "detalle_envio_1":"%s",
+        "detalle_envio_2":"",
+        "detalle_envio_3":"",
+        "id_ciudad_origen":%d,
+        "id_ciudad_destino":%d,
+        "id_destinatario_ne_cl":"%s",
+        "razon_social_desti_ne":"%s",
+        "nombre_destinatario_ne":"",
+        "apellido_destinatar_ne":"",
+        "direccion1_destinat_ne":"%s",
+        "sector_destinat_ne" :"",
+        "telefono1_destinat_ne":"%s",
+        "telefono2_destinat_ne":"%s",
+        "codigo_postal_dest_ne":"",
+        "id_remitente_cl":"%s",
+        "razon_social_remite":"%s",
+        "nombre_remitente":"",
+        "apellido_remite":"",
+        "direccion1_remite" :"%s",
+        "sector_remite":"",
+        "telefono1_remite":"%s",
+        "telefono2_remite":"",
+        "codigo_postal_remi":"",
+        "id_producto": %d,
+        "contenido":"%s",
+        "numero_piezas":%d,
+        "valor_mercancia":%d,
+        "valor_asegurado" :%d,
+        "largo":1,
+        "ancho":1,
+        "alto" :1,
+        "peso_fisico" :%d,
+        "login_creacion":"%s",
+        "password":"%s"
+        }"""
+    datos = json % (comentario,int(codciudadrem),int(codciudaddest),rucdestinatario,nomdestinatario,dirdest,tlfceldest,tlfceldest,rucremitente,nomremitente,dirrem,tlfcelrem,
+    int(codtipoServicio),contenido,int(nopiezas),int(valorDeclarado),int(valorDeclarado),int(peso),login_creacion,password)
+    #datos = json % (rucremitente,codciudadrem,nomremitente,dirrem,tlfcelrem,tlfcelrem,rucdestinatario,
+    #codciudaddest,nomdestinatario,dirdest,tlfceldest,tlfceldest,codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario)
+    
+    print (datos)
+    
+    try:
+        solicitud = requests.post(url, headers = cabecera1, data = datos, verify=False)
+        print (solicitud)
+        if solicitud.status_code == 200 or solicitud.status_code == 201:
+            recv = solicitud.json()
+            # print (recv['STATUS'])
+            # print (recv)
+            print (recv)
+            result = recv
+        else:
+            result = {'STATUS':'RESPUESTA FALLIDA'}
+           
+    except Exception as e:
+        print (str(e))
+        result = {'STATUS':'RESPUESTA FALLIDA'}
+    return result
+  
+def GENERAR_PDF_SERVIENTREGA(guia):
+    try:
+        url = f"https://181.39.87.158:7777/api/GuiaDigital/[{guia},'logistic.jettali','123456']"
+        print (url)
+        response = requests.get(url, verify=False)
+        print (response.status_code)
+        if (response.status_code != 200 and response.status_code != 201) :
+            return f"Error al obtener la guía: {response.status_code}", 502
+
+        data = response.json()
+        archivo_base64 = data.get("archivoEncriptado")
+
+        if not archivo_base64:
+            return "No se encontró el archivo en la respuesta", 404
+       
+        result = archivo_base64
+        # Devolvemos el PDF BINARIO
+        return result
+    except Exception as e:
+        print("Error:", e)
+        return f"Error al procesar la guía: {str(e)}", 500
+
+def OBTENER_DATOS_ESTADO_SERVIENTREGA(guia):
+    try:
+      url = f"https://www.servientrega.com.ec/Tracking/?guia={guia}&tipo=GUIA"
+
+      headers = {
+      "User-Agent": "Mozilla/5.0"
+      }
+
+      response = requests.get(url, headers=headers)
+      soup = BeautifulSoup(response.text, "html.parser")
+
+      # Inicializamos todas las variables
+      estado_actual = destino = fecha_entrega = None
+      fecha_envio = origen = recibido_por = None
+
+      # Buscar todos los bloques col-info-2 (hay dos info-part-tracking independientes)
+      bloques = soup.find_all("div", class_="col-info-2")
+
+      for bloque in bloques:
+          label_span = bloque.find("span")
+          if not label_span:
+              continue
+
+          texto = label_span.get_text(strip=True).lower()
+          input_tag = bloque.find("input")
+          valor = input_tag["value"].strip() if input_tag and input_tag.has_attr("value") else None
+
+          if "estado actual" in texto:
+              estado_actual = valor
+          elif "destino" in texto:
+              destino = valor
+          elif "fecha entrega" in texto:
+              fecha_entrega = valor
+          elif "fecha envío" in texto or "fecha envio" in texto:
+              fecha_envio = valor
+          elif "origen" in texto:
+              origen = valor
+          elif "recibido por" in texto:
+              recibido_por = valor
+
+       # Mostrar resultados
+      print("Estado actual: ", estado_actual or "No encontrado")
+      print("Destino:        ", destino or "No encontrado")
+      print("Fecha entrega:  ", fecha_entrega or "No encontrada")
+      print("Fecha envío:    ", fecha_envio or "No encontrada")
+      print("Origen:         ", origen or "No encontrado")
+      print("Recibido por:   ", recibido_por or "No encontrado")
+      status_serv={"Estado_actual":estado_actual or "No encontrado","Destino":destino or "No encontrado",
+      "Fecha_entrega":fecha_entrega or "No encontrado", 
+      "Fecha_envio": fecha_envio or "No encontrado","Origen":origen or "No encontrado","Recibido_por":recibido_por or "No encontrado"}
+      return (status_serv)
+    except Exception as e:
+      print("Error:", e)
+      return f"Error al procesar la guía: {str(e)}", 500
+
+
+
 
 
 @app.route('/login', methods=['POST'])
@@ -2965,11 +3245,14 @@ def generar_encabezado_pdv():
   # print ("CODUSU")
   # print (codusu)
   
-  codven = r[0]
-  nomven = r[1]
-  print (codven)
-  print (nomven)
-  
+  try:
+     codven = r[0]
+     nomven = r[1]
+     print (codven)
+     print (nomven)
+  except:
+     codven = '01'
+     nomven = 'VENDEDOR GENERAL'
   
   
   ##PARA OBTENER CODIGO DE VENDEDOR
@@ -3477,6 +3760,1288 @@ def aplicar_fact_electronica():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+  
+  
+#########################################################PARA EL MODULO DE ENVIOS COURIER ######################################################################
+@app.route('/get_encabezado_pdv_envios', methods = ['POST'])
+def get_encabezado_pdv_envios():
+	print ("################ GET ENCABEZADO FACTURA  ##############")
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+	numtra=datos['numfac']
+
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+	
+	# # SELECT p.numtra,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra , DATEFORMAT(p.fecult, 'DD-MM-YYYY') as fecult ,c.rucced,c.nombres,c.dircli,c.codcli,c.telcli,c.email,p.observ,p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
+	
+	sql = """
+    SELECT p.codemp,p.numfac,p.faccli,fecfac,c.tpIdCliente,c.rucced,c.nombres,c.codcli,c.email,c.dircli,
+    p.observ,p.totnet,p.totfac,p.totrec,
+    p.tipefe,p.valefe,p.tiptar,p.numtar,p.valtar,p.codtar,p.tipche,p.numche,p.valche,p.codban,p.tipcre,p.valcre,p.numpag,p.plapag,p.tiptrans,p.valtrans,p.numtrans,p.coddep,
+    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.numplaca,p.observ,
+    p.nomdestinat,p.ruccedremitente,p.teldestinat,p.entregardestinat,p.codruta,p.codvhi, p.tipodocumento
+    FROM encabezadopuntosventa p, clientes c
+    where p.numfac = '{}' and p.codemp='{}'
+    and p.codcli=c.codcli
+    and c.codemp=p.codemp
+	""".format(numtra,codemp)
+	curs.execute(sql)
+	r = curs.fetchone()
+
+	
+	campos = ['codemp', 'numfac','faccli','fecfac','tpIdCliente','rucced','razon_social','codcli','email','dircli','observ','totnet','totfac','totrec','tipefe'
+	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','tipcre','valcre','numpag','plapag','tiptrans','valtrans','numtrans','coddep','totiva','poriva','totdes','pordes','totbas','numplaca','observ',
+    'nombre_dest','rucced_dest','tlf_dest','dir_dest','ciudad_dest','codvhi','tipodocumento']
+	print (r)
+	if r:
+		d = dict(zip(campos, r))
+   	
+	response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+	conn.close()
+	return(response)
+    
+@app.route('/generar_encabezado_pdv_envios', methods = ['POST'])
+def generar_encabezado_pdv_envios():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  ##SECUENCIA INTERNA SIACI
+  # sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and numcaj='{}' and codsec='PV_FAC'".format(
+  sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and codsec='PV_FAC'".format(
+  datos['codemp'], datos['codalm']
+  # datos['codemp'], datos['codalm'], datos['numcaj']
+  )
+
+  
+  
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac = regsec[0]
+  
+  print (sql)
+  
+  print (numfac)
+  
+  ########################### INICIO BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  print (numfac)
+  print (len(numfac))
+  print (int(numfac)+1)
+  print (str((int(numfac)+1)).zfill(len(numfac)))
+  numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  numfac= numfac_nueva
+  ########################### FIN BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  
+
+  
+  
+  
+  ##SECUENCIA TRIBUTARIA
+  # sql = "select seccue from secuencias_tmp where  codemp='{}' and codalm='{}' and numcaj='{}' and codsec='PV_FAC'".format(
+  # sql = "select seccue from secuencias_tmp where  codemp='{}' and codalm='{}' and codsec='VC_FAC' and numcaj='12'".format(
+  sql = "select seccue, serie from secuencias_tmp where  codemp='{}' and codalm='{}' and codsec='PV_FAC' and numcaj='{}'".format(
+  datos['codemp'], datos['codalm'], datos['numcaj'])
+  # datos['codemp'], datos['codalm'])
+  print (sql)
+  # curs = conn.cursor()
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac_tributaria = regsec[0]
+  # print (sql)
+  
+  print (numfac_tributaria)
+  datos['serie'] = regsec[1]
+  
+  
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  # sql = "SELECT v.codven, nomven FROM vendedorescob v, usuario u where v.codus1 = u.codus1 and v.codusu = u.codusu and u.codus1='{}' and u.codemp='{}'"\
+        # .format(datos['codus1'],datos['codemp'])
+		
+  sql = "SELECT v.codven, nomven FROM vendedorescob v WHERE v.codus1='{}' and v.codemp='{}'".format(datos['codus1'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  # codven = '06'
+  # print ("COD VENDEDOR")
+  # print (codven)
+  
+  # codusu = 'SUPERVISOR'
+  # print ("CODUSU")
+  # print (codusu)
+  
+  try:
+     codven = r[0]
+     nomven = r[1]
+     print (codven)
+     print (nomven)
+  except:
+     codven = '01'
+     nomven = 'VENDEDOR GENERAL'
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  sql = "SELECT vc_lis FROM parametrosiniciales where numren='PV' and codemp='{}'"\
+        .format(datos['codemp'])
+  curs.execute(sql)
+  r_lispre = curs.fetchone()
+  lispre=r_lispre[0]
+  
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  
+  
+  if (datos['conpag'] == 'E'):
+    tipcre = 'X'
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    tipcre = 'R'
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+	
+      
+ 
+  # dateTimeObj = datetime.now()
+  # timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  # hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  # print (hora)
+  
+  
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
+
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+
+
+	
+  ##nomdestinat,ruccedremitente,teldestinat,entregardestinat,nomremitente,codvhi REVISION LUEGO PARA CAMPOS DEFINITIVOS, pendiente las comillas
+  string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
+  factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep,tipo_guia,numplaca,observ,
+  nomdestinat,ruccedremitente,teldestinat,entregardestinat,codruta,codvhi
+  '''
+  
+  
+  sql = """insert into encabezadopuntosventa ({}) values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},'{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},{},{},{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},'{}','{}',{},{},{},{},{},
+  '{}','{}','{}','{}','{}','{}')
+  """.format(string_campos,numfac,datos['codemp'],codven,datos['codalm'],datos['nomcli'],
+  datos['fecfac'],datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
+  datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],datos['totrec'],datos['codus1'],datos['fecfac'],'01','1',datos['codcli'],'X',
+  datos['numcaj'],datos['telcli'],codiva,porivar,valiva,
+  codret,porret,valret,numfac_tributaria,datos['tipodocumento'],datos['serie'],datos['turno'],'null','0','O','F','FC'+numfac,'NC','X','null','0','1',datos['fecfac'],lispre,hora,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],0,datos['tiptrans'],datos['valtrans'],datos['numtrans'],datos['coddep'],1,datos['numplaca'],datos['observ'],
+  datos['nombre_dest'],datos['rucced_dest'],datos['tlf_dest'],datos['dir_dest'],datos['ciudad_dest'],datos['codvhi']
+  ) 
+  # curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  # curs.close()
+  conn.commit()
+  
+  
+  #### CAMBIO DE SECUENCIAS  ####
+  
+  # print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  # print (numfac)
+  # print (len(numfac))
+  # print (int(numfac)+1)
+  # print (str((int(numfac)+1)).zfill(len(numfac)))
+  # numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  
+
+  sql = "update secuencias set seccue =  '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}'".format(numfac_nueva,datos['codalm'],datos['codemp'])
+  curs.execute(sql)
+  conn.commit()
+  
+  print ("PARA OBTENER SECUENCIA TRIBUTARIA NUEVA")
+  print (numfac_tributaria)
+  print (len(numfac_tributaria))
+  print (int(numfac_tributaria)+1)
+  print (str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria)))
+  numfac_tributaria_nueva = str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria))
+  
+  # zfill(8)  ####COMPLETAR CON 0
+  
+  #### CAMBIO DE SECUENCIAS_TMP  ####
+  # curs = conn.cursor()
+  # # sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  
+  sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  curs.execute(sql)
+  conn.commit()
+  
+  try:
+    numtra_pedido = datos['numtra_pedido']
+    tiptra_pedido = datos['tiptra_pedido']
+    print ("ACTUALIZANDO STATUS DE LA FACTURA")
+    sql = "update encabezadopedpro set estado='F' where tiptra='{}' and numtra = '{}' and codemp='{}'".format(tiptra_pedido,numtra_pedido,datos['codemp'])
+    curs.execute(sql)
+    conn.commit()
+    
+    
+  except:
+    print ("FACTURA SIN PEDIDO")
+    
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  # sql = """
+		# INSERT INTO detalle_formas_pago_sri (codemp,numfac,tipo,tarjeta,val_tar,plazo_tar)
+		# SELECT codemp,numfac,'PVE','19',valtar,numpag * plapag
+		# FROM encabezadopuntosventa
+		# WHERE tiptar = 'T' and 
+		# codemp = '{}' and 
+		# numfac = '{}';
+  # """.format(datos['codemp'],numfac)
+  # print (sql)
+  # curs.execute(sql)
+  # conn.commit()
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  sleep (0.2)
+  resp = {'status': 'INSERTADO CON EXITO','numfac': numfac}
+  # resp = {'status': 'INSERTADO CON EXITO','numfac': '1111'}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+@app.route('/actualizar_encabezado_pdv_envios', methods=['POST'])
+def actualizar_encabezado_pdv_envios():
+
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  fecult = dateTimeObj.strftime("%Y-%m-%d")
+  
+  
+  if (datos['conpag'] == 'E'):
+    tipcre = 'X'
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    tipcre = 'R'
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
+
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+      
+  
+ 
+  # string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  # valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
+  # factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep'''
+  
+  
+  sql = """update encabezadopuntosventa set nomcli='{}',totnet={},totdes={},totbas={},poriva={}, totfac={},tipefe='{}',valefe={},tipche='{}',numche={} ,valche={},
+  tiptar='{}',numtar={},valtar={},totiva={},totrec={},fecult='{}',codcli='{}',porivar='{}',valiva='{}',codret={},porret='{}',valret='{}',conpag='{}',
+  tipcre='{}',numpag={},plapag={},valcre={},forpag='{}', cuecob='{}',pordes={},codtar={},codban={},tiptrans='{}',valtrans={},numtrans={},coddep={}, numplaca={}, observ={},
+  nomdestinat = '{}',ruccedremitente='{}',teldestinat='{}',entregardestinat='{}',codruta='{}',codvhi='{}',tipodocumento='{}'
+  where codemp='{}' and numfac='{}' 
+  """.format(datos['nomcli'],datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
+  datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],datos['totrec'],fecult,datos['codcli'],porivar,valiva,
+  codret,porret,valret,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],datos['tiptrans'],datos['valtrans'],
+  datos['numtrans'],datos['coddep'],datos['numplaca'],datos['observ'],
+  datos['nombre_dest'],datos['rucced_dest'],datos['tlf_dest'],datos['dir_dest'],datos['ciudad_dest'],datos['codvhi'],datos['tipodocumento']
+  ,datos['codemp'],datos['numfac']) 
+  
+  curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  sql= """DELETE from renglonespuntosventa  where codemp='{}' and numfac='{}'""".format(datos['codemp'],datos['numfac'])
+  curs.execute(sql)
+  conn.commit()
+  
+  
+ 
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  resp = {'status': 'ACTUALIZADO CON EXITO','numfac': datos['numfac']}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route('/buscar_servicio_peso', methods = ['POST'])
+def buscar_servicio_peso():
+	print ("################ BUSCAR SERVICIO POR PESO Y COURIER  ##############")
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+
+	campos = ['codart', 'nomart','prec01','exiact','coduni','punreo','codiva','poriva']
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+#	sql = """
+ #   SELECT nomser,tipo_llamada,destino from serviciosvarios p
+  #  where p.tipo_llamada = '{}' and p.codemp='{}' and TIPO='FAC'
+	#""".format(datos['codvhi'],codemp)
+	if (datos['tipo'] == 'PAQ'):
+		sql = """
+     select '\\'||a.codser, a.nomser,round(a.preser, 2) as precio01, 'N/A' as exiact,'N/A' as coduni,
+     '0' as punreo, a.codiva, 
+     (select i.poriva from iva i where i.codiva=a.codiva) as poriva ,
+     round(((poriva*precio01)/100),2) as precio_iva,destino
+     from serviciosvarios a where a.tipo_llamada = '{}' and a.codemp='{}' and a.TIPO='FAC' and a.destino NOT IN('SOBRE','SEGURO')
+		""".format(datos['codvhi'],codemp)
+
+		curs.execute(sql)
+		r = curs.fetchall()
+		arrresp = []
+		#print (r)
+		for reg in r:
+			print (reg)
+		#d = dict(zip(campos, r))
+			rango_peso= reg[9].split('-')
+		#print (rango_peso)
+			desde = float(rango_peso[0])
+			hasta = float(rango_peso[1])
+
+			if (datos['peso'] > desde and datos['peso'] <= hasta):
+				print ("PRECIO FICHA SERVICIO")
+				if (hasta != 1000):
+					d = dict(zip(campos, reg))
+					#arrresp.append(d)
+				if (hasta == 1000):
+					if (datos['codvhi'] == 'SERV'):
+						precio_nuevo = datos['peso']*0.5
+						reg = (reg[0],reg[1],precio_nuevo,reg[3],reg[4],reg[5],reg[6],reg[7])
+					if (datos['codvhi'] == 'LAAR'):
+						precio_nuevo =  ((datos['peso']-50)*0.5)+5.5
+						reg = (reg[0],reg[1],precio_nuevo,reg[3],reg[4],reg[5],reg[6],reg[7])
+				d = dict(zip(campos, reg))
+				arrresp.append(d)
+	if (datos['tipo'] == 'SOB'):
+		sql = """
+     select '\\'||a.codser, a.nomser,round(a.preser, 2) as precio01, 'N/A' as exiact,'N/A' as coduni,
+     '0' as punreo, a.codiva, 
+     (select i.poriva from iva i where i.codiva=a.codiva) as poriva ,
+     round(((poriva*precio01)/100),2) as precio_iva,destino
+     from serviciosvarios a where a.tipo_llamada = '{}' and a.codemp='{}' and a.destino='SOBRE' and a.TIPO='FAC'
+		""".format(datos['codvhi'],codemp)
+		print (sql)
+		curs.execute(sql)
+		r = curs.fetchall()
+		arrresp = []
+		#print (r)
+		for reg in r:
+			d = dict(zip(campos, reg))
+			arrresp.append(d)
+	if (datos['tipo'] == 'SEG'):
+		sql = """
+     select '\\'||a.codser, a.nomser,round(a.preser, 2) as precio01, 'N/A' as exiact,'N/A' as coduni,
+     '0' as punreo, a.codiva, 
+     (select i.poriva from iva i where i.codiva=a.codiva) as poriva ,
+     round(((poriva*precio01)/100),2) as precio_iva,destino
+     from serviciosvarios a where a.tipo_llamada = '{}' and a.codemp='{}' and a.destino='SEGURO' and a.TIPO='FAC'
+		""".format(datos['codvhi'],codemp)
+		print (sql)
+		curs.execute(sql)
+		r = curs.fetchall()
+		arrresp = []
+		#print (r)
+		for reg in r:
+			valor_declarado = datos['peso']
+			precio_nuevo = valor_declarado*reg[2]/100
+			reg = (reg[0],reg[1],precio_nuevo,reg[3],reg[4],reg[5],reg[6],reg[7])
+			d = dict(zip(campos, reg))
+			arrresp.append(d)
+		
+          
+	print (arrresp)
+	response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+
+	conn.close()
+	return(response)
+
+
+@app.route('/buscar_servicio_pesobk', methods = ['POST'])
+def buscar_servicio_pesobk():
+	print ("################ GET ENCABEZADO FACTURA  ##############")
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+
+
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+	sql = """
+    SELECT nomser,tipo_llamada,destino from serviciosvarios p
+    where p.tipo_llamada = '{}' and p.codemp='{}' and TIPO='FAC'
+	""".format(datos['codvhi'],codemp)
+	curs.execute(sql)
+	r = curs.fetchall()
+
+	
+	campos = ['nomser', 'numfac','destino']
+	print (r)
+	for reg in r:
+		#print (reg)
+		#d = dict(zip(campos, r))
+		rango_peso= reg[2].split('-')
+		#print (rango_peso)
+		desde = float(rango_peso[0])
+		hasta = float(rango_peso[1])
+
+		if (datos['peso'] > desde and datos['peso'] <= hasta):
+				resultado = reg[0]
+				print (resultado)
+
+	resp = {'patron': resultado}
+	response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+	conn.close()
+	return(response)
+
+@app.route('/generar_guia_courier', methods = ['POST'])
+def generar_guia_courier():
+  print ("################ GENERAR GUIA COURIER  ##############")
+  datos = request.json
+  print (datos)
+  codemp=datos['codemp']
+
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  fectra = dateTimeObj.strftime("%Y-%m-%d")
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  if (datos['codvhi'] == 'LAAR'):
+    if (datos['tipo_producto'] == 'PAQ'):
+      codtipoServicio = '201202002002013'
+    if (datos['tipo_producto'] == 'SOB'):
+      codtipoServicio = '201202002001002'
+    datos['codciudadrem'] = "201001002001"
+  if (datos['codvhi'] == 'SERV'):
+    if (datos['tipo_producto'] == 'PAQ'):
+      codtipoServicio = '6'  ## codigo para MERCANCIA INDUSTRIAL SERVIENTREGA
+    if (datos['tipo_producto'] == 'SOB'):
+      codtipoServicio = '1' ## codigo para DOCUMENTO UNITARIO
+    datos['codciudadrem'] = '1'
+
+  ## PARA OBTENER EL DATO DEL CLIENTE ###
+
+
+  sql = "SELECT nomemp,ruc,dir01,tel01 FROM empresa WHERE CODEMP='{}'".format(datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  datos['nomremitente'] = r[0]
+  datos['rucremitente'] = r[1]
+  datos['dirrem'] = r[2]
+  datos['tlfcelrem'] = r[3]
+   #
+  print (datos['nomremitente'],datos['rucremitente'],datos['dirrem'] ,datos['tlfcelrem'])
+  #try:
+   #  codven = r[0]
+    # nomven = r[1]
+    # print (codven)
+    # print (nomven)
+  #except:
+   #  codven = '01'
+   #  nomven = 'VENDEDOR GENERAL'
+  ########## INSERT GENERAR GUIA ########
+
+  print ("###HACIENDO INSERT GUIA###")
+  sql = """
+		INSERT INTO guias_courier (codemp,fecha,tipo_producto,codvhi,nomremitente,rucremitente,codciudadrem,
+    dirrem,tlfcelrem,rucdestinatario,codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,
+    codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario
+    )
+		VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}',{},{},{},'{}','{}');
+  """.format(datos['codemp'],fectra,datos['tipo_producto'],datos['codvhi'],datos['nomremitente'],datos['rucremitente'],datos['codciudadrem'],
+  datos['dirrem'],datos['tlfcelrem'],datos['rucced_dest'],datos['codciudaddest'],datos['nomdestinatario'],datos['dirdest'],
+  datos['tlfceldest'],datos['numfac'],codtipoServicio,datos['nopiezas'],datos['peso'],datos['valorDeclarado'],
+  datos['contenido'],'REMITENTE- '+datos['comentario']
+  )
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+  conn.close()
+
+  resp = {'respuesta': 'EXITOSO'}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+
+
+
+@app.route('/actualizar_guia_courier', methods=['POST'])
+def actualizar_guia_courier():
+
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+
+  if (datos['codvhi'] == 'LAAR'):
+    if (datos['tipo_producto'] == 'PAQ'):
+      codtipoServicio = '201202002002013'
+    if (datos['tipo_producto'] == 'SOB'):
+      codtipoServicio = '201202002001002'
+    datos['codciudadrem'] = "201001002001"
+  if (datos['codvhi'] == 'SERV'):
+    if (datos['tipo_producto'] == 'PAQ'):
+      codtipoServicio = '6'        ## codigo para MERCANCIA INDUSTRIAL SERVIENTREGA
+    if (datos['tipo_producto'] == 'SOB'):
+      codtipoServicio = '1'
+    datos['codciudadrem'] = "1"    ## codigo para DOCUMENTO UNITARIO
+  # print (timestampStr)
+
+  
+  sql = """update guias_courier set codvhi='{}',tipo_producto='{}',rucdestinatario='{}',codciudaddest='{}',
+  nomdestinatario='{}',dirdest='{}', tlfceldest='{}',codtipoServicio='{}',nopiezas={},peso={},valorDeclarado={} ,contenido='{}',
+  comentario='{}' where codemp='{}' and numfac='{}' 
+  """.format(datos['codvhi'],datos['tipo_producto'],datos['rucced_dest'],datos['codciudaddest'],datos['nomdestinatario'],datos['dirdest'],
+  datos['tlfceldest'],codtipoServicio,datos['nopiezas'],datos['peso'],datos['valorDeclarado'],
+  datos['contenido'],'REMITENTE- '+datos['comentario'] ,datos['codemp'],datos['numfac']) 
+  
+  curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  resp = {'status': 'ACTUALIZADO CON EXITO'}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route('/get_guia_courier', methods = ['POST'])
+def get_guia_courier():
+  print ("################ GET DATOS GUIA COURIER  ##############")
+  datos = request.json
+  print (datos)
+  codemp=datos['codemp']
+  numtra=datos['numfac']
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+	
+	# # SELECT p.numtra,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra , DATEFORMAT(p.fecult, 'DD-MM-YYYY') as fecult ,c.rucced,c.nombres,c.dircli,c.codcli,c.telcli,c.email,p.observ,p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
+	
+  sql = """
+    SELECT 
+    codemp,idtrans,tipo_producto,fecha,codvhi,nomremitente,rucremitente,codciudadrem,dirrem,tlfcelrem,
+    rucdestinatario,codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,
+    codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario,tracking,status
+    FROM guias_courier
+    where numfac = '{}' and codemp='{}'
+	""".format(numtra,codemp)
+  curs.execute(sql)
+  r = curs.fetchone()
+
+  campos = ['codemp','idtrans','tipo_producto','fecha','codvhi','nomremitente','rucremitente','codciudadrem','dirrem','tlfcelrem',
+  'rucdestinatario','codciudaddest','nomdestinatario','dirdest','tlfceldest','numfac',
+  'codtipoServicio','nopiezas','peso','valorDeclarado','contenido','comentario','tracking','status']
+
+  print (r)
+  if r:
+    d = dict(zip(campos, r))
+   	
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+  conn.close()
+  return(response)
+
+
+@app.route('/transmitir_datos_courier', methods = ['POST'])
+def transmitir_datos_courier():
+  print ("################ RECIBIR BUSCAR GUIA COURIER  ##############")
+  datos = request.json
+  print (datos)
+
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  sql = """
+    SELECT 
+    codemp,idtrans,tipo_producto,fecha,codvhi,nomremitente,rucremitente,codciudadrem,dirrem,tlfcelrem,
+    rucdestinatario,codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,
+    codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario,tracking,status
+    FROM guias_courier
+    where numfac = '{}' and codemp='{}'
+	""".format(datos['numfac'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  print (r)
+  
+
+  nomremitente = r[5]
+  rucremitente = r[6]
+  codciudadrem = r[7]
+  dirrem = r[8]
+  tlfcelrem = r[9]
+  rucdestinatario = r[10]
+  codciudaddest = r[11]
+  nomdestinatario = r[12]
+  dirdest= r[13]
+  tlfceldest = r[14]
+  numfac = r[15]
+  codtipoServicio = r[16]
+  nopiezas = r[17]
+  peso= r[18]
+  valorDeclarado = r[19]
+  contenido = r[20]
+  comentario = r[21]
+
+  #https://api.laarcourier.com:9727/authenticate
+  url='https://api.laarcourier.com:9727'
+  resultado_token = TOKEN_AUTH(url)
+  print (resultado_token)
+  resultado_envio = ENVIAR_GUIA_LAAR(url,resultado_token['TOKEN'],
+  rucremitente,codciudadrem,nomremitente,dirrem,tlfcelrem,rucdestinatario,
+  codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,codtipoServicio,nopiezas,
+  peso,valorDeclarado,contenido,comentario
+  )
+  print (resultado_envio)
+  try:
+     status ='EXITOSO'
+     tracking = resultado_envio['guia']
+     link_guia_pdf = resultado_envio['url']
+     href_guia_courier = "https://fenixoper.laarcourier.com/Tracking/Guiacompleta.aspx?guia="+tracking
+     sql = """update guias_courier set status='{}',
+     tracking='{}',link_guia_pdf='{}', link_guia_courier='{}' where 
+     codemp='{}' and numfac='{}' 
+     """.format(status,tracking,link_guia_pdf,href_guia_courier,datos['codemp'],datos['numfac']) 
+  except Exception as e:
+     print (str(e))
+     status ='FALLIDO'
+     sql = """update guias_courier set status='{}'
+     where codemp='{}' and numfac='{}' 
+     """.format(status,datos['codemp'],datos['numfac']) 
+
+  curs = conn.cursor()
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+
+  d = {'resultado':'exitoso'}   	
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+  conn.close()
+  return(response)
+
+@app.route('/revision_guia_serv', methods = ['POST'])
+def revision_guia_serv():
+  print ("################ REVISION STATUS GUIA SERVIENTREGA  ##############")
+  datos = request.json
+  print (datos)
+  ##GUIA DE PRUEBA
+  guia_prueba= "741530961"
+  ##datos['guia']="741530961"
+
+  status_servientrega=OBTENER_DATOS_ESTADO_SERVIENTREGA(guia_prueba)
+  print (status_servientrega)
+
+  ##PARA OBTENER DATOS FALTANTES, DE LA TABLA DE GUIA_COURIER...
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  sql = """
+    SELECT 
+    codemp,idtrans,tipo_producto,fecha,codvhi,nomremitente,rucremitente,codciudadrem,dirrem,tlfcelrem,
+    rucdestinatario,codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,
+    codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario,tracking,status
+    FROM guias_courier
+    where tracking = '{}'
+	""".format(datos['guia'])
+  print (sql)
+  curs.execute(sql)
+  r = curs.fetchone()
+  print (r)
+  
+  nomremitente = r[5]
+  rucremitente = r[6]
+  codciudadrem = r[7]
+  dirrem = r[8]
+  tlfcelrem = r[9]
+  rucdestinatario = r[10]
+  codciudaddest = r[11]
+  nomdestinatario = r[12]
+  dirdest= r[13]
+  tlfceldest = r[14]
+  numfac = r[15]
+  codtipoServicio = r[16]
+  if codtipoServicio == '6':
+    codtipoServicio= 'MERCANCIA INDUSTRIAL'
+  if codtipoServicio == '1':
+    codtipoServicio= 'DOCUMENTO UNITARIO'
+  nopiezas = r[17]
+  peso= r[18]
+  valorDeclarado = r[19]
+  contenido = r[20]
+  comentario = r[21]
+
+  status_servientrega['para'] = nomdestinatario
+  status_servientrega['telefonoDestino'] = tlfceldest
+  status_servientrega['telefonoDestino2'] = tlfceldest
+  status_servientrega['direccionDestino'] = dirdest
+  status_servientrega['numeroEnvios'] = nopiezas
+  status_servientrega['pesoKilos'] = peso
+  status_servientrega['producto'] = codtipoServicio
+ 
+  d = {'resultado':'exitoso'}   	
+  response = make_response(dumps(status_servientrega, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return (response)
+
+
+
+
+@app.route('/ver_rotulo_laar')
+def ver_rotulo_laar():
+    guia = request.args.get('guia')
+    if not guia:
+        return "No se especificó la guía", 400
+
+    url = f"https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia={guia}"
+    print(url)
+
+    try:
+        laar_response = requests.get(url, verify=False)
+
+        # Agregamos control para verificar el tipo de contenido
+        if laar_response.status_code != 200:
+            return f"Error al obtener la guía: {laar_response.status_code}", 502
+
+        content_type = laar_response.headers.get('Content-Type', '')
+        if 'application/pdf' not in content_type:
+            return f"El archivo recibido no es un PDF. Tipo recibido: {content_type}", 415
+
+        return Response(
+            laar_response.content,
+            content_type='application/pdf',
+            headers={'Content-Disposition': 'inline; filename=guia.pdf'}
+        )
+
+    except Exception as e:
+        # Mostrar el error exacto en consola para depuración
+        print(f"Error en el servidor: {str(e)}")
+        return f"Error en el servidor: {str(e)}", 500
+
+@app.route('/ver_rotulo_serv')
+def ver_rotulo_serv():
+    guia = request.args.get('guia')
+    print (guia)
+    if not guia:
+        return "Guía no especificada", 400
+
+    #url = f"https://181.39.87.158:7777/api/GuiaDigital/[{guia},'logistic.jettali','123456']"
+    #print (url)
+
+    try:
+        #response = requests.get(url, verify=False)
+        #print (response.status_code)
+        #if (response.status_code != 200 and response.status_code != 201) :
+         #   return f"Error al obtener la guía: {response.status_code}", 502
+
+        #data = response.json()
+        #archivo_base64 = data.get("archivoEncriptado")
+
+        conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+        curs = conn.cursor()
+
+        sql = """
+        SELECT pdf_serv FROM "DBA"."guias_courier" where tracking = '{}'
+	      """.format(guia)
+        curs.execute(sql)
+        r = curs.fetchone()
+        archivo_base64 = r[0]
+        
+
+        if not archivo_base64:
+            conn.close()
+            return "No se encontró el archivo en la respuesta", 404
+       
+        # Decodificamos el base64 a bytes
+
+        pdf_bytes = base64.b64decode(archivo_base64)
+        conn.close()
+
+        # Devolvemos el PDF como inline
+        return Response(
+            pdf_bytes,
+            content_type="application/pdf",
+            headers={
+                "Content-Disposition": "inline; filename=guia.pdf",
+                "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+                "Pragma": "no-cache",
+                "Expires": "0"
+            }
+        )
+
+    except Exception as e:
+        print("Error:", e)
+        return f"Error al procesar la guía: {str(e)}", 500
+
+
+@app.route('/ciudades_servientrega', methods=['GET'])
+def ciudades_servientrega():
+    url = "https://181.39.87.158:8021/api/ciudades/['logistic.jettali','123456']"
+    print(url)
+
+    try:
+        response = requests.get(url, verify=False, timeout=5)
+        response.raise_for_status()  # Lanza excepción si no es 200
+
+        # Si la petición fue exitosa
+        return make_response(response.text, 200)
+
+    except SSLError as ssl_err:
+        print(f'Error SSL: {ssl_err}')
+        return make_response(jsonify({'resultado': 'ERROR_SSL', 'detalle': str(ssl_err)}), 500)
+
+    except ConnectionError as conn_err:
+        print(f'Error de conexión: {conn_err}')
+        return make_response(jsonify({'resultado': 'ERROR_CONEXION', 'detalle': str(conn_err)}), 500)
+
+    except Exception as e:
+        print(f'Error general: {e}')
+        return make_response(jsonify({'resultado': 'ERROR_GENERAL', 'detalle': str(e)}), 500)
+
+@app.route('/transmitir_datos_courier_servientrega', methods = ['POST'])
+def transmitir_datos_courier_servientrega():
+  print ("################ RECIBIR BUSCAR GUIA COURIER  ##############")
+  datos = request.json
+  print (datos)
+
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  sql = """
+    SELECT 
+    codemp,idtrans,tipo_producto,fecha,codvhi,nomremitente,rucremitente,codciudadrem,dirrem,tlfcelrem,
+    rucdestinatario,codciudaddest,nomdestinatario,dirdest,tlfceldest,numfac,
+    codtipoServicio,nopiezas,peso,valorDeclarado,contenido,comentario,tracking,status
+    FROM guias_courier
+    where numfac = '{}' and codemp='{}'
+	""".format(datos['numfac'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  print (r)
+  
+
+  nomremitente = r[5]
+  rucremitente = r[6]
+  codciudadrem = r[7]
+  dirrem = r[8]
+  tlfcelrem = r[9]
+  rucdestinatario = r[10]
+  codciudaddest = r[11]
+  nomdestinatario = r[12]
+  dirdest= r[13]
+  tlfceldest = r[14]
+  numfac = r[15]
+  codtipoServicio = r[16]
+  nopiezas = r[17]
+  peso= r[18]
+  valorDeclarado = r[19]
+  contenido = r[20]
+  comentario = r[21]
+
+  #https://api.laarcourier.com:9727/authenticate
+  url='https://181.39.87.158:8021'
+  #resultado_token = TOKEN_AUTH(url)
+  #print (resultado_token)
+  resultado_envio = ENVIAR_GUIA_SERV(url,
+  comentario,codciudadrem,codciudaddest,rucdestinatario,nomdestinatario,dirdest,tlfceldest,rucremitente,nomremitente,dirrem,tlfcelrem,
+  codtipoServicio,contenido,nopiezas,valorDeclarado,peso
+  )
+  print (resultado_envio)
+  try:
+     status ='EXITOSO'
+     tracking = resultado_envio['id']
+     PDF_BASE_64 = GENERAR_PDF_SERVIENTREGA(tracking)
+     href_guia_courier = 'https://www.servientrega.com.ec/Tracking/?guia='+str(tracking)+'&tipo=GUIA'
+     link_guia_pdf = "https://181.39.87.158:7777/api/GuiaDigital/["+str(tracking)+",''logistic.jettali'',''123456'']"
+     print (link_guia_pdf) 
+     sql = """update guias_courier set status='{}',
+     tracking='{}',link_guia_pdf='{}', link_guia_courier='{}', pdf_serv='{}' where 
+     codemp='{}' and numfac='{}' 
+     """.format(status,tracking,link_guia_pdf,href_guia_courier,PDF_BASE_64,datos['codemp'],datos['numfac']) 
+  except Exception as e:
+     print (str(e))
+     status ='FALLIDO'
+     sql = """update guias_courier set status='{}'
+     where codemp='{}' and numfac='{}' 
+     """.format(status,datos['codemp'],datos['numfac']) 
+
+  curs = conn.cursor()
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+
+  d = {'resultado':'exitoso'}   
+  print (d)	
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+
+  conn.close()
+  return(response)
+
+
+
+@app.route("/uploadFile_paquete_cliente", methods=['POST'])
+def uploadFile_paquete_cliente():
+ if request.method == 'POST':
+  # obtenemos el archivo del input "archivo"
+  datos = request
+  print (request)
+  print (request.form)
+  print (request.form["dir"])
+  id_pedido_ruta = request.form["dir"][3:]
+  codemp = request.form["dir"][:2]
+  print (id_pedido_ruta)
+  print (codemp)
+  print (request.files)
+  print (request.files['uploads'])
+
+  f = request.files['uploads']
+  filename = secure_filename(f.filename)
+  directorio = request.form["dir"]
+  
+  # Guardamos el archivo en el directorio "Archivos PDF"
+  
+  if not (os.path.isdir(app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+directorio)):
+     os.mkdir(app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+directorio)
+  f.save(os.path.join(app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+directorio, filename))
+  
+
+  
+   
+  
+  result = {'resultado': 'Archivo subido exitosamente'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route("/uploadFile_paquete_jetta", methods=['POST'])
+def uploadFile_paquete_jetta():
+ if request.method == 'POST':
+  # obtenemos el archivo del input "archivo"
+  datos = request
+  print (request)
+  print (request.form)
+  print (request.form["dir"])
+  id_pedido_ruta = request.form["dir"][3:]
+  codemp = request.form["dir"][:2]
+  print (id_pedido_ruta)
+  print (codemp)
+  print (request.files)
+  print (request.files['uploads'])
+  
+  f = request.files['uploads']
+  filename = secure_filename(f.filename)
+  directorio = request.form["dir"]
+  
+  
+  # Guardamos el archivo en el directorio "Archivos PDF"
+  
+  if not (os.path.isdir(app.config['UPLOAD_FOLDER_ENVIO_JETTA']+'\\'+directorio)):
+     os.mkdir(app.config['UPLOAD_FOLDER_ENVIO_JETTA']+'\\'+directorio)
+  f.save(os.path.join(app.config['UPLOAD_FOLDER_ENVIO_JETTA']+'\\'+directorio, filename))
+   
+  
+  result = {'resultado': 'Archivo subido exitosamente'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route("/lista_paquete_cliente", methods=['POST'])
+def lista_paquete_cliente():
+  datos = request.json
+  directorio = datos['dir']
+  campos = ['nombre', 'src']
+  arr_img = []
+  print ("#### FOTOS PAQUETE CLIENTE ####")
+  print (datos)
+  print (app.config['UPLOAD_FOLDER_ENVIO_CLIENTE'])
+  print (directorio)
+  
+          # if ((not recv) or (not (recv['result']['code'] in ['000.100.110', '000.100.112', '000.000.000']))):
+  extensions = ("*.png","*.jpg","*.jpeg",)
+  # for f in glob.glob(app.config['UPLOAD_FOLDER']+'\\'+directorio+'\\*'):
+  for extension in extensions:
+     for f in glob.glob(app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+directorio+'\\'+extension):
+         print (f)
+         arr_path_img = f.split('\\')
+         img_name = arr_path_img[-1]
+         img = (img_name,'assets/img_envio_cliente/'+directorio+'/'+img_name)
+         # print (f)
+         # print (img_name)
+         a = dict(zip(campos, img))
+         arr_img.append(a)
+  # print (arr_img)
+	  
+  # result = {'resultado': 'imagenes'} 
+  response = make_response(dumps(arr_img, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+  
+@app.route("/lista_paquete_jetta", methods=['POST'])
+def lista_paquete_jetta():
+  datos = request.json
+  directorio = datos['dir']
+  campos = ['nombre', 'src']
+  arr_img = []
+  print ("#### FOTOS PAQUETE CLIENTE ####")
+  print (datos)
+  print (directorio)
+  print (app.config['UPLOAD_FOLDER_ENVIO_JETTA'])
+  
+          # if ((not recv) or (not (recv['result']['code'] in ['000.100.110', '000.100.112', '000.000.000']))):
+  extensions = ("*.png","*.jpg","*.jpeg",)
+  # for f in glob.glob(app.config['UPLOAD_FOLDER']+'\\'+directorio+'\\*'):
+  for extension in extensions:
+     for f in glob.glob(app.config['UPLOAD_FOLDER_ENVIO_JETTA']+'\\'+directorio+'\\'+extension):
+         print (f)
+         arr_path_img = f.split('\\')
+         img_name = arr_path_img[-1]
+         img = (img_name,'assets/img_envio_jetta/'+directorio+'/'+img_name)
+         # print (f)
+         # print (img_name)
+         a = dict(zip(campos, img))
+         arr_img.append(a)
+  # print (arr_img)
+	  
+  # result = {'resultado': 'imagenes'} 
+  response = make_response(dumps(arr_img, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route("/eliminar_imagen_paquete_cliente", methods=['POST'])
+def eliminar_imagen_paquete_cliente():
+  datos = request.json
+  
+  print ("###### DATOS DE IMAGEN PAQUETE CLIENTE A ELIMINAR ######")
+  print (datos)
+  try:
+    f = app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+datos['dir']+'\\'+datos['nombre']
+    os.remove(f)
+    r = {'STATUS':'ELIMINADO CON EXITO'}
+  except Exception as e:
+    print (str(e))
+    r = {'STATUS':'ELIMINACION FALLIDA'}
+
+  response = make_response(dumps(r, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route("/eliminar_imagen_paquete_jetta", methods=['POST'])
+def eliminar_imagen_paquete_jetta():
+  datos = request.json
+  
+  print ("###### DATOS DE IMAGEN PAQUETE CLIENTE A ELIMINAR ######")
+  print (datos)
+  try:
+    f = app.config['UPLOAD_FOLDER_ENVIO_JETTA']+'\\'+datos['dir']+'\\'+datos['nombre']
+    os.remove(f)
+    r = {'STATUS':'ELIMINADO CON EXITO'}
+  except Exception as e:
+    print (str(e))
+    r = {'STATUS':'ELIMINACION FALLIDA'}
+
+  response = make_response(dumps(r, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route('/guia_sig', methods=['GET'])
+def guia_sig():
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  #campos = ['guia', 'poriva']
+  print ("EJECUTO EL QUERY SIGUIENTE GUIA PARA FOTO")
+  #conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  #curs = conn.cursor()
+
+  #sql = """
+  #select max(idtrans)+1 from guias_courier
+  #""".format()
+  #curs.execute(sql)
+  #r = curs.fetchone()
+  
+  idtrans_sig = random.randint(100000, 999999)
+
+  print("CERRANDO SESION SIACI")
+  guia_siguiente = {"guia_sig":str(idtrans_sig)}
+  curs.close()
+  conn.close()
+  response = make_response(dumps(guia_siguiente, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+@app.route('/cambio_carpeta_fotos_cliente', methods=['POST'])
+def cambio_carpeta_fotos_cliente():
+
+  datos = request.json  
+  print ("###### DATOS DE IMAGEN PAQUETE CLIENTE A ELIMINAR ######")
+  print (datos)
+  dir_temp=datos['codemp']+'_'+datos['guia_ramdom']
+  dir_nuevo= datos['codemp']+'_'+datos['numtra_nuevo']
+
+  #app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+datos['dir']+'\\'+datos['nombre']
+
+  ruta_actual = app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+dir_temp
+  ruta_nueva = app.config['UPLOAD_FOLDER_ENVIO_CLIENTE']+'\\'+dir_nuevo
+
+  try:
+      os.rename(ruta_actual, ruta_nueva)
+      print(f"Carpeta renombrada de '{nombre_actual}' a '{nombre_nuevo}'")
+  except Exception as e:
+      print(f"Error al renombrar la carpeta: {e}")
+
+  guia_siguiente = {"STATUS":"EXITOSO"}
+
+  response = make_response(dumps(guia_siguiente, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+
+
+
+#########################################################FIN DEL MODULO DE ENVIOS COURIER ######################################################################
+    
+
+  
 @app.route('/regenerar_pdf', methods = ['POST'])
 def regenerar_pdf():
   datos = request.json
@@ -3537,6 +5102,84 @@ def lista_ventas_pdv():
        urlfile = datos['api_url'] + '/pdf_file/'+datos['codemp']+'_'
        pdf = urlfile + r[15] + '.pdf'
        r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],pdf,r[18],r[19],r[20],ticket_file,r[22],r[23])
+    d = dict(zip(campos, r_salida))
+    # print (d)
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+  # print (arrresp)
+
+  return (jsonify(arrresp))
+
+
+@app.route('/lista_envios_courier', methods = ['POST'])
+def lista_envios_courier():
+  datos = request.json
+  print ('ENTRADAAAAA')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+ 
+  campos = ['faccli', 'codcli','fecfac','codalm','codusu','totfac','nomcli','caja','tiptar',
+  'tipche','tipefe','serie','turno','nomalm','nomcaj','auth','status','conpag','pdf','numfac',
+  'descripcionerror','tiptrans','ticket','factok','numplaca','link_guia_pdf','tracking',
+  'link_guia_courier','nomdestinatario','nomvhi']
+  
+  if datos['tipacc'] == 'P':
+     sql = """ SELECT pv.faccli,pv.codcli,pv.fecfac,pv.codalm,pv.codusu,pv.totfac,pv.nomcli,pv.numcaj,pv.tiptar,pv.tipche,pv.tipefe,pv.serie,pv.turno,
+     (select nomalm from almacenes a1 where a1.codalm=pv.codalm and a1.codemp=pv.codemp),
+     (select nomcaj from cajapuntoventa c where c.numcaj=pv.numcaj and c.codemp=pv.codemp),
+     (select f.autorizacionsri from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp) as auth,
+     (select f.estadodocumento from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
+     pv.conpag,pv.numfac,
+     (select f.descripcionerror from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
+     pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.pdf' as ticket_url, pv.factok, pv.numplaca, gc.link_guia_pdf, gc.tracking, gc.link_guia_courier,gc.nomdestinatario
+     ,(select v.nomvhi from vehiculos v where v.codvhi = gc.codvhi and v.codemp=pv.codemp) as nomvhi
+     FROM encabezadopuntosventa pv, guias_courier gc
+     where pv.codalm = '{}' and pv.codemp='{}'
+     and pv.fecfac between '{}' and '{}'
+     and gc.codemp = pv.codemp and gc.numfac=pv.numfac
+     ---and totfac <> 0  
+     and pv.codusu = '{}'
+     order by pv.numfac desc
+    """.format(datos['codalm'],datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'],datos['usuario'])
+  else:
+      sql = """ SELECT pv.faccli,pv.codcli,pv.fecfac,pv.codalm,pv.codusu,pv.totfac,pv.nomcli,pv.numcaj,pv.tiptar,pv.tipche,pv.tipefe,pv.serie,pv.turno,
+     (select nomalm from almacenes a1 where a1.codalm=pv.codalm and a1.codemp=pv.codemp),
+     (select nomcaj from cajapuntoventa c where c.numcaj=pv.numcaj and c.codemp=pv.codemp),
+     (select f.autorizacionsri from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp) as auth,
+     (select f.estadodocumento from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
+     pv.conpag,pv.numfac,
+     (select f.descripcionerror from factura_electronica f where f.idfactura=pv.serie||pv.numfac and tipo_origen = 'PV' and f.empresa=pv.codemp),
+     pv.tiptrans,'ticket_'||pv.codemp||'_'||pv.numfac||'.pdf' as ticket_url, pv.factok, pv.numplaca, gc.link_guia_pdf, gc.tracking, gc.link_guia_courier,gc.nomdestinatario
+     ,(select v.nomvhi from vehiculos v where v.codvhi = gc.codvhi and v.codemp=pv.codemp) as nomvhi
+     FROM encabezadopuntosventa pv, guias_courier gc
+     where pv.codalm = '{}' and pv.codemp='{}'
+     and pv.fecfac between '{}' and '{}'
+     and gc.codemp = pv.codemp and gc.numfac=pv.numfac
+     ---and totfac <> 0  
+     order by pv.numfac desc
+    """.format(datos['codalm'],datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
+  
+  print (sql)
+  curs.execute(sql)
+
+  regs = curs.fetchall()
+  arrresp = []
+   # print (regs)
+  for r in regs:
+    # print (r)
+    # print (r[15])
+    # urlfile = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/images/'
+    ticket_file= datos['api_url'] + '/ticket/'+r[21]
+    r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],'no_existe_auth',r[18],r[19],r[20],ticket_file,r[22],r[23],r[24],r[25],r[26],r[27],r[28])
+    if (r[15]):
+       urlfile = datos['api_url'] + '/pdf_file/'+datos['codemp']+'_'
+       pdf = urlfile + r[15] + '.pdf'
+       r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],pdf,r[18],r[19],r[20],ticket_file,r[22],r[23],r[24],r[25],r[26],r[27],r[28])
     d = dict(zip(campos, r_salida))
     # print (d)
     arrresp.append(d)
@@ -9175,6 +10818,10 @@ def busqueda_pedido_razonsocial():
   response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+
+
+
+
   
 
 
