@@ -236,6 +236,7 @@
         <ul class="treeview-menu">
           <li class="active" (click)="ocultar_menu_moviles()"><a routerLink="crear_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Crear Cliente</a></li>
 		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="consulta_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Consultar/Modif Cliente</a></li>
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="cobro_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Cobros</a></li>
           <!-- <li><a routerLink="dashboard2"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
 		  <!-- <li><a routerLink="dashboard3"><i class="fa fa-circle-o"></i> Dashboard v3</a></li> -->
         </ul>
@@ -320,6 +321,8 @@
             </span>
           </a>
         <ul class="treeview-menu">
+		<li (click)="ocultar_menu_moviles()"><a  routerLink="taller_recepcion" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de recepción</a></li>
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_recepciones" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de recepciones</a></li>
 		<li (click)="ocultar_menu_moviles()"><a  routerLink="taller_orden" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li>
 		<!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/admin/taller_orden', tokenid]" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li> -->
 		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_ordenes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de ordenes</a></li>

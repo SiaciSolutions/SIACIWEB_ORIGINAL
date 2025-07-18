@@ -39,16 +39,16 @@ declare const $: any;
 
 export class AdminOrdenTallerComponent implements OnInit {
 	
-	  public isRecording: boolean = false;
-  private chunks: any = [];
-  private mediaRecorder: any;
+	public isRecording: boolean = false;
+    private chunks: any = [];
+    private mediaRecorder: any;
 	// mediaRecorder:any;
 	// chunks = [];
 	
 	  parametros: {usuario: string, empresa: string};
 	
-	 myControl = new FormControl();
-	 myControl2 = new FormControl();
+	myControl = new FormControl();
+	myControl2 = new FormControl();
 	filteredOptions: Observable<string[]>;
 	filteredarticulo: Observable<string[]>;
 	public clientes : boolean;
@@ -78,6 +78,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	public lista_surcursales
 	public change_iva = false
 	public tipo_busqueda : boolean;
+	setTab(isArticulo: boolean) {
+		this.tipo_busqueda = isArticulo;
+	  }
 	public check_agencia
 	public val_exist_ppal:boolean
 	public val_exist_sucursal:boolean
@@ -129,6 +132,10 @@ export class AdminOrdenTallerComponent implements OnInit {
 	articulos_pedido: any = []
 	// #### PARA MARCAR LA EDICION DEL PRECIO DEL ARTICULO
 	public edit_articulos
+
+	filtroCliente: string = '';
+	//truco
+	ordenes: any = [];
 	
 	
 	@ViewChild('datos_orden') datos_orden: ElementRef;
@@ -190,7 +197,7 @@ export class AdminOrdenTallerComponent implements OnInit {
   
  public status_lista = [
 			{"status": "I", "status_nombre": "INICIADA"},
-			{"status": "P", "status_nombre": "EMITIDO"}
+			{"status": "P", "status_nombre": "POR EGRESAR"}
 		];
   status = 'I'
 
@@ -213,8 +220,13 @@ export class AdminOrdenTallerComponent implements OnInit {
   audios
   /////// FIN VARIABLES SUBIDAS DE FOTOS///////////
   ///////INICIO VARIABLES PARA ACTUALIZAR ORDEN///////////
+  lista_pedidos_tabla
   numtra
+  numtraRecepcion
+  tiptra
   fecult_new
+
+  importarRecepcion = false
   
    ///////DETALLE VEHICULO///////////
 	antena = false
@@ -242,6 +254,15 @@ export class AdminOrdenTallerComponent implements OnInit {
 	triangulos = false
 	alogenos = false
 	pantalla_radio = false
+	//Moto
+	herramientasM = false
+	casco = false
+	cobertor = false
+	maletero = false
+	candado = false
+	luces = false
+	espejosr = false
+	guantes = false
 ///////FIN DETALLE VEHICULO///////////
 
    ///////DATOS VEHICULO///////////
@@ -323,6 +344,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		this.usuario = params['usuario'] || this.route.snapshot.paramMap.get('usuario') || 0;
 		this.empresa = params['empresa'] || this.route.snapshot.paramMap.get('empresa') || 0;
 		this.numtra = params['numtra'] || this.route.snapshot.paramMap.get('numtra') || 0;
+		this.tiptra = params['tiptra'] || this.route.snapshot.paramMap.get('tiptra') || 0;
 		console.log("LUEGO DE ENTRADA")
 		if (this.numtra == 0){
 			this.reload_orden_nueva()
@@ -394,16 +416,53 @@ export class AdminOrdenTallerComponent implements OnInit {
  
   }//FIN CONSTRUCTOR
   
+  abrirModal() {
+    $('#modalOrdenes').modal('show'); // Abre el modal con Bootstrap
+  }
+
+  seleccionarRecepcion(numtra, tiptra){
+	this.numtra = numtra;
+	this.numtraRecepcion= numtra;
+	this.tiptra = tiptra;
+	this.importarRecepcion = true;
+	this.reload_orden();
+	setTimeout(() => {	
+		this.numtra = undefined;
+		this.tiptra = '7';
+		this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
+	}, 3000);
+	$('#modalOrdenes').modal('hide');
+  }
+  
+
+  ordenesFiltradas() {
+	if (!this.filtroCliente) {
+	  return this.ordenes;
+	}
+	return this.ordenes.filter(orden =>
+	  orden.cliente.toLowerCase().includes(this.filtroCliente.toLowerCase())
+	);
+  }
+
 
    ngOnInit() {
-   
-     
-	   
-	   
 
-	   
-	   
-	   
+	const datos = {};
+	datos['codemp'] = this.empresa;	
+	datos['usuario'] = this.usuario;
+	datos['tipacc'] = this.srv.getTipacc()
+	datos['tipo'] = 'RO'
+	this.srv.lista_ordenes(datos).subscribe(
+		data => {
+			// if (data){
+				// this.loading = false;
+			// }
+			console.log(data)
+			console.log ("EJECUTADA DATA")
+			 this.ordenes = data
+			 // this.buildDtOptions(this.lista_pedidos)
+		 });    
+
 		AdminLTE.init();
 	}
 	
@@ -548,6 +607,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	let datos = {};
 	datos['codemp'] = this.empresa;
 	datos['usuario'] = this.usuario;
+	datos['tiptra'] = this.tiptra;
 	console.log (datos)
 		//Variables originales  
 	  this.tipo_busqueda = true
@@ -570,7 +630,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	  
 	  
 	this.srv.vendedores(datos).subscribe(
-	   data => {
+	   data => {	
 		   console.log("OBTENIENDO VENDEDORES")
 		   console.log(data)
 		   this.vendedores_lista = data
@@ -593,12 +653,13 @@ export class AdminOrdenTallerComponent implements OnInit {
 	datos['usuario'] = this.usuario;
 	this.buscar_encabezado_orden(datos);
 	// this.buscar_renglones_orden(datos);
-	this.lista_imagenes();
-	this.lista_audios();
-	this.get_detalle_vehiculo();
-	this.get_datos_vehiculo();
-	this.tab_habilitar_datos_orden=true
-	
+	setTimeout(() => {
+		this.lista_imagenes();
+		this.lista_audios();
+		this.get_detalle_vehiculo();
+		this.get_datos_vehiculo();
+		this.tab_habilitar_datos_orden=true
+	  }, 3000);
 		
 	this.srv.paises(datos).subscribe(
 	   data => {
@@ -671,6 +732,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		datos['numtra'] = this.numtra;	
 		datos['usuario'] = this.usuario;
 		datos['codemp'] = this.empresa;
+		datos['tiptra'] = this.tiptra;
 		
 		this.buscar_renglones_orden(datos);
 		
@@ -1800,8 +1862,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 
    generar_pedido() {
-
- 
 	// ### Obtener fecha de día de mañana para validacion
 	var newdate = new Date();
 	newdate.setDate(newdate.getDate() +1 ); //
@@ -1828,7 +1888,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 let encabezado_pedido= this.dato_cliente
 	 encabezado_pedido['codus1'] = this.usuario;
 	 encabezado_pedido['codemp'] = this.empresa;
-	 encabezado_pedido['tiptra'] = 7
 	 
 	if (this.fectra == this.jstoday){
 		encabezado_pedido['fectra'] = this.fectra
@@ -1842,7 +1901,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 encabezado_pedido['observ']  = this.observacion_pedido
 	 encabezado_pedido['estado']  = 'I'
 	 encabezado_pedido['cod_secuencia']  = 'VC_ORT' 
-	 encabezado_pedido['tiptra']  = '7'
+	 encabezado_pedido['tiptra']  = this.tiptra
 	 encabezado_pedido['tipo_orden']  = this.tipo_orden
 	 
 	 if (this.srv.getTipoRutaTalleres() == 'SI'){
@@ -1870,7 +1929,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 	console.log("ENTRO A GENERAR EL PEDIDO")
 	this.srv.generar_pedido(encabezado_pedido).subscribe(
+		
 		data => {
+			console.log('AQUIII', this.numtraRecepcion)
 			status_encabezado= data['status']
 			numtra= data['numtra']
 			console.log(data)
@@ -1906,31 +1967,28 @@ export class AdminOrdenTallerComponent implements OnInit {
 								contador_proceso++
 								console.log(contador_proceso)
 								  let datos = {};
-								  // datos['usuario'] = this.usuario;
-								  // datos['empresa'] = this.empresa;
-								  // datos['pedido'] = 'success'
-								  // console.log(datos)
-								    // if (contador_proceso == longitud_renglones){
-														
-									//###### SE VALIDA SI ESTA CONFIGURADO EL ENVIO DE CORREO DE LOS PEDIDOS  ########
+								
 										if (this.srv.getConfCorreoPedCli() == 'SI'){
 											this.correo_pedido(numtra,this.email_cliente)
 										}
 										
 										alert ("ORDEN DE TRABAJO GUARDADA EXITOSAMENTE....!!!!")
-										// this.ngOnInit();
+
 										
-										// this.router.navigate(['/admin/lista_ordenes', datos]);
-										
-										
-										// let datos = {}
 										datos['numtra'] = numtra;	
 										datos['usuario'] = this.usuario;
 										datos['empresa'] = this.empresa;
+										datos['tiptra'] = '7';
 										datos['pedido'] = 'success'
-										
+										this.numtra = numtra;
+										if(this.importarRecepcion){
+											this.guardar_datos_vehiculo();
+											this.guardar_detalle_vehiculo();
+											this.importarImagenRecepcion(this.numtraRecepcion, this.numtra, this.empresa);
+										}
+
+										this.importarRecepcion = false
 										this.router.navigate(['/admin/taller_orden', datos]);
-										
 									// }
 
 								},
@@ -1965,7 +2023,27 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 
 	
+	importarImagenRecepcion(numtraR, numtra, codemp){
+		let datos = {};
+		datos['dir'] = codemp+'_'+ numtra
+		datos['codemp'] = codemp
+		datos['numtraR'] = numtraR
+
+		this.srv.rotarRecepcionOrden(datos).subscribe(
+			data => {
+				console.log(data)
+		});
+
+	}
+
 	
+	
+	  // Función para obtener el total general (subtotal + IVA)
+	  getTotalTotal(): number {
+		return this.articulos_pedido
+		  .filter(el => !el.codart.startsWith('\\')) // Filtra los artículos que no empiezan con '\'
+		  .reduce((acc, el) => acc + (el.subtotal_art + el.precio_iva), 0); // Suma los totales (subtotal + IVA)
+	  }
 	
    actualizar_pedido() { 
 		console.log ("ACTUALIZAR PEDIDO")
@@ -1987,6 +2065,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 encabezado_pedido['codemp'] = this.empresa;
 	 encabezado_pedido['fecult'] = this.fecult_new
 	  encabezado_pedido['codven'] = this.vendedor
+	  encabezado_pedido['tiptra'] = '7'
 
 	 // if (this.edit_fecha_creacion){
 		 // encabezado_pedido['fectra'] = formatDate(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500')
@@ -2042,6 +2121,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 						renglones_pedido['fechahistorica'] = fectra_format
 						renglones_pedido['horahistorica'] = this.hora_ingreso
 						renglones_pedido['codagencia'] = this.srv.getCodAgencia();
+						renglones_pedido['tiptra'] = '7';
 						
 						if (renglones_pedido['codart'].indexOf("\\") != -1) { //if hay / en el codigo de articulo
 							renglones_pedido['numite']= numite++
@@ -2156,10 +2236,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	  this.tipo_orden = 'P'
 	  this.ruta = 'T'
 	  this.status = undefined
-	  this.nivel_combustible = 0
-
-
-	
+	  this.nivel_combustible = 0	
 
 	}//FIN ENVIO CORREO PEDIDO
 	
@@ -2173,15 +2250,29 @@ export class AdminOrdenTallerComponent implements OnInit {
 		
 		let datos_img= {}
 		datos_img['dir'] = this.empresa+'_'+this.numtra
-	  this.srv.lista_img(datos_img).subscribe(
-	  data => {
-		console.log ("#######  LISTA DE FOTOS   ##########")
-		  console.log(data)
-		  this.fotos = data
 
-	  }
-
-	  );
+		console.log('Este es el tiptra que nos interesa', this.tiptra)
+		if(this.tiptra == 'R'){
+			this.srv.lista_imgR(datos_img).subscribe(
+				data => {
+				  console.log ("#######  LISTA DE FOTOS   ##########")
+					console.log(data)
+					this.fotos = data
+		  
+				}
+		  
+			);
+		}else{
+			this.srv.lista_img(datos_img).subscribe(
+				data => {
+				  console.log ("#######  LISTA DE FOTOS   ##########")
+					console.log(data)
+					this.fotos = data
+		  
+				}
+		  
+			);
+		}
   }
   
   	lista_audios() {
@@ -2403,6 +2494,14 @@ export class AdminOrdenTallerComponent implements OnInit {
 	this.triangulos = false
 	this.alogenos = false
 	this.pantalla_radio = false
+	this.herramientasM = false
+	this.casco = false
+	this.cobertor = false
+	this.maletero = false
+	this.candado = false
+	this.luces = false
+	this.espejosr = false
+	this.guantes = false
 ///////FIN DETALLE VEHICULO///////////
 		
 		
@@ -2414,7 +2513,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		let datos = {};
 		datos['codemp'] = this.empresa;
 		datos['numtra'] = this.numtra;
-		
+		datos['tiptra'] = this.tiptra;
 	
 		
 		
@@ -2422,31 +2521,40 @@ export class AdminOrdenTallerComponent implements OnInit {
 		this.srv.get_detalle_vehiculo(datos).subscribe((data)=> {
       console.log( data);
 	  // this.antena = true ?
-	  data['antena'] == 1 ? this.antena = true : this.antena = false
-	  data['llave_ruedas'] == 1 ? this.llave_rueda = true : this.llave_rueda = false
-	  data['gata'] == 1 ? this.gata = true : this.gata = false
-	  data['tapagas'] == 1 ? this.tapagas = true : this.tapagas = false
-	  data['matricula'] == 1 ? this.matricula = true : this.matricula = false
-	  data['encendedor'] == 1 ? this.encendedor = true : this.encendedor = false 
-	  data['plumas'] == 1 ? this.plumas = true : this.plumas = false 
-	  data['botiquin'] == 1 ? this.botiquin = true : this.botiquin = false 
-	  data['cubresol'] == 1 ? this.cubresol = true : this.cubresol = false 
-	  data['llanta'] == 1 ? this.llanta = true : this.llanta = false 
-	  data['espejos'] == 1 ? this.espejos = true : this.espejos = false 
-	  data['compac'] == 1 ? this.compac = true : this.compac = false 
-	  data['alarma'] == 1 ? this.alarma = true : this.alarma = false 
-	  data['radio'] == 1 ? this.radio = true : this.radio = false 
-	  data['herram'] == 1 ? this.herramientas = true : this.herramientas = false 
-	  data['combustible'] == 1 ? this.combustible = true : this.combustible = false 
-	  data['tapacubos'] == 1 ? this.tapacubos = true : this.tapacubos = false 
-	  data['moquetas'] == 1 ? this.moquetas = true : this.moquetas = false 
-	  data['extinguidor'] == 1 ? this.extinguidor = true : this.extinguidor = false 
-	  data['triangulos'] == 1 ? this.triangulos = true : this.triangulos = false 
-	  data['alogenos'] == 1 ? this.alogenos = true : this.alogenos = false 
-	  data['pantallaradio'] == 1 ? this.pantalla_radio = true : this.pantalla_radio = false 
-	  data['seguro_aros'] == 1 ? this.tuerca = true : this.tuerca = false 
-	  data['signos'] == 1 ? this.emblemas = true : this.emblemas = false
-	  data['controlpuerta'] == 1 ? this.cont_puerta = true : this.cont_puerta = false 	  
+		data['antena'] == 1 ? this.antena = true : this.antena = false
+		data['llave_ruedas'] == 1 ? this.llave_rueda = true : this.llave_rueda = false
+		data['gata'] == 1 ? this.gata = true : this.gata = false
+		data['tapagas'] == 1 ? this.tapagas = true : this.tapagas = false
+		data['matricula'] == 1 ? this.matricula = true : this.matricula = false
+		data['encendedor'] == 1 ? this.encendedor = true : this.encendedor = false 
+		data['plumas'] == 1 ? this.plumas = true : this.plumas = false 
+		data['botiquin'] == 1 ? this.botiquin = true : this.botiquin = false 
+		data['cubresol'] == 1 ? this.cubresol = true : this.cubresol = false 
+		data['llanta'] == 1 ? this.llanta = true : this.llanta = false 
+		data['espejos'] == 1 ? this.espejos = true : this.espejos = false 
+		data['compac'] == 1 ? this.compac = true : this.compac = false 
+		data['alarma'] == 1 ? this.alarma = true : this.alarma = false 
+		data['radio'] == 1 ? this.radio = true : this.radio = false 
+		data['herram'] == 1 ? this.herramientas = true : this.herramientas = false 
+		data['combustible'] == 1 ? this.combustible = true : this.combustible = false 
+		data['tapacubos'] == 1 ? this.tapacubos = true : this.tapacubos = false 
+		data['moquetas'] == 1 ? this.moquetas = true : this.moquetas = false 
+		data['extinguidor'] == 1 ? this.extinguidor = true : this.extinguidor = false 
+		data['triangulos'] == 1 ? this.triangulos = true : this.triangulos = false 
+		data['alogenos'] == 1 ? this.alogenos = true : this.alogenos = false 
+		data['pantallaradio'] == 1 ? this.pantalla_radio = true : this.pantalla_radio = false 
+		data['seguro_aros'] == 1 ? this.tuerca = true : this.tuerca = false 
+		data['signos'] == 1 ? this.emblemas = true : this.emblemas = false
+		data['controlpuerta'] == 1 ? this.cont_puerta = true : this.cont_puerta = false 
+		data['herramientasM'] == 1 ? this.herramientasM = true : this.herramientasM = false 
+		data['casco'] == 1 ? this.casco = true : this.casco = false 
+		data['cobertor'] == 1 ? this.cobertor = true : this.cobertor = false 
+		data['maletero'] == 1 ? this.maletero = true : this.maletero = false 
+		data['candado'] == 1 ? this.candado = true : this.candado = false 
+		data['luces'] == 1 ? this.luces = true : this.luces = false 
+		data['espejosr'] == 1 ? this.espejosr = true : this.espejosr = false
+		data['guantes'] == 1 ? this.guantes = true : this.guantes = false 
+	   
 	   // console.log(res['resultado']);
 
 	  // if (res['resultado'] == 'Archivo subido exitosamente'){
@@ -2460,33 +2568,80 @@ export class AdminOrdenTallerComponent implements OnInit {
 	guardar_detalle_vehiculo(){
 	
 		let datos = {};
-		datos['antena']  = this.antena;
-		datos['llave_ruedas']  = this.llave_rueda;
-		datos['gata']  = this.gata;
-		datos['tapagas']  = this.tapagas;
-		datos['matricula']  = this.matricula;
-		datos['encendedor']  = this.encendedor;
-		datos['plumas']  = this.plumas;
-		datos['botiquin'] = this.botiquin;
-		datos['cubresol'] = this.cubresol;
-		datos['llanta'] = this.llanta;
-		datos['espejos'] = this.espejos;
-		datos['compac'] = this.compac;
-		datos['alarma'] = this.alarma;
-		datos['radio'] = this.radio;
-		datos['herram'] = this.herramientas;
-		datos['combustible'] = this.combustible;
-		datos['tapacubos']	= this.tapacubos;
-		datos['moquetas'] =  this.moquetas;
-		datos['extinguidor'] =	this.extinguidor;
-		datos['triangulos'] = this.triangulos;
-		datos['alogenos'] =	this.alogenos;
-		datos['pantallaradio'] = this.pantalla_radio;
-		datos['seguro_aros'] = this.tuerca ;
-		datos['signos'] = this.emblemas;
-		datos['controlpuerta'] = this.cont_puerta;
+		datos['tiptra'] = '7';
 		datos['codemp'] = this.empresa;
 		datos['numtra'] = this.numtra;
+		if (this.clase == 'A'){
+			datos['antena']  = this.antena;
+			datos['llave_ruedas']  = this.llave_rueda;
+			datos['gata']  = this.gata;
+			datos['tapagas']  = this.tapagas;
+			datos['matricula']  = this.matricula;
+			datos['encendedor']  = this.encendedor;
+			datos['plumas']  = this.plumas;
+			datos['botiquin'] = this.botiquin;
+			datos['cubresol'] = this.cubresol;
+			datos['llanta'] = this.llanta;
+			datos['espejos'] = this.espejos;
+			datos['compac'] = this.compac;
+			datos['alarma'] = this.alarma;
+			datos['radio'] = this.radio;
+			datos['herram'] = this.herramientas;
+			datos['combustible'] = this.combustible;
+			datos['tapacubos']	= this.tapacubos;
+			datos['moquetas'] =  this.moquetas;
+			datos['extinguidor'] =	this.extinguidor;
+			datos['triangulos'] = this.triangulos;
+			datos['alogenos'] =	this.alogenos;
+			datos['pantallaradio'] = this.pantalla_radio;
+			datos['seguro_aros'] = this.tuerca ;
+			datos['signos'] = this.emblemas;
+			datos['controlpuerta'] = this.cont_puerta;
+			datos['herramientasM'] = false;
+			datos['casco'] = false;
+			datos['cobertor'] = false;
+			datos['maletero'] = false;
+			datos['candado'] = false;
+			datos['luces'] = false;
+			datos['espejosr'] = false;
+			datos['guantes'] = false;
+		}
+		
+		if(this.clase == 'M'){
+			datos['antena']  = false;
+			datos['llave_ruedas']  = false;
+			datos['gata']  = false;
+			datos['tapagas']  = false;
+			datos['matricula']  = false;
+			datos['encendedor']  = false;
+			datos['plumas']  = false;
+			datos['botiquin'] = false;
+			datos['cubresol'] = false;
+			datos['llanta'] = false;
+			datos['espejos'] = false;
+			datos['compac'] = false;
+			datos['alarma'] = false;
+			datos['radio'] = false;
+			datos['herram'] = false;
+			datos['combustible'] = false;
+			datos['tapacubos']	= false;
+			datos['moquetas'] =  false;
+			datos['extinguidor'] =	false;
+			datos['triangulos'] = false;
+			datos['alogenos'] =	false;
+			datos['pantallaradio'] = false;
+			datos['seguro_aros'] = false;
+			datos['signos'] = false;
+			datos['controlpuerta'] = false;
+			datos['herramientasM'] = this.herramientasM;
+			datos['casco'] = this.casco;
+			datos['cobertor'] = this.cobertor;
+			datos['maletero'] = this.maletero;
+			datos['candado'] = this.candado;
+			datos['luces'] = this.luces;
+			datos['espejosr'] = this.espejosr;
+			datos['guantes'] = this.guantes;
+		}
 
 	this.srv.guardar_detalle_vehiculo(datos).subscribe((data)=> {
       console.log('RESULTADO GUARDADO ', data);

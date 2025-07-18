@@ -49,7 +49,7 @@ import { AdminPedidosMedicosComponent } from './admin-pedidos-medicos/admin-pedi
 import { AdminListaPedidosMedicosComponent } from './admin-lista-ped-medicos/admin-lista-ped-medicos.component';
 import { AdminTransfBodegaComponent } from './admin-transferencias/admin-transferencias.component';
 import { AdminListaTranferenciasComponent } from './admin-lista-transferencia/admin-lista-transferencias.component';
-
+import { AdminClienteCobroComponent } from './admin-cliente-cobro/admin-cliente-cobro.component';
 
 
 
@@ -84,9 +84,12 @@ import {
   MatListModule,
   MatAutocompleteModule
 } from '@angular/material';
+import { AdminListaRecepcionesComponent } from './admin-lista-recepciones/admin-lista-recepciones.component';
+import { AdminOrdenRecepcionComponent } from './admin-orden-recepcion/admin-orden-recepcion.component';
 
 @NgModule({
   imports: [
+	  MatCardModule,
   	  BrowserModule,
 	  DataTablesModule,
       BrowserAnimationsModule,
@@ -155,8 +158,10 @@ import {
 	AdminPedidosMedicosComponent,
 	AdminListaPedidosMedicosComponent,
 	AdminTransfBodegaComponent,
-	AdminListaTranferenciasComponent
-
+	AdminListaTranferenciasComponent,
+	AdminListaRecepcionesComponent,
+	AdminOrdenRecepcionComponent,
+	AdminClienteCobroComponent
 	
   ],
   exports: [AdminComponent]

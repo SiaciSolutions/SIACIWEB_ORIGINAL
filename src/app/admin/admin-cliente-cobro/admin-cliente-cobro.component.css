@@ -1,0 +1,126 @@
+/* Estilos generales */
+:host {
+    display: block;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  /* Formularios */
+  form, .form-container {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #3c8dbc;
+    border-radius: 4px;
+  }
+  
+  /* Botones */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Tabla de resultados */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+  }
+  
+  table th,
+  table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #3c8dbc;
+  }
+  
+  table th {
+    background-color: #3c8dbc;
+    color: white;
+  }
+  
+  /* Sección de detalle */
+  .detalle-cartera {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-top: 1rem;
+  }
+  
+  /* Mensajes o alertas */
+  .alerta {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #a94442;
+  }
+  
+  .success-message {
+    background-color: #d4edda;
+    border-left: 6px solid #28a745;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #155724;
+  }
+  
+  /* Spinner de carga */
+  .loading {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .loading::after {
+    content: 'Cargando...';
+    display: block;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    table th,
+    table td {
+      font-size: 0.9rem;
+    }
+  
+    button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+  .table-responsive-pedidos table thead {
+    background-color: #3c8dbc !important;
+    color: white !important;
+  }
+  
+  .table-responsive-pedidos table thead th {
+    background-color: #3c8dbc !important;
+    color: white !important;
+    border: none;
+  }
+  
+  

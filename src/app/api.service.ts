@@ -18,8 +18,8 @@ export class ApiService {
  
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
+
 	public apiUrl = 'https://127.0.0.1';
-		// public apiUrl = 'https://192.168.101.6';
 	
   // public apiUrl = 'https://192.168.0.13';
   // public apiUrl = 'https://192.168.101.7';
@@ -490,6 +490,10 @@ public getConfCambioVendedorPed(): string {
   busqueda_razon_social(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social', param);
   }
+
+  busqueda_razon_social2(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social2', param);
+  }
   get_sucursal_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_sucursal_pedido', param);
   }
@@ -610,8 +614,15 @@ public getConfCambioVendedorPed(): string {
   get_encabezado_orden(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_orden', param);
   }
+
+  get_encabezado_recepcion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_recepcion', param);
+  }
   get_renglones_orden(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_orden', param);
+  }
+  get_renglones_recep(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_recep', param);
   }
   crear_cliente(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/crear_cliente', param);
@@ -777,10 +788,21 @@ public getConfCambioVendedorPed(): string {
 
   }
   ////  ##### SERVICIOS DE SUBA DE ARCHIVO (FOTOS)   //////
-   uploadFile(formData) {
+  uploadFile(formData) {
     // let urlAPI = 'http://localhost:3000/api/upload';
     // return this.http.post(urlAPI, formData);
 	return this.http.post(this.apiUrl + ':' + this.port + '/uploader', formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+  uploadFileR(formData) {
+    // let urlAPI = 'http://localhost:3000/api/upload';
+    // return this.http.post(urlAPI, formData);
+	return this.http.post(this.apiUrl + ':' + this.port + '/uploaderR', formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(
@@ -802,11 +824,23 @@ public getConfCambioVendedorPed(): string {
   eliminar_imagen(param) {
 	return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_imagen',param)
   }
-  
-   lista_img(param) {
-	return this.http.post(this.apiUrl + ':' + this.port + '/lista_img',param)
+
+  eliminar_imagenR(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_imagenR',param)
   }
   
+   lista_imgR(param) {
+	return this.http.post(this.apiUrl + ':' + this.port + '/lista_imgR',param)
+  }
+  
+  lista_img(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_img',param)
+  }
+  
+  rotarRecepcionOrden(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/rotarRecepcionOrden',param)
+  }
+
    errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -1119,6 +1153,10 @@ public getConfCambioVendedorPed(): string {
      generar_pdf_orden(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden', param);
   }
+
+  generar_pdf_orden_recepcion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden_recepcion', param);
+  }
   
         busqueda_pedido_razonsocial(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_pedido_razonsocial', param);
@@ -1130,6 +1168,14 @@ public getConfCambioVendedorPed(): string {
   
   busqueda_razon_social_placa(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_placa', param);
+  }
+
+  cobranza(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/cobranza', param);
+  }
+
+  lista_vendedores(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_vendedores', param);
   }
   
   

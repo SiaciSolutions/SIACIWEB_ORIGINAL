@@ -1,0 +1,207 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <!-- Page Header 1111 -->
+	   Cobros Clientes
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Cliente</li>
+      <li class="active">Cobros Clientes</li>
+    </ol>
+  </section>
+
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				
+				<div class="box-body">
+					<form  accept-charset="utf-8">
+          <div class="form-group">
+            <input type="text" name="search_customer" id="search_customer" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input mb-5" placeholder="Ingrese el nombre del cliente" autocomplete="off">
+            <input type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busqueda_razon_social()" >
+          </div>	
+          <div class="form-group"  *ngIf="this.exist_razon_social">
+            <p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>
+            <div class="table-responsive-pedidos">
+              <table class="table table-striped table-bordered table-condensed table-hover dataTable">
+                 <thead>
+                  <tr class="active" role="row">
+                   <th>Razon Social</th>
+                   <th class="text-center">Tipo ident</th>
+                   <th class="text-center">Num Identificacion</th>
+                   <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+                  </tr>
+                 </thead>
+                 <tbody>
+                  <tr  *ngFor="let rz of razon_social_lista;">
+                   <td>{{rz.nomcli}}</td>
+                   <td class="text-center">{{rz.tpIdCliente}}</td>
+                   <td class="text-center">{{rz.rucced}}</td>
+                   <td class="text-center"> 
+                    <input  type="radio"  name="radio_cliente" (change)="select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)"  />
+                    
+                    <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
+                   </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>			
+					</form>	
+          <form  accept-charset="utf-8">
+            <div *ngIf="nombreClienteSeleccionado" class="mb-5">
+              <strong style="font-size: 1.2em;">Cliente: {{ nombreClienteSeleccionado }}</strong>
+            </div>
+            <div>
+              <input type="text" placeholder="Saldo" id="add_item"  value="{{saldo_cliente}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+            </div>
+            <div>
+              <input type="button" name="consulta_saldo_cartera" value="Consultar Saldo cartera" class="btn btn-danger" (click)="consulta_saldo_cartera()" >
+            </div>
+          </form>
+          <form  accept-charset="utf-8">
+            <input type="button" name="consulta_detalle_cartera" value="Consultar Detalle" class="btn btn-danger" (click)="consulta_detalle_cartera()" >
+          </form>
+          <form *ngIf="ver_detalle" accept-charset="utf-8">
+            <div  class="btn-group" style="margin-bottom: 10px;">
+              <button class="btn btn-primary" [class.active]="vistaActiva === 'detalle'" (click)="vistaActiva = 'detalle'">Detalle</button>
+              <button *ngIf="ver_detalle" class="btn btn-secondary" [class.active]="vistaActiva === 'forma_pago'" (click)="vistaActiva = 'forma_pago'">Forma de pago</button>
+              <button *ngIf="ver_detalle" class="btn btn-secondary" [class.active]="vistaActiva === 'detalle_cobro'" (click)="vistaActiva = 'detalle_cobro'">Detalle Cobro</button>
+            </div>
+          </form>
+				</div>
+			</div>
+      
+      	
+		</div>
+	</div>
+
+ 
+  
+  <ng-container *ngIf="vistaActiva === 'detalle'">
+    <mat-card *ngIf="ver_detalle" class="w-100">
+      <div class="table-wrapper">
+          <table id="reporte_resumido_factura" class="table-container" [style.transform]="'scale(' + zoomLevel + ')'" [style.transform-origin]="'0 0'">
+            <tbody>
+              <ng-container *ngFor="let d of datosCobranza">
+                <tr class="header-row-div">
+                  <th colspan="4" class="column-subtitle">CLIENTE: </th>
+                  <th colspan="6" class="column-subtitle">{{d.nomcli}}</th>  
+                </tr>
+            
+                <!-- Encabezado de columnas -->
+                <tr class="header-row-div">
+                  <th>
+                    <input type="checkbox" [(ngModel)]="d.selectAll" (change)="toggleSeleccionarTodos(d)">
+                  </th>
+                  <th class="column-subtitle">TIPO</th>
+                  <th class="column-subtitle">No. DOCUM.</th>
+                  <th class="column-subtitle">SERIE</th>
+                  <th class="column-subtitle">FEC. EMISION</th>
+                  <th class="column-subtitle">F. VENCIMIENTO</th>
+                  <th class="column-subtitle">CONCEPTO</th>
+                  <th class="column-subtitle">VALOR FACTURADO</th>
+                  <th class="column-subtitle">ABONO</th>
+                  <th class="column-subtitle">SALDO</th>
+                </tr>
+            
+                <!-- Renglones de datos -->
+                <ng-container *ngFor="let x of d.renglones; let i = index">
+                  <tr>
+                    <td>
+                      <input type="checkbox" [(ngModel)]="x.selected" (change)="calcularTotalSeleccionado()">
+                    </td>
+                    <td class="mat-cell-centered">{{x[1]}}</td>
+                    <td class="mat-cell-centered">{{x[2]}}</td>
+                    <td class="mat-cell-centered">{{x[3]}}</td>
+                    <td class="mat-cell-centered">{{x[4]}}</td>
+                    <td class="mat-cell-centered">{{x[5]}}</td>
+                    <td class="mat-cell-centered">{{x[9]}}</td> 
+                    <td id="derecha_numeros" class="mat-cell-centered">{{x[6]| number:'1.2-2'}}</td>
+                    <td id="derecha_numeros" class="mat-cell-centered">{{x[7]| number:'1.2-2'}}</td>
+                    <td id="derecha_numeros" class="mat-cell-centered">{{x[8]| number:'1.2-2'}}</td>
+                  </tr>
+                </ng-container>
+            
+                <!-- Totales por cliente -->
+                <tr>
+                  <th colspan='6' class="column-subtitle">TOTAL {{d.nomcli}}</th>
+                  <th id="derecha_numeros" class="column-subtitle"></th>
+                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_venta_filtrada | number:'1.2-2'}}</th>
+                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_abono_filtrada | number:'1.2-2'}}</th>
+                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_total_filtrada | number:'1.2-2'}}</th>
+                </tr>
+  
+              </ng-container>
+            </tbody>
+            
+                  
+          </table>
+      </div>
+  </mat-card>
+  </ng-container>
+  <ng-container *ngIf="vistaActiva === 'forma_pago'">
+    <mat-card class="w-100 p-3">
+      <h3>Forma de pago</h3>
+      <p>Hola</p>
+    </mat-card>
+  </ng-container>
+  <ng-container *ngIf="vistaActiva === 'detalle_cobro'">
+    <mat-card *ngIf="ver_detalle" class="w-100 p-3">
+      <h3>Detalle Cobro</h3>
+      <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>TIPO</th>
+              <th>No. DOCUM.</th>
+              <th>SERIE</th>
+              <th>F. EMISION</th>
+              <th>F. VENCIMIENTO</th>
+              <th>CONCEPTO</th>
+              <th>VALOR</th>
+              <th>VENDEDOR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let d of datosCobranza">
+              <ng-container *ngFor="let x of d.renglones">
+                <tr *ngIf="x.selected">
+                  <td>
+                    <select [(ngModel)]="x[1]" class="form-control">
+                      <option value="FC">FACTURA</option>
+                      <option value="NC">NOTA DE CREDITO</option>
+                    </select>
+                  </td>
+                  <td>{{x[2]}}</td>
+                  <td>{{x[3]}}</td>
+                  <td>{{x[4]}}</td>
+                  <td>{{x[5]}}</td>
+                  <td>{{x[9]}}</td>
+                  <td>
+                    <input type="number" [(ngModel)]="x[8]" class="form-control" placeholder="Valor">
+                  </td>
+                  <td>
+                    <select [(ngModel)]="x[0]" class="form-control">
+                      <option *ngFor="let v of listaVendedores" [value]="v.codven">{{v.nomven}}</option>
+                    </select>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
+                <td colspan="2"><strong>{{ getTotalDetalleCobro() | number:'1.2-2' }}</strong></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </mat-card>
+  </ng-container>
+  
+  
+</section>
+  <!-- /.content -->
+</div>

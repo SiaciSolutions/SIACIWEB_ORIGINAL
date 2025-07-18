@@ -100,6 +100,7 @@ export class AdminListaOrdenesComponent implements OnInit {
 	datos['codemp'] = this.empresa;	
 	datos['usuario'] = this.usuario;
 	datos['tipacc'] = this.srv.getTipacc()
+	datos['tipo'] = 'O'
 	console.log (this.usuario)
 	console.log (this.empresa)
 	console.log (datos)
@@ -232,6 +233,7 @@ export class AdminListaOrdenesComponent implements OnInit {
 		datos['fecha_desde'] = this.fecha_desde
 		datos['fecha_hasta'] = this.fecha_hasta
 	    datos['codalm'] = this.srv.getCodAgencia();	
+		datos['tipo'] = 'O'
 	
 	
 	this.srv.lista_ordenes(datos).subscribe(

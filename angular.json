@@ -69,7 +69,6 @@
 			  "./node_modules/pdfmake/build/vfs_fonts.js",
 			  "./node_modules/select2/dist/js/select2.min.js",
 			  "./node_modules/round-slider/dist/roundslider.min.js"
-
 			]
           },
           "configurations": {

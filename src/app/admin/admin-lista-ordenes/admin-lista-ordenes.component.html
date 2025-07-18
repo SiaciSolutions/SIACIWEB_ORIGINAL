@@ -3,12 +3,12 @@
   <section class="content-header">
     <h1>
       <!-- Page Header 1111 -->
-	   Lista de Ordenes
+	   Lista de Ordenes Trabajo
       <small>Consulta de las ordenes de trabajo generadas</small>
     </h1>
     <ol class="breadcrumb">
       <li><i class="fa fa-dashboard"></i>Talleres</li>
-      <li class="active">Lista de Ordenes</li>
+      <li class="active">Lista de Ordenes Trabajo</li>
     </ol>
   </section>
   
@@ -207,7 +207,7 @@
 									<!-- *ngIf="auth.getConfPV() != 'NO'"   getConfEditPedido-->
 									<!-- <a onclick="window.open('http://amort.lavisita360.com/purchases/view/6', 'pos_popup', 'width=900,height=600,menubar=yes,scrollbars=yes,status=no,resizable=yes,screenx=0,screeny=0'); return false;" href="#"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido" ></i></a>  -->
 									<!-- <a routerLink="/admin/taller_orden" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra}"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido"></i></a>  -->
-									<a *ngIf="srv.getConfEditPedido() != 'NO'" routerLink="/admin/taller_orden" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar pedido"></i></a> 
+									<a *ngIf="srv.getConfEditPedido() != 'NO'" routerLink="/admin/taller_orden" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra, tiptra: '7'}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar pedido"></i></a> 
 									<!-- <a href="http://amort.lavisita360.com/purchases/delete/6" onclick="return confirm('Usted va a eliminar la compra, por favor haga clic en Aceptar para eliminar.')" title="" class="tip btn btn-danger btn-xs" data-original-title="Eliminar Compra"><i class="fa fa-trash-o"></i></a> -->
 									<a *ngIf="srv.getConfCorreoFact() != 'NO'" (click)="correo_facturacion(el.numtra,el.nomcli)" class="tip btn btn-danger btn-xs" ><i class="fa fa-envelope" title="Enviar correo facturar pedido" ></i></a>
 									<!-- <a (click)="confirm_delete()"   class="tip btn btn-danger btn-xs" ><i class="fa fa-envelope" title="Enviar correo facturar pedido" ></i></a> -->
