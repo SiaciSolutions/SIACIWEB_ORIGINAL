@@ -197,6 +197,7 @@ export class AdminOrdenTallerComponent implements OnInit {
   
  public status_lista = [
 			{"status": "I", "status_nombre": "INICIADA"},
+			{"status": "R", "status_nombre": "REGISTRADA"},
 			{"status": "P", "status_nombre": "POR EGRESAR"}
 		];
   status = 'I'
@@ -288,6 +289,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	tab_habilitar_datos_orden
 	hora_ingreso
 	nivel_combustible = 0
+
+	//NUMERO DE ORDE DE RECEPCION:
+	numOrdRecep
 	
 	// location.reload()
 	
@@ -628,7 +632,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	console.log (this.today)
 	console.log (this.fecha_entrega)
 	  
-	  
+	
 	this.srv.vendedores(datos).subscribe(
 	   data => {	
 		   console.log("OBTENIENDO VENDEDORES")
@@ -651,7 +655,14 @@ export class AdminOrdenTallerComponent implements OnInit {
 	// this.reset()
 	datos['numtra'] = this.numtra;	
 	datos['usuario'] = this.usuario;
+	datos['estadoR'] = 'R'
 	this.buscar_encabezado_orden(datos);
+
+	this.srv.actualizar_estado_orden(datos).subscribe(
+	   data => {	
+		   console.log("ACTUALIZANDO ESTADO")
+		   console.log(data)
+		 });
 	// this.buscar_renglones_orden(datos);
 	setTimeout(() => {
 		this.lista_imagenes();
@@ -700,6 +711,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		   console.log(data)
 		   this.ruc = data['identificacion']
 		   this.tipo_doc = data['tpIdCliente']
+		   this.numOrdRecep = data['num_pedido']
 		   
 		   	this.busca_cliente()
 			this.observacion_pedido = data['observ']
@@ -1903,6 +1915,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 encabezado_pedido['cod_secuencia']  = 'VC_ORT' 
 	 encabezado_pedido['tiptra']  = this.tiptra
 	 encabezado_pedido['tipo_orden']  = this.tipo_orden
+	 encabezado_pedido['tiporg']  = 'R'
+	 encabezado_pedido['numfac']  = this.numOrdRecep
+	 
 	 
 	 if (this.srv.getTipoRutaTalleres() == 'SI'){
 	 encabezado_pedido['ruta']  = this.ruta

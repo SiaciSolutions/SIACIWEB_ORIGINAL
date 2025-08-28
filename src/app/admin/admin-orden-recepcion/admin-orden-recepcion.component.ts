@@ -182,6 +182,7 @@ export class AdminOrdenRecepcionComponent implements OnInit {
   
  public status_lista = [
 			{"status": "I", "status_nombre": "INICIADA"},
+			{"status": "R", "status_nombre": "REGISTRADA"},
 			{"status": "P", "status_nombre": "EMITIDO"}
 		];
   status = 'I'

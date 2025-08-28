@@ -674,6 +674,9 @@ public getConfCambioVendedorPed(): string {
     return this.http.post(this.apiUrl + ':' + this.port + '/articulos_index', param);
   }
   
+  actualizar_estado_orden(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_estado_orden', param);
+  }
   
   
   

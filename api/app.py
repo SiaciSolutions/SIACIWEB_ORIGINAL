@@ -1367,7 +1367,7 @@ def lista_ordenes():
     sql = """ SELECT p.numtra,p.codcli,p.codusu,
       DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
       p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
-      (CASE WHEN estado = 'P' THEN 'EMITIDO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+      (CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
       THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
       c.email,
           (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
@@ -1379,14 +1379,14 @@ def lista_ordenes():
       and p.codcli = c.codcli 
       and p.codalm='01'
           and p.fectra between '{}' and '{}'
-    --	and estado='P' 
+        	--and estado='I' 
       order by p.numtra desc
     """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
   elif datos['tipo'] == 'RO':
     sql = """ SELECT p.numtra,p.codcli,p.codusu,
       DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
       p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
-      (CASE WHEN estado = 'P' THEN 'EMITIDO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+      (CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
       THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
       c.email,
           (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
@@ -1397,14 +1397,14 @@ def lista_ordenes():
       and p.codemp = c.codemp 
       and p.codcli = c.codcli 
       and p.codalm='01'
-    --	and estado='P' 
+      and estado='I' 
       order by p.numtra desc
     """.format(datos['codemp'])
   else:
     sql = """ SELECT p.numtra,p.codcli,p.codusu,
 		DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
 		p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
-		(CASE WHEN estado = 'P' THEN 'EMITIDO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+		(CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
 		THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
 		c.email,
         (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
@@ -1416,7 +1416,7 @@ def lista_ordenes():
 		and p.codcli = c.codcli 
 		and p.codalm='01'
          and p.fectra between '{}' and '{}'
-	  --	and estado='P' 
+	  	--and estado='I' 
       order by p.numtra desc
     """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
 	
@@ -4115,10 +4115,17 @@ def generar_pedido():
   if (TIPTRA == '7' or TIPTRA == 'R'):
      codcen=datos['codagencia']+'.'
      print (codcen)
-     sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{} )"\
+     if (TIPTRA == 'R'):
+      sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{} )"\
         .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'])
-     print (sql)
-     curs.execute(sql)
+      print (sql)
+      curs.execute(sql)
+     if (TIPTRA == '7'):
+      sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord,tiporg,numfac) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},'{}','{}' )"\
+        .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'],datos['tiporg'],datos['numfac'])
+      print (sql)
+      curs.execute(sql)
+       
      if (ESTADO == 'I'):
         sql = "INSERT INTO encabezadopedpro_historica (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,horahistorica,tipo_odas,tiporg_ord,fechahistorica) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},{})"\
             .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'],fectra)
@@ -4379,6 +4386,31 @@ def actualizar_encabezado_pedido():
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+  
+@app.route('/actualizar_estado_orden', methods=['POST'])
+def actualizar_estado_orden():
+  datos = request.json
+  print ("##########  ENTRADA ACTULIZACION ENCABEZADO ORDEN ######")
+  print (datos)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  sql = "update encabezadopedpro set estado='{}' where codemp='{}' and numtra='{}' and tiptra='{}' "\
+  .format(datos['estadoR'],datos['codemp'],datos['numtra'], datos['tiptra'])
+  print(sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+
+  d = {'status': 'ACTUALIZADO CON EXITO'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
   
 @app.route('/actualizar_encabezado_orden', methods=['POST'])
 def actualizar_encabezado_orden():
