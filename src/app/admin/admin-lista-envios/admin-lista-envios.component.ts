@@ -7,6 +7,8 @@ import {Observable} from 'rxjs';
 import {formatDate} from '@angular/common';
 import {MatSelectionList} from '@angular/material'
 import {DataTableDirective} from 'angular-datatables';
+import { from, of } from 'rxjs';
+import { concatMap, delay } from 'rxjs/operators';
 
 // import { Subject } from 'rxjs';
 
@@ -52,7 +54,71 @@ export class AdminListaEnviosComponent implements OnInit {
 	fecha_hasta
 	error_sri
 	url_visor_pdf= undefined
-	loading_iframe : boolean;
+	loading_iframe : boolean = false;
+	ver_iframe : boolean = false;
+	total_usd = null
+	total_cajas = null
+	masterSelected:boolean;
+	elements_checkedList:any = [];
+	//CONTADOR GUIAS ENVIADA BARRA ENVIO
+	progreso_reporte = 0+'%'
+	enviando_guias = false;
+	CANTIDAD_A_ENVIAR= 0
+    CONTADOR_GUIAS = 0
+
+	
+	lista_couriers = [
+	{
+      name: 'TODAS',
+      value: '%'
+    },
+    {
+      name: 'SERVIENTREGA',
+      value: 'SERV'
+    },
+    {
+      name: 'LAARCOURIER',
+      value: 'LAAR',
+    }
+  	];
+	courier = '%'
+
+
+	lista_tipo_trans = [
+	{
+      name: 'TODAS',
+      value: '%'
+    },
+    {
+      name: 'CON FACTURA',
+      value: '01'
+    },
+    {
+      name: 'SIN FACTURA',
+      value: 'GR',
+    }
+  	];
+	tipo_trans = '%'
+
+
+
+	
+	lista_status_transmision = [
+	{
+      name: 'TODAS',
+      value: 'T'
+    },
+    {
+      name: 'TRANSMITIDAS',
+      value: 'S'
+    },
+    {
+      name: 'PENDIENTE TRANSMITIR',
+      value: 'N',
+    }
+  	];
+	status_transmision ='T'
+
 
 	// Puedes cargar este objeto desde un servicio si lo deseas
 /*     shipment = {
@@ -141,6 +207,10 @@ export class AdminListaEnviosComponent implements OnInit {
 	this.fecha_hasta  = formatDate(new Date(), 'yyyy-MM-dd', 'en-US', '-0500');
 	datos['fecha_desde'] = this.fecha_desde
 	datos['fecha_hasta'] = this.fecha_hasta
+	datos['courier'] = this.courier
+	datos['tipotrans'] = this.tipo_trans
+	datos['status_trans'] = this.status_transmision
+	
 	
 	
 	
@@ -164,11 +234,15 @@ export class AdminListaEnviosComponent implements OnInit {
 			this.lista_pedidos = this.lista_pedidos_tabla
 			// localStorage.setItem('listado_original', this.lista_pedidos)
 			this.listado_original = this.lista_pedidos
+			this.total_usd = this.listado_original.reduce((acc,obj,) => acc + (obj.totfac),0);
+			this.total_usd = this.redondear(this.total_usd)
+			this.total_cajas = this.listado_original.reduce((acc,obj,) => acc + (obj.nopiezas),0);
+			
 			
 			
 		this.dtOptions = {
 			// ajax: 'data/data.json',
-			order: [0, 'desc'],
+			order: [1, 'desc'],
 			dom: 'Bfrtip',
 			// buttons: ['print','excel'],  ///SI SIRVEEE
 			buttons: [{
@@ -210,6 +284,101 @@ export class AdminListaEnviosComponent implements OnInit {
 		console.log ("**** LOADING FRAME FALSO ****")
   		this.loading_iframe = false;
 	}
+
+	transmision_masiva_sin_delay() {
+		console.log ("**** TRANSMISION MASIVA****")
+  		if (confirm("Vas a transmitir varias guias a la vez, estas seguro !!!!")){
+			 let cont_transm=0
+			 this.loading = true;
+				for (let guia of this.elements_checkedList){
+					console.log (guia)
+					this.srv.transmision_masiva_courier(guia).subscribe(
+						result => {
+							console.log(result)
+
+							if (result['resultado']=="EXITOSO"){
+								cont_transm = cont_transm+1
+							}
+							console.log(cont_transm)
+							if (cont_transm == this.elements_checkedList.length){
+								this.elements_checkedList= []
+								alert("✅ Comprobantes transmitidos con Exito...!!")
+								this.buscar_factura_fecha()
+							}else{
+								this.elements_checkedList= []
+								alert(" ❌ Algunas guias no fueron generadas en el Courier")
+								this.buscar_factura_fecha()
+							}
+							
+						}
+					) 
+
+
+				}
+
+
+
+		}else{
+			alert ("NO TRASMITIDO")
+		}
+		
+		//this.loading_iframe = false;
+	}
+
+	transmision_masiva() {
+		console.log ("**** TRANSMISION MASIVA****")
+  		if (confirm("Vas a transmitir varias guias a la vez, estas seguro !!!!")){
+			this.CONTADOR_GUIAS = 0;
+			this.loading = true;
+			this.CANTIDAD_A_ENVIAR = this.elements_checkedList.length
+			this.enviando_guias = true
+
+			from(this.elements_checkedList).pipe(
+				concatMap(guia =>
+				this.srv.transmision_masiva_courier(guia).pipe(
+					// Cuando termine este request, esperamos 2 segundos antes del siguiente
+					concatMap(result => {
+					console.log(result);
+
+					if (result['resultado'] === "EXITOSO") {
+						this.CONTADOR_GUIAS++;
+						this.progreso_reporte = (this.CONTADOR_GUIAS*100)/this.CANTIDAD_A_ENVIAR+'%'
+					}
+					console.log(this.CONTADOR_GUIAS);
+
+					return of(result).pipe(delay(100)); // DELAY ENTRE requests
+					})
+				)
+				)
+			).subscribe({
+				complete: () => {
+				// Cuando ya procesó todas las guías
+				if (this.CONTADOR_GUIAS === this.CANTIDAD_A_ENVIAR) {
+					this.elements_checkedList = [];
+					this.CONTADOR_GUIAS = 0
+					this.progreso_reporte = 0+'%'
+					this.enviando_guias = false
+					alert("✅ Comprobantes transmitidos con Éxito...!!");
+				} else {
+					this.elements_checkedList = [];
+					this.CONTADOR_GUIAS = 0
+					this.progreso_reporte = 0+'%'
+					this.enviando_guias = false
+					alert("❌ Algunas guías no fueron generadas en el Courier");
+				}
+				this.buscar_factura_fecha();
+				}
+			});
+
+
+
+
+		}else{
+			alert ("NO TRASMITIDO")
+		}
+		
+		//this.loading_iframe = false;
+	}
  
   
     buscar_factura_fecha(): void {
@@ -223,6 +392,10 @@ export class AdminListaEnviosComponent implements OnInit {
 	    datos['codalm'] = this.srv.getCodAgencia();	
 		datos['tipacc'] = this.srv.getTipacc()
 		datos['api_url'] = this.srv.apiUrl+':'+this.srv.port;
+		datos['courier'] = this.courier
+		datos['tipotrans'] = this.tipo_trans
+		datos['status_trans'] = this.status_transmision
+		console.log (this.courier)
 	
 	
 	this.srv.lista_envios_courier(datos).subscribe(
@@ -242,11 +415,15 @@ export class AdminListaEnviosComponent implements OnInit {
 			this.lista_pedidos = this.lista_pedidos_tabla
 			// localStorage.setItem('listado_original', this.lista_pedidos)
 			this.listado_original = this.lista_pedidos
+			this.total_usd = this.listado_original.reduce((acc,obj,) => acc + (obj.totfac),0);
+			this.total_usd = this.redondear(this.total_usd)
+			this.total_cajas = this.listado_original.reduce((acc,obj,) => acc + (obj.nopiezas),0);
+			
 			
 			
 		this.dtOptions = {
 			// ajax: 'data/data.json',
-			order: [0, 'desc'],
+			order: [1, 'desc'],
 			dom: 'Bfrtip',
 			// buttons: ['print','excel'],  ///SI SIRVEEE
 			buttons: [{
@@ -316,7 +493,7 @@ export class AdminListaEnviosComponent implements OnInit {
 			this.lista_pedidos = new_list
 		
 			this.dtOptions = {
-				order: [0, 'desc'],
+				order: [1, 'desc'],
 				dom: 'Bfrtip',
 				// buttons: ['print','excel'],  ///SI SIRVEEE
 				buttons: [{
@@ -388,7 +565,13 @@ export class AdminListaEnviosComponent implements OnInit {
 											
  			this.srv.transmitir_datos_courier(datos_guia).subscribe(
 				result => {
-					alert("Transmitido con exito")
+					console.log(result)
+					if (result['resultado']=="FALLIDO"){
+						alert(" ❌ Ocurrio un error en la transmisión")
+					}
+					if (result['resultado']=="EXITOSO"){
+						alert("✅ Transmitido con exito...!!")
+					}
 					this.buscar_factura_fecha()
 					
 				}
@@ -409,7 +592,15 @@ export class AdminListaEnviosComponent implements OnInit {
 											
  			this.srv.transmitir_datos_courier_servientrega(datos_guia).subscribe(
 				result => {
-					alert("Transmitido con exito")
+					console.log(result)
+					if (result['resultado']=="FALLIDO"){
+						alert(" ❌ Ocurrio un error en la transmisión")
+					}
+					if (result['resultado']=="EXITOSO"){
+						alert("✅ Transmitido con exito...!!")
+					}
+					
+
 					this.buscar_factura_fecha()
 					
 				}
@@ -510,6 +701,24 @@ export class AdminListaEnviosComponent implements OnInit {
 	
 	}
 
+	anular_guia(numfac): void {
+		if (confirm("Va proceder a *** ANULAR *** esta factura, además se debe anular la factura en el SRI..Esta seguro de anular??")){
+		let datos_guia_anular= {
+			numtra_guia : numfac,
+			tipodocumento: 'GR',
+			status: 'A',
+			codemp: this.empresa
+		}
+		this.srv.anulacion_guia_convert_fac(datos_guia_anular).subscribe(
+				result => {
+					alert("Proceso de anulacion de guia realizado con Exito..!!!")
+					this.buscar_factura_fecha()
+						//this.router.navigate(['/admin/lista_envios', datos]);
+				})
+		}
+
+	}
+
 
 	traducir_chino_status(){
      // this.shipment
@@ -533,6 +742,52 @@ export class AdminListaEnviosComponent implements OnInit {
 			)
 
 	}
+
+	redondear (el) {
+		// console.log("ENTRADA ARTICULO REDONDEAR")
+		// console.log(el)
+	return Math.round(el * 100) / 100;
+    }
+
+  isAllSelected() {
+	  console.log ("############  ISALLSELECT  ############")
+	  console.log (this.lista_pedidos)
+  
+    this.masterSelected = this.lista_pedidos.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    this.getCheckedItemList();
+  }
+
+
+  checkUncheckAll() {
+    for (var i = 0; i < this.lista_pedidos.length; i++) {
+	  console.log (this.lista_pedidos[i].status)
+ 	  if (this.lista_pedidos[i].tracking == null){
+		this.lista_pedidos[i].isSelected = this.masterSelected;
+	  } 
+	  //this.lista_pedidos[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList(){
+	this.elements_checkedList = [];
+
+	for (var i = 0; i < this.lista_pedidos.length; i++) {
+			// console.log ('dentro de checkItemlist');
+		if(this.lista_pedidos[i].isSelected){
+			this.elements_checkedList.push(this.lista_pedidos[i]);
+		}
+		
+  
+    }
+
+	console.log ('Elementos checkeados');
+	console.log (this.elements_checkedList);
+
+
+  }
   
   
 

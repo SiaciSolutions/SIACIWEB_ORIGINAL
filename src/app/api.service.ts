@@ -19,8 +19,8 @@ export class ApiService {
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
 	//public apiUrl = 'https://127.0.0.1';
-  	//public apiUrl = 'https://192.168.1.7';
-  public apiUrl = 'https://192.168.0.17';
+  //	public apiUrl = 'https://192.168.1.7';
+  public apiUrl = 'https://192.168.0.23';
     
 		// public apiUrl = 'https://192.168.101.6';
 	
@@ -426,6 +426,12 @@ public getConfCambioVendedorPed(): string {
   
   clientes(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/clientes', param);
+  }
+  porc_reembolso_gastos(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/porc_reembolso_gastos', param);
+  }
+  buscar_destinatario(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/buscar_destinatario', param);
   }
     
   saldo_cartera(param): Observable<any> {
@@ -1237,6 +1243,50 @@ public getConfCambioVendedorPed(): string {
   cambio_carpeta_fotos_cliente(param) {
     return this.http.post(this.apiUrl + ':' + this.port + '/cambio_carpeta_fotos_cliente',param)
     }
+  
+  anulacion_guia_convert_fac(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/anulacion_guia_convert_fac',param)
+    }
+
+
+  conversion_fact_guia_fotos_cliente(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/conversion_fact_guia_fotos_cliente',param)
+    }
+  conversion_fact_guia_fotos_jetta(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/conversion_fact_guia_fotos_jetta',param)
+    }
+
+    crear_usuario_siaciweb(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/crear_usuario_siaciweb',param)
+    }
+    get_usuario_siaciweb(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_usuario_siaciweb',param)
+    }
+    
+    actualizar_usuario_siaciweb(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_usuario_siaciweb',param)
+    }
+    crear_lista_paq_enviados(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/crear_lista_paq_enviados',param)
+    }
+
+    get_lista_paq_enviados(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_lista_paq_enviados',param)
+    }
+
+    delete_lista_paq_enviados(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/delete_lista_paq_enviados',param)
+    }
+    transmision_masiva_courier(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/transmision_masiva_courier',param)
+    }
+    
+    
+  
+    
+
+    
+  
   
   
 

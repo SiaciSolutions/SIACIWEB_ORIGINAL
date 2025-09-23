@@ -137,22 +137,66 @@
 				 <div class="box-header text-left">
 
 				 
-				  <div class="col-md-3">
+				  <div class="col-md-2">
 								<label for="fecha_desde">Fecha desde: / <span style="color:red;font-weight:bold">起始日期</span> : </label>
 								<input [(ngModel)]="fecha_desde" type="date" name="fecha_desde" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
 								
 				 </div>
 
-				 <div class="col-md-3">
+				 <div class="col-md-2">
 								<label for="fecha_hasta">Fecha hasta: / <span style="color:red;font-weight:bold">结束日期</span>：</label>
 								<input [(ngModel)]="fecha_hasta" type="date" name="fecha_hasta" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
 				 </div>
-				
-				<div class="col-md-2">
+				 <div class="col-md-2">
+					<label >Courier: / <span style="color:red;font-weight:bold">择快递公司</span>：</label>
+				 <select  name="courier" [(ngModel)]="courier" class="form-control select2 tip" style="width:100%;">
+						<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+						<option  *ngFor="let cd of lista_couriers" [value]="cd.value">{{cd.name}}</option> 
+				</select>
+
+				 </div>
+				 <div *ngIf="srv.getTipacc() =='T'"  class="col-md-2">
+					<label >Status Tranmisión:</label>
+				 <select  name="status_tranmision" [(ngModel)]="status_transmision" class="form-control select2 tip" style="width:100%;">
+						<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+						<option  *ngFor="let cd of lista_status_transmision" [value]="cd.value">{{cd.name}}</option> 
+				</select>
+
+				 </div>
+
+				 <div *ngIf="srv.getTipacc() =='T'"  class="col-md-2">
+					<label >Tipo Doc:</label>
+				 <select  name="tipo_trans" [(ngModel)]="tipo_trans" class="form-control select2 tip" style="width:100%;">
+						<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+						<option  *ngFor="let cd of lista_tipo_trans" [value]="cd.value">{{cd.name}}</option> 
+				</select>
+
+				 </div>
+
+				</div>
+				<div class="box-header text-center">
+					<div class="col-md-2">
+						<br>
+						<input  type="submit" (click)="buscar_factura_fecha()"  name="Buscar" value="Buscar / 搜索" class="btn btn-primary">
+					</div>
+					<div *ngIf="srv.getTipacc() =='T' && elements_checkedList.length > 0 " class="col-md-2">
+						<br>
+						<input  type="submit"  name="transmitir" value="Transmitir Courier"  (click)="transmision_masiva()" class="btn btn-danger">
+					</div>
+						<!-- *ngIf="srv.getRol() == 'TOTAL'"  &&  -->
+					
+					<div *ngIf="srv.getTipacc() =='T' && elements_checkedList.length > 0"  class="col-md-3">
+						<div  class="checkbox">
 							<br>
-							<input  type="submit" (click)="buscar_factura_fecha()"  name="Buscar" value="Buscar / 搜索" class="btn btn-primary">
+							<label>
+								<input id="checkAll" type="checkbox" [(ngModel)]="masterSelected" name="list_name" (change)="checkUncheckAll()"/> Seleccionar todos los comprobantes
+							</label>
+						</div>
+
+					</div>
 				</div>
-				</div>
+
+
 
                 <div class="box-body">
 				<div class="table-responsive">
@@ -172,23 +216,38 @@
 						  </div>
 						  <!-- /.box -->
 					</div>
+					<div *ngIf="enviando_guias" class="progress-group text-center">
+						<span class="progress-text">Guias enviadas :   <b>{{CONTADOR_GUIAS}}</b>/{{CANTIDAD_A_ENVIAR}}</span>
+						<!-- <span class="progress-number"><b>160</b>/200</span> -->
+						
+						<div class="progress sm">
+						<!-- <div class="progress-bar progress-bar-green" style="width:progreso_reporte%"></div> -->
+						<div class="progress-bar progress-bar-red" [ngStyle]="{'width': progreso_reporte}"></div>
+						</div>
+					</div>
 				
 				<table *ngIf="!loading" datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-condensed table-hover dataTable"> 
 				<!-- <table *ngIf="!loading" datatable [dtOptions]="dtOptions" class="dataTable">  -->
 						<thead>
 						<tr>
+						  <th *ngIf="srv.getTipacc() =='T'" >
+						  	Selc
+						  </th>
 						  <th>Fecha</th>
+						  <th>TipDoc</th>
 						  <!-- <th>Almacen</th>  srv.getTipacc() =='T' -->
 				<!-- 		  <th>Caja</th> -->
-						  <th *ngIf="srv.getTipacc() =='T'" >SecInterno</th>
+						  <th >SecInterno</th>
 						  <th>NomCourier</th>
-						  <th>Serie</th>
+						  <!-- <th>Serie</th> -->
 						  <th>NumFactura</th>
 						  <th *ngIf="srv.getTipacc() =='T'">Usuario</th>
 						  <th *ngIf="srv.getTipacc() =='T'" >Remitente</th>
 						  <th >Destinatario</th>
 						  <th *ngIf="srv.getActRegPlacaPDV() == 'SI'" >Placa</th>
+						  <th>Cajas</th>
 						  <th>Total (USD)</th>
+						  <th>Peso</th>
 						  <th *ngIf="srv.getTipacc() =='T'" >Forma de pago</th>
 						  <th *ngIf="srv.getTipacc() =='T'">StatusFact</th>
 						  <th>NumGuia</th>
@@ -209,23 +268,36 @@
 					  
 					<tbody *ngIf="(lista_pedidos?.length != 0) && (!loading) ">
 					  <tr *ngFor="let el of lista_pedidos;">
+<!-- 						*ngIf="el.status == 'REGISTRADO'" -->
+						  <td *ngIf="!el.tracking && srv.getTipacc() =='T'"> 
+							<input  type="checkbox" name="list_name" [(ngModel)]="el.isSelected" (change)="isAllSelected()"/>	
+						  </td>
+						  <td *ngIf="el.tracking && srv.getTipacc() =='T'">
+
+						  </td>
 						  <td>{{el.fecfac}}</td>
+						  <td *ngIf="el.tipodocumento =='01'">FAC</td>
+						  <td *ngIf="el.tipodocumento =='GR'">GR</td>
+
 					<!-- 	  <td>{{el.nomalm}}</td> -->
 					<!-- 	  <td>{{el.caja}}</td> -->
-						  <td *ngIf="srv.getTipacc() =='T'" >{{el.numfac}}</td>
+						  <td  >{{el.numfac}}</td>
 						  <td>
 							<ul class="list-group">
 								<li *ngIf="el.nomvhi == 'LAARCOURIER'" class="list-group-item list-group-item-warning"><span style="font-weight:bold;">LAARCOURIER</span></li>
 								<li *ngIf="el.nomvhi == 'SERVIENTREGA'" class="list-group-item list-group-item-success"><span style="font-weight:bold;">SERVIENTREGA</span></li>
 							</ul> 
 						  </td>
-						  <td>{{el.serie}}</td>
-						  <td>{{el.faccli}}</td>
+						  <!-- <td>{{el.serie}}</td> -->
+						  <td *ngIf="el.tipodocumento =='01'">{{el.serie}}-{{el.faccli}}</td>
+						  <td *ngIf="el.tipodocumento =='GR'">NO APLICA</td>
 						  <td *ngIf="srv.getTipacc() =='T'">{{el.codusu}}</td>
 						  <td *ngIf="srv.getTipacc() =='T'">{{el.nomcli}}</td>
 						  <td>{{el.nomdestinatario}}</td>
 						  <td *ngIf="srv.getActRegPlacaPDV() == 'SI'" >{{el.numplaca}}</td>
+						  <td>{{el.nopiezas}}</td>
 						  <td>{{el.totfac}}</td>
+						  <td>{{el.peso}}</td>
 					   <td *ngIf="srv.getTipacc() =='T'" >
 						   <!-- <span *ngIf="" >{{el.totfac}}</span> -->
 						    <ul class="list-group">
@@ -246,8 +318,12 @@
 							<!-- <a class="tip btn btn-info btn-xs" data-toggle="modal" data-target="#series_modal2" ><i class="fa fa-search" title="ver factura"  (click)="error_sri=el.descripcionerror">VER ERROR</i></a> -->
 						</td>
 						
-						<td class="text-center" *ngIf=" srv.getTipacc() =='T' && el.factok == 'O' && !el.status" >
+						<td class="text-center" *ngIf=" srv.getTipacc() =='T' && el.tipodocumento =='01' && el.factok == 'O' && !el.status" >
 							<span style="color:green;font-weight:bold" >PENDIENTE AUTO</span>
+						</td>
+
+						<td class="text-center" *ngIf=" srv.getTipacc() =='T' && el.tipodocumento =='GR' && el.factok == 'O' && !el.status" >
+							<span style="color:orange;font-weight:bold" >NO APLICA</span>
 						</td>
 						
 						<td class="text-center" *ngIf=" srv.getTipacc() =='T'&&  el.factok == 'A' && !el.status" >
@@ -266,7 +342,7 @@
 							<span style="color:red;font-weight:bold" >GUIA PENDIENTE</span>
 							<!-- <a class="tip btn btn-warning btn-xs" href="{{ el.pdf }}" target="blank" ><i class="fa fa-search" title="ver factura">Ver factura</i></a> -->
 						</td>
-		<!-- ########################## BARRA DE ACCIONES  #################### -->
+			<!-- ########################## BARRA DE ACCIONES  #################### -->
 						<td class="text-center" >
 							<a *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)" 
 							class="tip btn btn-warning btn-xs" href="{{ el.pdf }}" target="_blank" ><i class="fa fa-search" title="ver factura">Ver factura PDF</i>
@@ -286,15 +362,15 @@
 							<!-- class="tip btn btn-success btn-xs" ><i class="fa fa-edit" title="Modificar">Modificar Factura</i> -->
 							<a *ngIf="el.factok == 'O' && el.tracking" 
 							class="tip btn btn-success btn-sm"  (click)="revision_guia_courier(el.tracking,el.nomvhi)" data-toggle="modal" data-target="#series_modal3" >
-							<i class="fa fa-search" title="Status Guia">Status Guia</i>
+							<i class="fa fa-search" title="Status Guia">Status Guia <br> <strong>包裹追踪</strong> </i>
 							</a>
 							
-							<a *ngIf="el.factok == 'O' && srv.getTipacc() =='P'" routerLink="/admin/solicitud_envio" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac}"
-							class="tip btn btn-warning btn-sm" ><i class="fa fa-edit" title="Modificar">Revisar solicitud</i>
+							<a *ngIf="el.factok == 'O' && srv.getTipacc() =='P'" routerLink="/admin/solicitud_envio" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac,tipotrans:el.tipodocumento}"
+							class="tip btn btn-warning btn-sm" ><i class="fa fa-edit" title="Modificar">Revisar solicitud <br> <strong>查看发货申请</strong></i>
 							</a>
 
-							<a *ngIf="el.factok == 'O' && srv.getTipacc() =='T'" routerLink="/admin/solicitud_envio" [queryParams]="{usuario:el.codusu,empresa: empresa,numfac:el.numfac}"
-							class="tip btn btn-warning btn-sm" ><i class="fa fa-edit" title="Modificar">Revisar solicitud</i>
+							<a *ngIf="el.factok == 'O' && srv.getTipacc() =='T'" routerLink="/admin/solicitud_envio" [queryParams]="{usuario:el.codusu,empresa: empresa,numfac:el.numfac,tipotrans:el.tipodocumento}"
+							class="tip btn btn-warning btn-sm" ><i class="fa fa-edit" title="Modificar">Revisar solicitud <br><strong>查看发货申请</strong></i>
 							</a>
 
 							<!--SECCION DE ACCIONES COURIER-->
@@ -314,52 +390,27 @@
 							</a> -->
 							
 							<a *ngIf="el.factok == 'O' && el.tracking && isMobile && el.nomvhi=='LAARCOURIER'" 
-							class="tip btn btn-danger btn-sm" [href]="srv.apiUrl+':'+srv.port+'/ver_rotulo_laar?guia='+ el.tracking" target="_blank"  ><i class="fa fa-search" title="Ver Rotulo">Ver Rotulo Guia</i>
+							class="tip btn btn-danger btn-sm" [href]="srv.apiUrl+':'+srv.port+'/ver_rotulo_laar?guia='+ el.tracking" target="_blank"  ><i class="fa fa-search" title="Ver Rotulo">Ver Rotulo Guia <br><strong>查看快递标签 </strong> </i>
 							</a>
 							<a *ngIf="el.factok == 'O' && el.tracking && !isMobile && el.nomvhi=='LAARCOURIER'" 
-							class="tip btn btn-danger btn-sm" (click)="url_visor_pdf=srv.apiUrl+':'+srv.port+'/ver_rotulo_laar?guia='+ el.tracking;loading_iframe=true;" data-toggle="modal" data-target="#series_modal4" >
-							<i class="fa fa-search" title="Rotulo Guia">Ver Rotulo Guia</i>
+							class="tip btn btn-danger btn-sm" (click)="url_visor_pdf=srv.apiUrl+':'+srv.port+'/ver_rotulo_laar?guia='+ el.tracking;loading_iframe=true;ver_iframe=true" data-toggle="modal" data-target="#series_modal4" >
+							<i class="fa fa-search" title="Rotulo Guia">Ver Rotulo Guia <br><strong>查看快递标签 </strong> </i>
 							</a>
 							<a *ngIf="el.factok == 'O' && el.tracking && !isMobile && el.nomvhi=='SERVIENTREGA'" 
-							class="tip btn btn-danger btn-sm" (click)="url_visor_pdf=srv.apiUrl+':'+srv.port+'/ver_rotulo_serv?guia='+el.tracking;loading_iframe=true;" data-toggle="modal" data-target="#series_modal4" >
-							<i class="fa fa-search" title="Rotulo Guia">Ver Rotulo Guia</i>
+							class="tip btn btn-danger btn-sm" (click)="url_visor_pdf=srv.apiUrl+':'+srv.port+'/ver_rotulo_serv?guia='+el.tracking;loading_iframe=true;ver_iframe=true" data-toggle="modal" data-target="#series_modal4" >
+							<i class="fa fa-search" title="Rotulo Guia">Ver Rotulo Guia <br><strong>查看快递标签 </strong> </i>
 							</a>
 							<a *ngIf="el.factok == 'O' && el.tracking && isMobile && el.nomvhi=='SERVIENTREGA'" 
-							class="tip btn btn-danger btn-sm" [href]="srv.apiUrl+':'+srv.port+'/ver_rotulo_serv?guia='+ el.tracking" target="_blank"  ><i class="fa fa-search" title="Ver Rotulo">Ver Rotulo Guia</i>
+							class="tip btn btn-danger btn-sm" [href]="srv.apiUrl+':'+srv.port+'/ver_rotulo_serv?guia='+ el.tracking" target="_blank"  ><i class="fa fa-search" title="Ver Rotulo">Ver Rotulo Guia <br><strong>查看快递标签 </strong> </i>
 							</a>
 							
-							
-<!-- 							<a (click)="busqueda_razon_social()" *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)"
-							routerLink="/admin/pos" [queryParams]="{usuario:usuario,empresa: empresa,numfac:el.numfac,verfactura:1}"
-							class="tip btn btn-warning btn-xs" ><i class="fa fa-search" title="Revisar">Revisar Factura</i>
-							</a> -->
-							
-	
-<!-- 							<a *ngIf="el.factok == 'O' && !el.status" (click)="reprocesar_auth(el.numfac)"
-							class="tip btn btn-danger btn-xs" ><i class="fa fa-repeat" title="ReProcesar">Reprocesar Auth</i>
-							</a> -->
-							
+<!-- 							(click)="transmitir_courier_servientrega(el.numfac)" -->
+							<a *ngIf="el.factok == 'O' && el.tipodocumento =='GR' && !el.tracking" (click)="anular_guia(el.numfac)" class="tip btn btn-info btn-sm" ><i class="fa fa-remove" title="Anular Guia">Anular Guia<br><strong>取消</strong></i>
+							</a>
 
-							
-<!-- 							<a *ngIf="el.factok == 'O' && srv.getConfGenerarTicket() != 'NO'" 
-							class="tip btn bg-blue btn-xs" href="{{el.ticket}}" target="blank" ><i class="fa fa-ticket" title="VerTicket">Ver ticket</i>
-							</a> -->
-
-
-							
-<!-- 							<a *ngIf="el.factok == 'O' && srv.getConfAnularFactura() != 'NO'" (click)="anular_factura(el.numfac)"
-							class="tip btn btn-danger btn-xs"><i class="fa fa-remove" title="AnularFactura">Anular factura</i>
-							</a> -->
-							
-							
-							<!-- PARA EL CASO DE REPROCESAMIENTO DEL PDF EN BLANCO -->
-							<!-- <a *ngIf="el.factok == 'O' && el.status && (el.status == 'AUTORIZADO' && el.pdf)  && srv.getConfGenerarPdf() != 'NO'" -->
-							<!-- (click)="regenerar_pdf(el.auth)" -->
-							<!-- class="tip btn btn-success btn-xs" ><i class="fa fa-search" title="ReGenerar PDF">ReGenerar PDF</i> -->
-							<!-- </a> -->
-							
-							
-							
+							<a *ngIf="el.factok == 'O' && srv.getConfAnularFactura() != 'NO' && el.tipodocumento =='01' && srv.getTipacc() =='T'" (click)="anular_factura(el.numfac)"
+							class="tip btn btn-info btn-xs"><i class="fa fa-remove" title="AnularFactura">Anular factura</i>
+							</a>
 							
 						</td>
 						
@@ -376,7 +427,40 @@
                             <!-- </div> -->
 						  <!-- </td> -->
 					  </tr>
-					</tbody> 
+					</tbody>
+					<tfoot *ngIf="srv.getTipacc() =='T'">
+						<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th bgcolor="yellow">TOTALES</th>
+						<th bgcolor="yellow">{{total_cajas}}</th>
+						<th bgcolor="yellow">USD {{total_usd}}</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						</tr>
+					</tfoot>
+ 					<tfoot *ngIf="srv.getTipacc() =='P'">
+						<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th bgcolor="yellow">TOTALES</th>
+						<th bgcolor="yellow">{{total_cajas}}</th>
+						<th bgcolor="yellow">USD {{total_usd}}</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						</tr>
+					</tfoot> 
 				</table>
 				
 				<!--################## INICIO MODAL ###########################-->
@@ -420,7 +504,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 					<button type="button" class="close"  data-dismiss="modal" #closeBtnError (click)="error_sri = undefined" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Status Guia</h4>
+					<h4 class="modal-title">Status Guia / 包裹追踪</h4>
 
 					</div>
 					<div class="modal-body">
@@ -528,7 +612,7 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" #closeBtnError (click)="error_sri = undefined" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" #closeBtnError (click)="ver_iframe = false" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">Ver rotulo</h4>
@@ -553,15 +637,15 @@
         <div  class="col-xs-12">
           <!-- Aquí va el visor -->
 <!--           <iframe [src]="'https://192.168.0.47:5009/ver_rotulo_laar?guia=SISLC51081468#zoom=120' | safeUrl" width="100%" height="600px" frameborder="0"></iframe> -->
-		    <iframe [hidden]="loading_iframe" [src]="url_visor_pdf+'#zoom=120' | safeUrl" width="100%" height="600px" frameborder="0" (load)="onIframeLoad()"></iframe> 
-		  
+<!-- 		    <iframe  [hidden]="loading_iframe" [src]="url_visor_pdf+'#zoom=120' | safeUrl" width="100%" height="600px" frameborder="0" (load)="onIframeLoad()"></iframe>  -->
+		  		    <iframe  *ngIf="ver_iframe" [src]="url_visor_pdf+'#zoom=120' | safeUrl" width="100%" height="600px" frameborder="0" (load)="onIframeLoad()"></iframe> 
         </div>
       
 	
 	</div>
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="error_sri = undefined" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="ver_iframe = false" data-dismiss="modal">Cerrar</button>
       </div>
       
     </div><!-- /.modal-content -->
@@ -576,6 +660,14 @@
 
 			</div>
         </div>
+	
+<!-- 		<div class="col-xs-12">
+            <div class="box box-primary">
+				<div class="box-header">
+					<label for="reference">SELECCIONE RANGO DE FECHA DE CREACION DEL ENVIO / <span style="color:red;font-weight:bold">按发货创建日期搜索</span></label>
+                </div>
+			</div>
+		</div> -->
    </div>
 </section>
   <!-- /.content -->

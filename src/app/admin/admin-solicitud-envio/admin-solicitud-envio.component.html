@@ -56,8 +56,49 @@
 										</div>
 										</div>
 
+
 										<label>NOMBRE <span style="color:red;font-weight:bold">姓名</span></label>  
-										<input type="text" [(ngModel)]="nombre_rem" name="nombre" id="nombre" class="form-control ui-autocomplete-input" placeholder="Nombre" disabled autocomplete="on">
+										<input *ngIf="srv.getTipacc()=='P'" type="text" [(ngModel)]="nombre_rem" name="nombre" id="nombre" class="form-control ui-autocomplete-input" placeholder="Nombre" disabled autocomplete="on">
+										<div *ngIf="srv.getTipacc()=='T'" class="input-group">
+<!-- 											<input   type="text" name="nombre_dest" id="nombre_dest" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off"> -->
+											<input type="text" [(ngModel)]="nombre_rem" name="nombre_rem" id="nombre_rem"(input)="reemplazarEnie()" class="form-control ui-autocomplete-input" placeholder="Nombre y apellido del remitente" autocomplete="on">
+											<div (click)="busqueda_razon_social()" class="input-group-addon no-print" style="padding: 2px 5px;">
+												<a id="add-customer" class="external"><i class="fa fa-2x fa-search" id="searchIcon"></i></a>
+											</div>
+										</div>
+
+										<div class="form-group" *ngIf="exist_razon_social" >
+											<p>Resultado de la busqueda por <<{{this.nombre_rem}}>></p>
+											<div class="table-responsive-pedidos">
+												<table class="table table-striped table-bordered table-condensed table-hover dataTable">
+												<thead>
+													<tr class="active" role="row">
+														<th>Razon Social</th>
+														<!-- <th class="text-center">Tipo ident</th> -->
+														<th class="text-center">Num Identificacion</th>
+										<!-- 				<th class="text-center">Direccion</th> -->
+														<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr  *ngFor="let rz of razon_social_lista;">
+														<td>{{rz.nomcli}}</td>
+														<!-- <td class="text-center">{{rz.tpIdCliente}}</td> -->
+														<td class="text-center">{{rz.rucced}}</td>
+										<!-- 				<td class="text-center">{{rz.dirdest}}</td> -->
+														<td class="text-center"> 
+<!-- 														<input  type="radio"  name="radio_cliente" (change)="select_destinatario(rz.nomdestinatario,rz.rucdestinatario,rz.dirdest,rz.tlfceldest,rz.tlfceldest2,rz.codciudaddest)"  /> -->
+														<input  type="radio"  name="radio_cliente" (change)="select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli,rz.telcli,rz.ciucli)"  />
+														</td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										
+
+
+										
 										<label>CEDULA O RUC <span style="color:red;font-weight:bold">身份证或税号</span></label>  
 										<input type="text" [(ngModel)]="rucced_rem"name="ci_ruc" id="ci_ruc" class="form-control ui-autocomplete-input" placeholder="Cédula o Ruc" disabled autocomplete="on">
 										<label>CIUDAD <span style="color:red;font-weight:bold">城市</span></label>  
@@ -100,9 +141,63 @@
 	
 										</div>
 										<label>NOMBRE Y APELLIDO<span style="color:red;font-weight:bold">姓名</span></label>  
-										<input type="text" [(ngModel)]="nombre_dest" name="nombre" id="nombre" class="form-control ui-autocomplete-input" placeholder="Nombre y apellido" autocomplete="on">
+<!-- 										<input type="text" [(ngModel)]="nombre_dest" name="nombre" id="nombre"(input)="reemplazarEnie()" class="form-control ui-autocomplete-input" placeholder="Nombre y apellido" autocomplete="on"> -->
+										
+										<div class="input-group">
+								
+<!-- 											<input   type="text" name="nombre_dest" id="nombre_dest" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off"> -->
+											<input type="text" [(ngModel)]="nombre_dest" name="nombre" id="nombre"(input)="reemplazarEnie()" class="form-control ui-autocomplete-input" placeholder="Nombre y apellido" autocomplete="on">
+											<div (click)="busqueda_razon_social_dest()" class="input-group-addon no-print" style="padding: 2px 5px;">
+												<a id="add-customer" class="external"><i class="fa fa-2x fa-search" id="searchIcon"></i></a>
+											</div>
+								
+									
+										</div>
+
+<!-- 										<div class="form-group"  *ngIf="this.exist_razon_social"> -->
+										<div class="form-group" *ngIf="exist_datos_dest" >
+											<p>Resultado de la busqueda por <<{{this.nombre_dest}}>></p>
+											<div class="table-responsive-pedidos">
+												<table class="table table-striped table-bordered table-condensed table-hover dataTable">
+												<thead>
+													<tr class="active" role="row">
+														<th>Razon Social</th>
+														<!-- <th class="text-center">Tipo ident</th> -->
+														<th class="text-center">Num Identificacion</th>
+														<th class="text-center">Direccion</th>
+														<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1" >Selec</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr  *ngFor="let rz of lista_destinatarios;">
+														<td>{{rz.nomdestinatario}}</td>
+														<!-- <td class="text-center">{{rz.tpIdCliente}}</td> -->
+														<td class="text-center">{{rz.rucdestinatario}}</td>
+														<td class="text-center">{{rz.dirdest}}</td>
+														<td class="text-center"> 
+														<input  type="radio"  name="radio_cliente" (change)="select_destinatario(rz.nomdestinatario,rz.rucdestinatario,rz.dirdest,rz.tlfceldest,rz.tlfceldest2,rz.codciudaddest)"  />
+														</td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										
+										
 										<label>CEDULA O RUC <span style="color:red;font-weight:bold">身份证或税号</span></label>  
-										<input type="text" [(ngModel)]="rucced_dest"name="ci_ruc" id="ci_ruc" class="form-control ui-autocomplete-input" placeholder="Cédula o Ruc" autocomplete="on">
+										
+<!-- 										<input type="text" [(ngModel)]="rucced_dest" (keypress)='validaNumericosCantidad($event)' name="ci_ruc" id="ci_ruc" class="form-control ui-autocomplete-input" placeholder="Cédula o Ruc" autocomplete="on"> -->
+										<div class="input-group">
+								
+<!-- 											<input   type="text" name="nombre_dest" id="nombre_dest" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off"> -->
+											<input type="text" [(ngModel)]="rucced_dest" name="rucced_dest" id="rucced_dest"(input)="reemplazarEnie()" class="form-control ui-autocomplete-input" placeholder="Cédula o Ruc" autocomplete="on">
+											<div (click)="busqueda_rucced_dest()" class="input-group-addon no-print" style="padding: 2px 5px;">
+												<a id="add-customer" class="external"><i class="fa fa-2x fa-search" id="searchIcon"></i></a>
+											</div>
+								
+									
+										</div>
+										
 										<label>CIUDAD <span style="color:red;font-weight:bold">城市</span></label>
 										<select *ngIf="cod_courier=='LAAR'" name="ciudad_dest" [(ngModel)]="ciudad_dest" class="form-control select2 tip" style="width:100%;">
 											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
@@ -117,19 +212,19 @@
 										<div class="row">
 											<div class="col-md-4">
 											<label>TELEFONO 1 <span style="color:red;font-weight:bold">电话</span></label>  
-											<input type="text" [(ngModel)]="tlf_dest" name="tlf" id="tlf" class="form-control ui-autocomplete-input" placeholder="Teléfono" autocomplete="on">
+											<input type="text" [(ngModel)]="tlf_dest" (keypress)='validaNumericosCantidad($event)' name="tlf" id="tlf" class="form-control ui-autocomplete-input" placeholder="Teléfono" autocomplete="on">
 
 											</div>
 											<div class="col-md-4">
 											<label>TELEFONO 2 <span style="color:red;font-weight:bold">电话</span></label>  
-											<input type="text" [(ngModel)]="tlf_dest2" name="tlf" id="tlf" class="form-control ui-autocomplete-input" placeholder="Teléfono2" autocomplete="on">
+											<input type="text" [(ngModel)]="tlf_dest2" (keypress)='validaNumericosCantidad($event)' name="tlf2" id="tlf2" class="form-control ui-autocomplete-input" placeholder="Teléfono2" autocomplete="on">
 
 											</div>
 										</div>
 
 										
 										<label>DIRECCION <span style="color:red;font-weight:bold">地址</span></label>  
-										<textarea name="dir_dest" [(ngModel)]="dir_dest" rows="3" cols="2" 
+										<textarea name="dir_dest" [(ngModel)]="dir_dest" rows="3" cols="2" (input)="reemplazarEnie()" 
 										placeholder="Dirección detallada del destinatario (ciudad, calle, sector o barrio, número de casa, punto de referencia) / 收件人详细地址（城市、街道、门牌号、参考点。"  
 										value="" class="pa form-control kb-text" autocomplete="on"></textarea>
 									</div>
@@ -142,7 +237,7 @@
 			</div>
 		</div>
 
-		<div class="box box-primary">
+		<div  *ngIf="cod_courier =='SERV'" class="box box-primary">
 			<div class="box-header with-border">
 				<h3 style="color:red;font-weight:bold" class="box-title">
 					Información del paquete 包裹信息
@@ -157,7 +252,7 @@
 								<label >PAQUETE<span style="color:red;font-weight:bold">包裹</span></label>
 								<input type="radio" name="tipo_producto" id="tipo_producto"   [(ngModel)]="agregarPaquete.tipo_producto" [ngStyle]="{'margin-left': '10px', 'margin-right': '15px'}" value="PAQ">
 								<label >SOBRE<span style="color:red;font-weight:bold">信封</span></label>
-								<input type="radio" name="tipo_producto" id="tipo_producto"   [(ngModel)]="agregarPaquete.tipo_producto" [ngStyle]="{'margin-left': '10px'}" value="SOB">
+								<input type="radio" name="tipo_producto" id="tipo_producto"   [(ngModel)]="agregarPaquete.tipo_producto" [ngStyle]="{'margin-left': '10px'}" value="SOB" (click)="agregarPaquete.peso=0.1;agregarPaquete.contenido='DOCUMENTOS';agregarPaquete.seguro='NO'">
 							</div>
 							<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-2">
 				
@@ -184,20 +279,161 @@
 								<input type="number" name="valor_declarado" id="valor_declarado"   [(ngModel)]="agregarPaquete.valor_declarado"  class="form-control ui-autocomplete-input" placeholder="usd" autocomplete="on" [min]="1">
 							</div>
 					</div>
-					<div class="row">
+					<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="row">
 						<div class="col-md-5">
 								<label >CONTENIDO:<span style="color:red;font-weight:bold">包裹内容</span></label>
-								<input type="text" name="contenido" id="contenido"   [(ngModel)]="agregarPaquete.contenido"  class="form-control ui-autocomplete-input" placeholder="Contenido" autocomplete="on">
+								<input type="text" name="contenido" id="contenido"   [(ngModel)]="agregarPaquete.contenido"  class="form-control ui-autocomplete-input" (input)="reemplazarEnie()"  placeholder="Contenido" autocomplete="on">
 						</div>
 						<br>
 					</div>
 					<div class="row">
-						<div class="col-md-3">
+						<div *ngIf="articulos_pedido.length == 0"class="col-md-3">
 							 <input type="submit"  name="agregar_paquete" value="Agregar paquete ( 添加包 )" class="btn btn-success">
 						</div>
 					</div>
 					</div>
 				</form>
+			</div>
+	</div>
+
+	<div  *ngIf="cod_courier =='LAAR'" class="box box-primary">
+			<div class="box-header with-border">
+				<h3 style="color:red;font-weight:bold" class="box-title">
+					Información del paquete 包裹信息
+				</h3>
+			</div>
+			<div class="box-body">
+<!-- 				<form (ngSubmit)="guardar_paquete()"> -->
+				<div class="col-lg-12">
+					<div class="row">
+							<div class="col-md-3">
+								<label >TIPO DE PRODUCTO:<span style="color:red;font-weight:bold">【产品类型】</span></label><br>
+								<label >PAQUETE<span style="color:red;font-weight:bold">包裹</span></label>
+								<input type="radio" name="tipo_producto" id="tipo_producto"   [(ngModel)]="agregarPaquete.tipo_producto" [ngStyle]="{'margin-left': '10px', 'margin-right': '15px'}" value="PAQ">
+								<label *ngIf="lista_calculo_laar.length == 0" >SOBRE<span style="color:red;font-weight:bold">信封</span></label>
+								<input *ngIf="lista_calculo_laar.length == 0"type="radio" name="tipo_producto" id="tipo_producto"   [(ngModel)]="agregarPaquete.tipo_producto" [ngStyle]="{'margin-left': '10px'}" value="SOB" (click)="agregarPaquete.peso=0.1;agregarPaquete.contenido='DOCUMENTOS';agregarPaquete.seguro='NO'">
+							</div>
+							<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-2">
+				
+								<label >PESO KG:<span style="color:red;font-weight:bold">重量</span></label>
+								<input type="number" name="peso" id="peso"   [(ngModel)]="agregarPaquete.peso_consulta"  class="form-control ui-autocomplete-input" placeholder="Kg" autocomplete="on" [min]="1">
+							</div>
+							<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-3">
+								<br>
+							 <button *ngIf="articulos_pedido.length == 0" name="agregar_paquete_laar" (click)="insercion_lista_laar()" class="btn btn-info">Calcular [ 费用计算 ]</button>
+							</div>
+<!-- 							<div  *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-2">
+								<label >NUM PIEZAS:<span style="color:red;font-weight:bold">寄送件数</span></label>
+ 								<select    name="num_piezas" [(ngModel)]="num_piezas" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option  *ngFor="let num of lista_num_piezas" [value]="num.value">{{num.label}}</option>
+								</select> 
+							</div> -->
+
+					</div>
+
+						<br><br>
+
+						<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="form-group"  >
+								<div class="table-responsive-pedidos">
+									<table class="table table-striped table-bordered table-condensed table-hover dataTable">
+									<thead>
+										<tr class="active" role="row">
+											<th class="text-center">Paquetes</th>
+											<th class="text-center">Peso (Kg)</th>
+											<!-- <th class="text-center">Tipo ident</th> -->
+											<th class="text-center">Precio (USD)</th>
+											<th class="col-xs-1 text-center" (click)="delete_art_todo_laar()" style="width:25px;"><i class="fa fa-trash-o fa-2x" title="Remover todos" ></i></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr  *ngFor="let llaar of lista_calculo_laar;">
+						
+											<td class="text-center">{{llaar.Paquete}}</td>
+											<!-- <td class="text-center">{{rz.tpIdCliente}}</td> -->
+											 <td style="width:100px; padding-right:5px;" class="text-center">
+												    <input #Peso class="form-control input-sm kb-pad text-center rquantity" name="Peso" type="number" 
+													inputmode="numeric" step=".01"
+													value="{{llaar.Peso}}" 
+													(keypress)='validaNumericos($event)'
+													(keyup.enter)="update_peso_lista_laar(llaar.Paquete,llaar.index,Peso.value)"
+													(change)="update_peso_lista_laar(llaar.Paquete,llaar.index,Peso.value)"
+													>										
+											</td>
+<!-- 											 <td class="text-center">{{llaar.Peso}}
+
+	(keyup.enter)="update(el.codart,el.index,cant.value)" (change)="update(el.codart,el.index,cant.value)"
+	(keyup.enter)="update_peso_lista_laar(llaar.Paquete,llaar.index,Peso.value)" (change)="update_peso_lista_laar(el.codart,el.index,cant.value)"
+</td> -->
+											<td class="text-center">{{llaar.prec01}}</td>
+											<td (click)="delete_art_laar(llaar.nomart,llaar.index)" class="text-center">
+													<i class="fa fa-trash-o fa-2x tip pointer spodel " title="Remover artículo laar"></i>
+											</td>
+										</tr>
+									</tbody>
+									</table>
+								</div>
+						</div>
+						<br><br>
+					<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="row">
+						<div  *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-2">
+								<label >NUM PIEZAS:<span style="color:red;font-weight:bold">寄送件数</span></label>
+								<input type="number" name="num_piezas" id="num_piezas"   [(ngModel)]="num_piezas"  class="form-control ui-autocomplete-input" placeholder="cant" [min]="1" disabled>
+<!--  								<select    name="num_piezas" [(ngModel)]="num_piezas" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option  *ngFor="let num of lista_num_piezas" [value]="num.value">{{num.label}}</option>
+								</select>  -->
+						</div>
+						<div  *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-3">
+								<label >PESO TOTAL (KG):<span style="color:red;font-weight:bold">总重量</span></label>
+								<input type="number" name="peso" id="peso"   [(ngModel)]="agregarPaquete.peso"  class="form-control ui-autocomplete-input" placeholder="peso" [min]="1" disabled>
+<!--  								<select    name="num_piezas" [(ngModel)]="num_piezas" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option  *ngFor="let num of lista_num_piezas" [value]="num.value">{{num.label}}</option>
+								</select>  -->
+						</div>
+						<div  *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-3">
+								<label >TOTAL ESTIMADO (USD):<span style="color:red;font-weight:bold">预估总额</span></label>
+								<input type="number" name="peso" id="peso"   [(ngModel)]="agregarPaquete.total_estimado"  class="form-control ui-autocomplete-input" placeholder="peso" [min]="1" disabled>
+<!--  								<select    name="num_piezas" [(ngModel)]="num_piezas" class="form-control select2 tip" style="width:100%;">
+											<option [ngValue]="undefined" disabled  selected>Seleccione</option>
+											<option  *ngFor="let num of lista_num_piezas" [value]="num.value">{{num.label}}</option>
+								</select>  -->
+						</div>
+
+						<br>
+						<br>
+					</div>
+					<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="row">
+						<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="col-md-2">
+				
+								<label >SEGURO:<span style="color:red;font-weight:bold"> 运输保险</span></label><br>
+								<label >SI</label>
+								<input type="radio" name="seguro_si" id="seguro_si"   [(ngModel)]="agregarPaquete.seguro" [ngStyle]="{'margin-left': '10px', 'margin-right': '15px'}" value="SI" autocomplete="on">
+								<label >NO</label>
+								<input type="radio" name="seguro_no" id="seguro_no"   [(ngModel)]="agregarPaquete.seguro" [ngStyle]="{'margin-left': '10px'}" value="NO" autocomplete="on">
+						</div>
+							<div *ngIf="agregarPaquete.tipo_producto=='PAQ' && agregarPaquete.seguro=='SI'"  class="col-md-3">
+								<label >VALOR DECLARADO:<span style="color:red;font-weight:bold">声明价值</span></label>
+								<input type="number" name="valor_declarado" id="valor_declarado"   [(ngModel)]="agregarPaquete.valor_declarado"  class="form-control ui-autocomplete-input" placeholder="usd" autocomplete="on" [min]="1">
+							</div>
+						<div class="col-md-5">
+								<label >CONTENIDO:<span style="color:red;font-weight:bold">包裹内容</span></label>
+								<input type="text" name="contenido" id="contenido"   [(ngModel)]="agregarPaquete.contenido"  class="form-control ui-autocomplete-input" (input)="reemplazarEnie()"  placeholder="Contenido" autocomplete="on">
+						</div>
+					</div>
+					<div *ngIf="agregarPaquete.tipo_producto=='SOB'" class="row">
+						<div *ngIf="articulos_pedido.length == 0"class="col-md-3">
+							 <button name="agregar_paquete" value="Agregar sobre (Traducir) " (click)="guardar_paquete()" class="btn btn-success">Agregar paquete ( 添加包 )</button>
+						</div>
+					</div>
+					<div *ngIf="agregarPaquete.tipo_producto=='PAQ'" class="row">
+						<div *ngIf="articulos_pedido.length == 0"class="col-md-3">
+							 <button name="agregar_paquete" value="Agregar paquete ( 添加包 )" (click)="patron_articulo='PLAA';busca_servicio_laar()" class="btn btn-success">Agregar paquete ( 添加包 )</button>
+						</div>
+					</div>
+					</div>
+<!-- 				</form> -->
 			</div>
 	</div>
 
@@ -237,7 +473,7 @@
 <!-- 											<th style="width:100px; padding-right:5px;" rowspan="1" colspan="1">Descuento%</th>
 												<th style="width:70px; padding-right:5px;" rowspan="1" colspan="1">V.Desc</th> -->
                                                 <th>Subtotal (小計)</th>
-                                                <th class="col-xs-1 text-center" (click)="delete_art_todo()" style="width:25px;"><i class="fa fa-trash-o" title="Remover todos" ></i></th>
+                                                <th class="col-xs-1 text-center" (click)="delete_art_todo()" style="width:25px;"><i class="fa fa-trash-o fa-2x" title="Remover todos" ></i></th>
                                             </tr>
                                         </thead>
                                         <tbody *ngIf="articulos_pedido.length > 0">
@@ -310,7 +546,7 @@
 												</td>
 												
 												<td (click)="delete_art(el.nomart,el.index)" class="text-center">
-													<i class="fa fa-trash-o tip pointer spodel" title="Remover artículo"></i>
+													<i class="fa fa-trash-o fa-2x tip pointer spodel " title="Remover artículo"></i>
 												</td>
 											</tr>
                                         </tbody>
@@ -501,12 +737,12 @@
 						</div>
 					</div>
 
-				<div *ngIf="srv.getTipacc()=='T'" class="box-header"> 
+				<div *ngIf="(srv.getTipacc()=='T' && ver_factura==0 && tipotrans=='GR') || (srv.getTipacc()=='T' && ver_factura==0)" class="box-header"> 
 					<label style="color:red;font-weight:bold" >DESEA FACTURAR LA SOLICITUD DE ENVIO:</label><br>
 					<label >SI</label>
-					<input type="radio" name="seguro_si" id="seguro_si"   [(ngModel)]="facturar_envio" [ngStyle]="{'margin-left': '10px', 'margin-right': '15px'}" value="SI" autocomplete="on">
+					<input type="radio" name="seguro_si" id="seguro_si"   [(ngModel)]="facturar_envio" [ngStyle]="{'margin-left': '10px', 'margin-right': '15px'}" value="SI" autocomplete="on" (click)="validar_cambio_tipodoc('SI')">
 					<label >NO</label>
-					<input type="radio" name="seguro_no" id="seguro_no"   [(ngModel)]="facturar_envio" [ngStyle]="{'margin-left': '10px'}" value="NO" autocomplete="on">
+					<input type="radio" name="seguro_no" id="seguro_no"   [(ngModel)]="facturar_envio" [ngStyle]="{'margin-left': '10px'}" value="NO" autocomplete="on" (click)="validar_cambio_tipodoc('NO')">
 				</div>
 
 				<div *ngIf="srv.getTipacc()=='T' && facturar_envio== 'SI'" class="box-header">
@@ -659,7 +895,7 @@
 <div class="box box-primary">
 			<div class="box-header with-border">
 				<h3 style="color:red;font-weight:bold" class="box-title">
-					Subir foto envío ( 上傳出貨照片 )
+					Subir foto de su paquete ( 请上传您的包裹照片 )
 				</h3>
 			</div>
 			<div class="box-body">
@@ -669,7 +905,7 @@
 					<div  class="col-md-4">
 					<div class="input-group">
 
-					<div class="custom-file">
+					<div *ngIf="srv.getTipacc()=='P'" class="custom-file">
 						<input (change)="fileChange($event)"  type="file"  class="custom-file-input" id="exampleInputFile" accept="image/*" > 
 						<!-- <label class="custom-file-label" for="inputGroupFile01">Choose file</label> -->
 						<label class="custom-file-label" for="exampleInputFile" data-browse="Buscar" >{{nombre_archivo}}</label>
@@ -689,7 +925,7 @@
 					<span>IMAGEN SUBIDA CON EXITO...!!!</span>
 					</div>
 					
-					<div  class="text-center" *ngIf="(imageFile && !loading)" >
+					<div  class="text-center" *ngIf="(imageFile && !loading && srv.getTipacc()=='P')" >
 					<!-- <div  class="text-center" > -->
 						<br> Comprimido: tamaño: {{sizeOFCompressedImage | number : '1.2-2'}}MB
 						<br>

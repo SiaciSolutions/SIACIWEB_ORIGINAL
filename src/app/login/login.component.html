@@ -1,4 +1,24 @@
 <body>
+
+	<!-- Overlay  *ngIf="showOverlay"-->
+<div class="overlay-bg" *ngIf="showOverlay"></div>
+
+<!-- Contenedor del mensaje   *ngIf="showOverlay" -->
+<div class="overlay-content" *ngIf="showOverlay">
+
+	<img width="300" height="400" src="../../assets/notificacion/promocion.png" alt="notificacion">
+
+<!--   <h2>Bienvenido</h2>
+  <p>Cargando aplicación...</p> -->
+  <BR>
+  <button (click)="closeOverlay()">Cerrar</button>
+</div>
+
+
+
+
+
+
 			<div class="main">
 				<div class="login">
 				 <!-- <mat-card style="width:100%; " class="" [class.mat-elevation-z5]="elevacion"> -->
@@ -16,8 +36,8 @@
 						<!-- <input type="text" placeholder="Usuario SIACI" required=" ">					 -->
 						<!-- <input type="password" class="password" placeholder="Password" required=" ">	 -->
 						
-						<input type="text" name="usuario" placeholder="Usuario (使用者)" required=" " [(ngModel)]="ruc" >					
-						<input type="password" name="password" class="password" placeholder="Password (線索)" required=" " [(ngModel)]="password" >	
+						<input type="text" name="usuario" placeholder="(使用者)Usuario " required=" " [(ngModel)]="ruc" >					
+						<input type="password" name="password" class="password" placeholder="(密码)Password" required=" " [(ngModel)]="password" >	
 						
 					
 <!-- 					 <label >EMPRESA</label>

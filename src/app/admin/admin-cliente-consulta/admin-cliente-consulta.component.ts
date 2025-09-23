@@ -56,6 +56,9 @@ export class AdminClienteConsultaComponent implements OnInit {
  public provincia_lista:any = [];
  provincia
 
+ usuarioweb
+ claveweb
+
  // clientes = false;
  exist_razon_social = false;
  patron_cliente = undefined;
@@ -114,7 +117,7 @@ export class AdminClienteConsultaComponent implements OnInit {
 	
 	this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
 	this.fecha_status_cartera = this.fectra
-		console.log(this.fectra )
+	console.log(this.fectra)
 	// this.busca_cliente()
 	
 	// console.log(this.status)
@@ -160,34 +163,31 @@ export class AdminClienteConsultaComponent implements OnInit {
 	  let fec_cartera = formatDate(this.fecha_status_cartera, 'yyyy-MM-dd', 'en-US', '-0500');
 	  console.log(fec_cartera)
 	  
-  //PARA BUSCAR SALDO_CLIENTE
-  if (this.codcli){
+	//PARA BUSCAR SALDO_CLIENTE
+	if (this.codcli){
 
-	let datos_saldo_cliente = {};
-	datos_saldo_cliente['codemp'] = this.empresa;
-	datos_saldo_cliente['fecha_cartera'] = fec_cartera;
-	datos_saldo_cliente['codcli'] = this.codcli;
-	console.log (datos_saldo_cliente)
-	this.srv.saldo_cartera(datos_saldo_cliente).subscribe(
-	   data => {
-		   console.log("OBTENIENDO SALDO")
-		   console.log(data)
-		   if (data['saldo_cliente']){
-		   this.saldo_cliente ="USD "+data['saldo_cliente']
-		   }else{
-			this.saldo_cliente = "USD "+0
-		   }
-		   
-		   
-		}); 
-  }else{
-	  alert("Se necesita los datos del cliente para obtener su saldo");
-	  
-  }
-	  
-	  
-	  
-	  
+		let datos_saldo_cliente = {};
+		datos_saldo_cliente['codemp'] = this.empresa;
+		datos_saldo_cliente['fecha_cartera'] = fec_cartera;
+		datos_saldo_cliente['codcli'] = this.codcli;
+		console.log (datos_saldo_cliente)
+		this.srv.saldo_cartera(datos_saldo_cliente).subscribe(
+		data => {
+			console.log("OBTENIENDO SALDO")
+			console.log(data)
+			if (data['saldo_cliente']){
+			this.saldo_cliente ="USD "+data['saldo_cliente']
+			}else{
+				this.saldo_cliente = "USD "+0
+			}
+			
+			
+			}); 
+	}else{
+		alert("Se necesita los datos del cliente para obtener su saldo");
+		
+	}
+
   }
   
   	busqueda_razon_social() { 
@@ -209,6 +209,7 @@ export class AdminClienteConsultaComponent implements OnInit {
 				this.exist_razon_social = true;
 				// this.searching_articulo = false
 				
+				
 		
 				
 			}else {
@@ -223,6 +224,47 @@ export class AdminClienteConsultaComponent implements OnInit {
 			alert("Por favor llenar el campo Razon Social");
 		}
 	 }
+
+	busqueda_usuario_siaciweb() { 
+	console.log ("##### BUSCAR POR USUARIO SIACIWEB ####")
+
+	
+
+
+		const datos = {};
+		datos['codemp'] = this.empresa;
+		datos['codus1'] = this.rucced.substring(0, 10);
+		
+			this.srv.get_usuario_siaciweb(datos).subscribe(data => {
+				// console.log(data)
+				
+				this.usuarioweb =data['codus1']
+ 				this.claveweb = data['clausu']
+				//let longitud_data = data.length
+
+/* 			if (longitud_data > 0 ) {
+				console.log(data)
+
+				this.razon_social_lista = data;
+				this.exist_razon_social = true;
+				// this.searching_articulo = false
+				
+		
+				
+			}else {
+				alert("Razon Social no encontrado con la palabra clave ingresada <<"+this.patron_cliente+">>");
+				// this.searching_articulo = false
+				this.exist_razon_social = false;
+			} */
+				
+
+			}); 
+
+
+
+	}
+
+
 	 
 	 select_razon_social(ident,ruc,rz,correo,codcli,dircli) {
 		 console.log ("Seleccion de cliente")
@@ -246,6 +288,7 @@ export class AdminClienteConsultaComponent implements OnInit {
 		this.busca_cliente()
 		this.exist_razon_social = false;
 		this.patron_cliente = undefined;
+		this.busqueda_usuario_siaciweb() 
 	 }
   
   
@@ -385,7 +428,9 @@ export class AdminClienteConsultaComponent implements OnInit {
 					// // this.success = true
 					alert("Cliente con identificación "+this.rucced+" actualizado con exito..!!");
 					// this.ngOnInit() 
-					this.router.navigate(['/admin/dashboard3', datos]);
+
+					this.actualizar_usuarioweb()
+					
 					
 					
 					// this.router.navigate(['/admin/crear_pedidos', datos]);
@@ -395,7 +440,27 @@ export class AdminClienteConsultaComponent implements OnInit {
 		}
 
 		
-	 }//FIN FUNCION CREAR CLIENTE
+	 }//FIN FUNCION ACTUALIZAR CLIENTE
+
+	 actualizar_usuarioweb(){
+		let datos_actuliza_usuweb = {
+			codemp:this.empresa,
+			codus1:this.usuarioweb,
+			clausu:this.claveweb
+		}
+		let datos = {};
+		datos['usuario'] = this.usuario;
+		datos['empresa'] = this.empresa;
+		this.srv.actualizar_usuario_siaciweb(datos_actuliza_usuweb).subscribe(data => {
+			this.router.navigate(['/admin/dashboard3', datos]);
+
+		})
+		//actualizar_usuario_siaciweb
+
+	 }
+
+
+	 
 	 
 	// validar_campos_obligatorios (nombre,ident,dircli,telcli,telcli2,email,ciudad,tipo_cliente,tipo_doc){
 	validar_campos_obligatorios (datos){

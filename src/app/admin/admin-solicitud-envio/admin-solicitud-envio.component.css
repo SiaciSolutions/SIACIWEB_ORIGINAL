@@ -186,7 +186,10 @@ input:checked + .slider:before {
 .warning-text {
   font-size: 16px;
 }
-
+.placeholder-text {
+  color: #999;
+  font-style: italic;
+}
 
 
 

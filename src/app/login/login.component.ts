@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+//import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,17 +21,42 @@ export class LoginComponent implements OnInit {
   agencia_lista
   login_exitoso = false
   datos_perfil
+  showOverlay = false;
+  rutaImagen = 'assets/notificacion/promocion.png'; // nombre exacto del archivo
   
   constructor(private router: Router, private srv: ApiService) {
 	this.tipo_busqueda = true; //BUSQUEDA POR USUARIO Y PASSWORD
 	  }
 
   ngOnInit() {
+
+    
+
     this.srv.empresas().subscribe(data => {
       this.empresas = data;
 	  console.log(this.empresas)
     });
+	//
+	this.verificarImagen(this.rutaImagen);
+
+  
+
+
+
+}
+
+verificarImagen(ruta: string) {
+    const img = new Image();
+    img.onload = () => this.showOverlay = true;   // existe
+    img.onerror = () => this.showOverlay = false; // no existe
+    img.src = ruta + '?t=' + new Date().getTime(); // evitar cache
   }
+
+
+    closeOverlay() {
+    this.showOverlay = false;
+  }
+
 
   hacer_login() {
 	if (this.tipo_busqueda === false) {	

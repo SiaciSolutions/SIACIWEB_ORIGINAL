@@ -282,6 +282,26 @@
 							
 							<input type="button" name="cambio_correo" value="Editar email" class="btn btn-success" (click)="cambiar_email = true" >
 					</div>
+					<div class="form-group">
+							<label class="control-label" style="color:red;font-weight:bold">USUARIO WEB</label>
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli" type="text" name="phone" value=""  class="form-control input-sm" id="phone" /> -->
+							<input *ngIf="!this.clientes" type="text"  placeholder="usuarioweb" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes" type="text" placeholder="usuarioweb" id="add_item"  name="usuarioweb"  [(ngModel)]="usuarioweb" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+						
+							<input #nuevo_telcli  *ngIf="this.cambiar_telcli && this.clientes"  type="email" placeholder="Ingrese nuevo teléfono" value="{{telcli}}" name="reference" class="form-control tip" (blur)="update_datos('telcli',nuevo_telcli.value)" autocomplete="off"  (keyup.enter)="update_datos('telcli',nuevo_telcli.value)">
+
+						
+					</div>
+					<div class="form-group">
+							<label class="control-label"style="color:red;font-weight:bold">CLAVE WEB </label>
+							<!-- <input (keypress)='validaNumericosCantidad($event)' [(ngModel)]="telcli" type="text" name="phone" value=""  class="form-control input-sm" id="phone" /> -->
+							<input *ngIf="!this.clientes" type="text"  placeholder="Ingrese Clave" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
+							<input *ngIf="this.clientes" type="text" placeholder="Ingrese clave" id="add_item" name="claveweb"  [(ngModel)]="claveweb"  class="form-control ui-autocomplete-input" autocomplete="off">
+						
+<!-- 							<input #nuevo_telcli  *ngIf="this.cambiar_telcli && this.clientes"  type="email" placeholder="Ingrese nuevo teléfono" value="{{telcli}}" name="reference" class="form-control tip" (blur)="update_datos('telcli',nuevo_telcli.value)" autocomplete="off"  (keyup.enter)="update_datos('clave',nuevo_telcli.value)">
+							<input type="button" name="cambio_telcli" value="Editar clave" class="btn btn-success" (click)="cambiar_telcli = true" > -->
+						
+					</div>
 					
 					<div *ngIf="srv.getConfConsultaEstadoCartera()=='SI'"class="form-group">
 					<label>Consultar estado de cartera del cliente al día:</label>

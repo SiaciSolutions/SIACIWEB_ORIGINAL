@@ -42,6 +42,9 @@ export class AdminClienteComponent implements OnInit {
  public ciudad_lista:any = [];
  public provincia_lista:any = [];
  provincia
+ usuarioweb
+ usuariosiaci
+ claveweb
  @Input() status_cambio_vista_cliente: string;
 
  
@@ -131,6 +134,14 @@ export class AdminClienteComponent implements OnInit {
 	
 	AdminLTE.init();
   
+  }
+
+   //this.rucced.substring(0, 9);
+
+  onInputChange(value: string) {
+    this.rucced = value;
+    this.usuariosiaci = value.substring(0, 10);
+	this.usuarioweb = value
   }
   
   
@@ -243,7 +254,8 @@ export class AdminClienteComponent implements OnInit {
 					alert("Cliente con identificación "+this.rucced+" creado con exito..!!");
 					if (this.status_cambio_vista_cliente == 'false'){
 						// location.reload()
-						this.router.navigate(['/admin/dashboard3', datos]);
+						this.crea_usuario()
+						//this.router.navigate(['/admin/dashboard3', datos]);
 					}
 					this.loading_modulo = false
 
@@ -256,22 +268,36 @@ export class AdminClienteComponent implements OnInit {
 			}
 		); //FIN ENVIO CLIENTE
 		}
-		
-		
-		//#############################EJEMPLO
-		  // if (datos['ruc'].length === 0){
-		
-		// if ((datos['rucced'].length > 13 || datos['rucced'].length === 0)){
-			// alert(" EL número de Identificación debe tener valor y contener no debe exceder los 13 caracteres!!");
-		// }else {
-				// console.log("VALIDADO RUC")
-		// }
-		//#############################FIN EJEMPLO
-
-		
-
 
 	 }//FIN FUNCION CREAR CLIENTE
+
+	 crea_usuario() {
+		let datos_usuario= {
+			codemp:this.empresa,
+			codus1:this.usuariosiaci,
+			nombrecorto:this.usuarioweb,
+			clausu:this.claveweb,
+			nomusu:this.nomcli.toUpperCase(),
+			codusu:this.usuario
+		}
+
+		let datos = {};
+		datos['usuario'] = this.usuario;
+		datos['empresa'] = this.empresa;
+		
+		this.srv.crear_usuario_siaciweb(datos_usuario).subscribe(
+			data => {
+				datos['usuario'] = this.usuario;
+				datos['empresa'] = this.empresa;
+				this.router.navigate(['/admin/lista_envios', datos]);
+
+
+			}
+
+		)
+
+	 }
+
 	 
 	// validar_campos_obligatorios (nombre,ident,dircli,telcli,telcli2,email,ciudad,tipo_cliente,tipo_doc){
 	validar_campos_obligatorios (datos){

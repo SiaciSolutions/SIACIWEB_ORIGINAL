@@ -76,7 +76,7 @@
 									
 									</td>
 									<td class="col-xs-9"> 
-									<input (keypress)='validaNumericosCantidad($event)'  inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" />
+									<input (keypress)='validaNumericosCantidad($event)'  inputmode="numeric" [(ngModel)]="rucced" type="text" name="cf1" value="" placeholder="Ingrese num identificacion"  class="form-control input-sm" id="cf1" (ngModelChange)="onInputChange($event)"/>
 									</td>
 								</tr>
 							</table>
@@ -142,6 +142,14 @@
 					<div class="form-group">
 							<label class="control-label" >Dirección de e-mail</label>
 							<input [(ngModel)]="email" type="text" name="email" value="" placeholder="Ingrese email válido"  class="form-control input-sm" id="email_address" />
+					</div>
+						<div class="form-group">
+							<label class="control-label" style="color:red;font-weight:bold">USUARIO SISTEMA</label>
+							<input [(ngModel)]="usuarioweb" type="text" name="usuarioweb" value="" placeholder="Ingrese usuario"  class="form-control input-sm" id="usuarioweb" disabled />
+					</div>
+					<div class="form-group">
+							<label class="control-label" style="color:red;font-weight:bold">CLAVE SISTEMA</label>
+							<input [(ngModel)]="claveweb" type="text" name="claveweb" value="" placeholder="Ingrese clave"  class="form-control input-sm" id="claveweb" />
 					</div>
 
 					<div class="form-group">

@@ -152,7 +152,10 @@ export class AdminSolicitudEnvioComponent implements OnInit {
 		seguro: 'NO',
 		tipo_producto: 'PAQ',
 		peso:0,
-		valor_declarado:0
+		valor_declarado:0,
+		contenido:'',
+		total_estimado:0,
+		peso_consulta : 0
     }
 	lista_num_piezas = Array.from({ length: 20 }, (_, i) => ({ value: i + 1, label: (i + 1).toString() }));
 	num_piezas = 1
@@ -162,17 +165,18 @@ export class AdminSolicitudEnvioComponent implements OnInit {
 	//datos_remitente
 	nombre_rem = null
 	rucced_rem = null
-	ciudad_rem = 'GUAYAQUIL'
-	tlf_rem = '099999999'
+	ciudad_rem = null
+	tlf_rem = null
 	dir_rem = null
 	//datos_destinatarios
 	nombre_dest = null
 	rucced_dest = null
-	ciudad_dest = null
+	ciudad_dest = undefined
 	tlf_dest = null
 	tlf_dest2 = null
 	dir_dest = null
-	cod_courier = 'SERV'
+	//cod_courier = 'SERV'
+	cod_courier = null
 	datos_guia_courier = {}
 	
 	// public getConfAbrirCierreCaja(): string {
@@ -209,7 +213,7 @@ export class AdminSolicitudEnvioComponent implements OnInit {
   numtra
   ver_factura
   total_neto = 0
-  facturar_envio = 'SI'
+  facturar_envio = 'NO'
 //############################## PARA ADJUNTAR FOTOS ###############
 loading
 subida_exitosa
@@ -227,24 +231,38 @@ progress
 id_pedido_ruta
 fotos
 fotos_jetta
+reembolso_gastos_precio
+porc_valor_reembolso_gastos
+lista_destinatarios =[]
+exist_datos_dest = false
+tipotrans
+exist_datos_rem = false
+lista_calculo_laar :any= []
+servicio_paq_laar ='PLAA'
   
   //#################### PARA CONTROLAR EL SELECTOR DE COURIER  ##############
   @Output() courierSelected = new EventEmitter<string>();
 
   couriers = [
+	{
+      name: 'TODAS',
+      value: null,
+      image: '../../assets/SeleccCourier.png'
+    },
     {
       name: 'SERVIENTREGA',
       value: 'SERV',
-      image: 'https://franquiciaecuador.com/wp-content/uploads/2023/04/servientrega-franquicias.jpg'
+      image: '../../assets/servientrega-franquicias.jpg'
     },
     {
       name: 'LAARCOURIER',
       value: 'LAAR',
-      image: 'https://fenix.laarcourier.com/operaciones/imgs/logo-dark.png'
+      image: '../../assets/logo-dark.png'
     }
   ];
 
-  selectedCourier = this.couriers[0];
+     selectedCourier = this.couriers[0];
+/*   selectedCourier: any = null; */
   dropdownOpen = false;
 
   toggleDropdown() {
@@ -256,6 +274,7 @@ fotos_jetta
     this.courierSelected.emit(courier.value);
     this.dropdownOpen = false;
 	console.log (courier.value)
+	this.ciudad_dest = undefined
 	this.cod_courier= courier.value
 	this.buscar_lista_ciudades_courier()
   }
@@ -317,9 +336,12 @@ fotos_jetta
 					this.usuario = params['usuario'] || this.route.snapshot.paramMap.get('usuario') || 0;
 					this.empresa = params['empresa'] || this.route.snapshot.paramMap.get('empresa') || 0;
 					this.numtra = params['numfac'] || this.route.snapshot.paramMap.get('numfac') || 0;
+					this.tipotrans = params['tipotrans'] || this.route.snapshot.paramMap.get('tipotrans') || 0;
 					this.ver_factura = params['verfactura'] || this.route.snapshot.paramMap.get('verfactura') || 0;
+
 					console.log("LUEGO DE ENTRADA")
 					
+
 					this.configuracion_inicial()
 					
 					if (this.numtra == 0){
@@ -408,20 +430,64 @@ fotos_jetta
 			alert("Solo se permite hasta 70 kg para por envios de 1 unidad")
 
 		}else{
+			if (this.validar_datos_paquete() == true)
+			{
 				if (this.agregarPaquete['seguro'] == 'NO'){
 					this.agregarPaquete['valor_declarado'] = 0
 				}
 
-				this.buscar_patron_peso (this.cod_courier,this.agregarPaquete['peso'],this.agregarPaquete['tipo_producto'])
 
 				if (this.agregarPaquete['tipo_producto'] == 'SOB'){
 					this.agregarPaquete['seguro'] = 'NO'
+					this.agregarPaquete['contenido'] = 'DOCUMENTOS'
+					this.agregarPaquete['peso'] = 0.1
 				}
+				this.buscar_patron_peso (this.cod_courier,this.agregarPaquete['peso'],this.agregarPaquete['tipo_producto'])
+
 				if (this.agregarPaquete['seguro'] == 'SI'){
 					this.buscar_patron_peso (this.cod_courier,this.agregarPaquete['valor_declarado'],'SEG')
 
 				}
 				this.observacion_factura = 'Envio de: '+this.agregarPaquete['contenido']
+
+			}
+
+		}
+
+
+
+   }
+
+   public insercion_lista_laar(){
+		console.log (this.agregarPaquete)
+
+		if (this.agregarPaquete.peso_consulta > 65){
+
+			alert("Solo se permite hasta 65 kg para por envios de 1 unidad en Laarcourier")
+
+		}else{
+			if (this.validar_calculo_paquete_laar() == true)
+			{
+/* 				if (this.agregarPaquete['seguro'] == 'NO'){
+					this.agregarPaquete['valor_declarado'] = 0
+				} */
+
+
+/* 				if (this.agregarPaquete['tipo_producto'] == 'SOB'){
+					this.agregarPaquete['seguro'] = 'NO'
+					this.agregarPaquete['contenido'] = 'DOCUMENTOS'
+					this.agregarPaquete['peso'] = 0.1
+				} */
+				this.buscar_tarifa_peso_laar (this.cod_courier,this.agregarPaquete['peso_consulta'],this.agregarPaquete['tipo_producto'])
+
+/* 				if (this.agregarPaquete['seguro'] == 'SI'){
+					this.buscar_patron_peso (this.cod_courier,this.agregarPaquete['valor_declarado'],'SEG')
+
+				} */
+/* 				this.observacion_factura = 'Envio de: '+this.agregarPaquete['contenido'] */
+
+			}
+
 		}
 
 
@@ -515,8 +581,9 @@ fotos_jetta
 		this.srv.buscar_servicio_peso(datos).subscribe(
 			data => {
 			let longitud_data = data.length
-			//console.log(data)
+			console.log(data)
 			if (longitud_data > 0 ) {
+				console.log ("### OBTENIENDO PATRON PESOOO ####")
 				console.log(data)
 				this.articulo = data;
 				this.exist_articulo = true;
@@ -529,8 +596,26 @@ fotos_jetta
 								 this.articulo[0]['nomart'] = this.articulo[0]['nomart'] + ' Peso:'+ this.agregarPaquete['peso'] + 'KG, Numero de Piezas:'+
 													this.num_piezas
 								 this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
-					
-								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+								
+								 if (tipo_producto !='SEG'){
+									console.log ("####################### INSERTA OBJETO EDITADO #######################")
+									console.log( this.articulo[0]['prec01']+this.articulo[0]['precio_iva'])
+									//RECETA CONTADORA NUEVA BASE
+									let suma_total_art= this.articulo[0]['prec01']+this.articulo[0]['precio_iva']
+									//let nuevo_precio_base = suma_total_art*0.80  //valor que viene de base de datos
+									let nuevo_precio_base = suma_total_art*this.porc_valor_reembolso_gastos*0.01  //valor que viene de base de datos
+									
+									this.articulo[0]['prec01'] = this.redondear(nuevo_precio_base)
+									this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+									this.reembolso_gastos_precio =this.redondear(suma_total_art- (this.articulo[0]['prec01']+this.articulo[0]['precio_iva']))
+									console.log(this.reembolso_gastos_precio)
+
+								
+									this.busca_reembolso_gasto(this.reembolso_gastos_precio)
+								}
+								
+
+
 								console.log (this.articulo)
 								this.elements_checkedList.push(this.articulo[0])
 								this.inserta_pedido()
@@ -541,6 +626,17 @@ fotos_jetta
 								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
 								this.articulo[0]['nomart'] = this.articulo[0]['nomart']
 								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+								//RECETA CONTADORA NUEVA BASE
+ 								let suma_total_art= this.articulo[0]['prec01']+this.articulo[0]['precio_iva']
+								//let nuevo_precio_base = suma_total_art*0.80  //valor que viene de base de datos
+								let nuevo_precio_base = suma_total_art*this.porc_valor_reembolso_gastos*0.01  //valor que viene de base de datos
+								this.articulo[0]['prec01'] = this.redondear(nuevo_precio_base)
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								this.reembolso_gastos_precio =this.redondear(suma_total_art- (this.articulo[0]['prec01']+this.articulo[0]['precio_iva']))
+								console.log(this.reembolso_gastos_precio)
+								this.busca_reembolso_gasto(this.reembolso_gastos_precio)
+								
+								
 								console.log (this.articulo)
 								this.elements_checkedList.push(this.articulo[0])
 								this.inserta_pedido()
@@ -549,6 +645,115 @@ fotos_jetta
 						}
 
 				}
+			
+			}else {
+				alert("Servicio no configurado en el sistema");
+			}
+		});
+
+
+   }
+
+    public buscar_tarifa_peso_laar(codvhi,peso,tipo_producto){
+
+	let datos= {
+	   codemp: this.empresa,
+	   peso:peso,
+	   codvhi : codvhi,
+	   tipo: tipo_producto
+	}	
+		this.srv.buscar_servicio_peso(datos).subscribe(
+			data => {
+			let longitud_data = data.length
+			console.log(data)
+			if (longitud_data > 0 ) {
+				console.log ("### OBTENIENDO PATRON PESOOO LAAR ####")
+				console.log(data)
+				//lista_calculo_laar
+
+
+				
+				//
+				data[0]['Peso'] = datos['peso']
+				data[0]['index'] = this.lista_calculo_laar.length
+				data[0]['Paquete'] = 'Paquete '+(data[0]['index']+1)
+				let iva_porc_lista_laar = 1+(data[0]['poriva']/100)
+				console.log (iva_porc_lista_laar)//esto da 1.15 q es el iva actual
+				data[0]['prec01'] =this.redondear(data[0]['prec01']*iva_porc_lista_laar)
+				
+				
+
+				
+/* 				setTimeout(()=> {	
+						}, 3000) */
+				this.lista_calculo_laar.push(data[0])
+				this.num_piezas= this.lista_calculo_laar.length
+				this.agregarPaquete['peso'] = this.lista_calculo_laar.reduce((acc,obj,) => acc + (obj.Peso),0);
+				this.agregarPaquete['total_estimado'] = this.lista_calculo_laar.reduce((acc,obj,) => acc + (obj.prec01),0);			
+
+
+
+				//this.articulo = data;
+				//this.exist_articulo = true;
+				
+
+/* 				if (this.articulo.length == 1){
+						if (this.agregarPaquete['tipo_producto'] == 'PAQ'){
+								console.log ("inserto de una vez PAQ")
+								//this.articulo[0]['prec01'] = this.total_paquete
+								 this.articulo[0]['nomart'] = this.articulo[0]['nomart'] + ' Peso:'+ this.agregarPaquete['peso'] + 'KG, Numero de Piezas:'+
+													this.num_piezas
+								 this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								
+								 if (tipo_producto !='SEG'){
+									console.log ("####################### INSERTA OBJETO EDITADO #######################")
+									console.log( this.articulo[0]['prec01']+this.articulo[0]['precio_iva'])
+									//RECETA CONTADORA NUEVA BASE
+									let suma_total_art= this.articulo[0]['prec01']+this.articulo[0]['precio_iva']
+									//let nuevo_precio_base = suma_total_art*0.80  //valor que viene de base de datos
+									let nuevo_precio_base = suma_total_art*this.porc_valor_reembolso_gastos*0.01  //valor que viene de base de datos
+									
+									this.articulo[0]['prec01'] = this.redondear(nuevo_precio_base)
+									this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+									this.reembolso_gastos_precio =this.redondear(suma_total_art- (this.articulo[0]['prec01']+this.articulo[0]['precio_iva']))
+									console.log(this.reembolso_gastos_precio)
+
+								
+									this.busca_reembolso_gasto(this.reembolso_gastos_precio)
+								}
+								
+
+
+								console.log (this.articulo)
+								this.elements_checkedList.push(this.articulo[0])
+								this.inserta_pedido()
+						}
+
+						 if (this.agregarPaquete['tipo_producto'] == 'SOB'){
+								console.log ("inserto de una vez SOB")
+								//this.articulo[0]['prec01'] = this.total_paquete
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								this.articulo[0]['nomart'] = this.articulo[0]['nomart']
+								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+								//RECETA CONTADORA NUEVA BASE
+ 								let suma_total_art= this.articulo[0]['prec01']+this.articulo[0]['precio_iva']
+								//let nuevo_precio_base = suma_total_art*0.80  //valor que viene de base de datos
+								let nuevo_precio_base = suma_total_art*this.porc_valor_reembolso_gastos*0.01  //valor que viene de base de datos
+								this.articulo[0]['prec01'] = this.redondear(nuevo_precio_base)
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								this.reembolso_gastos_precio =this.redondear(suma_total_art- (this.articulo[0]['prec01']+this.articulo[0]['precio_iva']))
+								console.log(this.reembolso_gastos_precio)
+								this.busca_reembolso_gasto(this.reembolso_gastos_precio)
+								
+								
+								console.log (this.articulo)
+								this.elements_checkedList.push(this.articulo[0])
+								this.inserta_pedido()
+
+
+						} 
+
+				} */
 			
 			}else {
 				alert("Servicio no configurado en el sistema");
@@ -660,6 +865,15 @@ fotos_jetta
 
 				});
 
+
+				this.srv.porc_reembolso_gastos(datos_caja).subscribe(data => {
+					console.log("PORC REEMBOLSO DE GASTOS")
+					console.log (data)
+					this.porc_valor_reembolso_gastos = data['porc_reemb']
+				 
+				});
+
+
 				//PARA OBETNER LA GUIA SIGUIENTE PARA LAS FOTOS:
 				this.srv.guia_sig().subscribe(data => {
 					console.log (data)
@@ -735,9 +949,26 @@ fotos_jetta
 						});  
 
 				// ###  PARA EL SETEO DEL USUARIO CEDULA CONVERTIDO EN DATO CLIENTE PUNTO DE VENTA
-				this.tipo_doc = 'C'
-				this.ruc = this.usuario
-				this.busca_cliente() 
+				if (this.srv.getTipacc() =='P'){
+					//this.tipo_doc = 'C'
+					this.ruc = this.usuario
+					if (this.usuario.length == 13){
+					      this.tipo_doc = 'R'
+					}else if
+					(this.usuario.length == 10){
+						this.tipo_doc = 'C'
+						
+					}else{
+						this.tipo_doc = 'P'
+					}
+					this.busca_cliente() 
+				
+				
+				
+				
+				
+				}
+
 		
 		
 		
@@ -760,7 +991,8 @@ fotos_jetta
 	let datos = {};
 	datos['codemp'] = this.empresa;
 	datos['usuario'] = this.usuario;	
-	datos['numfac'] = this.numtra;	
+	datos['numfac'] = this.numtra;
+	datos['tipodocumento'] = this.tipotrans;	
 	console.log (datos)
 		
 		
@@ -769,7 +1001,7 @@ fotos_jetta
 		   console.log("##### OBTENIENDO ENCABEZADO FACTURA  ######")
 		   console.log(data)
 		   // this.select_razon_social(ident,ruc,rz,correo,codcli,dircli)
-		   this.select_razon_social(data['tpIdCliente'],data['rucced'],data['razon_social'],data['email'],data['codcli'],data['dircli'])
+		   this.select_razon_social(data['tpIdCliente'],data['rucced'],data['razon_social'],data['email'],data['codcli'],data['dircli'],data['telcli'],data['ciucli'])
 		   //FORMAS DE PAGO
 		   
 		   	// public check_efectivo = false
@@ -837,6 +1069,7 @@ fotos_jetta
 				this.facturar_envio = 'NO'
 			}
 			this.buscar_lista_ciudades_courier()
+			this.busca_cliente()
 			
 			
 
@@ -871,6 +1104,7 @@ fotos_jetta
 		   this.agregarPaquete['valor_declarado'] = data['valorDeclarado']
 		   this.agregarPaquete['peso'] = data['peso']
 		   this.num_piezas = data['nopiezas']
+		   this.tlf_dest2 = data['tlfceldest2']
 		//   this.agregarPaquete['num_piezas'] = data['nopiezas']
 
 				this.datos_guia_courier = {
@@ -894,6 +1128,28 @@ fotos_jetta
 	   }
 	   
 	   )
+
+	  // if (this.cod_courier == 'LAAR'){
+			this.srv.get_lista_paq_enviados(datos).subscribe(
+				data => {
+					console.log ("##### OBTENIENDO LISTA DE PAQUETES ENVIADOS LAAR ####")
+					console.log(data)
+					let array_result = []
+					this.lista_calculo_laar = data
+					let i = 0
+					for (let item_lista of this.lista_calculo_laar) {
+						item_lista['index'] = i++
+						array_result.push(item_lista)
+					}
+					this.lista_calculo_laar= []
+					this.lista_calculo_laar=array_result
+				}
+			)
+
+	   //}
+
+
+	
 		
 
 	}
@@ -924,7 +1180,7 @@ fotos_jetta
 		       data['email'] = 'NN'
 		   }
 
-		   this.select_razon_social(data['tpIdCliente'],data['identificacion'],data['cliente'],data['email'],data['codcli'],data['direccion'])
+		   this.select_razon_social(data['tpIdCliente'],data['identificacion'],data['cliente'],data['email'],data['codcli'],data['direccion'],data['telcli'],data['ciucli'])
 		   //FORMAS DE PAGO
 		   
 		   	// public check_efectivo = false
@@ -1132,11 +1388,12 @@ fotos_jetta
 	}
 	
    busqueda_razon_social() { 
-	if (this.patron_cliente){
+	if (this.nombre_rem){
 		const datos = {};
 		datos['codemp'] = this.empresa;
-		datos['patron_cliente'] = this.patron_cliente;
+		datos['patron_cliente'] = this.nombre_rem;
 			this.srv.busqueda_razon_social(datos).subscribe(data => {
+				
 				// console.log(data)
 				
 				
@@ -1162,6 +1419,98 @@ fotos_jetta
 		}else  { 
 			alert("Por favor llenar el campo Razon Social");
 		}
+	 }
+
+	busqueda_razon_social_dest() { 
+	if (this.nombre_dest && this.cod_courier){
+		const datos = {};
+		datos['codemp'] = this.empresa;
+		datos['patron_dest'] = this.nombre_dest;
+		datos['tipo_busq_dest'] = 'RAZ';
+		datos['codvhi'] = this.cod_courier;
+
+			this.srv.buscar_destinatario(datos).subscribe(data => {
+				// console.log(data)
+				
+				
+				let longitud_data = data.length
+
+
+			if (longitud_data > 0 ) {
+				this.exist_datos_dest = true
+				console.log(data)
+
+			this.lista_destinatarios = data;
+			//	this.exist_razon_social = true;
+				// this.searching_articulo = false
+				
+		
+				
+			}else {
+				alert("Destinatario no encontrado <<"+this.nombre_dest+">>");
+				// this.searching_articulo = false
+				//this.exist_razon_social = false;
+			}
+				
+
+			}); 
+		}else  { 
+			alert("Por favor llenar el campo Nombre destinatario, y seleccionar Courier");
+		}
+	 }
+
+
+	busqueda_rucced_dest() { 
+	if (this.rucced_dest && this.cod_courier){
+		const datos = {};
+		datos['codemp'] = this.empresa;
+		datos['patron_dest'] = this.rucced_dest;
+		datos['tipo_busq_dest'] = 'RUCCED';
+		datos['codvhi'] = this.cod_courier;
+
+			this.srv.buscar_destinatario(datos).subscribe(data => {
+				// console.log(data)
+				
+				
+				let longitud_data = data.length
+
+
+			if (longitud_data > 0 ) {
+				this.exist_datos_dest = true
+				console.log(data)
+
+			this.lista_destinatarios = data;
+			//	this.exist_razon_social = true;
+				// this.searching_articulo = false
+				
+		
+				
+			}else {
+				alert("Destinatario no encontrado <<"+this.rucced_dest+">>");
+				// this.searching_articulo = false
+				//this.exist_razon_social = false;
+			}
+				
+
+			}); 
+		}else  { 
+			alert("Por favor llenar el campo Nombre destinatario, y seleccionar Courier");
+		}
+	 }
+
+	select_destinatario(nomdestinatario,rucdestinatario,dirdest,tlfceldest,tlfceldest2,codciudaddest) {
+		 console.log ("Seleccion de cliente")
+		 this.nombre_dest = nomdestinatario
+		 this.rucced_dest= rucdestinatario
+		 this.dir_dest = dirdest
+		 this.tlf_dest = tlfceldest
+		 this.tlf_dest2 = tlfceldest2
+		 this.ciudad_dest = codciudaddest
+		
+	
+		this.exist_datos_dest = false;
+		//this.patron_cliente = undefined; 
+
 	 }
 	 
 	 
@@ -1198,7 +1547,7 @@ fotos_jetta
 		}
 	 }
 	 
-	 select_razon_social(ident,ruc,rz,correo,codcli,dircli) {
+	 select_razon_social(ident,ruc,rz,correo,codcli,dircli,telcli,ciucli) {
 		 console.log ("Seleccion de cliente")
 		
 		this.dato_cliente= {"nomcli":rz,"rucced":ruc,"email":correo,"codcli":codcli,"dircli":dircli}
@@ -1209,7 +1558,7 @@ fotos_jetta
 		this.razon_social = rz
 		
 		if (correo=== null){
-			alert("Favor llenar el correo electronico en la ficha del cliente..!!!")
+			//alert("Favor llenar el correo electronico en la ficha del cliente..!!!")
 			this.email_cliente = undefined
 		}else {
 			this.email_cliente = correo
@@ -1218,6 +1567,23 @@ fotos_jetta
 		this.clientes = true;
 		this.exist_razon_social = false;
 		this.patron_cliente = undefined;
+
+		//para los envios
+		//alert("estoy seteando remitente/cliente ")
+		console.log(rz)
+		console.log(ruc)
+		console.log(dircli)
+		console.log(telcli)
+		console.log(ciucli)
+
+		
+		
+		
+ 		this.nombre_rem = rz
+		this.rucced_rem = ruc
+		this.dir_rem = dircli
+		this.tlf_rem = telcli
+		this.ciudad_rem = ciucli
 	 }
 
 
@@ -1421,6 +1787,41 @@ fotos_jetta
 	 		this.monto_credito = 0
 	
     }
+
+	delete_art_laar (el,index) {
+		console.log("ENTRADA ARTICULO LAAR A ELIMINAR")
+		console.log(el)
+		console.log(index)
+
+	 let json_eliminar = this.lista_calculo_laar
+	 var nomart = el
+	 
+	json_eliminar = json_eliminar.filter(function(dato){
+	  if(dato.index == index){
+		  return false
+	  }else {
+		 return true 
+		  
+	  }
+	  // return dato;
+	});	 
+	
+	console.log(json_eliminar);//json original
+	this.lista_calculo_laar = json_eliminar	
+	this.num_piezas= this.lista_calculo_laar.length
+	this.agregarPaquete['peso'] = this.lista_calculo_laar.reduce((acc,obj,) => acc + (obj.Peso),0);
+
+	
+    }
+	
+	delete_art_todo_laar () {
+		console.log("ENTRADA ARTICULO A ELIMINAR TODOOOOO")
+			this.lista_calculo_laar = []
+			this.num_piezas = 0
+			this.agregarPaquete['peso']
+
+	
+    }
 	
 	
 	redondear (el) {
@@ -1445,7 +1846,7 @@ fotos_jetta
 				console.log(data['nomcli'])
 				this.razon_social = data['nomcli']
 				if (data['email'] === null){
-					alert("Favor llenar el correo electronico en la ficha del cliente..!!!")
+			//		alert("Favor llenar el correo electronico en la ficha del cliente..!!!")
 					this.email_cliente = undefined
 				}else {
 					this.email_cliente = data['email']
@@ -1456,6 +1857,7 @@ fotos_jetta
 				this.rucced_rem = data['rucced']
 				this.dir_rem = data['dircli']
 				this.tlf_rem = data['telcli']
+				this.ciudad_rem =  data['ciucli']
 			}else {
 				let documento=''
 				if (this.tipo_doc == 'C'){
@@ -1596,6 +1998,8 @@ fotos_jetta
 	 
 	 
 	busca_servicio() { 
+
+		
 	
 	if (this.dato_cliente){
 	if (this.patron_articulo){
@@ -1668,10 +2072,119 @@ fotos_jetta
 	}
   }
 
+  	busca_servicio_laar() { 
+
+		
+	
+	if (this.dato_cliente){
+	if (this.patron_articulo && this.validar_agregar_paquete_laar()){
+		let datos = {};
+		datos['nomart']  = this.patron_articulo;
+		datos['codemp']  = this.empresa;
+		datos['codcli']  = this.dato_cliente['codcli'];
+		console.log ("BUSCO SERVICIO")
+			this.srv.servicios(datos).subscribe(data => {
+				// console.log(data)
+				// console.log (data[1]['nomart'])
+				
+			let longitud_data = data.length
+
+			if (longitud_data > 0 ) {
+				console.log(data)
+				// console.log(data['nomart'])
+				
+				// console.log (data[1]['nomart'])
+				this.articulo = data;
+				//this.exist_articulo = true;
+				
+
+					if (this.articulo.length == 1){
+						if (this.agregarPaquete['tipo_producto'] == 'PAQ'){
+								console.log ("inserto de una vez PAQ")
+								this.articulo[0]['prec01'] = this.agregarPaquete['total_estimado']
+								let iva_porc_lista_laar = 1+(data[0]['poriva']/100)
+								this.articulo[0]['prec01'] =  this.redondear(this.articulo[0]['prec01']/iva_porc_lista_laar)
+								this.articulo[0]['nomart'] = this.articulo[0]['nomart'] + ' Peso:'+ this.agregarPaquete['peso'] + 'KG, Numero de Piezas:'+this.num_piezas
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+					
+
+						}
+							if (this.agregarPaquete['tipo_producto'] !='SEG'){
+								console.log ("####################### INSERTA OBJETO EDITADO #######################")
+								console.log(this.articulo[0])
+								console.log( this.articulo[0]['prec01']+this.articulo[0]['precio_iva'])
+								//RECETA CONTADORA NUEVA BASE
+								let suma_total_art= this.articulo[0]['prec01']+this.articulo[0]['precio_iva']
+								//let nuevo_precio_base = suma_total_art*0.80  //valor que viene de base de datos
+								let nuevo_precio_base = suma_total_art*(this.porc_valor_reembolso_gastos*0.01)  //valor que viene de base de datos (80*0.01)= 0.8 por ejemplo
+
+								this.articulo[0]['prec01'] = this.redondear(nuevo_precio_base)
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								this.reembolso_gastos_precio =this.redondear(suma_total_art- (this.articulo[0]['prec01']+this.articulo[0]['precio_iva']))
+								console.log(this.reembolso_gastos_precio)
+
+
+								this.busca_reembolso_gasto(this.reembolso_gastos_precio)
+							}
+
+								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+								console.log (this.articulo)
+								this.elements_checkedList.push(this.articulo[0])
+								this.inserta_pedido()
+
+
+
+
+
+
+/* 						if (this.agregarPaquete['tipo_producto'] == 'SOB'){
+								console.log ("inserto de una vez SOB")
+								this.articulo[0]['prec01'] = this.total_paquete
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+								this.articulo[0]['nomart'] = this.articulo[0]['nomart']
+								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+								console.log (this.articulo)
+								this.elements_checkedList.push(this.articulo[0])
+								this.inserta_pedido()
+
+
+						} */
+
+				}
+
+				if (this.agregarPaquete['seguro'] == 'SI'){
+					this.buscar_patron_peso (this.cod_courier,this.agregarPaquete['valor_declarado'],'SEG')
+
+				}
+				this.observacion_factura = 'Envio de: '+this.agregarPaquete['contenido']
+
+				
+				// this.filteredarticulo = this.myControl2.valueChanges.pipe(
+				// startWith(''),
+				// map(value => this._filter2(value))
+				// ); 
+	  
+				
+				
+				
+			}else {
+				alert("Servicio no encontrado con la palabra clave ingresada <<"+this.patron_articulo+">>");
+			}
+			}); 
+		}
+/* 		else  { 
+			alert("Por favor llene el campo artículo");
+		} */
+	}else{
+		alert("Por favor seleccionar cliente");
+	}
+  }
+
   public busca_seguro() { 
 	
 	if (this.dato_cliente){
-	if (this.patron_articulo){
+		
+		if (this.patron_articulo){
 		let datos = {};
 		datos['nomart']  = this.patron_articulo;
 		datos['codemp']  = this.empresa;
@@ -1692,17 +2205,17 @@ fotos_jetta
 				this.exist_articulo = true;
 				
 
-					if (this.articulo.length == 1){
+				if (this.articulo.length == 1){
 						if (this.agregarPaquete['tipo_producto'] == 'PAQ'){
-								console.log ("inserto de una vez PAQ")
-								this.articulo[0]['prec01'] = this.valor_seguro
-								this.articulo[0]['nomart'] = this.articulo[0]['nomart'] + ' Precio declarado:'+ this.agregarPaquete['valor_declarado'] + 'USD'
-								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
-					
-								console.log ("####################### INSERTA OBJETO EDITADO #######################")				
-								console.log (this.articulo)
-								this.elements_checkedList.push(this.articulo[0])
-								this.inserta_pedido()
+					console.log ("inserto de una vez PAQ")
+					this.articulo[0]['prec01'] = 
+					this.articulo[0]['nomart'] = this.articulo[0]['nomart'] + ' Precio declarado:'+ this.agregarPaquete['valor_declarado'] + 'USD'
+					this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+		
+					console.log ("####################### INSERTA OBJETO EDITADO #######################")				
+					console.log (this.articulo)
+					this.elements_checkedList.push(this.articulo[0])
+					this.inserta_pedido()
 						}
 
 				}
@@ -1727,6 +2240,52 @@ fotos_jetta
 		alert("Por favor seleccionar cliente");
 	}
   }
+
+public busca_reembolso_gasto(reeb) { 
+	
+	if (this.dato_cliente){
+		this.patron_articulo = 'REEB'
+	if (this.patron_articulo){
+		let datos = {};
+		datos['nomart']  = this.patron_articulo;
+		datos['codemp']  = this.empresa;
+		datos['codcli']  = this.dato_cliente['codcli'];
+		console.log ("BUSCO REEMBOLSO GASTO")
+			this.srv.servicios(datos).subscribe(data => {
+				
+			let longitud_data = data.length
+
+			if (longitud_data > 0 ) {
+				console.log(data)
+				this.articulo = data;
+				this.exist_articulo = true;
+
+					if (this.articulo.length == 1){
+					//	if (this.agregarPaquete['tipo_producto'] == 'PAQ'){
+								console.log ("inserto de una vez PAQ")
+								this.articulo[0]['prec01'] = reeb
+								this.articulo[0]['nomart'] = this.articulo[0]['nomart']
+								this.articulo[0]['precio_iva'] = this.redondear(this.articulo[0]['poriva']*this.articulo[0]['prec01']/100)
+					
+								console.log ("####################### INSERTA OBJETO EDITADO REEMBOLSO DE GASTOS #######################")				
+								console.log (this.articulo)
+								this.elements_checkedList.push(this.articulo[0])
+								this.inserta_pedido()
+				//		}
+
+				}
+			}else {
+				alert("Servicio no encontrado con la palabra clave ingresada <<"+this.patron_articulo+">>");
+			}
+			}); 
+		}else  { 
+			alert("Por favor llene el campo artículo");
+		}
+	}else{
+		alert("Por favor seleccionar cliente");
+	}
+  }
+
 	 
 	 
 	public get_prec_produc(codart){
@@ -1842,6 +2401,84 @@ fotos_jetta
 		
 		
 	}
+
+	public update_peso_lista_laar (codart,index,peso) {
+		console.log("ACTUALIZAR LISTADO LAAR")
+		console.log("####  NOMBRE ########")
+		console.log(codart)
+		console.log("####  PESO NUEVO ########")
+		console.log(peso)
+		console.log("####  index listado ########")
+		console.log(index)
+		var peso_new =peso-0
+		var prec01_new = 0
+
+
+	//	this.buscar_tarifa_peso_laar(this.cod_courier,peso_new,'PAQ')
+ 		let datos= {
+			codemp: this.empresa,
+			peso:peso_new,
+			codvhi : this.cod_courier,
+			tipo: 'PAQ'
+		}
+		//let prec01_new
+		if (peso_new <= 65) {
+		this.srv.buscar_servicio_peso(datos).subscribe(
+			data => {
+				console.log(data)
+				let iva_porc_lista_laar = 1+(data[0]['poriva']/100)
+				console.log (iva_porc_lista_laar)//esto da 1.15 q es el iva actual
+				prec01_new =this.redondear(data[0]['prec01']*iva_porc_lista_laar)
+
+				if 	(peso_new){
+					if (peso_new === 0){
+						alert ("Peso debe ser mayor a 0..por favor validar")
+				
+					}else{
+					
+						this.lista_calculo_laar.map(function(dato){
+							console.log("VOY ACTUALIZAR PESO")
+							if(dato.index == index){
+								console.log (index)
+
+								console.log("ACTUALIZANDO PESO")
+								dato.Peso = peso_new;
+								dato.prec01 = prec01_new;
+
+
+							}
+					
+							return dato;
+						});
+
+
+
+						this.num_piezas= this.lista_calculo_laar.length
+						this.agregarPaquete['peso'] = this.lista_calculo_laar.reduce((acc,obj,) => acc + (obj.Peso),0);
+						this.agregarPaquete['total_estimado'] = this.lista_calculo_laar.reduce((acc,obj,) => acc + (obj.prec01),0);	
+
+
+
+					}
+
+				}else {
+					alert ("Peso debe contener un valor...por favor validar")		
+				
+				}
+			
+			}
+		
+		) 
+		} else{
+			alert("Solo se permite hasta 65 kg por paquete en Laarcourier")
+
+		}
+
+	
+	console.log(this.lista_calculo_laar)
+   	//	this.editART = undefined
+	//	this.cantidad_nueva = '1';
+   }
 	
 	
 	
@@ -1953,6 +2590,21 @@ fotos_jetta
      }
      return false;        
 	}
+
+reemplazarEnie(): void {
+  if (this.nombre_dest) {
+    this.nombre_dest = this.nombre_dest.replace(/ñ/g, 'n').replace(/Ñ/g, 'N');
+  }
+    if (this.dir_dest) {
+    this.dir_dest = this.dir_dest.replace(/ñ/g, 'n').replace(/Ñ/g, 'N');
+  }
+
+      if (this.agregarPaquete['contenido']) {
+    this.agregarPaquete['contenido'] = this.agregarPaquete['contenido'].replace(/ñ/g, 'n').replace(/Ñ/g, 'N');
+  }
+  
+
+}
    
    
    
@@ -2256,6 +2908,7 @@ fotos_jetta
 			}
 			
 			console.log(this.elements_checkedList)
+			this.forma_pago('efectivo')
 		
 		}else {
 			alert("Por favor seleccione algún artículo")
@@ -2350,7 +3003,7 @@ fotos_jetta
 
 	if ( confirm ("Esta seguro de guardar esta solicitud de envio ????") && (this.dato_cliente) && (this.articulos_pedido.length > 0) && (this.email_cliente) && 
 	(this.validar_totales_formapago() == true)  && (this.validar_campos_cheque_tarjeta_trasf() == true) && (this.validar_campos_credito()== true) &&
-	this.validar_subtotal_con_total() && this.validacion_alerta_existencia_correo()){
+	this.validar_subtotal_con_total() && this.validacion_alerta_existencia_correo() && this.validar_campos_obligatorios() == true){
 	this.loading_modulo = true
 	 let encabezado_pdv= this.dato_cliente
 	 
@@ -2561,7 +3214,7 @@ fotos_jetta
 	
 	console.log("ENTRO A GENERAR EL PEDIDO")
 	
-	if (!this.accion_actualizar){ //// CUANDO ES NUEVA ORDEN DE ENVIO
+	if (!this.accion_actualizar || (this.tipotrans=='GR' && this.facturar_envio=='SI')){ //// CUANDO ES NUEVA ORDEN DE ENVIO
 
 		if (this.numtra_pedido){
 			encabezado_pdv['numtra_pedido'] = this.numtra_pedido
@@ -2616,34 +3269,120 @@ fotos_jetta
 										contenido: contenido_guia,
 										comentario : this.nombre_rem,
 										codemp: this.empresa,
-										nopiezas:this.num_piezas
+										nopiezas:this.num_piezas,
+										tlfceldest2:this.tlf_dest2
 									}
 									this.srv.generar_guia_courier(this.datos_guia_courier).subscribe(
 												result => {
-													//891655
-														let datos_fotos_cliente = {
-														guia_ramdom : this.idguia,
-														numtra_nuevo : numfac,
-														codemp: this.empresa
-														}
+													
+													// PARA CONVERSION GUIA A FACTURA, SE DEBE ANULAR LA GUIA EN ENCABEZADOPDV Y ELIMINAR LA GUIA EN GUIADCOURIER
 
-														this.srv.cambio_carpeta_fotos_cliente(datos_fotos_cliente).subscribe(
-														result => {
+													if (this.tipotrans=='GR' && this.facturar_envio=='SI'){
+														let datos_guia_anular= {
+																	numtra_guia : this.numtra,
+																	tipodocumento: 'GR',
+																	status: 'A',
+																	codemp: this.empresa
+														}
+														this.srv.anulacion_guia_convert_fac(datos_guia_anular).subscribe(
+															result => {
+																// SI HAY FOTO SUBIDAS POR EL CLIENTE, SE CAMBIA A FACTURA:  
+																if (this.fotos.length > 0){
+
+																	let datos_cambio_fotos_cliente_guia_fac= {
+																	numguia : this.numtra,
+																	codemp: this.empresa,
+																	numfac_nuevafact: numfac,
+																	}
+																	this.srv.conversion_fact_guia_fotos_cliente(datos_cambio_fotos_cliente_guia_fac).subscribe(
+																		result => {
+																		}
+																	)
+																}
+																if (this.fotos_jetta.length > 0){
+
+																	let datos_cambio_fotos_jetta_guia_fac= {
+																	numguia : this.numtra,
+																	codemp: this.empresa,
+																	numfac_nuevafact: numfac,
+																	}
+																	this.srv.conversion_fact_guia_fotos_jetta(datos_cambio_fotos_jetta_guia_fac).subscribe(
+																		result => {
+																		}
+																	)
+																}
+																
 
 																this.router.navigate(['/admin/lista_envios', datos]);
-														})
+															})
+														
+													
+													
+													
+														}
+													else{
+														if (!this.accion_actualizar){
+															let datos_fotos_cliente = {
+																guia_ramdom : this.idguia,
+																numtra_nuevo : numfac,
+																codemp: this.empresa
+															}
+
+
+															let array_lista_calculo_laar = []
+															for (let item_lista of this.lista_calculo_laar) {
+																item_lista['codemp'] = this.empresa
+																item_lista['numfac'] = numfac
+																item_lista['codvhi'] = this.cod_courier
+																console.log (item_lista)
+																array_lista_calculo_laar.push(item_lista)
+																
+															}
+															console.log (array_lista_calculo_laar)
+
+
+
+															
+															if (this.cod_courier=='LAAR'){
+																//datos['codemp'],datos['codvhi'],datos['numfac'],datos['paquete'],datos['peso'],datos['precio']
+	
+																this.srv.crear_lista_paq_enviados(array_lista_calculo_laar).subscribe(
+																	result => {
+																		//alert ("Creacion de lista Exitosa...!!")
+																			
+																	}
+																)
+
+															}
+
+
+															this.srv.cambio_carpeta_fotos_cliente(datos_fotos_cliente).subscribe(
+																result => {
+
+																		this.router.navigate(['/admin/lista_envios', datos]);
+																}
+															)
+															
+															
+
+															
+															
 
 														
+														
+														}
+
+														this.router.navigate(['/admin/lista_envios', datos]);
+													}
 
 
 
-
-
-													
+											
 												}
-												
-												
-											)
+									)
+									
+
+
 									
 									  //this.router.navigate(['/admin/lista_envios', datos]);
 
@@ -2741,7 +3480,8 @@ fotos_jetta
 										contenido: contenido_guia,
 										comentario : this.nombre_rem,
 										codemp: this.empresa,
-										nopiezas:this.num_piezas
+										nopiezas:this.num_piezas,
+										tlfceldest2:this.tlf_dest2
 									}
 									this.srv.actualizar_guia_courier(this.datos_guia_courier).subscribe(
 												result => {
@@ -2749,9 +3489,29 @@ fotos_jetta
 												}
 												
 												
-											)
+									)
 
-									},
+									if (this.cod_courier=='LAAR'){
+										
+										let datos_eliminacion= {
+												numfac: numfac,
+												codemp: this.empresa
+										}
+										this.srv.delete_lista_paq_enviados(datos_eliminacion).subscribe(
+											result => {
+												//alert ("Creacion de lista Exitosa...!!")
+													
+												}
+										)
+
+										this.srv.crear_lista_paq_enviados(this.lista_calculo_laar).subscribe(
+										result => {
+											//alert ("Creacion de lista Exitosa...!!")
+										})
+									}
+
+									
+								},
 							error => {
 										console.error(error)
 									}
@@ -2912,6 +3672,99 @@ fotos_jetta
 
 
 	}//FIN ENVIO CORREO PEDIDO
+
+	validar_campos_obligatorios (){
+		console.log("VALIDANDO CAMPOS OBLIGATORIOS")
+		let STATUS_OBLIGATORIO = true
+		if ((!this.nombre_dest) || (this.nombre_dest.length == 0)){
+			alert("Nombre destinatario vacio. Por favor llenar. / 收件人姓名为空，请填写。")
+			STATUS_OBLIGATORIO = false
+		}else if ((!this.rucced_dest) || (this.rucced_dest == 0)){
+			alert("Número de Indentificacion destinatario vacio. Por favor llenar. / 收件人ID为空，请填写。")
+			STATUS_OBLIGATORIO = false
+		}else if ((!this.ciudad_dest) || (this.ciudad_dest == 0)){
+			alert("Por favor seleccione ciudad destino / 请选择目的地城市 ")
+			STATUS_OBLIGATORIO = false
+		}else if (!this.tlf_dest || (this.tlf_dest.length == 0)){
+			alert("Teléfono de destinatario vacio, Por favor llenar. / 收件人电话为空，请填写")
+			STATUS_OBLIGATORIO = false
+		}else if (!this.dir_dest){
+			alert("Por favor llene el campo Dirección destinatario / 请填写收件人地址字段")
+			STATUS_OBLIGATORIO = false
+		}
+		// console.log(datos['rucced'])
+		return (STATUS_OBLIGATORIO)
+	}
+
+	validar_datos_paquete(){
+		console.log("VALIDANDO DATOS PAQUETE")
+		let STATUS_OBLIGATORIO = true
+		console.log (this.agregarPaquete['peso'])
+		if ((!this.agregarPaquete['peso']) || this.agregarPaquete['peso'] <= 0){
+			alert("PESO DEBE SER MAYOR A 0. / 权重必须大于 0")
+			STATUS_OBLIGATORIO = false
+		}
+/* 		if (this.selectedCourier != null){
+			alert("Courier no seleccionado / 尚未选择任何快递公司")
+			STATUS_OBLIGATORIO = false
+		} */
+		
+		else if ((!this.agregarPaquete['contenido']) || (this.agregarPaquete['contenido'].length == 0)){
+			alert("FAVOR LLENAR CONTENIDO DEL PAQUETE / 请填写包裹内容。")
+			STATUS_OBLIGATORIO = false
+		}
+		// console.log(datos['rucced'])
+		console.log (STATUS_OBLIGATORIO)
+		return (STATUS_OBLIGATORIO)
+
+	}
+
+	validar_calculo_paquete_laar(){
+		console.log("VALIDANDO DATOS PAQUETE")
+		let STATUS_OBLIGATORIO = true
+		console.log (this.agregarPaquete['peso_consulta'])
+		if ((!this.agregarPaquete['peso_consulta']) || this.agregarPaquete['peso_consulta'] <= 0){
+			alert("PESO DEBE SER MAYOR A 0. / 权重必须大于 0")
+			STATUS_OBLIGATORIO = false
+		}
+/* 		if (this.selectedCourier != null){
+			alert("Courier no seleccionado / 尚未选择任何快递公司")
+			STATUS_OBLIGATORIO = false
+		} */
+		
+/* 		else if ((!this.agregarPaquete['contenido']) || (this.agregarPaquete['contenido'].length == 0)){
+			alert("FAVOR LLENAR CONTENIDO DEL PAQUETE / 请填写包裹内容。")
+			STATUS_OBLIGATORIO = false
+		} */
+		// console.log(datos['rucced'])
+		console.log (STATUS_OBLIGATORIO)
+		return (STATUS_OBLIGATORIO)
+
+	}
+
+	validar_agregar_paquete_laar(){
+		console.log("VALIDANDO DATOS PAQUETE")
+		let STATUS_OBLIGATORIO = true
+		console.log (this.agregarPaquete['peso_consulta'])
+		if ((!this.agregarPaquete['peso']) || this.agregarPaquete['peso'] <= 0){
+			alert("PESO DEBE SER MAYOR A 0. / 权重必须大于 0")
+			STATUS_OBLIGATORIO = false
+		}
+/* 		if (this.selectedCourier != null){
+			alert("Courier no seleccionado / 尚未选择任何快递公司")
+			STATUS_OBLIGATORIO = false
+		} */
+		
+ 		else if ((!this.agregarPaquete['contenido']) || (this.agregarPaquete['contenido'].length == 0)){
+			alert("FAVOR LLENAR CONTENIDO DEL PAQUETE / 请填写包裹内容。")
+			STATUS_OBLIGATORIO = false
+		} 
+		// console.log(datos['rucced'])
+		console.log (STATUS_OBLIGATORIO)
+		return (STATUS_OBLIGATORIO)
+
+	}
+
 	
 	busqueda_pedido_razonsocial() {
 
@@ -2960,6 +3813,19 @@ fotos_jetta
 			alert("Por favor llenar el campo");
 		}
 	 
+	 }
+
+	 validar_cambio_tipodoc(valor){
+		console.log ("##### VALIDAR CAMBIO TIPODOC ######")
+		console.log(valor)
+		if (valor == 'SI' && this.tipotrans=='GR'){
+			
+
+		}
+		if (valor == 'NO'){
+
+
+		}
 	 }
 	 
 	 	select_pedido_orden(numtra,tiptra) {
