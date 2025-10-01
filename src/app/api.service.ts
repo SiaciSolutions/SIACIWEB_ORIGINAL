@@ -131,6 +131,9 @@ public getPedidos(): string {
 public getClientes(): string {
 	  return localStorage.getItem('act_clientes')
     }
+public getCobros(): string {
+	  return localStorage.getItem('act_cobros')
+    }
 	
 public getWhatsapp(): string {
 	  return localStorage.getItem('act_whatsapp')
@@ -523,6 +526,14 @@ public getConfCambioVendedorPed(): string {
   lista_ordenes(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_ordenes', param);
   }
+
+  lista_cobros(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_cobros', param);
+  }
+
+  eliminar_cobro(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_cobro', param);
+  }
   
   
   lista_visitas(param): Observable<any> {
@@ -704,6 +715,7 @@ public getConfCambioVendedorPed(): string {
 	  localStorage.setItem('nom_agencia', param['nom_agencia'])
 	  localStorage.setItem('codagencia', param['codagencia'])
 	  localStorage.setItem('act_clientes', param['act_clientes'])
+    localStorage.setItem('act_cobros', param['act_cobros'])
 	  localStorage.setItem('act_pedidos', param['act_pedidos'])
 	  localStorage.setItem('act_whatsapp', param['act_whatsapp'])
 	  localStorage.setItem('act_notif_auto_fac', param['act_notif_auto_fac'])
@@ -1180,13 +1192,26 @@ public getConfCambioVendedorPed(): string {
   lista_vendedores(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_vendedores', param);
   }
-  
-  
 
+  tipos_transaccion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/tipos_transaccion', param);
+  }
+
+  tipos_forma_pago(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/tipos_forma_pago', param);
+  }
+
+  procesar_pago(datos: any) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/procesar_pago', datos);
+  }
   
-  
-  
-  
+  validarNumeroFormaPago(numero: string, formaPago: string, entidadFinanciera: string) {
+    return this.http.post<any>(this.apiUrl + ':' + this.port + '/validar_numero_formapago', {
+      numero: numero,
+      tiptra: formaPago,
+      bantra: entidadFinanciera
+    });
+  }
   
   
   

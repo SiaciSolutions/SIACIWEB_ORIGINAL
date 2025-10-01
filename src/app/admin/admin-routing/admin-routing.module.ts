@@ -45,7 +45,7 @@ import { AdminListaTranferenciasComponent } from './../admin-lista-transferencia
 import { AdminOrdenRecepcionComponent} from './../admin-orden-recepcion/admin-orden-recepcion.component';
 import { AdminListaRecepcionesComponent} from './../admin-lista-recepciones/admin-lista-recepciones.component';
 import {AdminClienteCobroComponent} from './../admin-cliente-cobro/admin-cliente-cobro.component';
-
+import { AdminListaCobrosComponent } from './../admin-lista-cobros/admin-lista-cobros.component';
 
 
 @NgModule({
@@ -89,6 +89,10 @@ import {AdminClienteCobroComponent} from './../admin-cliente-cobro/admin-cliente
           path: 'cobro_clientes',
           component: AdminClienteCobroComponent
           },
+      {
+          path: 'lista_cobros',
+          component: AdminListaCobrosComponent
+      },
       {
             path: 'consulta_sucursales',
             component: AdminSucursalesComponent

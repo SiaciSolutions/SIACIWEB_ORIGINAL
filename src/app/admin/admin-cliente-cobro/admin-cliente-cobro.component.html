@@ -6,8 +6,8 @@
 	   Cobros Clientes
     </h1>
     <ol class="breadcrumb">
-      <li><i class="fa fa-dashboard"></i>Cliente</li>
-      <li class="active">Cobros Clientes</li>
+      <li><i class="fa fa-dashboard"></i>Cobros</li>
+      <li class="active">Registrar Cobro</li>
     </ol>
   </section>
 
@@ -41,8 +41,6 @@
                    <td class="text-center">{{rz.rucced}}</td>
                    <td class="text-center"> 
                     <input  type="radio"  name="radio_cliente" (change)="select_razon_social(rz.tpIdCliente,rz.rucced,rz.nomcli,rz.email,rz.codcli,rz.dircli)"  />
-                    
-                    <!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
                    </td>
                   </tr>
                 </tbody>
@@ -65,10 +63,8 @@
             <input type="button" name="consulta_detalle_cartera" value="Consultar Detalle" class="btn btn-danger" (click)="consulta_detalle_cartera()" >
           </form>
           <form *ngIf="ver_detalle" accept-charset="utf-8">
-            <div  class="btn-group" style="margin-bottom: 10px;">
-              <button class="btn btn-primary" [class.active]="vistaActiva === 'detalle'" (click)="vistaActiva = 'detalle'">Detalle</button>
-              <button *ngIf="ver_detalle" class="btn btn-secondary" [class.active]="vistaActiva === 'forma_pago'" (click)="vistaActiva = 'forma_pago'">Forma de pago</button>
-              <button *ngIf="ver_detalle" class="btn btn-secondary" [class.active]="vistaActiva === 'detalle_cobro'" (click)="vistaActiva = 'detalle_cobro'">Detalle Cobro</button>
+            <div style="margin-top: 10px;">
+              <input type="button" name="forma_pago" value="Forma de Pago" class="btn btn-success" (click)="abrirModalFormaPago()" >
             </div>
           </form>
 				</div>
@@ -80,128 +76,114 @@
 
  
   
-  <ng-container *ngIf="vistaActiva === 'detalle'">
-    <mat-card *ngIf="ver_detalle" class="w-100">
-      <div class="table-wrapper">
-          <table id="reporte_resumido_factura" class="table-container" [style.transform]="'scale(' + zoomLevel + ')'" [style.transform-origin]="'0 0'">
-            <tbody>
-              <ng-container *ngFor="let d of datosCobranza">
-                <tr class="header-row-div">
-                  <th colspan="4" class="column-subtitle">CLIENTE: </th>
-                  <th colspan="6" class="column-subtitle">{{d.nomcli}}</th>  
-                </tr>
-            
-                <!-- Encabezado de columnas -->
-                <tr class="header-row-div">
-                  <th>
-                    <input type="checkbox" [(ngModel)]="d.selectAll" (change)="toggleSeleccionarTodos(d)">
-                  </th>
-                  <th class="column-subtitle">TIPO</th>
-                  <th class="column-subtitle">No. DOCUM.</th>
-                  <th class="column-subtitle">SERIE</th>
-                  <th class="column-subtitle">FEC. EMISION</th>
-                  <th class="column-subtitle">F. VENCIMIENTO</th>
-                  <th class="column-subtitle">CONCEPTO</th>
-                  <th class="column-subtitle">VALOR FACTURADO</th>
-                  <th class="column-subtitle">ABONO</th>
-                  <th class="column-subtitle">SALDO</th>
-                </tr>
-            
-                <!-- Renglones de datos -->
-                <ng-container *ngFor="let x of d.renglones; let i = index">
-                  <tr>
-                    <td>
-                      <input type="checkbox" [(ngModel)]="x.selected" (change)="calcularTotalSeleccionado()">
-                    </td>
-                    <td class="mat-cell-centered">{{x[1]}}</td>
-                    <td class="mat-cell-centered">{{x[2]}}</td>
-                    <td class="mat-cell-centered">{{x[3]}}</td>
-                    <td class="mat-cell-centered">{{x[4]}}</td>
-                    <td class="mat-cell-centered">{{x[5]}}</td>
-                    <td class="mat-cell-centered">{{x[9]}}</td> 
-                    <td id="derecha_numeros" class="mat-cell-centered">{{x[6]| number:'1.2-2'}}</td>
-                    <td id="derecha_numeros" class="mat-cell-centered">{{x[7]| number:'1.2-2'}}</td>
-                    <td id="derecha_numeros" class="mat-cell-centered">{{x[8]| number:'1.2-2'}}</td>
-                  </tr>
-                </ng-container>
-            
-                <!-- Totales por cliente -->
-                <tr>
-                  <th colspan='6' class="column-subtitle">TOTAL {{d.nomcli}}</th>
-                  <th id="derecha_numeros" class="column-subtitle"></th>
-                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_venta_filtrada | number:'1.2-2'}}</th>
-                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_abono_filtrada | number:'1.2-2'}}</th>
-                  <th id="derecha_numeros" class="column-subtitle">{{d.suma_total_filtrada | number:'1.2-2'}}</th>
-                </tr>
-  
-              </ng-container>
-            </tbody>
-            
-                  
-          </table>
-      </div>
-  </mat-card>
-  </ng-container>
-  <ng-container *ngIf="vistaActiva === 'forma_pago'">
-    <mat-card class="w-100 p-3">
-      <h3>Forma de pago</h3>
-      <p>Hola</p>
-    </mat-card>
-  </ng-container>
-  <ng-container *ngIf="vistaActiva === 'detalle_cobro'">
-    <mat-card *ngIf="ver_detalle" class="w-100 p-3">
-      <h3>Detalle Cobro</h3>
-      <div class="table-wrapper">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>TIPO</th>
-              <th>No. DOCUM.</th>
-              <th>SERIE</th>
-              <th>F. EMISION</th>
-              <th>F. VENCIMIENTO</th>
-              <th>CONCEPTO</th>
-              <th>VALOR</th>
-              <th>VENDEDOR</th>
-            </tr>
-          </thead>
+  <mat-card *ngIf="ver_detalle" class="w-100">
+    <!-- Controles de zoom -->
+    <div class="zoom-controls mb-3">
+      <button class="btn btn-sm btn-outline-secondary" (click)="zoomOut()">
+        <i class="fa fa-minus"></i> Zoom -
+      </button>
+      <span class="mx-2">{{ (zoomLevel * 100) | number:'1.0-0' }}%</span>
+      <button class="btn btn-sm btn-outline-secondary" (click)="zoomIn()">
+        <i class="fa fa-plus"></i> Zoom +
+      </button>
+      <button class="btn btn-sm btn-outline-secondary ml-2" (click)="resetZoom()">
+        <i class="fa fa-refresh"></i> Reset
+      </button>
+    </div>
+
+    <!-- Wrapper responsive con scroll horizontal -->
+    <div class="table-responsive-wrapper">
+      <div class="table-scroll-container">
+        <table id="reporte_resumido_factura" 
+               class="table table-striped table-bordered table-hover responsive-table" 
+               [style.transform]="'scale(' + zoomLevel + ')'" 
+               [style.transform-origin]="'0 0'">
           <tbody>
             <ng-container *ngFor="let d of datosCobranza">
-              <ng-container *ngFor="let x of d.renglones">
-                <tr *ngIf="x.selected">
-                  <td>
-                    <select [(ngModel)]="x[1]" class="form-control">
-                      <option value="FC">FACTURA</option>
-                      <option value="NC">NOTA DE CREDITO</option>
-                    </select>
+              <!-- Header del cliente -->
+              <tr class="header-row-div client-header">
+                <th colspan="4" class="column-subtitle">CLIENTE: </th>
+                <th colspan="6" class="column-subtitle client-name">{{d.nomcli}}</th>  
+              </tr>
+          
+              <!-- Encabezado de columnas -->
+              <tr class="header-row-div column-headers">
+                <th class="checkbox-col">
+                  <input type="checkbox" [(ngModel)]="d.selectAll" (change)="toggleSeleccionarTodos(d)">
+                </th>
+                <th class="column-subtitle tipo-col">TIPO</th>
+                <th class="column-subtitle documento-col">No. DOCUM.</th>
+                <th class="column-subtitle serie-col">SERIE</th>
+                <th class="column-subtitle fecha-col">FEC. EMISION</th>
+                <th class="column-subtitle fecha-col">F. VENCIMIENTO</th>
+                <th class="column-subtitle concepto-col">CONCEPTO</th>
+                <th class="column-subtitle valor-col">VALOR FACTURADO</th>
+                <th class="column-subtitle valor-col">ABONO</th>
+                <th class="column-subtitle valor-col">SALDO</th>
+              </tr>
+          
+              <!-- Renglones de datos -->
+              <ng-container *ngFor="let x of d.renglones; let i = index">
+                <tr [class.selected-row]="x.selected" class="data-row">
+                  <td class="checkbox-col">
+                    <input type="checkbox" [(ngModel)]="x.selected" (change)="calcularTotalSeleccionado()">
                   </td>
-                  <td>{{x[2]}}</td>
-                  <td>{{x[3]}}</td>
-                  <td>{{x[4]}}</td>
-                  <td>{{x[5]}}</td>
-                  <td>{{x[9]}}</td>
-                  <td>
-                    <input type="number" [(ngModel)]="x[8]" class="form-control" placeholder="Valor">
+                  <td class="tipo-col">
+                    <span class="mobile-label">TIPO:</span>
+                    {{ x[1] === 'FC' ? 'FACTURA' : (x[1] === 'NC' ? 'NOTA CREDITO' : x[1]) }}
                   </td>
-                  <td>
-                    <select [(ngModel)]="x[0]" class="form-control">
-                      <option *ngFor="let v of listaVendedores" [value]="v.codven">{{v.nomven}}</option>
-                    </select>
+                  <td class="documento-col">
+                    <span class="mobile-label">No. DOCUM.:</span>
+                    {{x[2]}}
+                  </td>
+                  <td class="serie-col">
+                    <span class="mobile-label">SERIE:</span>
+                    {{x[3]}}
+                  </td>
+                  <td class="fecha-col">
+                    <span class="mobile-label">FEC. EMISION:</span>
+                    {{x[4]}}
+                  </td>
+                  <td class="fecha-col">
+                    <span class="mobile-label">F. VENCIMIENTO:</span>
+                    {{x[5]}}
+                  </td>
+                  <td class="concepto-col">
+                    <span class="mobile-label">CONCEPTO:</span>
+                    <div class="concepto-text" [title]="x[9]">{{x[9]}}</div>
+                  </td>
+                  <td class="valor-col text-right">
+                    <span class="mobile-label">VALOR FACTURADO:</span>
+                    <strong>{{x[6] | number:'1.2-2'}}</strong>
+                  </td>
+                  <td class="valor-col text-right">
+                    <span class="mobile-label">ABONO:</span>
+                    {{x[7] | number:'1.2-2'}}
+                  </td>
+                  <td class="valor-col text-right">
+                    <span class="mobile-label">SALDO:</span>
+                    <strong class="saldo-amount">{{x[8] | number:'1.2-2'}}</strong>
                   </td>
                 </tr>
               </ng-container>
-              <tr>
-                <td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
-                <td colspan="2"><strong>{{ getTotalDetalleCobro() | number:'1.2-2' }}</strong></td>
+          
+              <!-- Totales por cliente -->
+              <tr class="total-row">
+                <th colspan='6' class="column-subtitle">TOTAL {{d.nomcli}}</th>
+                <th class="column-subtitle"></th>
+                <th class="column-subtitle text-right">{{d.suma_venta_filtrada | number:'1.2-2'}}</th>
+                <th class="column-subtitle text-right">{{d.suma_abono_filtrada | number:'1.2-2'}}</th>
+                <th class="column-subtitle text-right">{{d.suma_total_filtrada | number:'1.2-2'}}</th>
               </tr>
+
             </ng-container>
           </tbody>
         </table>
       </div>
-    </mat-card>
-  </ng-container>
-  
+    </div>
+  </mat-card>
   
 </section>
   <!-- /.content -->
 </div>
+

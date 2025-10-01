@@ -123,4 +123,206 @@
     border: none;
   }
   
+  /* Estilos para la tabla responsive */
+.table-responsive-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  /* Scrollbar personalizado */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.responsive-table {
+  min-width: 1200px; /* Ancho mínimo para forzar scroll horizontal si es necesario */
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* Anchos específicos para columnas */
+.checkbox-col { width: 50px !important; min-width: 50px; }
+.tipo-col { width: 120px !important; min-width: 120px; }
+.documento-col { width: 150px !important; min-width: 150px; }
+.serie-col { width: 100px !important; min-width: 100px; }
+.fecha-col { width: 120px !important; min-width: 120px; }
+.concepto-col { width: 250px !important; min-width: 200px; max-width: 300px; }
+.valor-col { width: 130px !important; min-width: 130px; }
+
+/* Estilos para el concepto con overflow */
+.concepto-text {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.concepto-text:hover {
+  white-space: normal;
+  word-wrap: break-word;
+  background: #f8f9fa;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+/* Estilos para controles de zoom */
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.zoom-controls button {
+  margin: 0 2px;
+}
+
+/* Estilos mejorados para headers y filas */
+.client-header {
+  background: #007bff;
+  color: white;
+}
+
+.client-name {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.column-headers {
+  background: #6c757d;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.column-headers th {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.data-row:hover {
+  background-color: #f8f9fa !important;
+}
+
+.selected-row {
+  background-color: #e3f2fd !important;
+}
+
+.total-row {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+}
+
+.saldo-amount {
+  color: #dc3545;
+}
+
+/* Labels para móviles (ELIMINADOS - eran la causa de la duplicación) */
+.mobile-label {
+  display: none;
+}
+
+/* Responsive para pantallas pequeñas - SIMPLIFICADO */
+@media screen and (max-width: 768px) {
+  /* Mantener la estructura de tabla normal, solo ajustar el scroll y tamaños */
+  .table-responsive-wrapper {
+    /* Permitir scroll horizontal */
+    overflow-x: auto;
+  }
   
+  .responsive-table {
+    /* Reducir el ancho mínimo para pantallas pequeñas */
+    min-width: 800px;
+    font-size: 12px;
+  }
+  
+  /* Ajustar anchos de columnas para móvil */
+  .checkbox-col { width: 40px !important; min-width: 40px; }
+  .tipo-col { width: 80px !important; min-width: 80px; }
+  .documento-col { width: 100px !important; min-width: 100px; }
+  .serie-col { width: 60px !important; min-width: 60px; }
+  .fecha-col { width: 90px !important; min-width: 90px; }
+  .concepto-col { width: 150px !important; min-width: 120px; }
+  .valor-col { width: 90px !important; min-width: 90px; }
+  
+  /* Ajustar padding y altura de celdas */
+  .responsive-table td,
+  .responsive-table th {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+  
+  /* Ajustar el texto del concepto para móvil */
+  .concepto-text {
+    max-width: 120px;
+    font-size: 10px;
+  }
+  
+  /* Headers del cliente y totales */
+  .client-header th,
+  .total-row th {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media screen and (max-width: 480px) {
+  .zoom-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .zoom-controls button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  .responsive-table {
+    min-width: 700px;
+    font-size: 10px;
+  }
+  
+  .responsive-table td,
+  .responsive-table th {
+    padding: 4px 2px;
+    font-size: 10px;
+  }
+  
+  /* Anchos aún más pequeños */
+  .checkbox-col { width: 35px !important; }
+  .tipo-col { width: 70px !important; }
+  .documento-col { width: 80px !important; }
+  .serie-col { width: 50px !important; }
+  .fecha-col { width: 80px !important; }
+  .concepto-col { width: 120px !important; }
+  .valor-col { width: 80px !important; }
+}

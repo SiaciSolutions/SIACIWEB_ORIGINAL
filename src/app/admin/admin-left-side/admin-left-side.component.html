@@ -236,7 +236,20 @@
         <ul class="treeview-menu">
           <li class="active" (click)="ocultar_menu_moviles()"><a routerLink="crear_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Crear Cliente</a></li>
 		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="consulta_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Consultar/Modif Cliente</a></li>
-		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="cobro_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Cobros</a></li>
+          <!-- <li><a routerLink="dashboard2"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
+		  <!-- <li><a routerLink="dashboard3"><i class="fa fa-circle-o"></i> Dashboard v3</a></li> -->
+        </ul>
+      </li> 
+	  <li *ngIf="auth.getCobros() != 'NO'" class="treeview">
+        <a href="#">
+            <i class="fa fa-credit-card"></i> <span>COBROS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="cobro_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Registrar Cobro</a></li>
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="lista_cobros" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista Cobros</a></li>
           <!-- <li><a routerLink="dashboard2"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
 		  <!-- <li><a routerLink="dashboard3"><i class="fa fa-circle-o"></i> Dashboard v3</a></li> -->
         </ul>

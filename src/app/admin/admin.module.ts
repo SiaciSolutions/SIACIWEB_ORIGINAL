@@ -50,24 +50,23 @@ import { AdminListaPedidosMedicosComponent } from './admin-lista-ped-medicos/adm
 import { AdminTransfBodegaComponent } from './admin-transferencias/admin-transferencias.component';
 import { AdminListaTranferenciasComponent } from './admin-lista-transferencia/admin-lista-transferencias.component';
 import { AdminClienteCobroComponent } from './admin-cliente-cobro/admin-cliente-cobro.component';
+import { AdminListaRecepcionesComponent } from './admin-lista-recepciones/admin-lista-recepciones.component';
+import { AdminOrdenRecepcionComponent } from './admin-orden-recepcion/admin-orden-recepcion.component';
+import { AdminListaCobrosComponent } from './admin-lista-cobros/admin-lista-cobros.component';
 
-
-
-
+// Componente del modal (ajusta la ruta según tu estructura)
+import { FormaPagoModalComponent } from './admin-cliente-cobro/forma-pago-modal/forma-pago-modal.component';
 
 import { NgSelect2Module } from 'ng-select2';
 
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DataTablesModule } from 'angular-datatables';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
-
-
+// Imports de Angular Material actualizados
 import {
   MatCardModule,
   MatInputModule,
@@ -82,35 +81,39 @@ import {
   MatSelectModule,
   MatCheckboxModule,
   MatListModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDialogModule  // AGREGAR ESTE IMPORT
 } from '@angular/material';
-import { AdminListaRecepcionesComponent } from './admin-lista-recepciones/admin-lista-recepciones.component';
-import { AdminOrdenRecepcionComponent } from './admin-orden-recepcion/admin-orden-recepcion.component';
+
 
 @NgModule({
   imports: [
-	  MatCardModule,
-  	  BrowserModule,
-	  DataTablesModule,
-      BrowserAnimationsModule,
-      MatAutocompleteModule,
-      MatInputModule,
-      FormsModule,
-      ReactiveFormsModule,
-	  MatSelectModule,
-	  MatCheckboxModule,
-	  MatListModule,
-	  FullCalendarModule, // for FullCalendar!
-	  MatDatepickerModule,
-	  
-	 AgmCoreModule.forRoot({
+    MatCardModule,
+    MatDialogModule,  // AGREGAR AQUÍ
+    BrowserModule,
+    DataTablesModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatTableModule,  // AGREGAR AQUÍ
+    MatIconModule,   // AGREGAR AQUÍ
+    MatButtonModule, // AGREGAR AQUÍ
+    FullCalendarModule, // for FullCalendar!
+    MatDatepickerModule,
+    
+    AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDdtXEK3JAS8o_-ZhtjiyNLaGoJyrMI3tM'
     }),
   
     CommonModule,
     AdminRoutingModule,
-	NgSelect2Module,
-	ZXingScannerModule
+    NgSelect2Module,
+    ZXingScannerModule
   ],
   declarations: [
     AdminComponent,
@@ -121,48 +124,52 @@ import { AdminOrdenRecepcionComponent } from './admin-orden-recepcion/admin-orde
     AdminControlSidebarComponent,
     // AdminDashboard1Component,
     AdminDashboard2Component,
-	AdminDashboard3Component,
-	AdminPedidosComponent,
-	AdminClienteComponent,
-	AdminViewPedidosComponent,
-	AdminListaPedidosComponent,
-	AdminEditPedidosComponent,
-	AdminClienteConsultaComponent,
-	AdminPosComponent,
-	AdminConciliacionCaja,
-	AdminRegistrarVisitaComponent,
-	AdminReporteVisitaComponent,
-	AdminCalendarioAgendaComponent,
-	AdminReportePedidosComponent,
-	AdminSucursalesComponent,
-	AdminOrdenTallerComponent,
-	AdminListaOrdenesComponent,
-	AdminPosCajaRegistradoraComponent,
-	AdminIngresoArticulosComponent,
-	AdminListaIngresosComponent,
-	AdminListaPdvComponent,
-	AdminDespachoArticulosComponent,
-	AdminListaDespachosComponent,
-	AdminListaFacDespachadasComponent,
-	AdminEgresoArticulosComponent,
-	AdminListaEgresosComponent,
-	AdminListaWhatsappComponent,
-	AdminListaProductosComponent,
-	AdminArticulosComponent,
-	AdminConteoArticulosComponent,
-	AdminMedicionesComponent,
-	AdminMedicionesHorizComponent,
-	AdminListaServiciosComponent,
-	AdminServiciosComponent,
-	AdminConfigComponent,
-	AdminPedidosMedicosComponent,
-	AdminListaPedidosMedicosComponent,
-	AdminTransfBodegaComponent,
-	AdminListaTranferenciasComponent,
-	AdminListaRecepcionesComponent,
-	AdminOrdenRecepcionComponent,
-	AdminClienteCobroComponent
-	
+    AdminDashboard3Component,
+    AdminPedidosComponent,
+    AdminClienteComponent,
+    AdminViewPedidosComponent,
+    AdminListaPedidosComponent,
+    AdminEditPedidosComponent,
+    AdminClienteConsultaComponent,
+    AdminPosComponent,
+    AdminConciliacionCaja,
+    AdminRegistrarVisitaComponent,
+    AdminReporteVisitaComponent,
+    AdminCalendarioAgendaComponent,
+    AdminReportePedidosComponent,
+    AdminSucursalesComponent,
+    AdminOrdenTallerComponent,
+    AdminListaOrdenesComponent,
+    AdminPosCajaRegistradoraComponent,
+    AdminIngresoArticulosComponent,
+    AdminListaIngresosComponent,
+    AdminListaPdvComponent,
+    AdminDespachoArticulosComponent,
+    AdminListaDespachosComponent,
+    AdminListaFacDespachadasComponent,
+    AdminEgresoArticulosComponent,
+    AdminListaEgresosComponent,
+    AdminListaWhatsappComponent,
+    AdminListaProductosComponent,
+    AdminArticulosComponent,
+    AdminConteoArticulosComponent,
+    AdminMedicionesComponent,
+    AdminMedicionesHorizComponent,
+    AdminListaServiciosComponent,
+    AdminServiciosComponent,
+    AdminConfigComponent,
+    AdminPedidosMedicosComponent,
+    AdminListaPedidosMedicosComponent,
+    AdminTransfBodegaComponent,
+    AdminListaTranferenciasComponent,
+    AdminListaRecepcionesComponent,
+    AdminOrdenRecepcionComponent,
+    AdminClienteCobroComponent,
+    FormaPagoModalComponent,
+    AdminListaCobrosComponent  // Modal component
+  ],
+  entryComponents: [
+    FormaPagoModalComponent  // AGREGAR ESTO PARA EL MODAL
   ],
   exports: [AdminComponent]
 })

@@ -248,30 +248,49 @@ def retenciones():
   
 # @app.route('/bancos/<codemp>')
 # def bancos(codemp):
-@app.route('/bancos',methods=['POST'])
+@app.route('/bancos', methods=['POST'])
 def bancos():
-  d = request.json
-  print ("DENTRO DE BANCOS")
-  print (d)
-  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
-  curs = conn.cursor()
-  sql_campos = 'codban,nomban'
-  string_campos = 'codban,nomban'
-  arr_campos = string_campos.split(',') 
-  sql = "select {} from bancos where codemp='{}' ".format(sql_campos, d['codemp'])
-  curs = conn.cursor()
-  curs.execute(sql)
-  regs = curs.fetchall()
-  curs.close()
-  curs.close()
-  conn.close()
-  resp = []
-  for r in regs:
-    d = dict(zip(arr_campos, r))
-    resp.append(d)
-  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
-  response.headers['content-type'] = 'application/json'
-  return(response)
+    d = request.json
+    print("DENTRO DE BANCOS")
+    print(d)
+
+    resp = []
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    if d['bandera'] == 0:
+        # Traer todos los bancos de la base de datos
+        sql_campos = 'codban,nomban'
+        arr_campos = sql_campos.split(',')
+        sql = "select {} from bancos where codemp='{}' ".format(sql_campos, d['codemp'])
+        curs.execute(sql)
+        regs = curs.fetchall()
+        for r in regs:
+            registro = dict(zip(arr_campos, r))
+            resp.append(registro)
+    else:
+        # Caso especial: si codban == 'EFE', no consultar la DB, agregar registro manual
+        if d['codban'] == 'EFE':
+            resp.append({'codban': 'EFE', 'nomban': 'NINGUNO'})
+        else:
+            # Buscar banco normal en la DB
+            sql_campos = 'codban,nomban'
+            arr_campos = sql_campos.split(',')
+            sql = "select {} from bancos where codemp='{}' and codban = '{}' ".format(sql_campos, d['codemp'], d['codban'])
+            curs.execute(sql)
+            regs = curs.fetchall()
+            for r in regs:
+                registro = dict(zip(arr_campos, r))
+                resp.append(registro)
+
+    curs.close()
+    conn.close()
+
+    response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+    response.headers['content-type'] = 'application/json'
+    return response
+
 
 # @app.route('/tarjetascredito/<codemp>')
 @app.route('/tarjetascredito',methods=['POST'])
@@ -1443,6 +1462,76 @@ def lista_ordenes():
 
   return (jsonify(arrresp))
   
+@app.route('/lista_cobros', methods=['POST'])
+def lista_cobros():
+  datos = request.json
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  campos = ['codcli', 'nomcli','fecha','valor','numcco']
+  
+  sql = """ SELECT DISTINCT codcli, f_nombre_cliente('{}',codcli), MAX(fecemi) as fecha,
+        SUM(valcob), numcco
+        FROM cuentasporcobrar
+        WHERE codemp = '{}' AND fecemi BETWEEN '{}' AND '{}' AND tipdoc = 'AB'
+        GROUP BY codcli, numcco
+        ORDER BY fecha
+  """.format(datos['codemp'], datos['codemp'], datos['fecha_desde'],datos['fecha_hasta'])
+   
+  curs.execute(sql)
+  print (sql)
+  regs = curs.fetchall()
+  arrresp = []
+
+  for r in regs:
+    
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+
+  return (jsonify(arrresp))
+  
+@app.route('/eliminar_cobro', methods=['POST'])
+def eliminar_cobro():
+    datos = request.json
+    print('ENTRADAAAAA')
+    print(datos)
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    # 👀 Corregí el bug: estabas poniendo datos['codemp'] dos veces, en vez de codemp y numcco
+    sql1 = """DELETE FROM cuentasporcobrar 
+              WHERE codemp='{}' AND numcco='{}'""".format(datos['codemp'], datos['numcco'])
+
+    sql2 = """DELETE FROM formapago_cxc 
+              WHERE codemp='{}' AND numcco='{}'""".format(datos['codemp'], datos['numcco'])
+
+    print(sql1)
+    print(sql2)
+
+    try:
+        curs.execute(sql1)
+        curs.execute(sql2)
+        conn.commit()
+        d = {'STATUS': 'Cobro eliminado con éxito'}
+    except Exception as e:
+        print(str(e))
+        patron = "ERROR AL INTENTAR BORRAR EL PAGO"
+        if patron in str(e):
+            d = {'STATUS': f"Este cobro con número << {datos['numcco']} >> no puede ser eliminado"}
+        else:
+            d = {'STATUS': str(e)}
+
+    print("CERRANDO SESION SIACI")
+    curs.close()
+    conn.close()
+
+    return jsonify(d)
 
 @app.route('/lista_visitas', methods=['POST'])
 def lista_visitas():
@@ -2775,6 +2864,8 @@ def cobranza():
     ROUND(COALESCE(SUM(n.valcobn), 0),2) AS valcobn,
     ROUND(COALESCE(p.valcobp, 0) - COALESCE(SUM(n.valcobn), 0), 2) AS saldo,
     COALESCE(p.concep, n.concep) AS concep
+    --COALESCE(p.numcco, n.numcco) AS numcco,
+    --COALESCE(p.tipcco, n.tipcco) AS tipcco
   FROM 
     (
       SELECT 
@@ -2782,6 +2873,8 @@ def cobranza():
         p.codemp,
         p.codapu,
         p.codap1,
+        --p.numcco,
+        --p.tipcco,
         f_nombre_cliente(p.codemp, p.codcli) AS nomcli,
         0 AS telcli,
         p.codven,
@@ -2812,6 +2905,8 @@ def cobranza():
         n.codemp,
         n.codapu,
         n.codap1,
+        --n.numcco,
+        --n.tipcco,
         f_nombre_cliente(n.codemp, n.codcli) AS nomcli,
         0 AS telcli,
         n.codven,
@@ -2871,7 +2966,7 @@ def cobranza():
       tipo = cliente[4]
       if saldo != 0:
           if tipo != 'AB':
-              renglon = [cliente[3], cliente[4], cliente[5], cliente[6], cliente[7], cliente[8], cliente[9], cliente[10], cliente[11], cliente[12]]
+              renglon = [cliente[3], cliente[4], cliente[5], cliente[6], cliente[7], cliente[8], cliente[9], cliente[10], cliente[11]]
               
               suma_venta_renglon = cliente[9]
               suma_abono_renglon = cliente[10]
@@ -2922,7 +3017,210 @@ def cobranza():
   response = make_response(json.dumps(final_response, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return response 
+
+@app.route('/tipos_transaccion', methods=['POST'])
+def tipos_transaccion():
+  datos = request.json
+  print(datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
   
+  if datos['bandera'] == 0:
+    campos = ['tiptra','nomtra']
+    sql = """ SELECT tiptra,nomtra FROM tipotransaccion where CXC = '1' ORDER BY nomtra"""
+    curs.execute(sql)
+    regs = curs.fetchall()
+    arrresp = []
+    for r in regs:
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+  else:
+    campos = ['nomtra']
+    sql = """ SELECT nomtra FROM tipotransaccion where CXC = '1' and tiptra = '{}' ORDER BY nomtra""".format(datos['tiptra'])
+    curs.execute(sql)
+    regs = curs.fetchall()
+    arrresp = []
+    for r in regs:
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/tipos_forma_pago', methods=['POST'])
+def tipos_forma_pago():
+  datos = request.json
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  campos = ['codtip','destip']
+  sql = """ SELECT codtip,destip FROM tipo_formapago_cxc where codemp = '{}' ORDER BY destip""".format(datos['codemp'])
+  curs.execute(sql)
+  regs = curs.fetchall()
+  arrresp = []
+
+  for r in regs:
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/validar_numero_formapago', methods=['POST'])
+def validar_numero_formapago():
+    data = request.json
+    numero = data.get('numero')
+    tiptra = data.get('tiptra')
+    bantra = data.get('bantra')
+
+    if not numero or not tiptra or not bantra:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    query = """
+        SELECT COUNT(*) 
+        FROM formapago_cxc 
+        WHERE numtra = ? AND tiptra = ? AND bancod = ?
+    """
+    curs.execute(query, (numero, tiptra, bantra))
+    existe = curs.fetchone()[0]
+
+    curs.close()
+    conn.close()
+
+    if existe > 0:
+        return jsonify({"success": False, "message": "El número ya existe para ese tipo y banco"}), 200
+    else:
+        return jsonify({"success": True, "message": "Número válido"}), 200
+
+
+@app.route('/procesar_pago', methods=['POST'])
+def procesar_pago():
+    d = request.json
+    codemp = d['codemp']
+    codcli = d['codcli']
+    usuario = d['usuario']
+    fechaPago = d['fechaPago']
+    formasPago = d['formasPago']   # lista [{formaPago, entidadFinanciera, fecha, valor, tipo}]
+    documentos = d['documentos']   # lista de docs (si necesitas usarlos más adelante)
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    # === 1. Obtener y actualizar secuencia VC_CCO ===
+    curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CCO'", (codemp,))
+    numccoA = curs.fetchone()
+    numccoN = numccoA[0]
+    numcco_nuevo = str((int(numccoN)+1)).zfill(len(numccoN))
+    numcco = numcco_nuevo
+
+    curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CCO'", (numcco, codemp))
+
+    # === 2. Obtener y actualizar secuencia VC_CXC ===
+    curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CXC'", (codemp,))
+    numcpcA = curs.fetchone()
+    numcpcN = numcpcA[0]
+    numcpc_nuevo = str((int(numcpcN)+1)).zfill(len(numcpcN))
+    numcpc = numcpc_nuevo
+
+    curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CXC'", (numcpc, codemp))
+
+    # === 3. Buscar documento original FC (ejemplo con el primero de documentos) ===
+    if not documentos:
+        conn.close()
+        return make_response(json.dumps({'error': 'No se enviaron documentos'}), 400)
+
+    doc_ref = documentos[0]  # tomo el primero como referencia
+    curs.execute("""
+        SELECT codemp, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen
+        FROM cuentasporcobrar
+        WHERE codemp = ? AND numtra = ? AND tipdoc = 'FC'
+    """, (codemp, doc_ref['numero']))
+    doc_original = curs.fetchone()
+
+    if not doc_original:
+        conn.close()
+        return make_response(json.dumps({'error': 'Documento no encontrado'}), 404)
+
+    (
+        codemp, numtra, codcli_doc, codven, fectra, numorg,
+        codapu, codap1, codmon, valcot, fecult, codcob, codcen
+    ) = doc_original
+
+    # === 4. Insertar en cuentasporcobrar (AB) ===
+    insert_sql = """
+        INSERT INTO cuentasporcobrar (
+            codemp, numcpc, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+            tipdoc, fecemi, fecven, concep, valcob, tiporg, tipcco, numcco, codcom, codusu
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+
+    curs.execute(insert_sql, (
+        codemp, numcpc, numtra, codcli_doc, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+        'AB', fechaPago, fechaPago, doc_ref['concepto'], doc_ref['valorPagado'], 'CXC', 'NOR', numcco, '01', usuario
+    ))
+
+    # === 5. Insertar en formapago_cxc (N filas) ===
+    insert_pago_sql = """
+        INSERT INTO formapago_cxc (
+            codemp, tipcco, numcco, numren, codcli, bantra, banfec, fecult, fectra,
+            codtip, tiptra, valfor, valor, codmon, valcot, codusu, bancod, concep, bannum, numtra
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+
+    for idx, pago in enumerate(formasPago, start=1):
+        formaPago = pago['formaPago']
+        bantra = 'NN'
+        if (formaPago == 'TR'):
+          bantra = 'NC'
+        if (formaPago == 'CH' or formaPago == 'DP'):
+          bantra = 'DP'      
+
+        curs.execute(insert_pago_sql, (
+            codemp,
+            'NOR',
+            numcco,
+            idx,
+            codcli,
+            bantra,
+            fechaPago, fechaPago, fechaPago,
+            pago['tipo'],
+            pago['formaPago'],                # tiptra viene del front
+            pago['valor'],
+            pago['valor'],
+            '01',
+            1,
+            usuario,
+            pago['entidadFinanciera'], #bancod
+            pago['concepto'],
+            pago['numero'],
+            pago['numero']
+        ))
+
+    conn.commit()
+    conn.close()
+
+    return make_response(json.dumps({
+        'success': True,
+        'mensaje': 'Pago procesado con éxito',
+        'numcco': numcco,
+        'numcpc': numcpc,
+        'formasPago_insertadas': len(formasPago)
+    }), 200)
+
+
 @app.route('/reporte_renglones_pedidos_ruta', methods=['POST'])
 def reporte_renglones_pedidos_ruta():
   datos = request.json
@@ -9806,8 +10104,7 @@ def email_html():
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
-  
-  
+
 @app.route('/busqueda_pedido_razonsocial', methods=['POST'])
 def busqueda_pedido_razonsocial():
   datos = request.json
