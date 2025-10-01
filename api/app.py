@@ -3108,6 +3108,8 @@ def validar_numero_formapago():
 @app.route('/procesar_pago', methods=['POST'])
 def procesar_pago():
     d = request.json
+    print('PAGOOOOOOO')
+    print(d)
     codemp = d['codemp']
     codcli = d['codcli']
     usuario = d['usuario']
@@ -3127,58 +3129,59 @@ def procesar_pago():
 
     curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CCO'", (numcco, codemp))
 
-    # === 2. Obtener y actualizar secuencia VC_CXC ===
-    curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CXC'", (codemp,))
-    numcpcA = curs.fetchone()
-    numcpcN = numcpcA[0]
-    numcpc_nuevo = str((int(numcpcN)+1)).zfill(len(numcpcN))
-    numcpc = numcpc_nuevo
-
-    curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CXC'", (numcpc, codemp))
-
     # === 3. Buscar documento original FC (ejemplo con el primero de documentos) ===
     if not documentos:
         conn.close()
         return make_response(json.dumps({'error': 'No se enviaron documentos'}), 400)
 
-    doc_ref = documentos[0]  # tomo el primero como referencia
-    curs.execute("""
-        SELECT codemp, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen
-        FROM cuentasporcobrar
-        WHERE codemp = ? AND numtra = ? AND tipdoc = 'FC'
-    """, (codemp, doc_ref['numero']))
-    doc_original = curs.fetchone()
+    for doc_ref in documentos:
+      # === 2. Obtener y actualizar secuencia VC_CXC ===
+      curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CXC'", (codemp,))
+      numcpcA = curs.fetchone()
+      numcpcN = numcpcA[0]
+      numcpc_nuevo = str((int(numcpcN)+1)).zfill(len(numcpcN))
+      numcpc = numcpc_nuevo
 
-    if not doc_original:
-        conn.close()
-        return make_response(json.dumps({'error': 'Documento no encontrado'}), 404)
+      curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CXC'", (numcpc, codemp))
 
-    (
-        codemp, numtra, codcli_doc, codven, fectra, numorg,
-        codapu, codap1, codmon, valcot, fecult, codcob, codcen
-    ) = doc_original
+      curs.execute("""
+          SELECT codemp, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen
+          FROM cuentasporcobrar
+          WHERE codemp = ? AND numtra = ? AND tipdoc = 'FC'
+      """, (codemp, doc_ref['numero']))
+      doc_original = curs.fetchone()
 
-    # === 4. Insertar en cuentasporcobrar (AB) ===
-    insert_sql = """
-        INSERT INTO cuentasporcobrar (
-            codemp, numcpc, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
-            tipdoc, fecemi, fecven, concep, valcob, tiporg, tipcco, numcco, codcom, codusu
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """
+      if not doc_original:
+          conn.close()
+          return make_response(json.dumps({'error': f'Documento {doc_ref["numero"]} no encontrado'}), 404)
 
-    curs.execute(insert_sql, (
-        codemp, numcpc, numtra, codcli_doc, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
-        'AB', fechaPago, fechaPago, doc_ref['concepto'], doc_ref['valorPagado'], 'CXC', 'NOR', numcco, '01', usuario
-    ))
+      (
+          codemp, numtra, codcli_doc, codven, fectra, numorg,
+          codapu, codap1, codmon, valcot, fecult, codcob, codcen
+      ) = doc_original
 
-    # === 5. Insertar en formapago_cxc (N filas) ===
-    insert_pago_sql = """
-        INSERT INTO formapago_cxc (
-            codemp, tipcco, numcco, numren, codcli, bantra, banfec, fecult, fectra,
-            codtip, tiptra, valfor, valor, codmon, valcot, codusu, bancod, concep, bannum, numtra
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """
+      # Insertar en cuentasporcobrar (AB) para **cada factura**
+      insert_sql = """
+          INSERT INTO cuentasporcobrar (
+              codemp, numcpc, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+              tipdoc, fecemi, fecven, concep, valcob, tiporg, tipcco, numcco, codcom, codusu
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      """
+
+      curs.execute(insert_sql, (
+          codemp, numcpc, numtra, codcli_doc, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+          'AB', fechaPago, fechaPago, doc_ref['concepto'], doc_ref['valorPagado'],
+          'CXC', 'NOR', numcco, '01', usuario
+      ))
+
+      # === 5. Insertar en formapago_cxc (N filas) ===
+      insert_pago_sql = """
+          INSERT INTO formapago_cxc (
+              codemp, tipcco, numcco, numren, codcli, bantra, banfec, fecult, fectra,
+              codtip, tiptra, valfor, valor, codmon, valcot, codusu, bancod, concep, bannum, numtra
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      """
 
     for idx, pago in enumerate(formasPago, start=1):
         formaPago = pago['formaPago']
