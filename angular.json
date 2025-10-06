@@ -97,6 +97,24 @@
                 }
               ]
             }
+			,
+			  "relaxed-prod": {
+				"fileReplacements": [
+				  {
+					"replace": "src/environments/environment.ts",
+					"with": "src/environments/environment.prod.ts"
+				  }
+				],
+				"optimization": true,
+				"outputHashing": "all",
+				"sourceMap": false,
+				"extractCss": true,
+				"namedChunks": false,
+				"aot": false,
+				"buildOptimizer": false,
+				"vendorChunk": false,
+				"extractLicenses": true
+			  }
           }
         },
         "serve": {

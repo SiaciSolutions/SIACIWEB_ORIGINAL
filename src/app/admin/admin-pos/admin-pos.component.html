@@ -424,9 +424,18 @@
 									<label  class="switch">
 									<input type="checkbox" checked (click)="tipo_entrada()"><span class="slider round"></span>
 									</label>
-									</td>
 									<label  *ngIf="tipo_busqueda" >ARTÍCULO</label> 
 									<label  *ngIf="!tipo_busqueda" >SERVICIO</label> 
+									</td>
+
+									<td *ngIf="tipo_busqueda && srv.getConfCodbarra()=='SI'" class= "text-center">
+									<label  class="switch">
+									<input type="checkbox" checked (click)="cambio_busq_codbarra()"><span class="sliderverde round"></span>
+									</label>
+									<label  *ngIf="busqueda_codbarra" >CODBARRA</label> 
+									<label  *ngIf="!busqueda_codbarra" >NO CODBARRA</label> 
+									</td>
+
 								</div>
 							</div>
 			

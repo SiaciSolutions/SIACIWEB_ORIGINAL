@@ -269,6 +269,12 @@ public getConfCambioVendedorPed(): string {
      public getActTransfBodega(): string {
 	  return localStorage.getItem('transf_bodega')
  }
+      public getConfCodbarra(): string {
+	  return localStorage.getItem('act_codbarra')
+ }
+       public getBusqCodBarraDefecto(): string {
+	  return localStorage.getItem('codbarra_def')
+ }
  
  
  
@@ -371,6 +377,8 @@ public getConfCambioVendedorPed(): string {
 	    window.localStorage.removeItem('import_ped_pdv')
 		window.localStorage.removeItem('reg_placa_pdv')
 		window.localStorage.removeItem('transf_bodega')
+    		window.localStorage.removeItem('act_codbarra')
+		window.localStorage.removeItem('codbarra_def')
 		
 		
 
@@ -722,6 +730,8 @@ public getConfCambioVendedorPed(): string {
 	  localStorage.setItem('import_ped_pdv', param['import_ped_pdv'])
 	  localStorage.setItem('reg_placa_pdv', param['reg_placa_pdv'])
 	  localStorage.setItem('transf_bodega', param['transf_bodega'])
+    localStorage.setItem('act_codbarra', param['act_codbarra'])
+	  localStorage.setItem('codbarra_def', param['codbarra_def'])
 	  
 	  
 	  // servicio_defecto_pdv: "PEM"
@@ -1130,6 +1140,10 @@ public getConfCambioVendedorPed(): string {
   
   busqueda_razon_social_placa(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_placa', param);
+  }
+  
+  articulos_codbarra_calculo(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/articulos_codbarra_calculo', param);
   }
   
   

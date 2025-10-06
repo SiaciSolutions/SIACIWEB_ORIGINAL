@@ -1364,6 +1364,118 @@ def articulos():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+
+@app.route('/articulos_codbarra_calculo', methods=['POST'])
+def articulos_codbarra_calculo():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  arrresp = []
+  codart=datos['nomart']
+  #campos = ['codart', 'nomart','prec01','exiact','coduni','punreo','codiva','poriva','precio_iva','prec_cal_ini','prec_cal_cant','cant_calculada']
+  campos = ['codart', 'nomart','prec01','exiact','coduni','punreo','codiva','poriva','precio_iva','cant_calculada']
+  sql = """select a.codart, a.nomart, round(prec01,6), 
+  (a.exiact-(select case when sum(p.cantid) is null then 0 else sum(p.cantid) end  as sum 
+  from v_exitencias_pedpro p where p.codemp = '{}' and p.codart like a.codart||'%'))  as exiact,a.coduni,a.punreo,a.codiva,
+  (select i.poriva from iva i where i.codiva=a.codiva) as poriva,
+  round(((poriva*prec01)/100),6) as precio_iva,1 as cant_calculada
+  from articulos a
+  where 
+  a.codemp = '{}' and (a.nomart like '%{}%' or a.codart like '%{}%' or a.codalt like '%{}%')
+  and a.estado = 'A'
+  order by a.nomart asc""".format(datos['codemp'],datos['codemp'],codart,codart,codart)
+  print (sql)
+  curs.execute(sql)
+  regs = curs.fetchall()
+  
+  if (len(regs) == 0):
+
+    codart=datos['nomart'][0:7]
+    #campos = ['codart', 'nomart','prec01','exiact','coduni','punreo','codiva','poriva','precio_iva','prec_cal_ini','prec_cal_cant','cant_calculada']
+    campos = ['codart', 'nomart','prec01','exiact','coduni','punreo','codiva','poriva','precio_iva','cant_calculada']
+    sql = """select a.codart, a.nomart, round(prec01,6), 
+    (a.exiact-(select case when sum(p.cantid) is null then 0 else sum(p.cantid) end  as sum 
+    from v_exitencias_pedpro p where p.codemp = '{}' and p.codart like a.codart||'%'))  as exiact,a.coduni,a.punreo,a.codiva,
+    (select i.poriva from iva i where i.codiva=a.codiva) as poriva,
+    round(((poriva*prec01)/100),6) as precio_iva,lote_ini,lote_cant,0 as cant_calculada
+    from articulos a , codigo_barra_articulo cb
+    where 
+    cb.codemp= a.codemp and
+    a.codart=cb.codart and
+    cb.codart = '{}'
+    and a.codemp = '{}' and a.estado = 'A'
+    order by a.nomart asc""".format(datos['codemp'],codart,datos['codemp'])
+    curs.execute(sql)
+    print (sql)
+    regs = curs.fetchall()
+    #arrresp = []
+    print (regs)
+
+    ## PARA HACER SUBSTRING DEL CODIGO DE BARRAS PARA EXTRAER EL PRECIO
+    ## 2000530001537
+    ## 2000530 00153 7
+    codbarra=datos['nomart']
+    #print (codbarra)
+    #precio_codbarra= codbarra[7:12]
+    #print (precio_codbarra)
+
+
+    for r in regs:
+      codart = r[0]
+      index_ini = r[9]-1
+      index_fin = (r[9]+r[10])-1
+      print (index_ini)
+      print (index_fin)
+      precio_codbarra = codbarra[index_ini:index_fin]
+      print(precio_codbarra)
+      ##### SE REALIZA CONVERSION ######
+      entero = precio_codbarra[:-2]  # todo menos los últimos 2 dígitos
+      decimal = precio_codbarra[-2:] # últimos 2 dígitos
+      precio_codbarra_convertido = float(f"{int(entero)}.{decimal}")
+      print (precio_codbarra_convertido)
+      cant_calculada=round(precio_codbarra_convertido/r[2],2)
+      #cant = 
+      print (cant_calculada)
+      print (codart)
+      sql2 = "SELECT precio FROM precio_cliente where codemp= '{}' and codart= '{}' and codcli = '{}' and tipo = 'P' and lispre = 1".format(datos['codemp'],codart,datos['codcli'])
+      curs.execute(sql2)
+      print (sql2)
+      regs2 = curs.fetchone()
+      if (regs2):
+        print ("PRECIO POLITICA CLIENTE")
+        # (poriva*precio01)/100
+        precio_iva_new = round((r[7]*regs2[0])/100,2)
+        r = (r[0],r[1],regs2[0],r[3],r[4],r[5],r[6],r[7],precio_iva_new,cant_calculada)
+      else:
+        print ("PRECIO FICHA ARTICULO Y CANTIDAD CALCULADA")
+        r = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],cant_calculada)
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+  else:
+    for r in regs:
+      codart = r[0]
+      print (codart)
+      sql2 = "SELECT precio FROM precio_cliente where codemp= '{}' and codart= '{}' and codcli = '{}' and tipo = 'P' and lispre = 1".format(datos['codemp'],codart,datos['codcli'])
+      curs.execute(sql2)
+      print (sql2)
+      regs2 = curs.fetchone()
+      if (regs2):
+        print ("PRECIO POLITICA CLIENTE")
+        # (poriva*precio01)/100
+        precio_iva_new = round((r[7]*regs2[0])/100,2)
+        r = (r[0],r[1],regs2[0],r[3],r[4],r[5],r[6],r[7],precio_iva_new)
+      else:
+        print ("PRECIO FICHA ARTICULO")
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
   
   
 @app.route('/buscar_articulos_pedido', methods=['POST'])
@@ -7260,8 +7372,8 @@ def crear_articulo():
   if (art[0] == 0):
     if (opcion_linea_articulo[0]== 'NO'):
        sql = """ insert into articulos (codemp,codart,codalt,nomart,codiva,codcla,coduni,prec01,punreo,codusu,fecult,estado,codalm,codgrupo,codsub,exiact,cospro,cosprod)
-       values('{}','{}','{}','{}','{}','01','{}','{}','{}','{}','{}','A','01','N','0101',0,0,0);
-       """.format(datos['codemp'],datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['coduni'],datos['prec01'],datos['punreo'],datos['codusu'],fecult)
+       values('{}','{}','{}','{}','{}','01','{}','{}','{}','{}','{}','A','01','{}','0101',0,0,0);
+       """.format(datos['codemp'],datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['coduni'],datos['prec01'],datos['punreo'],datos['codusu'],fecult,datos['codgrupo'])
        print (sql)
        curs.execute(sql)
        conn.commit()
@@ -7270,9 +7382,8 @@ def crear_articulo():
        prec02,prec03,prec04,prec05,ultcos,
        totcos,cospro,artcom,peso,univen,totcosd,cosprod,ultcosd,precioanterior,ivaPresuntivo,baseIce,retPresuntiva,clasif,present,grado,marca,modelo,arancel,salvaguarda,
        porcentaje,porser,anio,porcen3,subsidio,publicarweb,vida_util)
-       values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','A','01','N','{}',0,0,0,0,0,0,0,0,'N',0,'{}',0,0,0,0,'N',0,'N','N','00',0,'00','00',0,0,0,0,
-       '2000',0,0,0,0);
-       """.format(datos['codemp'],datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['codcla'],datos['coduni'],datos['prec01'],datos['punreo'],datos['codusu'],fecult,datos['codsub'],datos['coduni'])
+       values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','A','01','{}','{}',0,0,0,0,0,0,0,0,'N',0,'{}',0,0,0,0,'N',0,'N','N','00',0,'00','00',0,0,0,0,'2000',0,0,0,0);
+       """.format(datos['codemp'],datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['codcla'],datos['coduni'],datos['prec01'],datos['punreo'],datos['codusu'],fecult,datos['codgrupo'],datos['codsub'],datos['coduni'])
        print (sql)
        curs.execute(sql)
        conn.commit()
@@ -7404,10 +7515,10 @@ def actualizar_articulo():
   timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
   fecult = dateTimeObj.strftime("%Y-%m-%d")
 
-  sql = """ update articulos set codart='{}',codalt='{}',nomart='{}',codiva='{}',prec01='{}',punreo='{}',estado='{}',coduni='{}' , codcla='{}', codsub='{}'
+  sql = """ update articulos set codart='{}',codalt='{}',nomart='{}',codiva='{}',prec01='{}',punreo='{}',estado='{}',coduni='{}' , codcla='{}', codsub='{}',codgrupo='{}'
   where
   codemp='{}' and codart='{}' 
-  """.format(datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['prec01'],datos['punreo'],datos['estado'],datos['coduni'],datos['codcla'],datos['codsub'],datos['codemp'],datos['codart_old'])
+  """.format(datos['codart'],datos['codalt'],datos['nomart'],datos['codiva'],datos['prec01'],datos['punreo'],datos['estado'],datos['coduni'],datos['codcla'],datos['codsub'],datos['codgrupo'],datos['codemp'],datos['codart_old'])
   print (sql)
   curs.execute(sql)
   conn.commit()
@@ -7448,7 +7559,7 @@ def articulo_detalle():
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
 
-  campos = ['codart', 'nomart','clase','precio','existencia','codiva','estado','cospro','codalt','punreo','coduni','src','codcla','codsub']
+  campos = ['codart', 'nomart','clase','precio','existencia','codiva','estado','cospro','codalt','punreo','coduni','src','codcla','codsub','codgrupo']
   
     # if (r[9]):
         # print ("hay imagen")
@@ -7474,7 +7585,7 @@ def articulo_detalle():
   ,a.nomart
   ,(select c.nomcla from clasesarticulos c where c.codcla=a.codcla and c.codemp= a.codemp) as clase
   ,round(a.prec01,6) as precio,
-  a.exiact,a.codiva,a.estado,a.cospro,a.codalt,a.punreo,a.coduni,a.grafico,a.codcla,a.codsub
+  a.exiact,a.codiva,a.estado,a.cospro,a.codalt,a.punreo,a.coduni,a.grafico,a.codcla,a.codsub,codgrupo
   FROM "DBA"."articulos" a
   where codemp='{}' and codart='{}';
   """.format(datos['codemp'],datos['codart'])
@@ -7488,11 +7599,11 @@ def articulo_detalle():
         print ("hay imagen")
         arr_path_img = r[11].split('\\')
         img_name = arr_path_img[-1]
-        art= (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],'../../assets/img_articulos/'+img_name,r[12],r[13])
+        art= (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],'../../assets/img_articulos/'+img_name,r[12],r[13],r[14])
         d = dict(zip(campos, art))
     else:
         print ("NO HAY IMAGEN")
-        art= (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],'../../assets/img_articulos/subir-imagen.png',r[12],r[13])
+        art= (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],'../../assets/img_articulos/subir-imagen.png',r[12],r[13],r[14])
         d = dict(zip(campos, art))
 	 
   else:

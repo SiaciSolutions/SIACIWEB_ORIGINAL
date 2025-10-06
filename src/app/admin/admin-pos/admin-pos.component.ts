@@ -142,6 +142,8 @@ export class AdminPosComponent implements OnInit {
 	numtra_pedido = undefined
 	tiptra_pedido = undefined
 	busqueda_cliente = 'RZ'
+	//busqueda_codbarra=true
+	busqueda_codbarra:boolean
 	
 	
 	// public getConfAbrirCierreCaja(): string {
@@ -194,6 +196,14 @@ export class AdminPosComponent implements OnInit {
   if (this.srv.getConfBusquedaDefecto() == 'SERV'){
   this.tipo_busqueda = false
   }
+  if (this.srv.getBusqCodBarraDefecto() == 'SI'){
+  this.busqueda_codbarra = true
+  }
+  if (this.srv.getBusqCodBarraDefecto() == 'NO'){
+  this.busqueda_codbarra = false
+  }
+ 
+  
   
 	//ARTICULO = TRUE
 	//SERVICIO = FALSE
@@ -845,6 +855,17 @@ export class AdminPosComponent implements OnInit {
 		console.log(this.tipo_busqueda)
 	}
 	
+	cambio_busq_codbarra() {
+		console.log("tipo de entrada...!!!")
+		console.log(this.busqueda_codbarra)
+		if (this.busqueda_codbarra == false){
+			this.busqueda_codbarra = true;
+		}else {
+			this.busqueda_codbarra = false;
+		}
+		console.log("tipo de entrada luego del cambio...!!!")
+		console.log(this.busqueda_codbarra)
+	}
 	set_aplicar_retencion() {
 		console.log("SET RETENCION...!!!")
 		console.log(this.aplicar_retencion)
@@ -1070,40 +1091,95 @@ export class AdminPosComponent implements OnInit {
 	 
 	busca_articulo() {
 	if (this.dato_cliente){
-		if (this.patron_articulo){
-			let datos = {};
-			datos['nomart']  = this.patron_articulo;
-			datos['codemp']  = this.empresa;
-			datos['codcli']  = this.dato_cliente['codcli'];
-				this.srv.articulos(datos).subscribe(data => {
-					// console.log(data)
-					// console.log (data[1]['nomart'])
-					
-				let longitud_data = data.length
+		
+		if (!this.busqueda_codbarra){
+			if (this.patron_articulo){
+				let datos = {};
+				datos['nomart']  = this.patron_articulo;
+				datos['codemp']  = this.empresa;
+				datos['codcli']  = this.dato_cliente['codcli'];
+					this.srv.articulos(datos).subscribe(data => {
+						// console.log(data)
+						// console.log (data[1]['nomart'])
+						
+					let longitud_data = data.length
 
-				if (longitud_data > 0 ) {
-					console.log(data)
-					// console.log(data['nomart'])
-					
-					// console.log (data[1]['nomart'])
-					this.articulo = data;
-					this.exist_articulo = true;
-					
-					// this.filteredarticulo = this.myControl2.valueChanges.pipe(
-					// startWith(''),
-					// map(value => this._filter2(value))
-					// ); 
-		  
-					
-					
-					
-				}else {
-					alert("Artículo no encontrado con la palabra clave ingresada <<"+this.patron_articulo+">>");
+					if (longitud_data > 0 ) {
+						console.log(data)
+						// console.log(data['nomart'])
+						
+						// console.log (data[1]['nomart'])
+						this.articulo = data;
+						this.exist_articulo = true;
+						
+						// this.filteredarticulo = this.myControl2.valueChanges.pipe(
+						// startWith(''),
+						// map(value => this._filter2(value))
+						// ); 
+			
+						
+						
+						
+					}else {
+						alert("Artículo no encontrado con la palabra clave ingresada <<"+this.patron_articulo+">>");
+					}
+					}); 
+
+				}else  { 
+					alert("Por favor llene el campo artículo");
 				}
-				}); 
-			}else  { 
-				alert("Por favor llene el campo artículo");
-			}
+		}
+		if (this.busqueda_codbarra){
+			//alert ("BUSCA CODIGO BARRA Y CALCULAR")
+			if (this.patron_articulo){
+				let datos = {};
+				datos['nomart']  = this.patron_articulo;
+				datos['codemp']  = this.empresa;
+				datos['codcli']  = this.dato_cliente['codcli'];
+					this.srv.articulos_codbarra_calculo(datos).subscribe(data => {
+						// console.log(data)
+						// console.log (data[1]['nomart'])
+						
+					let longitud_data = data.length
+
+					if (longitud_data > 0 ) {
+						console.log(data)
+						// console.log(data['nomart'])
+						
+						// console.log (data[1]['nomart'])
+						this.articulo = data;
+						this.exist_articulo = true;
+						if (this.articulo.length == 1){
+							console.log ("inserto de una vez")
+							this.elements_checkedList.push(this.articulo[0])
+							this.inserta_pedido_calculado(this.articulo[0]['cant_calculada'])
+							//this.inserta_pedido()
+						}	
+						
+						this.patron_articulo = null
+						// this.filteredarticulo = this.myControl2.valueChanges.pipe(
+						// startWith(''),
+						// map(value => this._filter2(value))
+						// ); 
+			
+						
+						
+						
+					}else {
+						alert("Artículo no encontrado con la palabra clave ingresada <<"+this.patron_articulo+">>");
+						this.patron_articulo = null
+					}
+					}); 
+
+				}else  { 
+					alert("Por favor llene el campo artículo");
+				}
+
+		
+		
+		}
+
+
 	}else{
 			alert("Por favor seleccionar el cliente")
 	}
@@ -1655,50 +1731,13 @@ export class AdminPosComponent implements OnInit {
 		let duplicado = false
 		// console.log (this.elements_checkedList)
 		// this.elements_checkedList = this.artSelectionList.selectedOptions.selected.map(s => s.value);
-		
-		
-		
-		
+
 		if (this.elements_checkedList.length > 0) {
 		
 	for (checked_json of this.elements_checkedList) {
 		console.log("NOMBRE DE ARTICULO A INSERTAR")	
 		console.log(checked_json['codart'])
-		
-		// this.get_prec_produc(checked_json['codart'])
-		
-		//PARA PERMITIR DUPLICADOS
-		// this.articulos_pedido.map(function(dato){
-			// if(dato.codart == checked_json['codart']){
-				// console.log ("SUMO 1 a ITEM y no DEBERIA AGREGAR")
-				// // parseFloat("10.00")
-			// dato.cant = parseFloat(dato.cant) + 1;
-			
-		// dato.v_desc_art = ((dato['punreo']*dato['prec01'])/100)*dato.cant;
-		
-		// dato.subtotal_art = (dato['prec01']*dato.cant)-dato.v_desc_art
-		// //REDONDEADO subtotal_art
-		// dato.subtotal_art =  Math.round(dato.subtotal_art* 100) / 100;
-		
-		// dato.precio_iva= (dato.subtotal_art*dato['poriva'])/100
-		// //REDONDEADO PRECIO IVA
-		// dato.precio_iva = Math.round(dato.precio_iva* 100) / 100;
 
-			// duplicado = true
-			// }
-	  
-		// return dato;
-		// });
-		
-			// this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.subtotal_art),0);
-			// this.total = (this.subtotal - this.desc_cant) + this.iva_cant
-			// this.update_total_desc (this.desc_porcentaje) 
-		
-		
-		
-				// 117.7 ---100%
-				   // X      10%
-		
 		if (!duplicado) {
 		// console.log ("VOY A AGREGAR")
 		
@@ -1721,6 +1760,88 @@ export class AdminPosComponent implements OnInit {
 		}
 	
 		}	
+			console.log ("####  INSERTA PEDIDO CON IVA  ######")
+			console.log (this.iva_porcentaje)
+		
+			// this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.prec01 * obj.cant),0);
+			this.subtotal = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.subtotal_art),0);
+			this.iva_cant = (this.subtotal*this.iva_porcentaje)/100
+			this.iva_cant_new = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0);
+			this.desc_cant = this.redondear(this.articulos_pedido.reduce((acc,obj,) => acc + (obj.v_desc_art),0));
+			this.total_neto = this.subtotal + this.desc_cant
+			this.total = (this.subtotal - this.desc_cant) + this.iva_cant_new
+			// this.totalBaseIva = this.articulos_pedido.reduce((acc,obj,) => acc + (obj.precio_iva),0);
+			// this.series_ingreso_bodega.filter(function(e) {return e['codart'] == codart;});
+			let lista_base_iva = this.articulos_pedido.filter(function(e) {return e['codiva'] == 'S';});
+			let subtotalBaseIva = lista_base_iva.reduce((acc,obj,) => acc + (obj.subtotal_art),0);
+			let descBaseIva = lista_base_iva.reduce((acc,obj,) => acc + (obj.v_desc_art),0);
+
+			this.totalBaseIva = this.redondear(subtotalBaseIva+descBaseIva)
+			console.log ("########### TOTAL BASE CON IVA ###########")
+			console.log (lista_base_iva)
+			console.log (this.totalBaseIva)
+			this.desc_porcentaje = this.redondear(this.desc_cant*100/this.total_neto)
+			
+			if (this.check_credito){
+				this.monto_credito=this.total
+			}
+
+			
+			
+			this.elements_checkedList = [];
+			this.articulo = [];
+			this.exist_articulo = false;
+			if (this.total_recibido > 0){
+				this.calc_cambio()
+			}
+			
+			console.log(this.elements_checkedList)
+		
+		}else {
+			alert("Por favor seleccione algún artículo")
+		}
+
+	 }
+
+	inserta_pedido_calculado(cant) {
+		let checked_json
+		let duplicado = false
+		// console.log (this.elements_checkedList)
+		// this.elements_checkedList = this.artSelectionList.selectedOptions.selected.map(s => s.value);
+
+		if (this.elements_checkedList.length > 0) {
+		
+	for (checked_json of this.elements_checkedList) {
+		console.log("NOMBRE DE ARTICULO A INSERTAR")	
+		console.log(checked_json['codart'])
+
+		if (!duplicado) {
+		// console.log ("VOY A AGREGAR")
+		
+		
+			if (this.articulos_pedido.length == 0){
+				checked_json['index'] = this.articulos_pedido.length
+			}else {
+				console.log (Math.max.apply(Math, this.articulos_pedido.map(function(o) { return o.index; })))
+				checked_json['index'] = (Math.max.apply(Math, this.articulos_pedido.map(function(o) { return o.index; })))+1
+			}
+			
+			checked_json['cant'] = cant;
+			checked_json['observ'] = 'Puede agregar detalles del artículo';
+			//checked_json['subtotal_art'] = checked_json['prec01']
+			
+			checked_json['v_desc_art'] = (checked_json['punreo']*checked_json['prec01'])/100;
+			checked_json['subtotal_art'] = (checked_json['prec01']*cant)-checked_json['v_desc_art']
+			checked_json['subtotal_art'] = Math.round(checked_json['subtotal_art']* 100) / 100;
+			checked_json['precio_iva'] = (checked_json['subtotal_art']*checked_json['poriva'])/100
+			checked_json['precio_iva'] = Math.round(checked_json['precio_iva']* 100) / 100;
+			this.articulos_pedido.push(checked_json)
+			console.log("###### REGISTRO INSERTADO #####")
+			console.log(this.articulos_pedido)
+		
+		}
+	
+	}	
 			console.log ("####  INSERTA PEDIDO CON IVA  ######")
 			console.log (this.iva_porcentaje)
 		

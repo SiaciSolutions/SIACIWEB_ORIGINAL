@@ -91,6 +91,7 @@ export class AdminArticulosComponent implements OnInit {
  linea_articulo
  lista_tipo_subclase
  subclase_articulo
+ actCodBarra_calculado = false
 
 
 
@@ -190,6 +191,12 @@ export class AdminArticulosComponent implements OnInit {
 	   }else{
 			  data['estado'] = 'I'
 	   }
+
+	   if (this.actCodBarra_calculado){
+	      data['codgrupo'] = 'S'
+	   }else{
+		  data['codgrupo'] = 'N'
+	   }
 	   
 	if (!this.codalt || this.codalt== 0){
 		data['codalt'] = this.codart
@@ -258,6 +265,12 @@ export class AdminArticulosComponent implements OnInit {
    data['codusu'] = this.usuario
    data['codart_old'] = this.codart_old
    data['coduni'] = this.unidad
+
+   if (this.actCodBarra_calculado){
+	      data['codgrupo'] = 'S'
+	}else{
+		  data['codgrupo'] = 'N'
+	}
    
    if (this.estado_art){
 	      data['estado'] = 'A'
@@ -342,6 +355,12 @@ export class AdminArticulosComponent implements OnInit {
 			}
 			if (data['estado'] == 'I'){
 				this.estado_art=false
+			}
+			if (data['codgrupo'] == 'S'){
+				this.actCodBarra_calculado=true
+			}
+			if (data['codgrupo'] == 'N'){
+				this.actCodBarra_calculado=false
 			}
 			
 
