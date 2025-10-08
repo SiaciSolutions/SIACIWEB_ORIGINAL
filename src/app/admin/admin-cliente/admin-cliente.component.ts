@@ -246,7 +246,6 @@ export class AdminClienteComponent implements OnInit {
 						this.router.navigate(['/admin/dashboard3', datos]);
 					}
 					this.loading_modulo = false
-
 					
 
 					// this.router.navigate(['/admin/crear_pedidos', datos]);
