@@ -272,11 +272,15 @@ public getConfCambioVendedorPed(): string {
       public getConfCodbarra(): string {
 	  return localStorage.getItem('act_codbarra')
  }
-       public getBusqCodBarraDefecto(): string {
+    public getBusqCodBarraDefecto(): string {
 	  return localStorage.getItem('codbarra_def')
  }
- 
- 
+
+    public getCobros(): string {
+	    return localStorage.getItem('act_cobros')
+    }
+
+  
  
    
 
@@ -379,6 +383,7 @@ public getConfCambioVendedorPed(): string {
 		window.localStorage.removeItem('transf_bodega')
     		window.localStorage.removeItem('act_codbarra')
 		window.localStorage.removeItem('codbarra_def')
+    window.localStorage.removeItem('act_cobros')
 		
 		
 
@@ -732,6 +737,7 @@ public getConfCambioVendedorPed(): string {
 	  localStorage.setItem('transf_bodega', param['transf_bodega'])
     localStorage.setItem('act_codbarra', param['act_codbarra'])
 	  localStorage.setItem('codbarra_def', param['codbarra_def'])
+    localStorage.setItem('act_cobros', param['act_cobros'])
 	  
 	  
 	  // servicio_defecto_pdv: "PEM"
@@ -1145,7 +1151,39 @@ public getConfCambioVendedorPed(): string {
   articulos_codbarra_calculo(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/articulos_codbarra_calculo', param);
   }
-  
+
+   // ## MODULO DE COBROS
+  lista_cobros(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_cobros', param);
+  }
+
+  eliminar_cobro(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_cobro', param);
+  }
+    busqueda_razon_social2(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social2', param);
+  }
+    cobranza(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/cobranza', param);
+  }
+    procesar_pago(datos: any) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/procesar_pago', datos);
+  }
+    tipos_transaccion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/tipos_transaccion', param);
+  }
+
+  tipos_forma_pago(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/tipos_forma_pago', param);
+  }
+   
+  validarNumeroFormaPago(numero: string, formaPago: string, entidadFinanciera: string) {
+    return this.http.post<any>(this.apiUrl + ':' + this.port + '/validar_numero_formapago', {
+      numero: numero,
+      tiptra: formaPago,
+      bantra: entidadFinanciera
+    });
+  }
   
 
   

@@ -49,6 +49,10 @@ import { AdminPedidosMedicosComponent } from './admin-pedidos-medicos/admin-pedi
 import { AdminListaPedidosMedicosComponent } from './admin-lista-ped-medicos/admin-lista-ped-medicos.component';
 import { AdminTransfBodegaComponent } from './admin-transferencias/admin-transferencias.component';
 import { AdminListaTranferenciasComponent } from './admin-lista-transferencia/admin-lista-transferencias.component';
+import { AdminListaCobrosComponent } from './admin-lista-cobros/admin-lista-cobros.component';
+import { AdminClienteCobroComponent } from './admin-cliente-cobro/admin-cliente-cobro.component';
+// Componente del modal (ajusta la ruta según tu estructura)
+import { FormaPagoModalComponent } from './admin-cliente-cobro/forma-pago-modal/forma-pago-modal.component';
 
 
 
@@ -82,23 +86,29 @@ import {
   MatSelectModule,
   MatCheckboxModule,
   MatListModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDialogModule  // AGREGAR ESTE IMPORT
 } from '@angular/material';
 
 @NgModule({
   imports: [
-  	  BrowserModule,
-	  DataTablesModule,
-      BrowserAnimationsModule,
-      MatAutocompleteModule,
-      MatInputModule,
-      FormsModule,
-      ReactiveFormsModule,
-	  MatSelectModule,
-	  MatCheckboxModule,
-	  MatListModule,
-	  FullCalendarModule, // for FullCalendar!
-	  MatDatepickerModule,
+    MatCardModule,
+    MatDialogModule,  // AGREGAR AQUÍ
+    BrowserModule,
+    DataTablesModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatTableModule,  // AGREGAR AQUÍ
+    MatIconModule,   // AGREGAR AQUÍ
+    MatButtonModule, // AGREGAR AQUÍ
+    FullCalendarModule, // for FullCalendar!
+    MatDatepickerModule,
 	  
 	 AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDdtXEK3JAS8o_-ZhtjiyNLaGoJyrMI3tM'
@@ -155,10 +165,15 @@ import {
 	AdminPedidosMedicosComponent,
 	AdminListaPedidosMedicosComponent,
 	AdminTransfBodegaComponent,
-	AdminListaTranferenciasComponent
-
-	
+	AdminListaTranferenciasComponent,
+	FormaPagoModalComponent,
+    AdminListaCobrosComponent,  // Modal component
+	AdminClienteCobroComponent
+  ],
+  entryComponents: [
+    FormaPagoModalComponent  // AGREGAR ESTO PARA EL MODAL
   ],
   exports: [AdminComponent]
+  
 })
 export class AdminModule { }

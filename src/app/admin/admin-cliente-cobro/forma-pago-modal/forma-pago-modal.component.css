@@ -1,0 +1,374 @@
+/* Contenedor principal de la tabla */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  background-color: white;
+}
+
+.mat-table {
+  display: table;
+  width: 100%;
+  min-width: 100%;
+  table-layout: auto;
+  background-color: white;
+}
+
+.mat-header-row,
+.mat-row {
+  display: table-row;
+  width: 100%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  display: table-cell;
+  padding: 12px 8px;
+  vertical-align: middle;
+  border-right: 1px solid #f0f0f0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-header-cell:last-child,
+.mat-cell:last-child {
+  border-right: none;
+}
+
+/* Anchos específicos para columnas */
+.mat-column-tipo {
+  width: 80px;
+  min-width: 80px;
+}
+
+.mat-column-documento {
+  width: 100px;
+  min-width: 100px;
+}
+
+.mat-column-serie {
+  width: 70px;
+  min-width: 70px;
+}
+
+.mat-column-concepto {
+  width: 200px;
+  min-width: 150px;
+  white-space: normal;
+}
+
+.mat-column-saldo,
+.mat-column-valorAPagar {
+  width: 120px;
+  min-width: 120px;
+  text-align: right;
+}
+
+.mat-column-valor {
+  width: 120px;
+  min-width: 120px;
+  text-align: right;
+}
+
+.mat-column-formaPago {
+  width: 150px;
+  min-width: 150px;
+}
+
+.mat-column-entidadFinanciera {
+  width: 150px;
+  min-width: 150px;
+}
+
+.mat-column-fecha {
+  width: 120px;
+  min-width: 120px;
+}
+
+.mat-column-tipo {
+  width: 100px;
+  min-width: 100px;
+}
+
+.mat-column-acciones {
+  width: 80px;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Campos de formulario dentro de la tabla */
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+}
+
+.mat-form-field.concepto-field {
+  width: 100%;
+}
+
+.mat-form-field .mat-input-element {
+  font-size: 14px;
+}
+
+/* Headers más compactos */
+.mat-header-cell {
+  font-weight: 600;
+  font-size: 12px;
+  background-color: #fafafa !important;
+  color: #424242;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Filas alternadas */
+.mat-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.mat-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* Estilos para los cards de totales */
+.mat-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  margin-top: 8px;
+}
+
+.mat-card-content {
+  padding: 12px 16px;
+}
+
+/* Totales con mejor alineación */
+.mat-card .row {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.mat-card .col-md-8,
+.mat-card .col-md-10 {
+  flex: 1;
+  padding: 0;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+}
+
+.mat-card .col-md-2 {
+  flex: 0 0 auto;
+  padding-left: 16px;
+  text-align: right;
+  min-width: 80px;
+}
+
+.mat-card .col-md-2 strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2196f3;
+}
+
+/* Card de total a pagar más destacado */
+.documentos-section .mat-card {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+  border-left: 4px solid #2196f3;
+}
+
+/* Card de formas de pago con indicador de estado */
+.formas-pago-section .mat-card {
+  background-color: #fafafa;
+  border-left: 4px solid #4caf50;
+}
+
+.formas-pago-section .mat-card.warning {
+  border-left-color: #ff9800;
+  background: linear-gradient(135deg, #fff8f0 0%, #fff3e0 100%);
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+  .table-wrapper {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .mat-header-cell,
+  .mat-cell {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .mat-header-cell {
+    font-size: 11px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .mat-column-concepto {
+    width: 180px;
+    min-width: 120px;
+  }
+  
+  .mat-column-formaPago,
+  .mat-column-entidadFinanciera {
+    width: 130px;
+    min-width: 130px;
+  }
+  
+  /* Cards de totales en tablet */
+  .mat-card-content {
+    padding: 10px 12px;
+  }
+  
+  .mat-card .col-md-2 strong {
+    font-size: 15px;
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .table-wrapper {
+    margin: 0 -16px;
+    border-radius: 0;
+  }
+  
+  .mat-header-cell,
+  .mat-cell {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+  
+  .mat-header-cell {
+    font-size: 10px;
+    padding: 8px 4px;
+  }
+  
+  .mat-column-tipo {
+    width: 60px;
+    min-width: 60px;
+  }
+  
+  .mat-column-documento {
+    width: 80px;
+    min-width: 80px;
+  }
+  
+  .mat-column-serie {
+    width: 50px;
+    min-width: 50px;
+  }
+  
+  .mat-column-concepto {
+    width: 150px;
+    min-width: 100px;
+  }
+  
+  .mat-column-saldo,
+  .mat-column-valorAPagar,
+  .mat-column-valor {
+    width: 90px;
+    min-width: 90px;
+  }
+  
+  .mat-column-fecha {
+    width: 100px;
+    min-width: 100px;
+  }
+  
+  .mat-column-acciones {
+    width: 70px;
+    min-width: 70px;
+  }
+  
+  /* Form fields más pequeños en móvil */
+  .mat-form-field {
+    font-size: 12px;
+  }
+  
+  .mat-form-field .mat-input-element,
+  .mat-select-value {
+    font-size: 12px;
+  }
+  
+  /* Cards de totales en móvil */
+  .mat-card-content {
+    padding: 8px 12px;
+  }
+  
+  .mat-card .col-md-8,
+  .mat-card .col-md-10 {
+    font-size: 12px;
+  }
+  
+  .mat-card .col-md-2 {
+    min-width: 70px;
+    padding-left: 12px;
+  }
+  
+  .mat-card .col-md-2 strong {
+    font-size: 14px;
+  }
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+.info-section .mat-card {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 4px solid #2196f3;
+  color: #1565c0;
+}
+
+.documentos-section h4,
+.formas-pago-section h4 {
+  color: #424242;
+  font-weight: 500;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* Botones */
+.mat-stroked-button {
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.mat-raised-button {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Estados de validación */
+.text-success {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.text-warning {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+/* Mejorar espaciado general */
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}

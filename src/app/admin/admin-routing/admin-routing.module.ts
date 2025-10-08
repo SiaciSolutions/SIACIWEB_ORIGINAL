@@ -42,6 +42,8 @@ import { AdminPedidosMedicosComponent } from './../admin-pedidos-medicos/admin-p
 import { AdminListaPedidosMedicosComponent } from './../admin-lista-ped-medicos/admin-lista-ped-medicos.component';
 import { AdminTransfBodegaComponent } from './../admin-transferencias/admin-transferencias.component';
 import { AdminListaTranferenciasComponent } from './../admin-lista-transferencia/admin-lista-transferencias.component';
+import {AdminClienteCobroComponent} from './../admin-cliente-cobro/admin-cliente-cobro.component';
+import { AdminListaCobrosComponent } from './../admin-lista-cobros/admin-lista-cobros.component';
 
 
 
@@ -101,6 +103,15 @@ import { AdminListaTranferenciasComponent } from './../admin-lista-transferencia
             path: 'consulta_sucursales',
             component: AdminSucursalesComponent
           },
+
+      {
+          path: 'cobro_clientes',
+          component: AdminClienteCobroComponent
+          },
+      {
+          path: 'lista_cobros',
+          component: AdminListaCobrosComponent
+      },    
 		  {
             path: 'taller_orden',
             component: AdminOrdenTallerComponent

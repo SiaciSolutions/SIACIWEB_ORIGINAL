@@ -9286,7 +9286,503 @@ def busqueda_pedido_razonsocial():
   response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+  ############### MODULO DE COBROS #####################################
+@app.route('/lista_cobros', methods=['POST'])
+def lista_cobros():
+  datos = request.json
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
   
+  campos = ['codcli', 'nomcli','fecha','valor','numcco']
+  
+  sql = """ SELECT DISTINCT codcli, f_nombre_cliente('{}',codcli), MAX(fecemi) as fecha,
+        SUM(valcob), numcco
+        FROM cuentasporcobrar
+        WHERE codemp = '{}' AND fecemi BETWEEN '{}' AND '{}' AND tipdoc = 'AB'
+        GROUP BY codcli, numcco
+        ORDER BY fecha
+  """.format(datos['codemp'], datos['codemp'], datos['fecha_desde'],datos['fecha_hasta'])
+   
+  curs.execute(sql)
+  print (sql)
+  regs = curs.fetchall()
+  arrresp = []
+
+  for r in regs:
+    
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+
+  return (jsonify(arrresp))
+  
+@app.route('/eliminar_cobro', methods=['POST'])
+def eliminar_cobro():
+    datos = request.json
+    print('ENTRADAAAAA')
+    print(datos)
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    # 👀 Corregí el bug: estabas poniendo datos['codemp'] dos veces, en vez de codemp y numcco
+    sql1 = """DELETE FROM cuentasporcobrar 
+              WHERE codemp='{}' AND numcco='{}'""".format(datos['codemp'], datos['numcco'])
+
+    sql2 = """DELETE FROM formapago_cxc 
+              WHERE codemp='{}' AND numcco='{}'""".format(datos['codemp'], datos['numcco'])
+
+    print(sql1)
+    print(sql2)
+
+    try:
+        curs.execute(sql1)
+        curs.execute(sql2)
+        conn.commit()
+        d = {'STATUS': 'Cobro eliminado con éxito'}
+    except Exception as e:
+        print(str(e))
+        patron = "ERROR AL INTENTAR BORRAR EL PAGO"
+        if patron in str(e):
+            d = {'STATUS': f"Este cobro con número << {datos['numcco']} >> no puede ser eliminado"}
+        else:
+            d = {'STATUS': str(e)}
+
+    print("CERRANDO SESION SIACI")
+    curs.close()
+    conn.close()
+
+    return jsonify(d)
+
+@app.route('/busqueda_razon_social2', methods=['POST'])
+def busqueda_razon_social2():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  campos = ['nomcli', 'rucced','tpIdCliente','email','dircli','codcli']
+  # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
+  
+  sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' and c.forpag = 'R' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
+  curs.execute(sql)
+  regs = curs.fetchall()
+  arrresp = []
+  for r in regs:
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+@app.route('/cobranza', methods=['POST'])
+def cobranza():
+  d = request.json  
+  #fecha_inicio = d['fecha_inicio']
+  #fecha_fin = d['fecha_fin']
+  codemp = d['codemp']
+  codcen = d['codcen']
+  codcli = d['codcli']
+  codcla = d['clase']
+  tipo = d['tipo']
+    
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+  curs = conn.cursor()
+
+  if codcli == "":
+    codcli = '%'
+  
+  if codcla == "":
+    codcla = '%'
+    
+  if codcen == "":
+    codcen = '%'
+    
+  if tipo == "":
+    tipo = '%'
+  
+  resp = []
+
+  sql = f"""
+  SELECT 
+    COALESCE(p.codcli, n.codcli) AS codcli,
+    COALESCE(p.nomcli, n.nomcli) AS nomcli,
+    COALESCE(p.telcli, n.telcli) AS telcli,
+    COALESCE(p.codven, n.codven) AS codven,
+    COALESCE(p.tipdoc, n.tipdoc) AS tipdoc,
+    COALESCE(p.numtra, n.numtra) AS numtra,
+    COALESCE(p.serie, n.serie) AS serie,
+    COALESCE(p.fecemi, n.fecemi) AS fecemi,
+    COALESCE(p.fecven, n.fecven) AS fecven,
+    ROUND(COALESCE(p.valcobp, 0),2) AS valcobp,
+    ROUND(COALESCE(SUM(n.valcobn), 0),2) AS valcobn,
+    ROUND(COALESCE(p.valcobp, 0) - COALESCE(SUM(n.valcobn), 0), 2) AS saldo,
+    COALESCE(p.concep, n.concep) AS concep
+    --COALESCE(p.numcco, n.numcco) AS numcco,
+    --COALESCE(p.tipcco, n.tipcco) AS tipcco
+  FROM 
+    (
+      SELECT 
+        p.codcli,
+        p.codemp,
+        p.codapu,
+        p.codap1,
+        --p.numcco,
+        --p.tipcco,
+        f_nombre_cliente(p.codemp, p.codcli) AS nomcli,
+        0 AS telcli,
+        p.codven,
+        p.tipdoc,
+        p.numtra,
+        p.serie,
+        p.fecemi,
+        p.fecven,
+        ROUND(SUM(p.valcob), 2) AS valcobp,
+        p.concep
+      FROM 
+        v_cuentas_x_cobrar_positivas AS p
+        JOIN clientes AS c ON p.codcli = c.codcli AND p.codemp = c.codemp
+        JOIN clasesclientes AS cc ON c.codcla = cc.codcla AND c.codemp = cc.codemp
+      WHERE
+        p.codemp = '{codemp}' AND
+        p.codcli LIKE '{codcli}' AND
+        p.codcen LIKE '{codcen}' AND
+        cc.codcla LIKE '{codcla}' AND
+        p.tipdoc LIKE '{tipo}'
+      GROUP BY 
+        p.codcli, p.codemp, p.codapu, p.codap1, p.codven, p.tipdoc, p.numtra, p.serie, p.fecemi, p.fecven, p.concep
+    ) AS p
+  FULL OUTER JOIN 
+    (
+      SELECT 
+        n.codcli,
+        n.codemp,
+        n.codapu,
+        n.codap1,
+        --n.numcco,
+        --n.tipcco,
+        f_nombre_cliente(n.codemp, n.codcli) AS nomcli,
+        0 AS telcli,
+        n.codven,
+        n.tipdoc,
+        n.numtra,
+        n.serie,
+        n.fecemi,
+        n.fecven,
+        ROUND(SUM(n.valcob), 2) AS valcobn,
+        n.concep
+      FROM 
+        v_cuentas_x_cobrar_negativas AS n
+        JOIN clientes AS c ON n.codcli = c.codcli AND n.codemp = c.codemp
+        JOIN clasesclientes AS cc ON c.codcla = cc.codcla AND c.codemp = cc.codemp
+      WHERE
+        n.codemp = '{codemp}' AND
+        n.codcli LIKE '{codcli}' AND
+        n.codcen LIKE '{codcen}' AND
+        cc.codcla LIKE '{codcla}' AND
+        n.tipdoc LIKE '{tipo}'
+      GROUP BY 
+        n.codcli, n.codemp, n.codapu, n.codap1, n.codven, n.tipdoc, n.numtra, n.serie, n.fecemi, n.fecven, n.concep
+    ) AS n
+  ON p.codcli = n.codcli AND p.codemp = n.codemp AND p.numtra = n.numtra
+  GROUP BY 
+    COALESCE(p.codcli, n.codcli), 
+    COALESCE(p.nomcli, n.nomcli),
+    COALESCE(p.telcli, n.telcli),
+    COALESCE(p.codven, n.codven),
+    COALESCE(p.tipdoc, n.tipdoc),
+    COALESCE(p.numtra, n.numtra),
+    COALESCE(p.serie, n.serie),
+    COALESCE(p.fecemi, n.fecemi),
+    COALESCE(p.fecven, n.fecven),
+    p.valcobp,
+    COALESCE(p.concep, n.concep)
+  ORDER BY 
+    codcli, fecemi, fecven;
+  """
+  curs.execute(sql)
+  print(sql)
+  regs = curs.fetchall()
+  cxc = regs
+  
+  conn.close()
+
+  datos_cliente = {}
+  codcli_diferentes = []
+
+  suma_venta_total = 0
+  suma_abono_total = 0
+  suma_total = 0
+
+  for cliente in cxc: 
+      codcli = cliente[0]
+      saldo = cliente[11]
+      tipo = cliente[4]
+      if saldo != 0:
+          if tipo != 'AB':
+              renglon = [cliente[3], cliente[4], cliente[5], cliente[6], cliente[7], cliente[8], cliente[9], cliente[10], cliente[11]]
+              
+              suma_venta_renglon = cliente[9]
+              suma_abono_renglon = cliente[10]
+              suma_total_renglon = cliente[11]
+
+              if codcli not in codcli_diferentes:
+                  codcli_diferentes.append(codcli)
+                  datos_cliente[codcli] = {
+                      'codcli': cliente[0],
+                      'nomcli': cliente[1],
+                      'telcli': cliente[2],
+                      'renglones': [renglon],
+                      'suma_venta_renglon': suma_venta_renglon,
+                      'suma_abono_renglon': suma_abono_renglon,
+                      'suma_total_renglon': suma_total_renglon
+                  }
+              else:
+                  datos_cliente[codcli]['renglones'].append(renglon)
+                  datos_cliente[codcli]['suma_venta_renglon'] += suma_venta_renglon
+                  datos_cliente[codcli]['suma_abono_renglon'] += suma_abono_renglon
+                  datos_cliente[codcli]['suma_total_renglon'] += suma_total_renglon
+                  datos_cliente[codcli]['suma_venta_renglon'] = round(datos_cliente[codcli]['suma_venta_renglon'],2)
+                  datos_cliente[codcli]['suma_abono_renglon'] = round(datos_cliente[codcli]['suma_abono_renglon'],2)
+                  datos_cliente[codcli]['suma_total_renglon'] = round(datos_cliente[codcli]['suma_total_renglon'] ,2)
+              # Actualizar las sumas generales
+              
+              suma_venta_total += suma_venta_renglon
+              suma_abono_total += suma_abono_renglon
+              suma_total  += suma_total_renglon
+              suma_venta_total = round(suma_venta_total,2)
+              suma_abono_total = round(suma_abono_total,2)
+              suma_total = round(suma_total,2)
+
+  # Crear la lista de datos de clientes
+  datos_cliente_list = list(datos_cliente.values())
+
+  # Crear la respuesta final incluyendo las sumas generales
+  final_response = {
+      'clientes': datos_cliente_list,
+      'sumas_totales': {
+          'suma_venta_total': suma_venta_total,
+          'suma_abono_total': suma_abono_total,
+          'suma_total': suma_total
+      }
+  }
+
+  # Convertir `final_response` a JSON y devolver la respuesta
+  response = make_response(json.dumps(final_response, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return response
+
+@app.route('/procesar_pago', methods=['POST'])
+def procesar_pago():
+    d = request.json
+    print('PAGOOOOOOO')
+    print(d)
+    codemp = d['codemp']
+    codcli = d['codcli']
+    usuario = d['usuario']
+    fechaPago = d['fechaPago']
+    formasPago = d['formasPago']   # lista [{formaPago, entidadFinanciera, fecha, valor, tipo}]
+    documentos = d['documentos']   # lista de docs (si necesitas usarlos más adelante)
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    # === 1. Obtener y actualizar secuencia VC_CCO ===
+    curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CCO'", (codemp,))
+    numccoA = curs.fetchone()
+    numccoN = numccoA[0]
+    numcco_nuevo = str((int(numccoN)+1)).zfill(len(numccoN))
+    numcco = numcco_nuevo
+
+    curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CCO'", (numcco, codemp))
+
+    # === 3. Buscar documento original FC (ejemplo con el primero de documentos) ===
+    if not documentos:
+        conn.close()
+        return make_response(json.dumps({'error': 'No se enviaron documentos'}), 400)
+
+    for doc_ref in documentos:
+      # === 2. Obtener y actualizar secuencia VC_CXC ===
+      curs.execute("SELECT seccue FROM secuencias WHERE codemp = ? AND codsec = 'VC_CXC'", (codemp,))
+      numcpcA = curs.fetchone()
+      numcpcN = numcpcA[0]
+      numcpc_nuevo = str((int(numcpcN)+1)).zfill(len(numcpcN))
+      numcpc = numcpc_nuevo
+
+      curs.execute("UPDATE secuencias SET seccue = ? WHERE codemp = ? AND codsec = 'VC_CXC'", (numcpc, codemp))
+
+      curs.execute("""
+          SELECT codemp, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen
+          FROM cuentasporcobrar
+          WHERE codemp = ? AND numtra = ? AND tipdoc = 'FC'
+      """, (codemp, doc_ref['numero']))
+      doc_original = curs.fetchone()
+
+      if not doc_original:
+          conn.close()
+          return make_response(json.dumps({'error': f'Documento {doc_ref["numero"]} no encontrado'}), 404)
+
+      (
+          codemp, numtra, codcli_doc, codven, fectra, numorg,
+          codapu, codap1, codmon, valcot, fecult, codcob, codcen
+      ) = doc_original
+
+      # Insertar en cuentasporcobrar (AB) para **cada factura**
+      insert_sql = """
+          INSERT INTO cuentasporcobrar (
+              codemp, numcpc, numtra, codcli, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+              tipdoc, fecemi, fecven, concep, valcob, tiporg, tipcco, numcco, codcom, codusu
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      """
+
+      curs.execute(insert_sql, (
+          codemp, numcpc, numtra, codcli_doc, codven, fectra, numorg, codapu, codap1, codmon, valcot, fecult, codcob, codcen,
+          'AB', fechaPago, fechaPago, doc_ref['concepto'], doc_ref['valorPagado'],
+          'CXC', 'NOR', numcco, '01', usuario
+      ))
+
+      # === 5. Insertar en formapago_cxc (N filas) ===
+      insert_pago_sql = """
+          INSERT INTO formapago_cxc (
+              codemp, tipcco, numcco, numren, codcli, bantra, banfec, fecult, fectra,
+              codtip, tiptra, valfor, valor, codmon, valcot, codusu, bancod, concep, bannum, numtra
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      """
+
+    for idx, pago in enumerate(formasPago, start=1):
+        formaPago = pago['formaPago']
+        bantra = 'NN'
+        if (formaPago == 'TR'):
+          bantra = 'NC'
+        if (formaPago == 'CH' or formaPago == 'DP'):
+          bantra = 'DP'      
+
+        curs.execute(insert_pago_sql, (
+            codemp,
+            'NOR',
+            numcco,
+            idx,
+            codcli,
+            bantra,
+            fechaPago, fechaPago, fechaPago,
+            pago['tipo'],
+            pago['formaPago'],                # tiptra viene del front
+            pago['valor'],
+            pago['valor'],
+            '01',
+            1,
+            usuario,
+            pago['entidadFinanciera'], #bancod
+            pago['concepto'],
+            pago['numero'],
+            pago['numero']
+        ))
+
+    conn.commit()
+    conn.close()
+
+    return make_response(json.dumps({
+        'success': True,
+        'mensaje': 'Pago procesado con éxito',
+        'numcco': numcco,
+        'numcpc': numcpc,
+        'formasPago_insertadas': len(formasPago)
+    }), 200)
+
+@app.route('/tipos_transaccion', methods=['POST'])
+def tipos_transaccion():
+  datos = request.json
+  print(datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  if datos['bandera'] == 0:
+    campos = ['tiptra','nomtra']
+    sql = """ SELECT tiptra,nomtra FROM tipotransaccion where CXC = '1' ORDER BY nomtra"""
+    curs.execute(sql)
+    regs = curs.fetchall()
+    arrresp = []
+    for r in regs:
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+  else:
+    campos = ['nomtra']
+    sql = """ SELECT nomtra FROM tipotransaccion where CXC = '1' and tiptra = '{}' ORDER BY nomtra""".format(datos['tiptra'])
+    curs.execute(sql)
+    regs = curs.fetchall()
+    arrresp = []
+    for r in regs:
+      d = dict(zip(campos, r))
+      arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/tipos_forma_pago', methods=['POST'])
+def tipos_forma_pago():
+  datos = request.json
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  campos = ['codtip','destip']
+  sql = """ SELECT codtip,destip FROM tipo_formapago_cxc where codemp = '{}' ORDER BY destip""".format(datos['codemp'])
+  curs.execute(sql)
+  regs = curs.fetchall()
+  arrresp = []
+
+  for r in regs:
+    d = dict(zip(campos, r))
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  response = make_response(dumps(arrresp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/validar_numero_formapago', methods=['POST'])
+def validar_numero_formapago():
+    data = request.json
+    numero = data.get('numero')
+    tiptra = data.get('tiptra')
+    bantra = data.get('bantra')
+
+    if not numero or not tiptra or not bantra:
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    query = """
+        SELECT COUNT(*) 
+        FROM formapago_cxc 
+        WHERE numtra = ? AND tiptra = ? AND bancod = ?
+    """
+    curs.execute(query, (numero, tiptra, bantra))
+    existe = curs.fetchone()[0]
+
+    curs.close()
+    conn.close()
+
+    if existe > 0:
+        return jsonify({"success": False, "message": "El número ya existe para ese tipo y banco"}), 200
+    else:
+        return jsonify({"success": True, "message": "Número válido"}), 200
+
 
 
 if __name__ == "__main__":
