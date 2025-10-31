@@ -1,0 +1,115 @@
+.example-full-width {
+  min-width: 150px;
+  min-height: 30px;
+  width: 100%;
+}
+
+mat-selection-list {
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+.table-responsive-pedidos {
+    min-height: 0.01%;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.redactor-box {
+    position: relative;
+    overflow: visible;
+    border: 1px solid #ccc;
+}
+
+.redactor-editor {
+    position: relative;
+    overflow: auto;
+    margin: 0 !important;
+    padding: 10px;
+    outline: none;
+    white-space: normal;
+    line-height: 1.6em;
+}
+
+
+/*
+   server-side-angular-way.component.css
+*/
+.no-data-available {
+  text-align: center;
+}
+
+/*
+   src/styles.css (i.e. your global style)
+*/
+.dataTables_empty {
+  display: none;
+}
+
+input[type=date] {
+  height: 35px;
+  margin: 0 auto;
+  width: 100%;
+  font-family: arial, sans-serif;
+  font-size: 18px;
+  padding: 0 3px;
+}
+
+
+
+
+/* /* border: DE AQUI ABAJO ES LA TABLA SCROLL; */ 
+/* table.scroll { */
+    /* width: 100%; */
+    /* border-spacing: 0; */
+    /* /* border: 2px solid black; */ 
+/* } */
+
+/* table.scroll th, */
+/* table.scroll td, */
+/* table.scroll tr, */
+/* table.scroll thead, */
+/* table.scroll tbody { display: block; } */
+
+/* table.scroll thead tr { */
+    /* /* fallback */ 
+    /* width: 97%; */
+    /* /* minus scroll bar width */
+    /* width: -webkit-calc(100% - 16px); */
+    /* width:    -moz-calc(100% - 16px); */
+    /* width:         calc(100% - 16px); */
+/* } */
+
+/* table.scroll tr:after { */
+    /* content: ' '; */
+    /* display: block; */
+    /* visibility: hidden; */
+    /* clear: both; */
+/* } */
+
+/* table.scroll tbody { */
+    /* height: 100px; */
+    /* overflow-y: auto; */
+    /* overflow-x: hidden; */
+/* } */
+
+/* table.scroll tbody td, */
+/* table.scroll thead th { */
+    /* width: 19%; */
+    /* float: left; */
+    /* /* border-right: 1px solid black; */ 
+/* } */
+
+/* thead tr th {  */
+    /* height: 30px; */
+    /* line-height: 30px; */
+    /* /*text-align: left;*/ 
+/* } */
+
+/* /* tbody { border-top: 2px solid black; } */ 
+
+/* tbody td:last-child, thead th:last-child { */
+    /* border-right: none !important; */
+/* } */

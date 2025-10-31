@@ -253,13 +253,14 @@ def bancos():
     d = request.json
     print("DENTRO DE BANCOS")
     print(d)
+    bandera = d.get('bandera', 0)
 
     resp = []
 
     conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
     curs = conn.cursor()
 
-    if d['bandera'] == 0:
+    if bandera == 0:
         # Traer todos los bancos de la base de datos
         sql_campos = 'codban,nomban'
         arr_campos = sql_campos.split(',')
@@ -283,6 +284,57 @@ def bancos():
             for r in regs:
                 registro = dict(zip(arr_campos, r))
                 resp.append(registro)
+
+    curs.close()
+    conn.close()
+
+    response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+    response.headers['content-type'] = 'application/json'
+    return response
+
+#Lista de Facturas
+@app.route('/cargarFacturas', methods=['POST'])
+def cargarFacturas():
+    d = request.json
+    print("DENTRO DE LISTA FACTURAS")
+    print(d)
+
+    resp = []
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    sql = """
+        SELECT 
+            e.numfac,
+            e.serie,
+            e.nomcli,
+            e.fecfac,
+            e.codcli,
+            (SELECT c.rucced FROM clientes c WHERE c.codcli = e.codcli) AS rucced,
+            CASE
+                WHEN e.tipefe = 'E' THEN 'CONTADO'
+                WHEN e.tipche = 'C' THEN 'CHEQUE'
+                WHEN e.tiptar = 'T' THEN 'TARJETA'
+                WHEN e.tipdep = 'D' THEN 'DEPOSITO'
+                WHEN e.tiptrans = 'B' THEN 'TRANSFERENCIA'
+                WHEN e.tipcre = 'R' THEN 'CREDITO'
+                ELSE 'DESCONOCIDO'
+            END AS pago
+        FROM encabezadopuntosventa e
+        WHERE e.codemp = '{}' 
+          AND e.codcli = '{}' 
+          AND e.factok = 'O';
+    """.format(d['codemp'], d['codcli'])
+
+    curs.execute(sql)
+    regs = curs.fetchall()
+
+    arr_campos = ['numfac', 'serie', 'nomcli', 'fecfac', 'codcli', 'rucced', 'pago']
+
+    for r in regs:
+        registro = dict(zip(arr_campos, r))
+        resp.append(registro)
 
     curs.close()
     conn.close()
@@ -3812,7 +3864,7 @@ def generar_encabezado_pdv():
   response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
-  
+
 @app.route('/generar_renglones_pdv', methods = ['POST'])
 def generar_renglones_pdv():
   renglones = request.json
@@ -3988,7 +4040,6 @@ def get_renglones_pdv():
 	conn.close()
 	return(response)
 
-
 @app.route('/actualizar_encabezado_pdv', methods=['POST'])
 def actualizar_encabezado_pdv():
 
@@ -4095,11 +4146,530 @@ def actualizar_encabezado_pdv():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+#####################DESDE AQUI NOTAS CREDITO
+@app.route('/generar_encabezado_nc', methods = ['POST'])
+def generar_encabezado_nc():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  ##SECUENCIA INTERNA SIACI
+  # sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and numcaj='{}' and codsec='PV_FAC'".format(
+  sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and codsec='VC_DEV'".format(
+  datos['codemp'], datos['codalm'])
 
+  
+  
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac = regsec[0]
+  
+  print (sql)
+  
+  print (numfac)
+  
+  ########################### INICIO BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  print (numfac)
+  print (len(numfac))
+  print (int(numfac)+1)
+  print (str((int(numfac)+1)).zfill(len(numfac)))
+  numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  numfac= numfac_nueva
+  ########################### FIN BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  
+  sql = "select seccue, serie from secuencias_tmp where  codemp='{}' and codalm='{}' and codsec='VC_DEV' and numcaj='{}'".format(
+  datos['codemp'], datos['codalm'], datos['numcaj'])
+  # datos['codemp'], datos['codalm'])
+  print (sql)
+  # curs = conn.cursor()
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac_tributaria = regsec[0]
+  # print (sql)
+  
+  print (numfac_tributaria)
+  datos['serie'] = regsec[1]
+  
+  
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  # sql = "SELECT v.codven, nomven FROM vendedorescob v, usuario u where v.codus1 = u.codus1 and v.codusu = u.codusu and u.codus1='{}' and u.codemp='{}'"\
+        # .format(datos['codus1'],datos['codemp'])
+		
+  sql = "SELECT v.codven, nomven FROM vendedorescob v WHERE v.codus1='{}' and v.codemp='{}'".format(datos['codus1'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  # codven = '06'
+  # print ("COD VENDEDOR")
+  # print (codven)
+  
+  # codusu = 'SUPERVISOR'
+  # print ("CODUSU")
+  # print (codusu)
+  
+  codven = r[0]
+  nomven = r[1]
+  print (codven)
+  print (nomven)
+  
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  #sql = "SELECT vc_lis FROM parametrosiniciales where numren='PV' and codemp='{}'"\
+  #      .format(datos['codemp'])
+  #curs.execute(sql)
+  #r_lispre = curs.fetchone()
+  #lispre=r_lispre[0]
+  
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  
+  
+  if (datos['conpag'] == 'E'):
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+	
+      
  
+  # dateTimeObj = datetime.now()
+  # timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  # hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  # print (hora)
+  
+  
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
 
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
   
   
+	
+	
+  string_campos = '''numfac,reffac, codemp,codven,codalm,codcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  valche,tiptar,numtar,valtar,totiva,codusu,fecult,codmon,valcot,estado,numcaj,faccli,serie,inserta,
+  facnot,codapu,tipdep,numdep,valdep,fecven,conpag,numpag,plapag,pordes,codtar,codban,coddep, observ, codpry'''
+  
+  
+  sql = f"""
+    INSERT INTO encabezadodevoluciones ({string_campos})
+    VALUES (
+    '{numfac}','{datos['numref']}','{datos['codemp']}','{codven}','{datos['codalm']}','{datos['codcli']}',
+    '{datos['fecfac']}',{datos['totnet']},{datos['totdes']},{datos['totbase']},{datos['poriva']},{datos['totfac']},
+    '{datos['tipefe']}',{datos['valefe']},'{datos['tipche']}',{datos['numche']},{datos['valche']},'{datos['tiptar']}',
+    {datos['numtar']},{datos['valtar']},{datos['totiva']},'{datos['codus1']}','{datos['fecfac']}','01','1','',
+    '{datos['numcaj']}','{numfac_tributaria}','{datos['serie']}',NULL,'','FC{numfac}','X',NULL,0,'{datos['fecfac']}',
+    '{datos['conpag']}','{numpag}','{plapag}',{datos['pordes']},{datos['codtar']},{datos['codban']},{datos['coddep']},{datos['observ']}, 'NC'
+    );
+  """
+  # curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  # curs.close()
+  conn.commit()
+  
+  
+  #### CAMBIO DE SECUENCIAS  ####
+  
+  # print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  # print (numfac)
+  # print (len(numfac))
+  # print (int(numfac)+1)
+  # print (str((int(numfac)+1)).zfill(len(numfac)))
+  # numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  
+
+  sql = "update secuencias set seccue =  '{}' where codalm='{}' and codsec = 'VC_DEV' and codemp='{}'".format(numfac_nueva,datos['codalm'],datos['codemp'])
+  curs.execute(sql)
+  conn.commit()
+  
+  print ("PARA OBTENER SECUENCIA TRIBUTARIA NUEVA")
+  print (numfac_tributaria)
+  print (len(numfac_tributaria))
+  print (int(numfac_tributaria)+1)
+  print (str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria)))
+  numfac_tributaria_nueva = str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria))
+  
+  # zfill(8)  ####COMPLETAR CON 0
+  
+  #### CAMBIO DE SECUENCIAS_TMP  ####
+  # curs = conn.cursor()
+  # # sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  
+  sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'VC_DEV' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  curs.execute(sql)
+  conn.commit()
+  
+  #try:
+  #  numtra_pedido = datos['numtra_pedido']
+  #  tiptra_pedido = datos['tiptra_pedido']
+  #  print ("ACTUALIZANDO STATUS DE LA FACTURA")
+  #  sql = "update encabezadopedpro set estado='F' where tiptra='{}' and numtra = '{}' and codemp='{}'".format(tiptra_pedido,numtra_pedido,datos['codemp'])
+  #  curs.execute(sql)
+  #  conn.commit()
+    
+    
+  #except:
+  #  print ("FACTURA SIN PEDIDO")
+    
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  # sql = """
+		# INSERT INTO detalle_formas_pago_sri (codemp,numfac,tipo,tarjeta,val_tar,plazo_tar)
+		# SELECT codemp,numfac,'PVE','19',valtar,numpag * plapag
+		# FROM encabezadopuntosventa
+		# WHERE tiptar = 'T' and 
+		# codemp = '{}' and 
+		# numfac = '{}';
+  # """.format(datos['codemp'],numfac)
+  # print (sql)
+  # curs.execute(sql)
+  # conn.commit()
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  sleep (0.2)
+  resp = {'status': 'INSERTADO CON EXITO','numfac': numfac}
+  # resp = {'status': 'INSERTADO CON EXITO','numfac': '1111'}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/generar_renglones_nc', methods = ['POST'])
+def generar_renglones_nc():
+  renglones = request.json
+  print ("##########  ENTRADA GENERAR RENGLONES PUNTO DE VENTA ######")
+  print (renglones)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  for datos in renglones:
+     codemp=datos['codemp']  
+     print ("CODEMP " +codemp )  
+ 
+     codcen=datos['codagencia']+'.'
+     print ("codcen" + codcen )
+  
+     NUMFAC=datos['numfac'] 
+     print ("NUMTRA "+str(NUMFAC) )
+
+     numren=datos['numren']
+     print ("NUMREN " +str(numren) )
+ 
+     codart=datos['codart']
+     print ("CODART "+ codart) 
+
+     nomart=datos['nomart'] 
+     print ("NOMART "+nomart )  
+
+     coduni=datos['coduni']
+     print ("CODUNI "+coduni) 
+
+     cantid=datos['cant']
+     print ("CANTID "+str(cantid))  
+
+     preuni=datos['prec01']
+     print ("PREUNI "+ str(preuni))   
+ 
+     subtotal_art=datos['subtotal_art']
+     print ("SUBTOTAL_ART "+str(subtotal_art)) 
+
+     desren=datos['punreo']
+     print ("PORCENTAJE DESCUENTO RENGLON "+str(desren)) 
+  
+     desc_valor_renglon = datos['v_desc_art']
+     print ("DESCUENTO VALOR RENGLON "+str(desc_valor_renglon)) 
+ 
+     totren = round(subtotal_art+desc_valor_renglon,2)
+     codiva=datos['codiva']
+     print ("CODIVA "+codiva) 
+
+     numcaj=datos['numcaj']
+     print ("NUMCAJ "+numcaj) 
+
+     ## PARA OBTENER EL PROYECTO (CLASE DE ARTICULO)
+  
+     # SELECT codcla FROM "DBA"."articulos" where codemp='01' and codart='304222'
+  
+     FLAG_ARTICULO = 0
+     ##PARA OBTENER CODIGO DE VENDEDOR
+     sql = "SELECT codcla FROM articulos where codemp='{}' and codart='{}'"\
+        .format(datos['codemp'],datos['codart'])
+     curs.execute(sql)
+     r_codcla = curs.fetchone()
+     if (r_codcla):
+       proyecto=r_codcla[0]
+       FLAG_ARTICULO = 1
+	
+     else:
+       proyecto= 'null'
+  
+     sql = "INSERT INTO renglonesdevoluciones (codemp,numfac,numren,numite,codart,nomart,coduni,cantid,preuni,totren,codiva,codmon,valcot,totext,codcen,totaldesc,desren, inserta) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}')"\
+        .format(codemp,NUMFAC,numren,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,"01","1",totren,codcen,"0.00",desren,"null")
+
+     print (sql) 
+     curs.execute(sql)
+     print ("###### ANTES DEL COMMIT INSERT RENGLON")
+     sleep (0.3)
+  
+  conn.commit()
+  sleep (0.5)
+  print ("###### LUEGO DEL COMMIT INSERT RENGLON")
+  curs.close()
+  conn.close()
+  print ("###### CIERRO CONEXION BASE DE DATOS")
+
+  d = {'status': 'INSERTADO RENGLON'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/get_encabezado_nc', methods = ['POST'])
+def get_encabezado_nc():
+	print ("################ GET ENCABEZADO FACTURA  ##############")
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+	numtra=datos['numfac']
+
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+	
+	# # SELECT p.numtra,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra , DATEFORMAT(p.fecult, 'DD-MM-YYYY') as fecult ,c.rucced,c.nombres,c.dircli,c.codcli,c.telcli,c.email,p.observ,p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
+	
+	sql = """
+    SELECT p.codemp,p.numfac,p.faccli,fecfac,c.tpIdCliente,c.rucced,c.nombres,c.codcli,c.email,c.dircli,
+    p.observ,p.totnet,p.totfac,
+    p.tipefe,p.valefe,p.tiptar,p.numtar,p.valtar,p.codtar,p.tipche,p.numche,p.valche,p.codban,p.numpag,p.plapag,p.coddep,
+    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.observ
+    FROM "dba"."encabezadodevoluciones" p, clientes c
+    where p.numfac = '{}' and p.codemp='{}'
+    and p.codcli=c.codcli
+    and c.codemp=p.codemp
+	""".format(numtra,codemp)
+	curs.execute(sql)
+	r = curs.fetchone()
+
+	
+	campos = ['codemp', 'numfac','faccli','fecfac','tpIdCliente','rucced','razon_social','codcli','email','dircli','observ','totnet','totfac','tipefe'
+	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','numpag','plapag','coddep','totiva','poriva','totdes','pordes','totbas','observ']
+	print (r)
+	if r:
+		d = dict(zip(campos, r))
+   	
+	response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+	conn.close()
+	return(response)
+	
+@app.route('/get_renglones_nc', methods = ['POST'])
+def get_renglones_nc():
+		
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+	numtra=datos['numfac']
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+
+	
+	sql = """
+	SELECT
+	numren
+	,codart,nomart,coduni,cantid,preuni,totren,
+	desren as punreo,codiva,
+	(select i.poriva from iva i where i.codiva=r.codiva) as poriva,
+	round (((totren*poriva)/100),2) as precio_iva,
+	round((((punreo*preuni)/100) * cantid),2) as v_des_art,
+	round(totren-v_des_art,2) as subtotal_art
+	FROM "DBA"."renglonesdevoluciones" r  where numfac='{}' and codemp='{}'
+	""".format(numtra,codemp)
+	
+	curs.execute(sql)
+	print (sql)
+	r = curs.fetchall()
+
+	campos = ['index','codart','nomart','coduni','cant','prec01','totren','punreo','codiva','poriva','precio_iva','v_desc_art','subtotal_art']
+	renglones_pdv = []
+	for reg in r:
+
+		print ("LO QUE VIENE DE LA BASE DE DATOS")
+		print (reg)
+
+		reg_encabezado = dict(zip(campos, reg))
+		renglones_pdv.append(reg_encabezado)
+	print (renglones_pdv) 
+
+	response = make_response(dumps(renglones_pdv, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+
+	conn.close()
+	return(response)
+
+@app.route('/actualizar_encabezado_nc', methods=['POST'])
+def actualizar_encabezado_nc():
+
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  fecult = dateTimeObj.strftime("%Y-%m-%d")
+  
+  
+  if (datos['conpag'] == 'E'):
+    tipcre = 'X'
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    tipcre = 'R'
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
+
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+      
+  
+ 
+  # string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  # valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
+  # factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep'''
+  
+  
+  sql = """update encabezadodevoluciones set totnet={},totdes={},totbas={},poriva={}, totfac={},tipefe='{}',valefe={},tipche='{}',numche={} ,valche={},
+  tiptar='{}',numtar={},valtar={},totiva={},fecult='{}',codcli='{}',conpag='{}',
+  numpag={},plapag={},pordes={},codtar={},codban={},coddep={}, observ={}
+  where codemp='{}' and numfac='{}'
+  """.format(datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
+  datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],fecult,datos['codcli'],
+  datos['conpag'],numpag,plapag,datos['pordes'],datos['codtar'],datos['codban'],
+  datos['coddep'],datos['observ'],datos['codemp'],datos['numfac']) 
+  curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  sql= """DELETE from renglonesdevoluciones  where codemp='{}' and numfac='{}'""".format(datos['codemp'],datos['numfac'])
+  curs.execute(sql)
+  conn.commit()
+  
+  
+ 
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  resp = {'status': 'ACTUALIZADO CON EXITO','numfac': datos['numfac']}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+ 
+##############HASTA AQUI NOTAS CREDITO  
 @app.route('/aplicar_fact_electronica', methods = ['POST'])
 def aplicar_fact_electronica():
   datos = request.json
@@ -4221,6 +4791,49 @@ def lista_ventas_pdv():
   # print (arrresp)
 
   return (jsonify(arrresp))
+
+@app.route('/lista_ventas_nc', methods = ['POST'])
+def lista_ventas_nc():
+  datos = request.json
+  print ('ENTRADAAAAA')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+ 
+  campos = ['fecfac', 'numfac','serie','codcli','nomcli','totfac','observ']
+  
+  sql = """ SELECT fecfac, numfac, serie, codcli, 
+  (SELECT nomcli FROM clientes c WHERE c.codcli = e.codcli AND c.codemp = e.codemp) AS nomcli,
+  totfac, observ
+  FROM encabezadodevoluciones e
+  where e.codemp='{}'
+  and e.fecfac between '{}' and '{}'
+  and e.codusu = '{}'
+  order by numfac desc
+  """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'],datos['usuario'])
+  print (sql)
+  curs.execute(sql)
+
+  regs = curs.fetchall()
+  arrresp = []
+   # print (regs)
+  for r in regs:
+    # print (r)
+    # print (r[15])
+    # urlfile = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/images/'
+    r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6])
+    d = dict(zip(campos, r_salida))
+    # print (d)
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+  # print (arrresp)
+
+  return (jsonify(arrresp))
+
 
 @app.route('/pdf_file/<imagename>')
 def pdf_file(imagename):

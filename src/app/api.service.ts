@@ -134,7 +134,9 @@ public getClientes(): string {
 public getCobros(): string {
 	  return localStorage.getItem('act_cobros')
     }
-	
+public getNotasCredito(): string {
+	  return localStorage.getItem('act_notas')
+    }	
 public getWhatsapp(): string {
 	  return localStorage.getItem('act_whatsapp')
     }
@@ -434,13 +436,19 @@ public getConfCambioVendedorPed(): string {
   generar_encabezado_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_encabezado_pdv', param);
   }
-  
+  generar_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_encabezado_nc', param);
+  }
   generar_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pedido', param);
   }
   
   generar_renglones_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_pdv', param);
+  }
+
+  generar_renglones_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_nc', param);
   }
   
   generar_renglones_pedido(param): Observable<any> {
@@ -593,11 +601,18 @@ public getConfCambioVendedorPed(): string {
   get_renglones_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_pdv', param);
   }
+
+  get_renglones_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_nc', param);
+  }
+
   actualizar_encabezado_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_pdv', param);
   }
   
-  
+  actualizar_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_nc', param);
+  }
   
   get_prec_product(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_prec_product', param);
@@ -716,6 +731,7 @@ public getConfCambioVendedorPed(): string {
 	  localStorage.setItem('codagencia', param['codagencia'])
 	  localStorage.setItem('act_clientes', param['act_clientes'])
     localStorage.setItem('act_cobros', param['act_cobros'])
+    localStorage.setItem('act_notas', param['act_notas'])
 	  localStorage.setItem('act_pedidos', param['act_pedidos'])
 	  localStorage.setItem('act_whatsapp', param['act_whatsapp'])
 	  localStorage.setItem('act_notif_auto_fac', param['act_notif_auto_fac'])
@@ -912,6 +928,11 @@ public getConfCambioVendedorPed(): string {
   lista_ventas_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_ventas_pdv', param);
   }
+
+  lista_ventas_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_ventas_nc', param);
+  }
+
   aplicar_fact_electronica(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/aplicar_fact_electronica', param);
   }
@@ -1071,6 +1092,10 @@ public getConfCambioVendedorPed(): string {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_pdv', param);
   }
   
+  get_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_nc', param);
+  }
+
   crear_articulo(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/crear_articulo', param);
   }
@@ -1211,6 +1236,10 @@ public getConfCambioVendedorPed(): string {
       tiptra: formaPago,
       bantra: entidadFinanciera
     });
+  }
+
+  cargarFacturas(datos: any) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/cargarFacturas', datos);
   }
   
   

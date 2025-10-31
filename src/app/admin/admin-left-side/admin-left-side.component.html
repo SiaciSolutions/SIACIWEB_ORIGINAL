@@ -82,6 +82,19 @@
 
 	  </ul>
       </li>
+
+	  <li *ngIf="auth.getNotasCredito() != 'NO'" class="treeview">
+        <a href="#">
+            <i class="fa fa-file-text"></i> <span>NOTAS DE CREDITO</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="nota_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Agregar Nota de Crédito</a></li>
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="lista_notas_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Notas de Crédito</a></li>
+        </ul>
+      </li> 
 	  
 	  <li *ngIf="auth.getModInventario() == 'SI' && (auth.getTipacc() == 'T' || (auth.getTipacc() == 'P' && auth.getConfPerfilParcial('pb_2')))"  class="treeview" style="height: auto;">
 		   <a href="#">

@@ -26,10 +26,10 @@ declare var AdminLTE: any;
 
 export class AdminPosComponent implements OnInit {
 	
-	  parametros: {usuario: string, empresa: string};
+	parametros: {usuario: string, empresa: string};
 	
-	 myControl = new FormControl();
-	 myControl2 = new FormControl();
+	myControl = new FormControl();
+	myControl2 = new FormControl();
 	filteredOptions: Observable<string[]>;
 	filteredarticulo: Observable<string[]>;
 	public clientes : boolean;
