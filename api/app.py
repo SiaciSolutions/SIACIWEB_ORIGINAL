@@ -4458,7 +4458,7 @@ def generar_renglones_nc():
      else:
        proyecto= 'null'
   
-     sql = "INSERT INTO renglonesdevoluciones (codemp,numfac,numren,numite,codart,nomart,coduni,cantid,preuni,totren,codiva,codmon,valcot,totext,codcen,totaldesc,desren, inserta) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}')"\
+     sql = "INSERT INTO renglonesdevoluciones (codemp,numfac,numren,numite,codart,nomart,coduni,cantid,preuni,totren,codiva,codmon,valcot,totext,codcen,totaldesc,desren, inserta) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}')"\
         .format(codemp,NUMFAC,numren,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,"01","1",totren,codcen,"0.00",desren,"null")
 
      print (sql) 
@@ -4474,6 +4474,7 @@ def generar_renglones_nc():
   print ("###### CIERRO CONEXION BASE DE DATOS")
 
   d = {'status': 'INSERTADO RENGLON'}
+  print(d)
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)

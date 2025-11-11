@@ -321,7 +321,7 @@ export class AdminNotaCreditoComponent implements OnInit {
         this.jstoday = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '-0500');
         this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
         console.log (this.jstoday)
-        console.log (this.fectra)
+        console.log ('fecha', this.fectra)
   
       ////PARA BUSCAR IVA Y SETEAR IVA DEFECTO
         this.srv.iva().subscribe(data => {
@@ -541,7 +541,7 @@ export class AdminNotaCreditoComponent implements OnInit {
     console.log (datos)
       
       
-    this.srv.get_encabezado_nc(datos).subscribe(
+    this.srv.get_encabezado_pdv(datos).subscribe(
       data => {
         console.log("##### OBTENIENDO ENCABEZADO FACTURA  ######")
         console.log(data)
@@ -592,7 +592,7 @@ export class AdminNotaCreditoComponent implements OnInit {
         this.desc_porcentaje = data['pordes']
         this.subtotal = data['totnet'] - data['totdes']
         this.total_neto = data['totnet']
-        this.fectra = data['fecfac']
+        //this.fectra = data['fecfac']
         this.totalBaseIva = data['totbas']
         this.numplaca=data['numplaca']
         this.observacion_factura = data['observ']
@@ -604,7 +604,7 @@ export class AdminNotaCreditoComponent implements OnInit {
       
       
       
-    this.srv.get_renglones_nc(datos).subscribe(
+    this.srv.get_renglones_pdv(datos).subscribe(
       data => {
         console.log ("##### OBTENIENDO RENGLONES ####")
         console.log(data)
