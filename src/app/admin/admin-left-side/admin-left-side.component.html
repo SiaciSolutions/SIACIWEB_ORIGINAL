@@ -82,6 +82,19 @@
 
 	  </ul>
       </li>
+
+	  <li *ngIf="auth.getNotasCredito() != 'NO'" class="treeview">
+        <a href="#">
+            <i class="fa fa-file-text"></i> <span>NOTAS DE CREDITO</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="nota_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Agregar Nota de Crédito</a></li>
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="lista_notas_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Notas de Crédito</a></li>
+        </ul>
+      </li> 
 	  
 	  <li *ngIf="auth.getModInventario() == 'SI' && (auth.getTipacc() == 'T' || (auth.getTipacc() == 'P' && auth.getConfPerfilParcial('pb_2')))"  class="treeview" style="height: auto;">
 		   <a href="#">
@@ -335,6 +348,8 @@
             </span>
           </a>
         <ul class="treeview-menu">
+		<li (click)="ocultar_menu_moviles()"><a  routerLink="taller_recepcion" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de recepción</a></li>
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_recepciones" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de recepciones</a></li>
 		<li (click)="ocultar_menu_moviles()"><a  routerLink="taller_orden" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li>
 		<!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/admin/taller_orden', tokenid]" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li> -->
 		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_ordenes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de ordenes</a></li>

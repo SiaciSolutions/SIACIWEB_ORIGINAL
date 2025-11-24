@@ -24,22 +24,14 @@ declare const MediaRecorder: any;
 declare var AdminLTE: any;
 // declare var $: any;
 declare const $: any;
-
-
 @Component({
-  selector: 'app-admin-taller-orden',
-  templateUrl: './admin-taller-orden.component.html',
-  styleUrls: ['./admin-taller-orden.component.css']
+  selector: 'app-admin-orden-recepcion',
+  templateUrl: './admin-orden-recepcion.component.html',
+  styleUrls: ['./admin-orden-recepcion.component.css']
 })
+export class AdminOrdenRecepcionComponent implements OnInit {
 
-
-
-
-	
-
-export class AdminOrdenTallerComponent implements OnInit {
-	
-	public isRecording: boolean = false;
+  public isRecording: boolean = false;
     private chunks: any = [];
     private mediaRecorder: any;
 	// mediaRecorder:any;
@@ -77,10 +69,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	public lista_rutas
 	public lista_surcursales
 	public change_iva = false
-	public tipo_busqueda : boolean;
-	setTab(isArticulo: boolean) {
-		this.tipo_busqueda = isArticulo;
-	  }
+	public tipo_busqueda : boolean = false;
 	public check_agencia
 	public val_exist_ppal:boolean
 	public val_exist_sucursal:boolean
@@ -132,10 +121,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 	articulos_pedido: any = []
 	// #### PARA MARCAR LA EDICION DEL PRECIO DEL ARTICULO
 	public edit_articulos
-
-	filtroCliente: string = '';
-	//truco
-	ordenes: any = [];
 	
 	
 	@ViewChild('datos_orden') datos_orden: ElementRef;
@@ -198,7 +183,7 @@ export class AdminOrdenTallerComponent implements OnInit {
  public status_lista = [
 			{"status": "I", "status_nombre": "INICIADA"},
 			{"status": "R", "status_nombre": "REGISTRADA"},
-			{"status": "P", "status_nombre": "POR EGRESAR"}
+			{"status": "P", "status_nombre": "EMITIDO"}
 		];
   status = 'I'
 
@@ -221,13 +206,8 @@ export class AdminOrdenTallerComponent implements OnInit {
   audios
   /////// FIN VARIABLES SUBIDAS DE FOTOS///////////
   ///////INICIO VARIABLES PARA ACTUALIZAR ORDEN///////////
-  lista_pedidos_tabla
   numtra
-  numtraRecepcion
-  tiptra
   fecult_new
-
-  importarRecepcion = false
   
    ///////DETALLE VEHICULO///////////
 	antena = false
@@ -255,7 +235,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	triangulos = false
 	alogenos = false
 	pantalla_radio = false
-	//Moto
+	//MOTO
 	herramientasM = false
 	casco = false
 	cobertor = false
@@ -264,9 +244,11 @@ export class AdminOrdenTallerComponent implements OnInit {
 	luces = false
 	espejosr = false
 	guantes = false
+
 ///////FIN DETALLE VEHICULO///////////
 
    ///////DATOS VEHICULO///////////
+    clase_vehiculo: string;
 	marca
 	modelo
 	anio = '2000'
@@ -289,9 +271,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 	tab_habilitar_datos_orden
 	hora_ingreso
 	nivel_combustible = 0
-
-	//NUMERO DE ORDE DE RECEPCION:
-	numOrdRecep
 	
 	// location.reload()
 	
@@ -348,7 +327,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 		this.usuario = params['usuario'] || this.route.snapshot.paramMap.get('usuario') || 0;
 		this.empresa = params['empresa'] || this.route.snapshot.paramMap.get('empresa') || 0;
 		this.numtra = params['numtra'] || this.route.snapshot.paramMap.get('numtra') || 0;
-		this.tiptra = params['tiptra'] || this.route.snapshot.paramMap.get('tiptra') || 0;
 		console.log("LUEGO DE ENTRADA")
 		if (this.numtra == 0){
 			this.reload_orden_nueva()
@@ -420,53 +398,16 @@ export class AdminOrdenTallerComponent implements OnInit {
  
   }//FIN CONSTRUCTOR
   
-  abrirModal() {
-    $('#modalOrdenes').modal('show'); // Abre el modal con Bootstrap
-  }
-
-  seleccionarRecepcion(numtra, tiptra){
-	this.numtra = numtra;
-	this.numtraRecepcion= numtra;
-	this.tiptra = tiptra;
-	this.importarRecepcion = true;
-	this.reload_orden();
-	setTimeout(() => {	
-		this.numtra = undefined;
-		this.tiptra = '7';
-		this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
-	}, 3000);
-	$('#modalOrdenes').modal('hide');
-  }
-  
-
-  ordenesFiltradas() {
-	if (!this.filtroCliente) {
-	  return this.ordenes;
-	}
-	return this.ordenes.filter(orden =>
-	  orden.cliente.toLowerCase().includes(this.filtroCliente.toLowerCase())
-	);
-  }
-
 
    ngOnInit() {
+   
+     
+	   
+	   
 
-	const datos = {};
-	datos['codemp'] = this.empresa;	
-	datos['usuario'] = this.usuario;
-	datos['tipacc'] = this.srv.getTipacc()
-	datos['tipo'] = 'RO'
-	this.srv.lista_ordenes(datos).subscribe(
-		data => {
-			// if (data){
-				// this.loading = false;
-			// }
-			console.log(data)
-			console.log ("EJECUTADA DATA")
-			 this.ordenes = data
-			 // this.buildDtOptions(this.lista_pedidos)
-		 });    
-
+	   
+	   
+	   
 		AdminLTE.init();
 	}
 	
@@ -611,10 +552,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	let datos = {};
 	datos['codemp'] = this.empresa;
 	datos['usuario'] = this.usuario;
-	datos['tiptra'] = this.tiptra;
 	console.log (datos)
 		//Variables originales  
-	  this.tipo_busqueda = true
+	  this.tipo_busqueda = false
 	  this.clientes = false;
 	  this.exist_articulo = false;
 	  this.exist_razon_social = false;
@@ -632,9 +572,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	console.log (this.today)
 	console.log (this.fecha_entrega)
 	  
-	
+	  
 	this.srv.vendedores(datos).subscribe(
-	   data => {	
+	   data => {
 		   console.log("OBTENIENDO VENDEDORES")
 		   console.log(data)
 		   this.vendedores_lista = data
@@ -655,22 +595,14 @@ export class AdminOrdenTallerComponent implements OnInit {
 	// this.reset()
 	datos['numtra'] = this.numtra;	
 	datos['usuario'] = this.usuario;
-	datos['estadoR'] = 'R'
 	this.buscar_encabezado_orden(datos);
-
-	this.srv.actualizar_estado_orden(datos).subscribe(
-	   data => {	
-		   console.log("ACTUALIZANDO ESTADO")
-		   console.log(data)
-		 });
 	// this.buscar_renglones_orden(datos);
-	setTimeout(() => {
-		this.lista_imagenes();
-		this.lista_audios();
-		this.get_detalle_vehiculo();
-		this.get_datos_vehiculo();
-		this.tab_habilitar_datos_orden=true
-	  }, 3000);
+	this.lista_imagenes();
+	this.lista_audios();
+	this.get_detalle_vehiculo();
+	this.get_datos_vehiculo();
+	this.tab_habilitar_datos_orden=true
+	
 		
 	this.srv.paises(datos).subscribe(
 	   data => {
@@ -698,20 +630,19 @@ export class AdminOrdenTallerComponent implements OnInit {
 		datos['usuario'] = this.usuario;
 		datos['empresa'] = this.empresa;
 		
-		this.router.navigate(['/admin/taller_orden', datos]);
+		this.router.navigate(['/admin/taller_recepcion', datos]);
 	}
 	
 	
 	buscar_encabezado_orden(datos) {
 		
-	this.srv.get_encabezado_orden(datos).subscribe(
+	this.srv.get_encabezado_recepcion(datos).subscribe(
 	   data => {
 		   this.reset()
 		   console.log ("ENCABEZADO_ORDEN")
 		   console.log(data)
 		   this.ruc = data['identificacion']
 		   this.tipo_doc = data['tpIdCliente']
-		   this.numOrdRecep = data['num_pedido']
 		   
 		   	this.busca_cliente()
 			this.observacion_pedido = data['observ']
@@ -744,7 +675,6 @@ export class AdminOrdenTallerComponent implements OnInit {
 		datos['numtra'] = this.numtra;	
 		datos['usuario'] = this.usuario;
 		datos['codemp'] = this.empresa;
-		datos['tiptra'] = this.tiptra;
 		
 		this.buscar_renglones_orden(datos);
 		
@@ -757,7 +687,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	buscar_renglones_orden(datos) {
 		let data_traduccion = {}
 		
-	this.srv.get_renglones_orden(datos).subscribe(
+	this.srv.get_renglones_recep(datos).subscribe(
 	   data => {
 		   
 		   
@@ -1874,6 +1804,8 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 
    generar_pedido() {
+
+ 
 	// ### Obtener fecha de día de mañana para validacion
 	var newdate = new Date();
 	newdate.setDate(newdate.getDate() +1 ); //
@@ -1912,12 +1844,9 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 encabezado_pedido['iva_pctje'] = this.iva_porcentaje
 	 encabezado_pedido['observ']  = this.observacion_pedido
 	 encabezado_pedido['estado']  = 'I'
-	 encabezado_pedido['cod_secuencia']  = 'VC_ORT' 
-	 encabezado_pedido['tiptra']  = this.tiptra
+	 encabezado_pedido['cod_secuencia']  = 'VC_RCP' 
+	 encabezado_pedido['tiptra']  = 'R'
 	 encabezado_pedido['tipo_orden']  = this.tipo_orden
-	 encabezado_pedido['tiporg']  = 'R'
-	 encabezado_pedido['numfac']  = this.numOrdRecep
-	 
 	 
 	 if (this.srv.getTipoRutaTalleres() == 'SI'){
 	 encabezado_pedido['ruta']  = this.ruta
@@ -1944,9 +1873,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 	console.log("ENTRO A GENERAR EL PEDIDO")
 	this.srv.generar_pedido(encabezado_pedido).subscribe(
-		
 		data => {
-			console.log('AQUIII', this.numtraRecepcion)
 			status_encabezado= data['status']
 			numtra= data['numtra']
 			console.log(data)
@@ -1963,13 +1890,14 @@ export class AdminOrdenTallerComponent implements OnInit {
 					  renglones_pedido['numren'] = numren++
 					  renglones_pedido['numtra'] = numtra
 					  renglones_pedido['codemp']= this.empresa
-					  renglones_pedido['tiptra'] = 7
+					  renglones_pedido['tiptra'] = 'R'
 					  renglones_pedido['codagencia'] = this.srv.getCodAgencia();
 				      renglones_pedido['fechahistorica'] = formatDate(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500');
 						if (renglones_pedido['codart'].indexOf("\\") != -1) { //if hay / en el codigo de articulo
 							renglones_pedido['numite']= numite++
-							
-						}
+						}else{
+              renglones_pedido['numite']= null
+            }
 						array_renglones.push(renglones_pedido) 
 					}
 					console.log("JSON a INSERTAR DE LOS ARTICULOS DEL PEDIDO");
@@ -1982,28 +1910,31 @@ export class AdminOrdenTallerComponent implements OnInit {
 								contador_proceso++
 								console.log(contador_proceso)
 								  let datos = {};
-								
+								  // datos['usuario'] = this.usuario;
+								  // datos['empresa'] = this.empresa;
+								  // datos['pedido'] = 'success'
+								  // console.log(datos)
+								    // if (contador_proceso == longitud_renglones){
+														
+									//###### SE VALIDA SI ESTA CONFIGURADO EL ENVIO DE CORREO DE LOS PEDIDOS  ########
 										if (this.srv.getConfCorreoPedCli() == 'SI'){
 											this.correo_pedido(numtra,this.email_cliente)
 										}
 										
 										alert ("ORDEN DE TRABAJO GUARDADA EXITOSAMENTE....!!!!")
-
+										// this.ngOnInit();
 										
+										// this.router.navigate(['/admin/lista_ordenes', datos]);
+										
+										
+										// let datos = {}
 										datos['numtra'] = numtra;	
 										datos['usuario'] = this.usuario;
 										datos['empresa'] = this.empresa;
-										datos['tiptra'] = '7';
 										datos['pedido'] = 'success'
-										this.numtra = numtra;
-										if(this.importarRecepcion){
-											this.guardar_datos_vehiculo();
-											this.guardar_detalle_vehiculo();
-											this.importarImagenRecepcion(this.numtraRecepcion, this.numtra, this.empresa);
-										}
-
-										this.importarRecepcion = false
-										this.router.navigate(['/admin/taller_orden', datos]);
+										
+										this.router.navigate(['/admin/taller_recepcion', datos]);
+										
 									// }
 
 								},
@@ -2038,27 +1969,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	
 
 	
-	importarImagenRecepcion(numtraR, numtra, codemp){
-		let datos = {};
-		datos['dir'] = codemp+'_'+ numtra
-		datos['codemp'] = codemp
-		datos['numtraR'] = numtraR
-
-		this.srv.rotarRecepcionOrden(datos).subscribe(
-			data => {
-				console.log(data)
-		});
-
-	}
-
 	
-	
-	  // Función para obtener el total general (subtotal + IVA)
-	  getTotalTotal(): number {
-		return this.articulos_pedido
-		  .filter(el => !el.codart.startsWith('\\')) // Filtra los artículos que no empiezan con '\'
-		  .reduce((acc, el) => acc + (el.subtotal_art + el.precio_iva), 0); // Suma los totales (subtotal + IVA)
-	  }
 	
    actualizar_pedido() { 
 		console.log ("ACTUALIZAR PEDIDO")
@@ -2080,7 +1991,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	 encabezado_pedido['codemp'] = this.empresa;
 	 encabezado_pedido['fecult'] = this.fecult_new
 	  encabezado_pedido['codven'] = this.vendedor
-	  encabezado_pedido['tiptra'] = '7'
+	  encabezado_pedido['tiptra'] = 'R'
 
 	 // if (this.edit_fecha_creacion){
 		 // encabezado_pedido['fectra'] = formatDate(this.fectra, 'yyyy-MM-dd', 'en-US', '-0500')
@@ -2136,7 +2047,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 						renglones_pedido['fechahistorica'] = fectra_format
 						renglones_pedido['horahistorica'] = this.hora_ingreso
 						renglones_pedido['codagencia'] = this.srv.getCodAgencia();
-						renglones_pedido['tiptra'] = '7';
+						renglones_pedido['tiptra'] = 'R'
 						
 						if (renglones_pedido['codart'].indexOf("\\") != -1) { //if hay / en el codigo de articulo
 							renglones_pedido['numite']= numite++
@@ -2251,7 +2162,10 @@ export class AdminOrdenTallerComponent implements OnInit {
 	  this.tipo_orden = 'P'
 	  this.ruta = 'T'
 	  this.status = undefined
-	  this.nivel_combustible = 0	
+	  this.nivel_combustible = 0
+
+
+	
 
 	}//FIN ENVIO CORREO PEDIDO
 	
@@ -2265,29 +2179,15 @@ export class AdminOrdenTallerComponent implements OnInit {
 		
 		let datos_img= {}
 		datos_img['dir'] = this.empresa+'_'+this.numtra
+	  this.srv.lista_imgR(datos_img).subscribe(
+	  data => {
+		console.log ("#######  LISTA DE FOTOS   ##########")
+		  console.log(data)
+		  this.fotos = data
 
-		console.log('Este es el tiptra que nos interesa', this.tiptra)
-		if(this.tiptra == 'R'){
-			this.srv.lista_imgR(datos_img).subscribe(
-				data => {
-				  console.log ("#######  LISTA DE FOTOS   ##########")
-					console.log(data)
-					this.fotos = data
-		  
-				}
-		  
-			);
-		}else{
-			this.srv.lista_img(datos_img).subscribe(
-				data => {
-				  console.log ("#######  LISTA DE FOTOS   ##########")
-					console.log(data)
-					this.fotos = data
-		  
-				}
-		  
-			);
-		}
+	  }
+
+	  );
   }
   
   	lista_audios() {
@@ -2395,7 +2295,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	// this.progress = 10
 	let loading_subida = false
   
-	this.srv.uploadFile(this.formData).subscribe(
+	this.srv.uploadFileR(this.formData).subscribe(
 	(event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.Sent:
@@ -2446,7 +2346,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		datos['numtra'] = this.numtra
 		// let datos_img= {}
 
-	this.srv.eliminar_imagen(datos).subscribe((res)=> {
+	this.srv.eliminar_imagenR(datos).subscribe((res)=> {
       console.log('response received is ', res);
 	   // console.log(res['resultado']);
 
@@ -2517,6 +2417,14 @@ export class AdminOrdenTallerComponent implements OnInit {
 	this.luces = false
 	this.espejosr = false
 	this.guantes = false
+	this.herramientasM = false
+	this.casco = false
+	this.cobertor = false
+	this.maletero = false
+	this.candado = false
+	this.luces = false
+	this.espejosr = false
+	this.guantes = false
 ///////FIN DETALLE VEHICULO///////////
 		
 		
@@ -2528,8 +2436,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 		let datos = {};
 		datos['codemp'] = this.empresa;
 		datos['numtra'] = this.numtra;
-		datos['tiptra'] = this.tiptra;
-	
+		datos['tiptra'] = 'R'	
 		
 		
 		
@@ -2583,7 +2490,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	guardar_detalle_vehiculo(){
 	
 		let datos = {};
-		datos['tiptra'] = '7';
+		datos['tiptra'] = 'R';
 		datos['codemp'] = this.empresa;
 		datos['numtra'] = this.numtra;
 		if (this.clase == 'A'){
@@ -2666,6 +2573,7 @@ export class AdminOrdenTallerComponent implements OnInit {
 	});
 
 	}
+	
 	
 	guardar_datos_vehiculo(){
 	
@@ -2805,11 +2713,5 @@ export class AdminOrdenTallerComponent implements OnInit {
 		});
 		
 	}
-	
-	
-	
-	
-	
-  
-  
+	  
 }

@@ -291,3 +291,14 @@ input:checked + .slider_detalle:before {
 /* tbody td:last-child, thead th:last-child { */
     /* border-right: none !important; */
 /* } */
+
+.tabs button {
+  padding: 10px;
+  border: none;
+  background: lightgray;
+  cursor: pointer;
+}
+.tabs button.active {
+  background: #1976d2;
+  color: white;
+}

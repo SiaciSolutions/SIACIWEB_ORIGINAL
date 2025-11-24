@@ -13,20 +13,14 @@ import {DataTableDirective} from 'angular-datatables';
 
 
 declare var AdminLTE: any;
-
-
 @Component({
-  selector: 'app-admin-ordenes',
-  templateUrl: './admin-lista-ordenes.component.html',
-  styleUrls: ['./admin-lista-ordenes.component.css']
+  selector: 'app-admin-lista-recepciones',
+  templateUrl: './admin-lista-recepciones.component.html',
+  styleUrls: ['./admin-lista-recepciones.component.css']
 })
+export class AdminListaRecepcionesComponent implements OnInit {
 
-
-
-	
-
-export class AdminListaOrdenesComponent implements OnInit {
-	@ViewChild(DataTableDirective) 
+  @ViewChild(DataTableDirective) 
 	datatableElement: DataTableDirective;
 	  // dtOptions: DataTables.Settings = {};
     dtOptions:any = {};
@@ -100,7 +94,7 @@ export class AdminListaOrdenesComponent implements OnInit {
 	datos['codemp'] = this.empresa;	
 	datos['usuario'] = this.usuario;
 	datos['tipacc'] = this.srv.getTipacc()
-	datos['tipo'] = 'O'
+  datos['tipo'] = 'R'
 	console.log (this.usuario)
 	console.log (this.empresa)
 	console.log (datos)
@@ -232,8 +226,8 @@ export class AdminListaOrdenesComponent implements OnInit {
 		datos['usuario'] = this.usuario;
 		datos['fecha_desde'] = this.fecha_desde
 		datos['fecha_hasta'] = this.fecha_hasta
-	    datos['codalm'] = this.srv.getCodAgencia();	
-		datos['tipo'] = 'O'
+	  datos['codalm'] = this.srv.getCodAgencia();	
+    datos['tipo'] = 'R'
 	
 	
 	this.srv.lista_ordenes(datos).subscribe(
@@ -524,7 +518,7 @@ export class AdminListaOrdenesComponent implements OnInit {
 				datos['usuario'] = this.usuario;
 				datos['nomcli'] = nomcli
 				datos['num_ped'] = numtra
-				datos['asunto'] = 'orden_trabajo'
+				datos['asunto'] = 'orden_recepcion'
 				datos['email'] = email
 				
 				this.espera_correo_pedido = true;
@@ -571,7 +565,7 @@ export class AdminListaOrdenesComponent implements OnInit {
 				
 				// this.espera_correo_pedido = true;
 				// this.espera_exitoso_pedido = false;
-				this.srv.generar_pdf_orden(datos).subscribe(
+				this.srv.generar_pdf_orden_recepcion(datos).subscribe(
 					data => {
 						
 						this.espera_generar_pdf = false;
@@ -607,3 +601,4 @@ export class AdminListaOrdenesComponent implements OnInit {
 	
 	
 }
+

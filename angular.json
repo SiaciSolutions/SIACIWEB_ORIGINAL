@@ -96,8 +96,7 @@
                   "maximumError": "5mb"
                 }
               ]
-            }
-			,
+            },
 			  "relaxed-prod": {
 				"fileReplacements": [
 				  {

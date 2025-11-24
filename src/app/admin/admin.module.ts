@@ -51,8 +51,12 @@ import { AdminTransfBodegaComponent } from './admin-transferencias/admin-transfe
 import { AdminListaTranferenciasComponent } from './admin-lista-transferencia/admin-lista-transferencias.component';
 import { AdminListaCobrosComponent } from './admin-lista-cobros/admin-lista-cobros.component';
 import { AdminClienteCobroComponent } from './admin-cliente-cobro/admin-cliente-cobro.component';
+import { AdminListaRecepcionesComponent } from './admin-lista-recepciones/admin-lista-recepciones.component';
+import { AdminOrdenRecepcionComponent } from './admin-orden-recepcion/admin-orden-recepcion.component';
 // Componente del modal (ajusta la ruta según tu estructura)
 import { FormaPagoModalComponent } from './admin-cliente-cobro/forma-pago-modal/forma-pago-modal.component';
+import { AdminNotaCreditoComponent } from './admin-nota-credito/admin-nota-credito.component';
+import { AdminListaNotasCreditoComponent } from './admin-lista-notas-credito/admin-lista-notas-credito.component';
 
 
 
@@ -168,7 +172,11 @@ import {
 	AdminListaTranferenciasComponent,
 	FormaPagoModalComponent,
     AdminListaCobrosComponent,  // Modal component
-	AdminClienteCobroComponent
+	AdminClienteCobroComponent,
+	AdminListaRecepcionesComponent,
+	AdminOrdenRecepcionComponent,
+  AdminNotaCreditoComponent,
+  AdminListaNotasCreditoComponent  // Modal component
   ],
   entryComponents: [
     FormaPagoModalComponent  // AGREGAR ESTO PARA EL MODAL

@@ -54,6 +54,7 @@ urlmail = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/mail/'
 # app.config['UPLOAD_FOLDER'] = 'C:\\wamp\\www\\TEST_acople_webfe_PEDIDO_PDV_TALLERES\\src\\assets\\img_talleres'
 app.config['UPLOAD_FOLDER'] = APP_PATH+'\\img_talleres_desa'
 app.config['UPLOAD_FOLDER_ARTICULOS'] = APP_PATH+'\\img_articulos'
+app.config['UPLOAD_RECEP'] = APP_PATH+'\\img_recepcion'
 
 
 # nginx-1.14.2\html\assets\
@@ -869,10 +870,9 @@ def get_renglones_pedido():
 	# conn.close()
 	
 	# return (jsonify(renglones_pedido))
-	
-	
-@app.route('/get_encabezado_orden', methods=['POST'])  
-def get_encabezado_orden():
+
+@app.route('/get_encabezado_recepcion', methods=['POST'])  
+def get_encabezado_recepcion():
 		
 	datos = request.json
 	print (datos)
@@ -893,7 +893,7 @@ def get_encabezado_orden():
     (CASE WHEN p.estado = 'P' THEN 'EMITIDO' WHEN p.estado = 'I' THEN 'INICIADA' WHEN p.estado = 'A' THEN 'ANULADO' WHEN p.estado = 'S' 
     THEN 'PROCESADO' WHEN p.estado = 'F' THEN 'FACTURADO' WHEN p.estado = 'E' THEN 'EN ESPERA' WHEN p.estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status_nombre,estado
 	FROM encabezadopedpro p, clientes c
-	where p.numtra = '{}' and p.tiptra = 7 and p.codemp='{}'
+	where p.numtra = '{}' and p.tiptra = 'R' and p.codemp='{}'
 	and p.codcli=c.codcli
 	""".format(codusl,codemp,numtra,codemp)
 	curs.execute(sql)
@@ -920,8 +920,99 @@ def get_encabezado_orden():
 	return(response) 
 	
 	
+@app.route('/get_encabezado_orden', methods=['POST'])  
+def get_encabezado_orden():
+  datos = request.json
+  codemp = datos['codemp']
+  numtra = datos['numtra']
+  tiptra = datos['tiptra']
+  codusl = datos['usuario']
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  sql = """
+    SELECT p.numtra,p.codven,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra , DATEFORMAT(p.fecult, 'DD-MM-YYYY') as fecult ,c.rucced,c.nombres,c.dircli,c.codcli,c.telcli,c.email,p.observ,p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
+    (SELECT nomven FROM vendedorescob v, usuario u where v.codus1 = u.codus1 and v.codusu = u.codusu and u.codus1='{}' and u.codemp='{}'), 
+    round((p.totnet+iva_cantidad),2) as total_pedido,
+    c.tpIdCliente,p.tipo_odas,p.tiporg_ord,p.hora_ingreso,
+      (CASE WHEN p.estado = 'P' THEN 'EMITIDO' WHEN p.estado = 'I' THEN 'INICIADA' WHEN p.estado = 'A' THEN 'ANULADO' WHEN p.estado = 'S' 
+      THEN 'PROCESADO' WHEN p.estado = 'F' THEN 'FACTURADO' WHEN p.estado = 'E' THEN 'EN ESPERA' WHEN p.estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status_nombre,estado
+    FROM encabezadopedpro p, clientes c
+    where p.numtra = '{}' and p.tiptra = '{}' and p.codemp='{}'
+    and p.codcli=c.codcli
+	""".format(codusl,codemp,numtra,tiptra,codemp)
+  curs.execute(sql)
+  r = curs.fetchone()
+  print (sql)
+  # print (num_pedido,fectra,identificacion,cliente,direccion,telefono,email,observ,totnet,iva_cantidad,codusu,ciucli,nomven,total_pedido)
+  
+  campos = ['num_pedido', 'codven','fectra','fecult','identificacion','cliente','direccion','codcli','telefono','email','observ','totnet','iva_cantidad','codusu','ciucli','nomven','total_pedido','tpIdCliente','tipo_orden','ruta','hora_ingreso','status_nombre','status']
+  print (r)
+  if r:
+		# reg = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],convert_decimal(r[10]),convert_decimal(r[11]),r[12],r[13],r[14],convert_decimal(r[15]),r[16])
+    reg = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],r[18],r[19],r[20],r[21],r[22])
+    d = dict(zip(campos, reg))
+    # arrresp.append(d)
+		
+		# d = dict(zip(campos, r))
+  else:
+    d = {'codus1': False}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  conn.close()
+	
+  return(response) 
+	
+	
 @app.route('/get_renglones_orden', methods=['POST'])  
 def get_renglones_orden():
+  datos = request.json
+  print (datos)
+  codemp = datos['codemp']
+  numtra = datos['numtra']
+  tiptra = datos['tiptra'] 
+  codusl = datos['usuario']
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+	
+  sql = """
+	SELECT codart,nomart, coduni,codiva,
+	round (cantid,2) as cantid,
+	preuni,
+	(select i.poriva from iva i where i.codiva=r.codiva) as poriva,
+	round (((totren*poriva)/100),2) as cant_iva,
+	totren,desren,num_docs,
+	round((((desren*preuni)/100) * cantid),2) as des_cant 
+	FROM renglonespedpro r
+	where numtra='{}' and codemp='{}' and tiptra='{}' order by numren asc
+	""".format(numtra,codemp, tiptra)
+  curs.execute(sql)
+  print (sql)
+  r = curs.fetchall()
+  campos = ['codart','nomart','coduni','codiva','cantid','preuni','poriva','cant_iva','totren','desren','num_docs','des_cant']
+  renglones_pedido = []
+  for reg in r:
+	   # print (reg)
+	   # reg_encabezado = dict(zip(campos, reg))
+	   # renglones_pedido.append(reg_encabezado)
+    print ("LO QUE VIENE DE LA BASE DE DATOS")
+    print (reg)
+		# row_db = [reg[0],reg[1],reg[2],reg[3],convert_decimal(reg[4]),convert_decimal(reg[5]),reg[6],convert_decimal(reg[7]),convert_decimal(reg[8]),convert_decimal(reg[9]),reg[10],convert_decimal(reg[11])]
+		# reg = (reg[0],reg[1],reg[2],reg[3],convert_decimal(reg[4]),convert_decimal(reg[5]),reg[6],convert_decimal(reg[7]),convert_decimal(reg[8]),convert_decimal(reg[9]),reg[10],convert_decimal(reg[11]))
+		# print (row_db)
+    print (reg)
+		# row = (row_db[0],row_db[1],row_db[2],row_db[3],row_db[4],row_db[5],row_db[6],row_db[7],row_db[8],row_db[9],row_db[10],row_db[11],row_db[12])
+    reg_encabezado = dict(zip(campos, reg))
+    renglones_pedido.append(reg_encabezado)
+  print (renglones_pedido)
+  conn.close()
+	
+  return (jsonify(renglones_pedido))
+
+@app.route('/get_renglones_recep', methods=['POST'])  
+def get_renglones_recep():
 		
 	datos = request.json
 	print (datos)
@@ -940,7 +1031,7 @@ def get_renglones_orden():
 	totren,desren,num_docs,
 	round((((desren*preuni)/100) * cantid),2) as des_cant 
 	FROM renglonespedpro r
-	where numtra='{}' and codemp='{}' and tiptra=7 order by numren asc
+	where numtra='{}' and codemp='{}' and tiptra='R' order by numren asc
 	""".format(numtra,codemp)
 	curs.execute(sql)
 	print (sql)
@@ -964,7 +1055,6 @@ def get_renglones_orden():
 	conn.close()
 	
 	return (jsonify(renglones_pedido))
-
 ############## CON RUTAS DE GUADAPRODUCT
 # @app.route('/lista_pedidos', methods=['POST'])
 # def lista_pedidos():
@@ -1195,7 +1285,27 @@ def generar_pdf_orden():
     # resp = correosend.enviar(servidorsaliente, port, userid, password, correos, pdfPath, nombrepdf,asunto, mensaje)
     # os.remove(APP_PATH+'\\PLANTILLA_PEDIDOS\\ORDEN_'+datos['num_ped']+'_WEB.docx')
     # os.remove(APP_PATH+'\\PLANTILLA_PEDIDOS\\ORDEN_'+datos['num_ped']+'_WEB.pdf')
+
+@app.route('/generar_pdf_orden_recepcion', methods=['POST'])
+def generar_pdf_orden_recepcion():
+    print ("GENERAR ORDEN PDF RECEPCION")
+    datos = request.json
+    print (datos)
+    
+    file= 'ORDEN_'+datos['codemp']+'_'+datos['num_ped']+'_WEB.pdf'
+    DESTINO='C:\\SISTEMA\\temporales\\'+file
+    ORIGEN = APP_PATH+'\\PLANTILLA_PEDIDOS\\'+file
+       
+    ####### GENERO EL PDF DEL PEDIDO ################################
+    generar_pdf = pdf.GEN_PDF()
+    resp_pdf = generar_pdf.gen_pdf_orden_recepcion(datos['codemp'],datos['num_ped'],datos['usuario'])
+    shutil.move(ORIGEN, DESTINO)
+
+    d = {'STATUS':'EXITOSO','PDF':file}
 	
+    return jsonify(d)	
+
+
 @app.route('/ver_pdf_pedido/<ticketname>')
 def ver_pdf_pedido(ticketname):
     print ("VER TICKET")
@@ -1244,28 +1354,65 @@ def lista_ordenes():
   
   campos = ['numtra', 'codcli','nomusu','fectra','nomcli','observ','total_iva','status','email','marca','modelo','placa']
   
-  sql = """ SELECT p.numtra,p.codcli,p.codusu,
+  if datos['tipo'] == 'R':
+    sql = """ SELECT p.numtra,p.codcli,p.codusu,
+      DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
+      p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
+      (CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+      THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
+      c.email,
+          (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
+          (SELECT modelo FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as modelo,
+      (SELECT torque FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as placa
+      FROM encabezadopedpro p, clientes c
+      where p.tiptra='R' and p.codemp='{}' 
+      and p.codemp = c.codemp 
+      and p.codcli = c.codcli 
+      and p.codalm='01'
+          and p.fectra between '{}' and '{}'
+        	--and estado='I' 
+      order by p.numtra desc
+    """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
+  elif datos['tipo'] == 'RO':
+    sql = """ SELECT p.numtra,p.codcli,p.codusu,
+      DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
+      p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
+      (CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+      THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
+      c.email,
+          (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
+          (SELECT modelo FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as modelo,
+      (SELECT torque FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as placa
+      FROM encabezadopedpro p, clientes c
+      where p.tiptra='R' and p.codemp='{}' 
+      and p.codemp = c.codemp 
+      and p.codcli = c.codcli 
+      and p.codalm='01'
+      and estado='I' 
+      order by p.numtra desc
+    """.format(datos['codemp'])
+  else:
+    sql = """ SELECT p.numtra,p.codcli,p.codusu,
 		DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
 		p.observ,round((p.totnet+p.iva_cantidad),2) as total_iva,
-		(CASE WHEN estado = 'P' THEN 'EMITIDO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
+		(CASE WHEN estado = 'R' THEN 'REGISTRADO' WHEN estado = 'I' THEN 'INICIADA' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' 
 		THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
 		c.email,
         (SELECT marca FROM ADICIONALES where codart = p.numtra and codemp = p.codemp ) as marca,
         (SELECT modelo FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as modelo,
 		(SELECT torque FROM ADICIONALES where codart = p.numtra and codemp = p.codemp) as placa
 		FROM encabezadopedpro p, clientes c
-		where p.tiptra=7 and p.codemp='{}' 
+		where p.tiptra= '7' and p.codemp='{}' 
 		and p.codemp = c.codemp 
 		and p.codcli = c.codcli 
 		and p.codalm='01'
          and p.fectra between '{}' and '{}'
-	--	and estado='P' 
-		order by p.numtra desc
-	""".format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
+	  	--and estado='I' 
+      order by p.numtra desc
+    """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'])
 	
   # SELECT * FROM "DBA"."ADICIONALES"
    
-  
   curs.execute(sql)
   print (sql)
   regs = curs.fetchall()
@@ -3507,12 +3654,13 @@ def actualizar_encabezado_pdv():
   
   sql = """update encabezadopuntosventa set nomcli='{}',totnet={},totdes={},totbas={},poriva={}, totfac={},tipefe='{}',valefe={},tipche='{}',numche={} ,valche={},
   tiptar='{}',numtar={},valtar={},totiva={},totrec={},fecult='{}',codcli='{}',porivar='{}',valiva='{}',codret={},porret='{}',valret='{}',conpag='{}',
-  tipcre='{}',numpag={},plapag={},valcre={},forpag='{}', cuecob='{}',pordes={},codtar={},codban={},tiptrans='{}',valtrans={},numtrans={},coddep={}, numplaca={}, observ={}
+  tipcre='{}',numpag={},plapag={},valcre={},forpag='{}', cuecob='{}',pordes={},codtar={},codban={},tiptrans='{}',valtrans={},numtrans={},coddep={}, numplaca={}, observ={},
+  fecfac='{}'
   where codemp='{}' and numfac='{}'
   """.format(datos['nomcli'],datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
   datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],datos['totrec'],fecult,datos['codcli'],porivar,valiva,
   codret,porret,valret,datos['conpag'],tipcre,numpag,plapag,valcre,forpag,cuecob,datos['pordes'],datos['codtar'],datos['codban'],datos['tiptrans'],datos['valtrans'],
-  datos['numtrans'],datos['coddep'],datos['numplaca'],datos['observ'],datos['codemp'],datos['numfac']) 
+  datos['numtrans'],datos['coddep'],datos['numplaca'],datos['observ'],datos['fecfac'],datos['codemp'],datos['numfac']) 
   curs = conn.cursor()
 
   print (sql)
@@ -3575,6 +3723,56 @@ def aplicar_fact_electronica():
   print (inserta)
 
   sql = """update renglonespuntosventa r set 
+  r.inserta = {}
+  where r.numfac = '{}' and r.codemp = '{}'""".format(inserta,datos['numfac'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  conn.commit()
+  
+  curs.close()
+  conn.close()
+  sleep (0.5)  
+  d = {'status': 'EXITOSO'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/aplicar_retenc_electronica', methods = ['POST'])
+def aplicar_retenc_electronica():
+  datos = request.json
+  print ("##########  ENTRADA APLICAR FACTURACION ELECTRONICA ######")
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  sql = """select e.inserta from renglonesdevoluciones e 
+  where e.numfac = '{}' and e.codemp = '{}'""".format(datos['numfac'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  r = curs.fetchone()
+  inserta = r[0]
+  inserta= "'P'" if inserta == None else 'null'
+  print (r)
+  print (inserta)
+  
+  sql = """update renglonesdevoluciones e set 
+  e.inserta = {}
+  where e.numfac = '{}' and e.codemp = '{}'""".format(inserta,datos['numfac'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  conn.commit()
+  
+  sql = """select distinct(r.inserta) from renglonesdevoluciones r 
+  where r.numfac = '{}' and r.codemp = '{}'""".format(datos['numfac'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  r = curs.fetchone()
+  inserta = r[0]
+  inserta= "'P'" if inserta == None else 'null'
+  print (r)
+  print (inserta)
+
+  sql = """update renglonesdevoluciones r set 
   r.inserta = {}
   where r.numfac = '{}' and r.codemp = '{}'""".format(inserta,datos['numfac'] ,datos['codemp'])
   print (sql) 
@@ -3852,15 +4050,22 @@ def generar_pedido():
      print (sql)
      curs.execute(sql)
      conn.commit()
-  if (TIPTRA == '7'):
+  if (TIPTRA == '7' or TIPTRA == 'R'):
      codcen=datos['codagencia']+'.'
      print (codcen)
-     sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{} )"\
+     if (TIPTRA == 'R'):
+      sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{} )"\
         .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'])
-     print (sql)
-     curs.execute(sql)
+      print (sql)
+      curs.execute(sql)
+     if (TIPTRA == '7'):
+      sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord,tiporg,numfac) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},'{}','{}' )"\
+        .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'],datos['tiporg'],datos['numfac'])
+      print (sql)
+      curs.execute(sql)
+       
      if (ESTADO == 'I'):
-        sql = "INSERT INTO encabezadopedpro_historica (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,horahistorica,tipo_odas,tiporg_ord,fechahistorica) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},{})"\
+        sql = "INSERT INTO encabezadopedpro_historica (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,horahistorica,tipo_odas,tiporg_ord,fechahistorica) values('{}','{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},{})"\
             .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'],fectra)
         print (sql)
         curs.execute(sql)
@@ -4119,6 +4324,30 @@ def actualizar_encabezado_pedido():
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+
+@app.route('/actualizar_estado_orden', methods=['POST'])
+def actualizar_estado_orden():
+  datos = request.json
+  print ("##########  ENTRADA ACTULIZACION ENCABEZADO ORDEN ######")
+  print (datos)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  sql = "update encabezadopedpro set estado='{}' where codemp='{}' and numtra='{}' and tiptra='{}' "\
+  .format(datos['estadoR'],datos['codemp'],datos['numtra'], datos['tiptra'])
+  print(sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+
+  d = {'status': 'ACTUALIZADO CON EXITO'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
   
 @app.route('/actualizar_encabezado_orden', methods=['POST'])
 def actualizar_encabezado_orden():
@@ -4134,30 +4363,30 @@ def actualizar_encabezado_orden():
   datos['observ'] = 'null' if datos['observ'] == None else "'"+datos['observ']+"'"
   datos['ruta'] = 'null'  if datos['ruta'] == None else "'"+datos['ruta']+"'"
 
-  sql = "update encabezadopedpro set codcli= '{}', codven='{}', observ={},ciucli='{}',totnet={},iva_cantidad={}, fecult= '{}', fectra= '{}', tipo_odas='{}' , tiporg_ord={} , estado='{}' where codemp='{}' and numtra='{}' and tiptra=7 "\
-  .format(datos['codcli'],datos['codven'],datos['observ'],datos['ciucli'],datos['totnet'],datos['iva_cantidad'],datos['fecult'],datos['fectra'],datos['tipo_orden'],datos['ruta'],datos['estado'],datos['codemp'],datos['numtra'])
+  sql = "update encabezadopedpro set codcli= '{}', codven='{}', observ={},ciucli='{}',totnet={},iva_cantidad={}, fecult= '{}', fectra= '{}', tipo_odas='{}' , tiporg_ord={} , estado='{}' where codemp='{}' and numtra='{}' and tiptra='{}' "\
+  .format(datos['codcli'],datos['codven'],datos['observ'],datos['ciucli'],datos['totnet'],datos['iva_cantidad'],datos['fecult'],datos['fectra'],datos['tipo_orden'],datos['ruta'],datos['estado'],datos['codemp'],datos['numtra'], datos['tiptra'])
   print(sql)
   curs.execute(sql)
   conn.commit()
   
   
 
-  sql = "DELETE FROM renglonespedpro WHERE codemp='{}' and numtra='{}' and tiptra=7"\
-  .format(datos['codemp'],datos['numtra'])
+  sql = "DELETE FROM renglonespedpro WHERE codemp='{}' and numtra='{}' and tiptra='{}'"\
+  .format(datos['codemp'],datos['numtra'], datos['tiptra'])
   curs.execute(sql)
   conn.commit()
   
   if (datos['estado'] == 'I'):
-      sql = "update encabezadopedpro_historica set codcli= '{}', codven='{}', observ={},ciucli='{}',totnet={},iva_cantidad={}, fecult= '{}', fectra= '{}', tipo_odas='{}' , tiporg_ord={} where codemp='{}' and numtra='{}' and tiptra=7 "\
-      .format(datos['codcli'],datos['codven'],datos['observ'],datos['ciucli'],datos['totnet'],datos['iva_cantidad'],datos['fecult'],datos['fectra'],datos['tipo_orden'],datos['ruta'],datos['codemp'],datos['numtra'])
+      sql = "update encabezadopedpro_historica set codcli= '{}', codven='{}', observ={},ciucli='{}',totnet={},iva_cantidad={}, fecult= '{}', fectra= '{}', tipo_odas='{}' , tiporg_ord={} where codemp='{}' and numtra='{}' and tiptra='{}' "\
+      .format(datos['codcli'],datos['codven'],datos['observ'],datos['ciucli'],datos['totnet'],datos['iva_cantidad'],datos['fecult'],datos['fectra'],datos['tipo_orden'],datos['ruta'],datos['codemp'],datos['numtra'], datos['tiptra'])
       print(sql)
       curs.execute(sql)
       conn.commit()
   
   
       # DELETE FROM renglonespedpro WHERE codemp='01' and numtra='10000236' and tiptra=1
-      sql = "DELETE FROM renglonespedpro_historica WHERE codemp='{}' and numtra='{}' and tiptra=7"\
-      .format(datos['codemp'],datos['numtra'])
+      sql = "DELETE FROM renglonespedpro_historica WHERE codemp='{}' and numtra='{}' and tiptra='{}'"\
+      .format(datos['codemp'],datos['numtra'], datos['tiptra'])
       curs.execute(sql)
       conn.commit()
      
@@ -4380,16 +4609,19 @@ def generar_renglones_talleres():
      if (coduni != 'N/A'):
         sql = "INSERT INTO renglonespedpro (codemp,tiptra,numtra,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{})"\
            .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs)
+        sql2 = "INSERT INTO renglonespedpro_historica (codemp,tiptra,numtra,numren,codart,nomart,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs,fechahistorica,horahistorica) values('{}','{}',{},'{}','{}','{}','{}',{},'{}','{}','{}',{},{},{},'{}','{}')"\
+          .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs,datos['fechahistorica'],hora)
      else:
         sql = "INSERT INTO renglonespedpro (codemp,tiptra,numtra,numren,codart,nomart,cantid,preuni,totren,numite,codiva,codcen,desren,acumula,num_docs) values('{}','{}','{}',{},'{}','{}','{}','{}',{},'{}','{}','{}',{},{},{})"\
            .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,cantid,preuni,totren,datos['numite'],codiva,codcen,desren,acumula,num_docs)
+        sql2 = "INSERT INTO renglonespedpro_historica (codemp,tiptra,numtra,numren,codart,nomart,cantid,preuni,totren,numite,codiva,codcen,desren,acumula,num_docs,fechahistorica,horahistorica) values('{}','{}','{}',{},'{}','{}','{}','{}',{},'{}','{}','{}',{},{},{},'{}','{}')"\
+           .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,cantid,preuni,totren,datos['numite'],codiva,codcen,desren,acumula,num_docs,datos['fechahistorica'],hora)
      print (sql)
      curs.execute(sql)
+     print (sql2)
+     curs.execute(sql2)
      # if (datos['estado'] == 'I'):
-     sql = "INSERT INTO renglonespedpro_historica (codemp,tiptra,numtra,numren,codart,nomart,cantid,preuni,totren,numite,codiva,codcen,desren,acumula,num_docs,fechahistorica,horahistorica) values('{}','{}','{}',{},'{}','{}','{}','{}',{},'{}','{}','{}',{},{},{},'{}','{}')"\
-          .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,cantid,preuni,totren,datos['numite'],codiva,codcen,desren,acumula,num_docs,datos['fechahistorica'],hora)
-     print (sql)
-     curs.execute(sql)
+     
 
 
 
@@ -6028,6 +6260,90 @@ def upload_imagen_art_serv():
   response.headers['content-type'] = 'application/json'
   return(response)
 
+@app.route("/uploaderR", methods=['POST'])
+def uploaderR():
+ if request.method == 'POST':
+  datos = request
+  
+  print (request)
+  print (request.form)
+  print (request.form["dir"])
+  numtra = request.form["dir"][3:]
+  codemp = request.form["dir"][:2]
+  print (numtra)
+  print (codemp)
+  print (request.files)
+  print (request.files['uploads'])
+  
+  f = request.files['uploads']
+  filename = secure_filename(f.filename)
+  directorio = request.form["dir"]
+  
+  
+  # Guardamos el archivo en el directorio "Archivos PDF"
+  
+  if not (os.path.isdir(app.config['UPLOAD_RECEP']+'\\'+directorio)):
+     os.mkdir(app.config['UPLOAD_RECEP']+'\\'+directorio)
+  f.save(os.path.join(app.config['UPLOAD_RECEP']+'\\'+directorio, filename))
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  
+  sql = """
+  select  cname
+  from    SYS.SYSCOLUMNS
+  where   tname = 'imagen_orden'
+  and     cname like 'imagen%'
+   """
+  print (sql) 
+  curs = conn.cursor()
+  curs.execute(sql)
+  regs = curs.fetchall()
+  arrresp = []
+  imagen_escoger = ''
+  for r in regs:
+    print (r)
+    sql = """
+    SELECT {} FROM "DBA"."imagen_orden" where numtra='{}' and codemp='{}'
+    """.format(r[0],numtra,codemp)
+    curs = conn.cursor()
+    curs.execute(sql)
+    imagen = curs.fetchone()
+    if imagen:
+        if (imagen[0] == None):
+           imagen_escoger = r[0]
+           print (imagen_escoger) 
+           break
+    else:
+       imagen_escoger = 'imagen1'
+
+  
+  if (imagen_escoger):
+     if (imagen_escoger == 'imagen1'):
+        sql = """
+        insert into imagen_orden
+        (codemp,tiptra,numtra,{})values
+        ('{}',{},'{}','{}')
+         """.format(imagen_escoger,codemp,7,numtra,app.config['UPLOAD_RECEP']+'\\'+directorio+'\\'+filename)
+        print (sql) 
+        curs = conn.cursor()
+        curs.execute(sql)
+        conn.commit()
+     else :
+        sql = """
+        update imagen_orden set {} = '{}' where codemp = '{}' and numtra ='{}' and tiptra=7
+        """.format(imagen_escoger,app.config['UPLOAD_RECEP']+'\\'+directorio+'\\'+filename,codemp,numtra)
+        print (sql) 
+        curs = conn.cursor()
+        curs.execute(sql)
+        conn.commit()
+
+  curs.close()
+  
+  
+  result = {'resultado': 'Archivo subido exitosamente'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
 
 
 
@@ -6129,6 +6445,54 @@ def uploader():
   
   
 #########  SERVICIOS PARA MANEJAR DETALLE VEHICULO #######################
+@app.route("/rotarRecepcionOrden", methods=['POST'])
+def rotarRecepcionOrden():
+  datos = request.json
+  directorio = datos['dir']
+  numtraR = datos['numtraR']
+  print(numtraR)
+  codemp = datos['codemp']
+  if not (os.path.isdir(app.config['UPLOAD_FOLDER']+'\\'+directorio)):
+     os.mkdir(app.config['UPLOAD_FOLDER']+'\\'+directorio)
+  #f.save(os.path.join(app.config['UPLOAD_FOLDER']+'\\'+directorio))
+  
+  DESTINO=app.config['UPLOAD_FOLDER']+'\\'+directorio
+  ORIGEN = app.config['UPLOAD_RECEP']+'\\'+codemp + '_' + numtraR
+  
+  for archivo in glob.glob(ORIGEN + '\\*'):  # Encuentra todos los archivos en el directorio
+    shutil.copy2(archivo, DESTINO)
+	  
+  result = {'resultado': 'exitoso'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+ 
+ 
+@app.route("/lista_imgR", methods=['POST'])
+def lista_imgR():
+  datos = request.json
+  directorio = datos['dir']
+  campos = ['nombre', 'src']
+  arr_img = []
+  print (app.config['UPLOAD_RECEP'])
+  
+  extensions = ("*.png","*.jpg","*.jpeg",)
+  for extension in extensions:
+     for f in glob.glob(app.config['UPLOAD_RECEP']+'\\'+directorio+'\\'+extension):
+         print (f)
+         arr_path_img = f.split('\\')
+         img_name = arr_path_img[-1]
+         img = (img_name,'assets/img_recepcion/'+directorio+'/'+img_name)
+         # print (f)
+         # print (img_name)
+         a = dict(zip(campos, img))
+         arr_img.append(a)
+  # print (arr_img)
+	  
+  # result = {'resultado': 'imagenes'} 
+  response = make_response(dumps(arr_img, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
   
 @app.route("/lista_img", methods=['POST'])
 def lista_img():
@@ -9783,7 +10147,624 @@ def validar_numero_formapago():
     else:
         return jsonify({"success": True, "message": "Número válido"}), 200
 
+########### NOTAS DE CREDITO
+@app.route('/get_encabezado_nc', methods = ['POST'])
+def get_encabezado_nc():
+	print ("################ GET ENCABEZADO FACTURA  ##############")
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+	numtra=datos['numfac']
 
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+	
+	# # SELECT p.numtra,DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra , DATEFORMAT(p.fecult, 'DD-MM-YYYY') as fecult ,c.rucced,c.nombres,c.dircli,c.codcli,c.telcli,c.email,p.observ,p.totnet,p.iva_cantidad,p.codusu,p.ciucli,
+	
+	sql = """
+    SELECT p.codemp,p.numfac,p.faccli,fecfac,c.tpIdCliente,c.rucced,c.nombres,c.codcli,c.email,c.dircli,
+    p.observ,p.totnet,p.totfac,
+    p.tipefe,p.valefe,p.tiptar,p.numtar,p.valtar,p.codtar,p.tipche,p.numche,p.valche,p.codban,p.numpag,p.plapag,p.coddep,
+    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.observ
+    FROM "dba"."encabezadodevoluciones" p, clientes c
+    where p.numfac = '{}' and p.codemp='{}'
+    and p.codcli=c.codcli
+    and c.codemp=p.codemp
+	""".format(numtra,codemp)
+	curs.execute(sql)
+	r = curs.fetchone()
+	print(sql)
+
+	
+	campos = ['codemp', 'numfac','faccli','fecfac','tpIdCliente','rucced','razon_social','codcli','email','dircli','observ','totnet','totfac','tipefe'
+	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','numpag','plapag','coddep','totiva','poriva','totdes','pordes','totbas','observ']
+	print (r)
+	if r:
+		d = dict(zip(campos, r))
+   	
+	response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+	# # return(response)
+
+
+	conn.close()
+	return(response)
+	
+@app.route('/get_renglones_nc', methods = ['POST'])
+def get_renglones_nc():
+		
+	datos = request.json
+	print (datos)
+	codemp=datos['codemp']
+	numtra=datos['numfac']
+	conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+	curs = conn.cursor()
+
+	
+	sql = """
+	SELECT
+	numren
+	,codart,nomart,coduni,cantid,preuni,totren,
+	desren as punreo,codiva,
+	(select i.poriva from iva i where i.codiva=r.codiva) as poriva,
+	round (((totren*poriva)/100),2) as precio_iva,
+	round((((punreo*preuni)/100) * cantid),2) as v_des_art,
+	round(totren-v_des_art,2) as subtotal_art
+	FROM "DBA"."renglonesdevoluciones" r  where numfac='{}' and codemp='{}'
+	""".format(numtra,codemp)
+	
+	curs.execute(sql)
+	print (sql)
+	r = curs.fetchall()
+
+	campos = ['index','codart','nomart','coduni','cant','prec01','totren','punreo','codiva','poriva','precio_iva','v_desc_art','subtotal_art']
+	renglones_pdv = []
+	for reg in r:
+
+		print ("LO QUE VIENE DE LA BASE DE DATOS")
+		print (reg)
+
+		reg_encabezado = dict(zip(campos, reg))
+		renglones_pdv.append(reg_encabezado)
+	print (renglones_pdv) 
+
+	response = make_response(dumps(renglones_pdv, sort_keys=False, indent=2, default=json_util.default))
+	response.headers['content-type'] = 'application/json'
+
+	conn.close()
+	return(response)
+
+@app.route('/actualizar_encabezado_nc', methods=['POST'])
+def actualizar_encabezado_nc():
+
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  fecult = dateTimeObj.strftime("%Y-%m-%d")
+  
+  
+  if (datos['conpag'] == 'E'):
+    tipcre = 'X'
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    tipcre = 'R'
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
+
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+  try:
+      datos['numplaca']= 'null'  if datos['numplaca'] == None else "'"+datos['numplaca']+"'"
+  except:
+      datos['numplaca']= 'null'
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+      
+  
+ 
+  # string_campos = '''numfac,codemp,codven,codalm,nomcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  # valche,tiptar,numtar,valtar,totiva,totrec,codusu,fecult,codmon,valcot,codcli,estado,numcaj,telcli,codiva,porivar,valiva,codret,porret,valret,faccli,tipodocumento,serie,turno,inserta,otrcar,
+  # factok,facnot,codapu,tipoorigen,tipdep,numdep,valdep,tiptra,fecven,lispre,hora,conpag,tipcre,numpag,plapag,valcre,forpag,cuecob,pordes,codtar,codban,recargo,tiptrans,valtrans,numtrans,coddep'''
+  
+  
+  sql = """update encabezadodevoluciones set totnet={},totdes={},totbas={},poriva={}, totfac={},tipefe='{}',valefe={},tipche='{}',numche={} ,valche={},
+  tiptar='{}',numtar={},valtar={},totiva={},fecult='{}',codcli='{}',conpag='{}',
+  numpag={},plapag={},pordes={},codtar={},codban={},coddep={}, observ={},fecfac='{}'
+  where codemp='{}' and numfac='{}'
+  """.format(datos['totnet'],datos['totdes'],datos['totbase'],datos['poriva'],datos['totfac'],datos['tipefe'],datos['valefe'],datos['tipche'],
+  datos['numche'],datos['valche'],datos['tiptar'],datos['numtar'],datos['valtar'], datos['totiva'],fecult,datos['codcli'],
+  datos['conpag'],numpag,plapag,datos['pordes'],datos['codtar'],datos['codban'],
+  datos['coddep'],datos['observ'],datos['fecfac'],datos['codemp'],datos['numfac']) 
+  curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  sql= """DELETE from renglonesdevoluciones  where codemp='{}' and numfac='{}'""".format(datos['codemp'],datos['numfac'])
+  curs.execute(sql)
+  conn.commit()
+  
+  
+ 
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  resp = {'status': 'ACTUALIZADO CON EXITO','numfac': datos['numfac']}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+#Lista de Facturas
+@app.route('/cargarFacturas', methods=['POST'])
+def cargarFacturas():
+    d = request.json
+    print("DENTRO DE LISTA FACTURAS")
+    print(d)
+
+    resp = []
+
+    conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng, host=coneccion.host)
+    curs = conn.cursor()
+
+    sql = """
+        SELECT 
+            e.numfac,
+            e.serie,
+            e.nomcli,
+            e.fecfac,
+            e.codcli,
+            (SELECT c.rucced FROM clientes c WHERE c.codcli = e.codcli) AS rucced,
+            CASE
+                WHEN e.tipefe = 'E' THEN 'CONTADO'
+                WHEN e.tipche = 'C' THEN 'CHEQUE'
+                WHEN e.tiptar = 'T' THEN 'TARJETA'
+                WHEN e.tipdep = 'D' THEN 'DEPOSITO'
+                WHEN e.tiptrans = 'B' THEN 'TRANSFERENCIA'
+                WHEN e.tipcre = 'R' THEN 'CREDITO'
+                ELSE 'DESCONOCIDO'
+            END AS pago
+        FROM encabezadopuntosventa e
+        WHERE e.codemp = '{}' 
+          AND e.codcli = '{}' 
+          AND e.factok = 'O';
+    """.format(d['codemp'], d['codcli'])
+
+    curs.execute(sql)
+    regs = curs.fetchall()
+
+    arr_campos = ['numfac', 'serie', 'nomcli', 'fecfac', 'codcli', 'rucced', 'pago']
+
+    for r in regs:
+        registro = dict(zip(arr_campos, r))
+        resp.append(registro)
+
+    curs.close()
+    conn.close()
+
+    response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+    response.headers['content-type'] = 'application/json'
+    return response
+
+#####################DESDE AQUI NOTAS CREDITO
+@app.route('/generar_encabezado_nc', methods = ['POST'])
+def generar_encabezado_nc():
+  datos = request.json
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  ##SECUENCIA INTERNA SIACI
+  # sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and numcaj='{}' and codsec='PV_FAC'".format(
+  sql = "select seccue from secuencias where  codemp='{}' and codalm='{}' and codsec='VC_DEV'".format(
+  datos['codemp'], datos['codalm'])
+
+  
+  
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac = regsec[0]
+  
+  print (sql)
+  
+  print (numfac)
+  
+  ########################### INICIO BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  print (numfac)
+  print (len(numfac))
+  print (int(numfac)+1)
+  print (str((int(numfac)+1)).zfill(len(numfac)))
+  numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  numfac= numfac_nueva
+  ########################### FIN BLOQUE DESCOMENTAR PARA EL CASO DE CARABUELA
+  
+  sql = "select seccue, serie from secuencias_tmp where  codemp='{}' and codalm='{}' and codsec='VC_DEV' and numcaj='{}'".format(
+  datos['codemp'], datos['codalm'], datos['numcaj'])
+  # datos['codemp'], datos['codalm'])
+  print (sql)
+  # curs = conn.cursor()
+  curs.execute(sql)
+  regsec = curs.fetchone()
+  # curs.close()
+  numfac_tributaria = regsec[0]
+  # print (sql)
+  
+  print (numfac_tributaria)
+  datos['serie'] = regsec[1]
+  
+  
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  # sql = "SELECT v.codven, nomven FROM vendedorescob v, usuario u where v.codus1 = u.codus1 and v.codusu = u.codusu and u.codus1='{}' and u.codemp='{}'"\
+        # .format(datos['codus1'],datos['codemp'])
+		
+  sql = "SELECT v.codven, nomven FROM vendedorescob v WHERE v.codus1='{}' and v.codemp='{}'".format(datos['codus1'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  # codven = '06'
+  # print ("COD VENDEDOR")
+  # print (codven)
+  
+  # codusu = 'SUPERVISOR'
+  # print ("CODUSU")
+  # print (codusu)
+  
+  codven = r[0]
+  nomven = r[1]
+  print (codven)
+  print (nomven)
+  
+  
+  
+  ##PARA OBTENER CODIGO DE VENDEDOR
+  # curs = conn.cursor()
+  #sql = "SELECT vc_lis FROM parametrosiniciales where numren='PV' and codemp='{}'"\
+  #      .format(datos['codemp'])
+  #curs.execute(sql)
+  #r_lispre = curs.fetchone()
+  #lispre=r_lispre[0]
+  
+  dateTimeObj = datetime.now()
+  timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  print (hora)
+  
+  
+  if (datos['conpag'] == 'E'):
+    numpag = '1'
+    plapag = '1'
+    valcre = '0'
+    forpag = '0'
+    cuecob = '0'
+  if (datos['conpag'] == 'C'):
+    numpag = datos['numpag']
+    plapag = datos['plapag']
+    valcre = datos['valcre']
+    forpag = '1'
+    cuecob = '1'
+	
+      
+ 
+  # dateTimeObj = datetime.now()
+  # timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  # hora= dateTimeObj.strftime("%H:%M:%S")
+  # print (timestampStr)
+  # print (hora)
+  
+  
+  if (datos['codret'] == ''):
+    codret = 'null'
+    porret = '0'
+    valret = '0'
+  else:
+    codret = datos['codret']
+    porret = datos['porret']
+    valret = datos['valret']
+	
+  if (datos['codiva'] == ''):
+    codiva = 'null'
+    porivar = '0'
+    valiva = '0'
+  else:
+    codiva = datos['codiva']
+    porivar = datos['porivar']
+    valiva = datos['valiva']
+
+  if (datos['numche'] == ''):
+    datos['numche'] = 'null'
+
+  if (datos['numtar'] == ''):
+    datos['numtar'] = 'null'
+	
+  if (datos['numtrans'] == ''):
+    datos['numtrans'] = 'null'
+
+  datos['codtar']= 'null'  if datos['codtar'] == None else "'"+datos['codtar']+"'"
+  datos['codban']= 'null'  if datos['codban'] == None else "'"+datos['codban']+"'"
+  datos['coddep']= 'null'  if datos['coddep'] == None else "'"+datos['coddep']+"'"
+
+  try:
+      datos['observ']= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  except:
+      datos['observ']= 'null'
+  
+  
+	
+	
+  string_campos = '''numfac,reffac, codemp,codven,codalm,codcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
+  valche,tiptar,numtar,valtar,totiva,codusu,fecult,codmon,valcot,estado,numcaj,faccli,serie,inserta,
+  facnot,codapu,tipdep,numdep,valdep,fecven,conpag,numpag,plapag,pordes,codtar,codban,coddep, observ, codpry'''
+  
+  
+  sql = f"""
+    INSERT INTO encabezadodevoluciones ({string_campos})
+    VALUES (
+    '{numfac}','{datos['numref']}','{datos['codemp']}','{codven}','{datos['codalm']}','{datos['codcli']}',
+    '{datos['fecfac']}',{datos['totnet']},{datos['totdes']},{datos['totbase']},{datos['poriva']},{datos['totfac']},
+    '{datos['tipefe']}',{datos['valefe']},'{datos['tipche']}',{datos['numche']},{datos['valche']},'{datos['tiptar']}',
+    {datos['numtar']},{datos['valtar']},{datos['totiva']},'{datos['codus1']}','{datos['fecfac']}','01','1','',
+    '{datos['numcaj']}','{numfac_tributaria}','{datos['serie']}',NULL,'','FC{numfac}','X',NULL,0,'{datos['fecfac']}',
+    '{datos['conpag']}','{numpag}','{plapag}',{datos['pordes']},{datos['codtar']},{datos['codban']},{datos['coddep']},{datos['observ']}, 'NC'
+    );
+  """
+  # curs = conn.cursor()
+
+  print (sql)
+  curs.execute(sql)
+  # curs.close()
+  conn.commit()
+  
+  
+  #### CAMBIO DE SECUENCIAS  ####
+  
+  # print ("PARA OBTENER SECUENCIA INTERNA NUEVA")
+  # print (numfac)
+  # print (len(numfac))
+  # print (int(numfac)+1)
+  # print (str((int(numfac)+1)).zfill(len(numfac)))
+  # numfac_nueva = str((int(numfac)+1)).zfill(len(numfac))
+  
+
+  sql = "update secuencias set seccue =  '{}' where codalm='{}' and codsec = 'VC_DEV' and codemp='{}'".format(numfac_nueva,datos['codalm'],datos['codemp'])
+  curs.execute(sql)
+  conn.commit()
+  
+  print ("PARA OBTENER SECUENCIA TRIBUTARIA NUEVA")
+  print (numfac_tributaria)
+  print (len(numfac_tributaria))
+  print (int(numfac_tributaria)+1)
+  print (str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria)))
+  numfac_tributaria_nueva = str((int(numfac_tributaria)+1)).zfill(len(numfac_tributaria))
+  
+  # zfill(8)  ####COMPLETAR CON 0
+  
+  #### CAMBIO DE SECUENCIAS_TMP  ####
+  # curs = conn.cursor()
+  # # sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'PV_FAC' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  
+  sql = "update secuencias_tmp set seccue = '{}' where codalm='{}' and codsec = 'VC_DEV' and codemp='{}' and numcaj='{}'".format(numfac_tributaria_nueva,datos['codalm'],datos['codemp'],datos['numcaj'])
+  curs.execute(sql)
+  conn.commit()
+  
+  #try:
+  #  numtra_pedido = datos['numtra_pedido']
+  #  tiptra_pedido = datos['tiptra_pedido']
+  #  print ("ACTUALIZANDO STATUS DE LA FACTURA")
+  #  sql = "update encabezadopedpro set estado='F' where tiptra='{}' and numtra = '{}' and codemp='{}'".format(tiptra_pedido,numtra_pedido,datos['codemp'])
+  #  curs.execute(sql)
+  #  conn.commit()
+    
+    
+  #except:
+  #  print ("FACTURA SIN PEDIDO")
+    
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  # sql = """
+		# INSERT INTO detalle_formas_pago_sri (codemp,numfac,tipo,tarjeta,val_tar,plazo_tar)
+		# SELECT codemp,numfac,'PVE','19',valtar,numpag * plapag
+		# FROM encabezadopuntosventa
+		# WHERE tiptar = 'T' and 
+		# codemp = '{}' and 
+		# numfac = '{}';
+  # """.format(datos['codemp'],numfac)
+  # print (sql)
+  # curs.execute(sql)
+  # conn.commit()
+  ######################## PARA SACHA QUE NO TIENE EL TRIGGER DE LAS FORMAS DE PAGO  #######################################
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  sleep (0.2)
+  resp = {'status': 'INSERTADO CON EXITO','numfac': numfac}
+  # resp = {'status': 'INSERTADO CON EXITO','numfac': '1111'}
+  response = make_response(dumps(resp, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/generar_renglones_nc', methods = ['POST'])
+def generar_renglones_nc():
+  renglones = request.json
+  print ("##########  ENTRADA GENERAR RENGLONES PUNTO DE VENTA ######")
+  print (renglones)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  for datos in renglones:
+     codemp=datos['codemp']  
+     print ("CODEMP " +codemp )  
+ 
+     codcen=datos['codagencia']+'.'
+     print ("codcen" + codcen )
+  
+     NUMFAC=datos['numfac'] 
+     print ("NUMTRA "+str(NUMFAC) )
+
+     numren=datos['numren']
+     print ("NUMREN " +str(numren) )
+ 
+     codart=datos['codart']
+     print ("CODART "+ codart) 
+
+     nomart=datos['nomart'] 
+     print ("NOMART "+nomart )  
+
+     coduni=datos['coduni']
+     print ("CODUNI "+coduni) 
+
+     cantid=datos['cant']
+     print ("CANTID "+str(cantid))  
+
+     preuni=datos['prec01']
+     print ("PREUNI "+ str(preuni))   
+ 
+     subtotal_art=datos['subtotal_art']
+     print ("SUBTOTAL_ART "+str(subtotal_art)) 
+
+     desren=datos['punreo']
+     print ("PORCENTAJE DESCUENTO RENGLON "+str(desren)) 
+  
+     desc_valor_renglon = datos['v_desc_art']
+     print ("DESCUENTO VALOR RENGLON "+str(desc_valor_renglon)) 
+ 
+     totren = round(subtotal_art+desc_valor_renglon,2)
+     codiva=datos['codiva']
+     print ("CODIVA "+codiva) 
+
+     numcaj=datos['numcaj']
+     print ("NUMCAJ "+numcaj) 
+
+     ## PARA OBTENER EL PROYECTO (CLASE DE ARTICULO)
+  
+     # SELECT codcla FROM "DBA"."articulos" where codemp='01' and codart='304222'
+  
+     FLAG_ARTICULO = 0
+     ##PARA OBTENER CODIGO DE VENDEDOR
+     sql = "SELECT codcla FROM articulos where codemp='{}' and codart='{}'"\
+        .format(datos['codemp'],datos['codart'])
+     curs.execute(sql)
+     r_codcla = curs.fetchone()
+     if (r_codcla):
+       proyecto=r_codcla[0]
+       FLAG_ARTICULO = 1
+	
+     else:
+       proyecto= 'null'
+  
+     sql = "INSERT INTO renglonesdevoluciones (codemp,numfac,numren,numite,codart,nomart,coduni,cantid,preuni,totren,codiva,codmon,valcot,totext,codcen,totaldesc,desren, inserta) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}','{}','{}','{}','{}','{}','{}')"\
+        .format(codemp,NUMFAC,numren,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,"01","1",totren,codcen,"0.00",desren,"null")
+
+     print (sql) 
+     curs.execute(sql)
+     print ("###### ANTES DEL COMMIT INSERT RENGLON")
+     sleep (0.3)
+  
+  conn.commit()
+  sleep (0.5)
+  print ("###### LUEGO DEL COMMIT INSERT RENGLON")
+  curs.close()
+  conn.close()
+  print ("###### CIERRO CONEXION BASE DE DATOS")
+
+  d = {'status': 'INSERTADO RENGLON'}
+  print(d)
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
+@app.route('/lista_ventas_nc', methods = ['POST'])
+def lista_ventas_nc():
+  datos = request.json
+  print ('ENTRADAAAAA')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+ 
+  campos = ['fecfac', 'numfac','serie','faccli','codcli','nomcli','totfac','observ']
+  
+  sql = """ SELECT fecfac, numfac, serie, faccli,codcli, 
+  (SELECT nomcli FROM clientes c WHERE c.codcli = e.codcli AND c.codemp = e.codemp) AS nomcli,
+  totfac, observ
+  FROM encabezadodevoluciones e
+  where e.codemp='{}'
+  and e.fecfac between '{}' and '{}'
+  and e.codusu = '{}'
+  order by numfac desc
+  """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'],datos['usuario'])
+  print (sql)
+  curs.execute(sql)
+
+  regs = curs.fetchall()
+  arrresp = []
+   # print (regs)
+  for r in regs:
+    # print (r)
+    # print (r[15])
+    # urlfile = 'http://' + coneccion.ip + ':' + coneccion.puerto + '/images/'
+    r_salida = (r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7])
+    d = dict(zip(campos, r_salida))
+    # print (d)
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+  # print (arrresp)
+
+  return (jsonify(arrresp))
 
 if __name__ == "__main__":
     # app.config['SESSION_TYPE'] = 'memcached'

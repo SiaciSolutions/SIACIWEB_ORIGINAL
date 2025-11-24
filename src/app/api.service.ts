@@ -131,7 +131,7 @@ public getPedidos(): string {
 public getClientes(): string {
 	  return localStorage.getItem('act_clientes')
     }
-	
+
 public getWhatsapp(): string {
 	  return localStorage.getItem('act_whatsapp')
     }
@@ -279,6 +279,9 @@ public getConfCambioVendedorPed(): string {
     public getCobros(): string {
 	    return localStorage.getItem('act_cobros')
     }
+    public getNotasCredito(): string {
+	  return localStorage.getItem('act_notas')
+    }	
 
   
  
@@ -378,12 +381,13 @@ public getConfCambioVendedorPed(): string {
 		window.localStorage.removeItem('act_linea_art')
 		window.localStorage.removeItem('act_tipo_ruta_talleres')
 		window.localStorage.removeItem('act_conteo_fisico')
-	    window.localStorage.removeItem('import_ped_pdv')
+	  window.localStorage.removeItem('import_ped_pdv')
 		window.localStorage.removeItem('reg_placa_pdv')
 		window.localStorage.removeItem('transf_bodega')
-    		window.localStorage.removeItem('act_codbarra')
+    window.localStorage.removeItem('act_codbarra')
 		window.localStorage.removeItem('codbarra_def')
     window.localStorage.removeItem('act_cobros')
+    window.localStorage.removeItem('act_notas')
 		
 		
 
@@ -626,6 +630,13 @@ public getConfCambioVendedorPed(): string {
   get_renglones_orden(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_orden', param);
   }
+
+  get_encabezado_recepcion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_recepcion', param);
+  }
+  get_renglones_recep(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_recep', param);
+  }
   crear_cliente(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/crear_cliente', param);
   }
@@ -675,7 +686,9 @@ public getConfCambioVendedorPed(): string {
   articulos_index(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/articulos_index', param);
   }
-  
+    actualizar_estado_orden(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_estado_orden', param);
+  }
   
   
   
@@ -738,7 +751,8 @@ public getConfCambioVendedorPed(): string {
     localStorage.setItem('act_codbarra', param['act_codbarra'])
 	  localStorage.setItem('codbarra_def', param['codbarra_def'])
     localStorage.setItem('act_cobros', param['act_cobros'])
-	  
+    localStorage.setItem('act_notas', param['act_notas'])
+
 	  
 	  // servicio_defecto_pdv: "PEM"
 	  // 'act_articulos','act_servicios','act_egr_bod'
@@ -803,6 +817,17 @@ public getConfCambioVendedorPed(): string {
       catchError(this.errorMgmt)
     )
   }
+
+    uploadFileR(formData) {
+    // let urlAPI = 'http://localhost:3000/api/upload';
+    // return this.http.post(urlAPI, formData);
+	return this.http.post(this.apiUrl + ':' + this.port + '/uploaderR', formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
   
    upload_imagen_art_serv(formData) {
     // let urlAPI = 'http://localhost:3000/api/upload';
@@ -822,6 +847,17 @@ public getConfCambioVendedorPed(): string {
    lista_img(param) {
 	return this.http.post(this.apiUrl + ':' + this.port + '/lista_img',param)
   }
+    eliminar_imagenR(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/eliminar_imagenR',param)
+  }
+     lista_imgR(param) {
+	return this.http.post(this.apiUrl + ':' + this.port + '/lista_imgR',param)
+  }
+    rotarRecepcionOrden(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/rotarRecepcionOrden',param)
+  }
+
+  
   
    errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -879,8 +915,12 @@ public getConfCambioVendedorPed(): string {
   lista_ventas_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_ventas_pdv', param);
   }
+
   aplicar_fact_electronica(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/aplicar_fact_electronica', param);
+  }
+    aplicar_retenc_electronica(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/aplicar_retenc_electronica', param);
   }
   seleccion_agencia(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/seleccion_agencia', param);
@@ -1183,6 +1223,37 @@ public getConfCambioVendedorPed(): string {
       tiptra: formaPago,
       bantra: entidadFinanciera
     });
+  }
+  //modificacion al modulo de talleres
+    generar_pdf_orden_recepcion(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden_recepcion', param);
+  }
+
+
+  // PROCEDIMIENTOS NOTAS DE CREDITO
+  get_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_encabezado_nc', param);
+  }
+
+  get_renglones_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_nc', param);
+  }
+  
+  cargarFacturas(datos: any) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/cargarFacturas', datos);
+  }
+    generar_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_encabezado_nc', param);
+  }
+    generar_renglones_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_nc', param);
+  }
+  
+    actualizar_encabezado_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_nc', param);
+  }
+    lista_ventas_nc(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_ventas_nc', param);
   }
   
 
