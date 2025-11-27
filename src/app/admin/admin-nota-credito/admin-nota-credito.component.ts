@@ -137,6 +137,7 @@ export class AdminNotaCreditoComponent implements OnInit {
   listaFacturas: any = [];
   habilitar_boton: boolean = false;
   numref: any;
+  serieref: any;
   
   
   // public getConfAbrirCierreCaja(): string {
@@ -596,6 +597,7 @@ export class AdminNotaCreditoComponent implements OnInit {
         this.totalBaseIva = data['totbas']
         this.numplaca=data['numplaca']
         this.observacion_factura = data['observ']
+        this.serieref = data['serie']
         console.log ("##### TOTAL BASE ####")
         console.log (data['totbas'])
 
@@ -1967,6 +1969,7 @@ export class AdminNotaCreditoComponent implements OnInit {
   this.loading_modulo = true
    let encabezado_pdv= this.dato_cliente
    encabezado_pdv['numref'] = this.numref
+   encabezado_pdv['serieref'] = this.serieref
    
    if (!encabezado_pdv['telcli']){
      encabezado_pdv['telcli'] = ''
