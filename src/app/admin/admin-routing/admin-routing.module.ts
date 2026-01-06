@@ -48,7 +48,10 @@ import { AdminOrdenRecepcionComponent} from './../admin-orden-recepcion/admin-or
 import { AdminListaCobrosComponent } from './../admin-lista-cobros/admin-lista-cobros.component';
 import { AdminNotaCreditoComponent } from './../admin-nota-credito/admin-nota-credito.component';
 import { AdminListaNotasCreditoComponent } from './../admin-lista-notas-credito/admin-lista-notas-credito.component';
-
+import { Recepciones2Component } from './../recepciones2/recepciones2.component';
+import { Ordenes2Component } from './../ordenes2/ordenes2.component';
+import { ListaRecepciones2Component } from './../lista-recepciones2/lista-recepciones2.component';
+import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.component';
 
 
 
@@ -279,6 +282,26 @@ import { AdminListaNotasCreditoComponent } from './../admin-lista-notas-credito/
 		  {
             path: 'lista_transferencias',
             component: AdminListaTranferenciasComponent
+          }
+           ,
+		  {
+            path: 'recepciones2',
+            component: Recepciones2Component
+          }
+           ,
+		  {
+            path: 'lista_recepciones2',
+            component: ListaRecepciones2Component 
+          }
+           ,
+		  {
+            path: 'ordenes2',
+            component: Ordenes2Component
+          }
+           ,
+		  {
+            path: 'lista_ordenes2',
+            component:  ListaOrdenes2Component 
           }
 		  
         ]
