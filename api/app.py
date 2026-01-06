@@ -10166,19 +10166,20 @@ def get_encabezado_nc():
     SELECT p.codemp,p.numfac,p.faccli,fecfac,c.tpIdCliente,c.rucced,c.nombres,c.codcli,c.email,c.dircli,
     p.observ,p.totnet,p.totfac,
     p.tipefe,p.valefe,p.tiptar,p.numtar,p.valtar,p.codtar,p.tipche,p.numche,p.valche,p.codban,p.numpag,p.plapag,p.coddep,
-    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.observ
+    p.totiva,p.poriva,p.totdes,p.pordes,p.totbas,p.observ,p.conpag
     FROM "dba"."encabezadodevoluciones" p, clientes c
     where p.numfac = '{}' and p.codemp='{}'
     and p.codcli=c.codcli
     and c.codemp=p.codemp
 	""".format(numtra,codemp)
+	print(sql)
 	curs.execute(sql)
 	r = curs.fetchone()
-	print(sql)
+
 
 	
 	campos = ['codemp', 'numfac','faccli','fecfac','tpIdCliente','rucced','razon_social','codcli','email','dircli','observ','totnet','totfac','tipefe'
-	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','numpag','plapag','coddep','totiva','poriva','totdes','pordes','totbas','observ']
+	,'valefe','tiptar','numtar','valtar','codtar','tipche','numche','valche','codban','numpag','plapag','coddep','totiva','poriva','totdes','pordes','totbas','observ','conpag']
 	print (r)
 	if r:
 		d = dict(zip(campos, r))
@@ -10543,7 +10544,7 @@ def generar_encabezado_nc():
 	
 	
   string_campos = '''numfac,reffac, codemp,codven,codalm,codcli,fecfac,totnet,totdes,totbas,poriva,totfac,tipefe,valefe,tipche,numche,
-  valche,tiptar,numtar,valtar,totiva,codusu,fecult,codmon,valcot,estado,numcaj,faccli,serie,inserta,
+  valche,tiptar,numtar,valtar,totiva,codusu,fecult,codmon,valcot,numcaj,faccli,serie,inserta,
   facnot,codapu,tipdep,numdep,valdep,fecven,conpag,numpag,plapag,pordes,codtar,codban,coddep, 
   observ, codpry, lispre, estado, tipocomprobante, serie_fact, num_reffac'''
   
@@ -10554,10 +10555,10 @@ def generar_encabezado_nc():
     '{numfac}','{datos['numref']}','{datos['codemp']}','{codven}','{datos['codalm']}','{datos['codcli']}',
     '{datos['fecfac']}',{datos['totnet']},{datos['totdes']},{datos['totbase']},{datos['poriva']},{datos['totfac']},
     '{datos['tipefe']}',{datos['valefe']},'{datos['tipche']}',{datos['numche']},{datos['valche']},'{datos['tiptar']}',
-    {datos['numtar']},{datos['valtar']},{datos['totiva']},'{datos['codus1']}','{datos['fecfac']}','01','1','',
+    {datos['numtar']},{datos['valtar']},{datos['totiva']},'{datos['codus1']}','{datos['fecfac']}','01','1',
     '{datos['numcaj']}','{numfac_tributaria}','{datos['serie']}',NULL,'','FC{numfac}','X',NULL,0,'{datos['fecfac']}',
     '{datos['conpag']}','{numpag}','{plapag}',{datos['pordes']},{datos['codtar']},{datos['codban']},{datos['coddep']},
-    {datos['observ']}, 'NC', '1','P', '04', {datos['serieref']},{datos['numref']}
+    {datos['observ']}, 'NC', '1','P', '04', '{datos['serieref']}','{datos['faccli']}'
     );
   """
   # curs = conn.cursor()

@@ -138,6 +138,7 @@ export class AdminNotaCreditoComponent implements OnInit {
   habilitar_boton: boolean = false;
   numref: any;
   serieref: any;
+  reffacli: any;
   
   
   // public getConfAbrirCierreCaja(): string {
@@ -458,7 +459,7 @@ export class AdminNotaCreditoComponent implements OnInit {
 		
 	this.srv.get_encabezado_nc(datos).subscribe(
 	   data => {
-		   console.log("##### OBTENIENDO ENCABEZADO FACTURA  ######")
+		   console.log("##### OBTENIENDO ENCABEZADO NOTA DE CREDITO  ######")
 		   console.log(data)
 		   // this.select_razon_social(ident,ruc,rz,correo,codcli,dircli)
 		   this.select_razon_social(data['tpIdCliente'],data['rucced'],data['razon_social'],data['email'],data['codcli'],data['dircli'])
@@ -493,9 +494,9 @@ export class AdminNotaCreditoComponent implements OnInit {
 			   this.num_cheque = data['numche']
 			   this.codban = data['codban']
 		   }
-		   	if (data['tipcre'] == 'R'){
+		   	if (data['conpag'] == 'C'){
 		       this.check_credito = true
-			   this.monto_credito = data['valcre']
+			   this.monto_credito = data['totfac']
 			   this.num_pagos_credito = data['numpag']
 			   this.plazo_dias_pagos = data['plapag']
 
@@ -598,6 +599,7 @@ export class AdminNotaCreditoComponent implements OnInit {
         this.numplaca=data['numplaca']
         this.observacion_factura = data['observ']
         this.serieref = data['serie']
+        this.reffacli = data['faccli']
         console.log ("##### TOTAL BASE ####")
         console.log (data['totbas'])
 
@@ -1969,6 +1971,7 @@ export class AdminNotaCreditoComponent implements OnInit {
   this.loading_modulo = true
    let encabezado_pdv= this.dato_cliente
    encabezado_pdv['numref'] = this.numref
+   encabezado_pdv['faccli'] = this.reffacli
    encabezado_pdv['serieref'] = this.serieref
    
    if (!encabezado_pdv['telcli']){
