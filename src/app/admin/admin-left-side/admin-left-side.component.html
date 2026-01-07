@@ -356,6 +356,23 @@
 		</ul>
       </li>
 	  
+    <!-- TALLLERES 2 -->
+     <li *ngIf="auth.getTalleres() != 'NO'" class="treeview">
+        <a href="#">
+		<i class="fa fa-fw fa-wrench"></i> 
+		<span>TALLER REPARACIÓN</span>
+			<span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		<li (click)="ocultar_menu_moviles()"><a  routerLink="recepciones2" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de recepción</a></li>
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_recepciones2" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de recepciones</a></li>
+		<li (click)="ocultar_menu_moviles()"><a  routerLink="ordenes2" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li>
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_ordenes2" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Lista de ordenes</a></li>
+		</ul>
+      </li>
+    
 	  
 	 <li *ngIf="auth.getWhatsapp() != 'NO'" class="treeview">
         <a href="#">

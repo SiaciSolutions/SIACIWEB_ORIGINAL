@@ -93,6 +93,10 @@ import {
   MatAutocompleteModule,
   MatDialogModule  // AGREGAR ESTE IMPORT
 } from '@angular/material';
+import { Recepciones2Component } from './recepciones2/recepciones2.component';
+import { Ordenes2Component } from './ordenes2/ordenes2.component';
+import { ListaRecepciones2Component } from './lista-recepciones2/lista-recepciones2.component';
+import { ListaOrdenes2Component } from './lista-ordenes2/lista-ordenes2.component';
 
 @NgModule({
   imports: [
@@ -176,7 +180,11 @@ import {
 	AdminListaRecepcionesComponent,
 	AdminOrdenRecepcionComponent,
   AdminNotaCreditoComponent,
-  AdminListaNotasCreditoComponent  // Modal component
+  AdminListaNotasCreditoComponent,
+  Recepciones2Component,
+  Ordenes2Component,
+  ListaRecepciones2Component,
+  ListaOrdenes2Component  // Modal component
   ],
   entryComponents: [
     FormaPagoModalComponent  // AGREGAR ESTO PARA EL MODAL
