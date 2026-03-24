@@ -3,12 +3,12 @@
   <section class="content-header">
     <h1>
       <!-- Page Header 1111 -->
-	   Consulta/Modificación de cliente
-      <small>Consulta de los clientes, y modificación de algunos datos.</small>
+	   Actualizar Cliente / Proveedor
+      <small>Consulta de los clientes/proveedores, y modificación de algunos datos.</small>
     </h1>
     <ol class="breadcrumb">
-      <li><i class="fa fa-dashboard"></i>Cliente</li>
-      <li class="active">Consulta/Modificación de cliente</li>
+      <li><i class="fa fa-dashboard"></i>Cliente/Proveedor</li>
+      <li class="active">Actualizar cliente/proveedor</li>
     </ol>
   </section>
   
@@ -38,9 +38,37 @@
 				<div class="box-body">
 					<form  accept-charset="utf-8">
 					<div class="col-md-6">
+ 						<div class="form-group">
+								<label class="control-label">Seleccione acción Cliente/Proveedor a crear</label>
+									<div class="radio-inputs">
+										<label>
+											<input  class="radio-input" type="radio" name="engine" [(ngModel)]="tipoCreacion" value="Cliente">
+												<span class="radio-tile">
+													<span class="radio-icon">
+
+													</span>
+													<span class="radio-label">Cliente</span>
+												</span>
+										</label>
+										<label>
+											<input  class="radio-input" type="radio" name="engine" [(ngModel)]="tipoCreacion" value="Proveedor">
+											<span class="radio-tile">
+												<span class="radio-icon">
+
+												</span>
+												<span class="radio-label">Proveedor</span>
+											</span>
+										</label>
+									</div>
+						</div>
+
+
+
+
+
 						<div class="form-group">
-							<input   type="text" name="search_customer" id="search_customer" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off">
-			
+							<input  *ngIf="tipoCreacion == 'Cliente'" type="text" name="search_customer" id="search_customer" (keyup.enter)="busqueda_razon_social()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del cliente" autocomplete="off">
+							<input  *ngIf="tipoCreacion == 'Proveedor'" type="text" name="search_customer" id="search_customer" (keyup.enter)="busqueda_razon_social_proveedor()"  [(ngModel)]="patron_cliente"  class="form-control ui-autocomplete-input" placeholder="Ingrese el nombre del Proveedor" autocomplete="off">
 						<div class="form-group"  *ngIf="this.exist_razon_social">
 								<p>Resultado de la busqueda por <<{{this.patron_cliente}}>></p>
 								<div class="table-responsive-pedidos">
@@ -68,27 +96,9 @@
 									</table>
 								</div>
 						</div>
-							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
-							<!-- <table> -->
-								<!-- <tr> -->
-									<!-- <td> -->
-									<!-- <select name="tipo_doc" [(ngModel)]="tipo_doc" class="form-control select2 tip" style="width:100%;"> -->
-									<!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
-									<!-- <option *ngFor="let e of tipo_doc_lista; let i = index;" [selected] = "i==0" [value]="e.tipo">{{e.nom_doc}}</option> -->
-									<!-- </select> -->
-									<!-- </td> -->
-									<!-- <td class="col-xs-9">  -->
-									<!-- <input (keypress)='validaNumericosCantidad($event)' placeholder="INSERTE CEDULA/RUC/PASAPORTE" (keyup.enter)="busca_cliente()" [(ngModel)]="rucced" type="text" name="cf1" value=""  class="form-control input-sm" id="cf1" /> -->
-									<!-- </td> -->
-								<!-- </tr> -->
-							<!-- </table> -->
-							<!-- <br> -->
-							<!-- <label class="control-label">Cédula / RUC (Ejm Cédula:1792973910 / Ejm RUC:1792973910001) </label> -->
-							
-							
-							<!-- <input type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busca_cliente()" > -->
-								<input type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busqueda_razon_social()" >
-							
+
+								<input *ngIf="tipoCreacion == 'Cliente'"  type="button" name="busca_cliente" value="Buscar cliente" class="btn btn-danger" (click)="busqueda_razon_social()" >
+							    <input *ngIf="tipoCreacion == 'Proveedor'"  type="button" name="busca_proveedor" value="Buscar proveedor" class="btn btn-danger" (click)="busqueda_razon_social_proveedor()" >
 						</div>
 						<div class="form-group">
 							<label class="control-label">Nombre y Apellido ó Razón Social</label>
@@ -162,7 +172,7 @@
 							<!-- </table> -->
 
 					</div>
-					<div class="form-group">
+					<div *ngIf="tipoCreacion == 'Cliente'" class="form-group">
 							<label class="control-label">Tipo de cliente</label>
 							
 							<select *ngIf="!tipo_cliente"  name="tipo" [(ngModel)]="tipo_cliente" class="form-control select2 tip" style="width:100%;" disabled>
@@ -186,7 +196,7 @@
 					</div>
 					
 					<div class="form-group">
-							<label class="control-label">Dirección cliente</label>
+							<label class="control-label">Dirección cliente/proveedor</label>
 							<!-- <!-- <!-- <input [(ngModel)]="dircli" type="text" name="cf2" value=""  class="form-control input-sm" id="cf2" /> -->  
 							<input *ngIf="!this.clientes" type="text" placeholder="Direccion registrada" id="add_item" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
 							<input *ngIf="this.clientes && !this.cambiar_dircli" type="text" placeholder="Direccion registrada" id="add_item"  value="{{dircli}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled>
@@ -282,8 +292,8 @@
 							
 							<input type="button" name="cambio_correo" value="Editar email" class="btn btn-success" (click)="cambiar_email = true" >
 					</div>
-					
-					<div *ngIf="srv.getConfConsultaEstadoCartera()=='SI'"class="form-group">
+
+					<div *ngIf="srv.getConfConsultaEstadoCartera()=='SI' && tipoCreacion == 'Cliente'"class="form-group">
 					<label>Consultar estado de cartera del cliente al día:</label>
 					
 					<mat-form-field>
@@ -298,7 +308,8 @@
 					</div>
 
 					<div class="form-group">
-							<input type="button"  name="add_customer" value="Actualizar datos cliente"  class="btn btn-primary" (click)="update_cliente()" />
+							<input *ngIf="tipoCreacion == 'Cliente'" type="button"  name="add_customer" value="Actualizar datos cliente"  class="btn btn-primary" (click)="update_cliente()" />
+							<input *ngIf="tipoCreacion == 'Proveedor'"  type="button"  name="add_customer" value="Actualizar datos proveedor"  class="btn btn-primary" (click)="update_proveedor()" />
 						</div>
 					</div>
 					</form>				

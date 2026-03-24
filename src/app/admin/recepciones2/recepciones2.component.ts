@@ -159,7 +159,10 @@ export class Recepciones2Component implements OnInit {
   public tipo_orden_lista = [
       {"tipo": "P", "nom_orden": "PREVENTIVO"},
       {"tipo": "C", "nom_orden": "CORRECTIVO"},
-      {"tipo": "H", "nom_orden": "CHOQUE"}
+      {"tipo": "H", "nom_orden": "CHOQUE"},
+      {"tipo": "I", "nom_orden": "INSTALACION"},
+      {"tipo": "S", "nom_orden": "INSPECCION"},
+      {"tipo": "G", "nom_orden": "GENERALES"}
     ];
     
   tipo_orden = 'P'
@@ -1922,7 +1925,7 @@ export class Recepciones2Component implements OnInit {
                       this.correo_pedido(numtra,this.email_cliente)
                     }
                     
-                    alert ("ORDEN DE TRABAJO GUARDADA EXITOSAMENTE....!!!!")
+                    alert ("ORDEN DE RECEPCION GUARDADA EXITOSAMENTE....!!!!")
                     // this.ngOnInit();
                     
                     // this.router.navigate(['/admin/lista_ordenes', datos]);
@@ -2085,7 +2088,7 @@ export class Recepciones2Component implements OnInit {
                           this.correo_pedido(this.numtra,this.email_cliente)
                       
                     }
-                    alert ("ORDEN DE TRABAJO GUARDADA EXITOSAMENTE....!!!!")
+                    alert ("ORDEN DE RECEPCION GUARDADA EXITOSAMENTE....!!!!")
                     // this.router.navigate(['/admin/taller_orden', datos]);
                   // this.router.navigate(['/admin/lista_ordenes', datos]);
                   
@@ -2130,7 +2133,7 @@ export class Recepciones2Component implements OnInit {
       datos['codemp'] = this.empresa;
       datos['usuario'] = this.usuario;
       datos['num_ped'] = numtra
-      datos['asunto'] = 'orden_trabajo'
+      datos['asunto'] = 'orden_trabajo2'
       datos['email'] = email
       
       this.srv.mail(datos).subscribe(

@@ -62,7 +62,7 @@
 					
 					
 					<!--  -->
-					<a  *ngIf="srv.getPedidos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+<!-- 					<a  *ngIf="srv.getPedidos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
 					routerLink="/admin/crear_pedidos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					>
                         <i class="fa fa-list-ol"></i> Crear Pedidos               
@@ -72,7 +72,7 @@
 					routerLink="/admin/lista_pedidos" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					>
                         <i class="fa fa-list-alt"></i> Lista de Pedidos               
-					</a>
+					</a> -->
 					
 					 <!-- *ngIf="srv.getPedidos() != 'NO'" -->
 					
@@ -88,6 +88,21 @@
 					routerLink="/admin/lista_ordenes" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
 					>   
                         <i class="fa fa-car"></i> Talleres-Lista ordenes	</a>
+
+					<!-- #########################TALLERES EQUIPO################################### -->
+
+					<a *ngIf="srv.getTallereEquipos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/ordenes2" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>
+                     <!--    <i class="fa fa-wrench"></i>  -->
+						<i class="fa fa-gears"></i>
+						Taller equipos-Crear orden de trabajo              
+					</a>
+					
+					<a *ngIf="srv.getTallereEquipos() != 'NO'" class="btn btn-app" (click)="ocultar_menu_moviles()"
+					routerLink="/admin/lista_ordenes2" [queryParams]="{usuario: srv.getUsuario(),empresa: srv.getEmpresa()}"
+					>   
+                        <i class="fa fa-list-alt"></i> Taller equipos-Lista ordenes	</a>
 					
 					
 					<!-- <a  class="btn btn-app" (click)="ocultar_menu_moviles()" -->

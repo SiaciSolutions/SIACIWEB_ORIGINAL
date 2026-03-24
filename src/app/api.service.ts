@@ -18,7 +18,8 @@ export class ApiService {
  
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
-	public apiUrl = 'https://127.0.0.1';
+//	public apiUrl = 'https://26.109.37.213';
+  public apiUrl = 'https://127.0.0.1';
 		// public apiUrl = 'https://192.168.101.6';
 	
   // public apiUrl = 'https://192.168.0.13';
@@ -280,8 +281,16 @@ public getConfCambioVendedorPed(): string {
 	    return localStorage.getItem('act_cobros')
     }
     public getNotasCredito(): string {
-	  return localStorage.getItem('act_notas')
+	  return localStorage.getItem('act_notas_credito')
     }	
+
+        public getTallereEquipos(): string {
+	  return localStorage.getItem('act_talleres_equipos')
+    }	
+
+
+
+    
 
   
  
@@ -387,7 +396,9 @@ public getConfCambioVendedorPed(): string {
     window.localStorage.removeItem('act_codbarra')
 		window.localStorage.removeItem('codbarra_def')
     window.localStorage.removeItem('act_cobros')
-    window.localStorage.removeItem('act_notas')
+    window.localStorage.removeItem('act_notas_credito')
+    window.localStorage.removeItem('act_talleres_equipos')
+    
 		
 		
 
@@ -751,7 +762,8 @@ public getConfCambioVendedorPed(): string {
     localStorage.setItem('act_codbarra', param['act_codbarra'])
 	  localStorage.setItem('codbarra_def', param['codbarra_def'])
     localStorage.setItem('act_cobros', param['act_cobros'])
-    localStorage.setItem('act_notas', param['act_notas'])
+    localStorage.setItem('act_notas_credito', param['act_notas_credito'])
+    localStorage.setItem('act_talleres_equipos', param['act_talleres_equipos'])
 
 	  
 	  // servicio_defecto_pdv: "PEM"
@@ -1175,6 +1187,9 @@ public getConfCambioVendedorPed(): string {
      generar_pdf_orden(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden', param);
   }
+       generar_pdf_orden2(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden2', param);
+  }
   
         busqueda_pedido_razonsocial(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_pedido_razonsocial', param);
@@ -1228,6 +1243,10 @@ public getConfCambioVendedorPed(): string {
     generar_pdf_orden_recepcion(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden_recepcion', param);
   }
+  //modificacion al modulo de talleres
+    generar_pdf_orden_recepcion2(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pdf_orden_recepcion2', param);
+  }
 
 
   // PROCEDIMIENTOS NOTAS DE CREDITO
@@ -1255,6 +1274,30 @@ public getConfCambioVendedorPed(): string {
     lista_ventas_nc(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_ventas_nc', param);
   }
+      lista_ordenes2(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_ordenes2', param);
+  }
+
+  sri_ruc(param): Observable<any> {
+  //  return this.http.get('http://186.4.251.26:8000/sridatos/'+param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/sri_ruc', param);
+  }
+  
+  crear_proveedor(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/crear_proveedor', param);
+  }
+    busqueda_razon_social_prov(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/busqueda_razon_social_prov', param);
+  }
+      actualizar_proveedor(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_proveedor', param);
+  }
+        proveedores(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/proveedores', param);
+  }
+
+
+
   
 
   

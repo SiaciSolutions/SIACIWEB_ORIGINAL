@@ -78,12 +78,12 @@ if os.path.isfile(PATH_CONFIG):
 			if pattern_host.match(linea):
 				linea_array = linea.split('=')
 				host = str(linea_array [1]).replace('\n','')
-				if host != "localhost":
-					try: 
-						socket.inet_aton(host)
-					except socket.error: 
-						print ("IP "+host+" DEL ARCHIVO DE CONFIGURACION NO VALIDA, INICIANDO POR EL HOST SIACI POR DEFECTO 127.0.0.1")
-						host = '127.0.0.1'
+				#if host != "localhost":
+				#	try: 
+				#		socket.inet_aton(host)
+				#	except socket.error: 
+				#		print ("IP "+host+" DEL ARCHIVO DE CONFIGURACION NO VALIDA, INICIANDO POR EL HOST SIACI POR DEFECTO 127.0.0.1")
+				#		host = '127.0.0.1'
 				print ("###HOST BD SIACI DEL ARCHIVO DE CONFIGURACION= "+host)
 			if pattern_eng.match(linea):
 				linea_array = linea.split('=')
@@ -151,6 +151,7 @@ if os.path.isfile(PATH_CONFIG):
 	TIPO_BUSQUEDA_DEFECTO = ''
 	SERVICIO_DEFECTO_PDV = ''
 	CONF_PARAM_BD= ''
+	IP_CONSULTA_RUC=''
 	
 	
 	
@@ -196,6 +197,7 @@ if os.path.isfile(PATH_CONFIG):
 		pattern_TIPO_BUSQUEDA_DEFECTO= re.compile(r'TIPO_BUSQUEDA_DEFECTO=')
 		pattern_SERVICIO_DEFECTO_PDV= re.compile(r'SERVICIO_DEFECTO_PDV=')
 		pattern_CONF_PARAM_BD= re.compile(r'CONF_PARAM_BD=')
+		pattern_IP_CONSULTA_RUC= re.compile(r'IP_CONSULTA_RUC=')
 
 		if pattern_ip.match(linea):
 			# print ("OBTENGO IP")
@@ -311,6 +313,9 @@ if os.path.isfile(PATH_CONFIG):
 		if pattern_CONF_PARAM_BD.match(linea):
 			linea_array = linea.split('=')
 			CONF_PARAM_BD = linea_array[1].replace('\n','')
+		if pattern_IP_CONSULTA_RUC.match(linea):
+			linea_array = linea.split('=')
+			IP_CONSULTA_RUC = linea_array[1].replace('\n','')
 
 
 			

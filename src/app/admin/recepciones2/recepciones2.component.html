@@ -320,9 +320,10 @@
                                             <tr class="active" role="row">
 												<th>Código</th>
                                                 <th>Producto</th>
+												<th>Precio</th>
 												<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Unid.</th>
 												<th>Observación</th>
-                        <th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th>
+                        						<th style="width:25px; padding-right:5px;" rowspan="1" colspan="1">Cantidad</th>
                                                 <th class="col-xs-1 text-center" (click)="delete_art_todo()" style="width:25px;"><i class="fa fa-trash-o" title="Remover todos" ></i></th>
                                             </tr>
                                         </thead>
@@ -331,6 +332,14 @@
 											<tr *ngFor="let el of articulos_pedido;">
 												<td>{{el.codart}}</td>
 												<td style="min-width:100px;">{{el.nomart}}</td>
+												<td style="padding:2px;">
+													<div class="text-center">
+														<input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"
+														value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)"> 
+														<!-- {{el.prec01}} -->
+													</div>
+												</td>
+												
 												<td>{{el.coduni}}</td>
 												<td>
 													<!-- {{el.exiact}} -->
@@ -367,7 +376,7 @@
 												<label  *ngIf="tipo_busqueda" >INCLUIR ARTÍCULO</label> 
 												<label  *ngIf="!tipo_busqueda" >INCLUIR SERVICIO</label> 
 											</td>
-											<td class="text-center" colspan="3">
+											<td class="text-center" colspan="4">
 												<input *ngIf="tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo">
 												<input *ngIf="!tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda_ser1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL SERVICIO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_servicio()" [(ngModel)]="patron_articulo">
 											</td>
@@ -434,7 +443,7 @@
 												<label  *ngIf="tipo_busqueda" >INCLUIR ARTÍCULO</label> 
 												<label  *ngIf="!tipo_busqueda" >INCLUIR SERVICIO</label> 
 											</td>
-											<td class="text-center" colspan="3">
+											<td class="text-center" colspan="4">
 												<!-- <input  #busqueda_art2 class="form-control input-sm kb-pad text-center rquantity" name="busqueda2" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo"> -->
 												<input *ngIf="tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL ARTÍCULO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_articulo()" [(ngModel)]="patron_articulo">
 												<input *ngIf="!tipo_busqueda"  class="form-control input-sm kb-pad text-center rquantity" name="busqueda_ser1" type="text" placeholder="FAVOR INGRESAR CÓDIGO O NOMBRE DEL SERVICIO Y PRESIONAR LA TECLA ENTER" value="" (keyup.enter)="busca_servicio()" [(ngModel)]="patron_articulo">
@@ -514,6 +523,7 @@
 												</th>
 												<!-- <th></th> -->
 												<!-- <th></th> -->
+												 <th></th>
 												<th></th>
 												<th></th>
 												<th>Subtotal</th>
@@ -528,7 +538,7 @@
 												</th>
 												<th *ngIf="!this.exist_articulo">
 												</th>
-												<!-- <th></th> -->
+												<th></th> 
 												<!-- <th></th> -->
 												<th></th>
 												<th></th>
@@ -539,7 +549,7 @@
 											<tr class="active">
                                                 <th></th>
                                                 <!-- <th></th> -->
-												<!-- <th></th> -->
+												<th></th>
 												<th></th>
 												<th></th>
 												<th></th>
@@ -782,6 +792,19 @@
 									<!-- <input #nuevo_correo  *ngIf="this.cambiar_email"  type="email" placeholder="Ingrese nuevo correo" value="" name="reference" class="form-control tip" (blur)="update_email(nuevo_correo.value)"  (keyup.enter)="update_email(nuevo_correo.value)" > -->
 								</div>
                             </div>
+
+							 <div class="row">
+							  <div class="col-md-2">
+								  <div class="form-group">
+														  
+								  <label for="reference">COLOR</label>
+								  <input type="text" placeholder="Ingrese color" [(ngModel)]="color"  name="color"  class="form-control ui-autocomplete-input fondo" required autocomplete="off">
+								  <!-- <input type="text" placeholder="Nombre ó Razón Social" id="add_item"  value="{{razon_social}}" class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
+						  
+								  </div>
+							  </div>							  
+						  
+						  </div>
 						
                         </div>
 					

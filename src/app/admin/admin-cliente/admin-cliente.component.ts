@@ -42,6 +42,8 @@ export class AdminClienteComponent implements OnInit {
  public ciudad_lista:any = [];
  public provincia_lista:any = [];
  provincia
+ buscarSri= false
+ tipoCreacion = 'Cliente'
  @Input() status_cambio_vista_cliente: string;
 
  
@@ -271,6 +273,92 @@ export class AdminClienteComponent implements OnInit {
 
 
 	 }//FIN FUNCION CREAR CLIENTE
+
+
+
+	crea_proveedor() {
+
+			
+		console.log("CREA CLIENTE")
+		console.log(this.nomcli)
+		console.log(this.rucced)
+		console.log(this.dircli)
+		console.log(this.telcli)
+		console.log(this.telcli2)
+		console.log(this.email)
+		console.log(this.fectra)
+
+	// if (this.ruc){
+		const datos = {};
+		datos['codus1'] = this.usuario.toUpperCase();
+		datos['codemp'] = this.empresa;
+		datos['nomcli'] = this.nomcli.toUpperCase();
+		datos['rucced'] = this.rucced;  //validar que sea formato menos de 13 y numerico
+		datos['dircli'] = this.dircli;
+		datos['telcli'] = this.telcli;  //validar que sea formato de menos de 10 y numerico
+		datos['telcli2'] = this.telcli2; //validar que sea formato de menos de 10 (OPCIONAL) y numerico
+		datos['email'] = this.email;  //validar formato
+		datos['fectra'] = this.fectra;
+		
+		if (this.ciudad == "*** OTRA CIUDAD ***"){
+			this.ciudad = 'OTRA CIUDAD'
+		}
+		datos['ciucli'] = this.ciudad;
+		datos['codprov'] = this.provincia;
+		datos['tipo'] = this.tipo_cliente;
+		datos['tpIdCliente'] = this.tipo_doc;
+		
+		// this.validar_campos_obligatorios(datos)
+		// this.validar_formato_campos_numeros(datos)
+		
+		// if (this.validar_campos_obligatorios(datos) && this.validar_formato_campos_numeros(datos) && this.validateEmail(this.email) && this.validar_longitud_cedula_ruc(datos)){
+		if (this.validar_campos_obligatorios(datos) && this.validar_formato_campos_numeros(datos) && this.validar_longitud_cedula_ruc(datos)){
+		console.log("*** CREO CLIENTE ***")
+		this.loading_modulo = true
+		this.srv.crear_proveedor(datos).subscribe(data => {
+				console.log("RESPUESTA DE ENVIO PARA CREAR PROVEEDOR ")
+				// console.log(data)
+				let datos = {};
+				datos['usuario'] = this.usuario;
+				datos['empresa'] = this.empresa;
+				console.log (data["STATUS"])
+				if (data["STATUS"] == 'DUPLICADO'){
+					// alert("Cliente con identificación "+this.rucced+" existe en esta empresa..!!");
+					alert("ATENCION : EL PROVEEDOR CON IDENTIFICACION "+this.rucced+" EXISTE EN ESTA EMPRESA..!!");
+					this.loading_modulo = false
+				}else{
+					// this.success = true
+					alert("Proveedor con identificación "+this.rucced+" creado con exito..!!");
+					if (this.status_cambio_vista_cliente == 'false'){
+						// location.reload()
+						this.router.navigate(['/admin/dashboard3', datos]);
+					}
+					this.loading_modulo = false
+					
+
+					// this.router.navigate(['/admin/crear_pedidos', datos]);
+					// this.ngOnInit()
+				}
+	
+			}
+		); //FIN ENVIO CLIENTE
+		}
+		
+		
+		//#############################EJEMPLO
+		  // if (datos['ruc'].length === 0){
+		
+		// if ((datos['rucced'].length > 13 || datos['rucced'].length === 0)){
+			// alert(" EL número de Identificación debe tener valor y contener no debe exceder los 13 caracteres!!");
+		// }else {
+				// console.log("VALIDADO RUC")
+		// }
+		//#############################FIN EJEMPLO
+
+		
+
+
+	 }//FIN FUNCION CREAR CLIENTE
 	 
 	// validar_campos_obligatorios (nombre,ident,dircli,telcli,telcli2,email,ciudad,tipo_cliente,tipo_doc){
 	validar_campos_obligatorios (datos){
@@ -289,7 +377,7 @@ export class AdminClienteComponent implements OnInit {
 		}else if ((!datos['tpIdCliente']) || (datos['tpIdCliente'] == 'N')){
 			alert("Tipo de Identificacion no seleccionado. Por favor seleccione CEDULA/RUC/PASAPORTE según el caso.")
 			STATUS_OBLIGATORIO = false
-		}else if ((!datos['tipo']) || (datos['tipo'] == 'N')){
+		}else if (((!datos['tipo']) || (datos['tipo'] == 'N')) && (this.tipoCreacion=='Cliente')){
 			alert("Tipo de cliente no seleccionado. Por favor seleccione PERSONA NATURAL/EMPRESA según el caso")
 			STATUS_OBLIGATORIO = false
 		}else if ((!datos['dircli']) || (datos['dircli'].length == 0)){
@@ -375,6 +463,33 @@ export class AdminClienteComponent implements OnInit {
 	console.log(STATUS)
   return STATUS;
   	}
+
+	revision_sri_ruc(): void {
+		
+	let dato_sri ={ruc:this.rucced}
+			this.buscarSri= true
+ 			this.srv.sri_ruc(dato_sri).subscribe(
+				data => {
+					this.buscarSri= false
+					console.log(data)
+					if (data['status']== 'ENCONTRADO' ){
+						alert("Datos Encontrado...!!!")
+						this.nomcli=data['razonsocial'].toUpperCase()
+						if (data['direccion'] != 'No disponible'){
+							this.dircli=data['direccion']
+						}
+						
+					}else{
+						alert("Datos NO Encontrados...!!!")
+					}
+
+					
+
+
+				}
+			) 
+			
+	}
 
 
 // http://localhost:4401/admin/crear_clientes?usuario=SUPERVISOR&empresa=01

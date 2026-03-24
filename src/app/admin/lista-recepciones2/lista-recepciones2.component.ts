@@ -566,7 +566,7 @@ export class ListaRecepciones2Component implements OnInit {
         
         // this.espera_correo_pedido = true;
         // this.espera_exitoso_pedido = false;
-        this.srv.generar_pdf_orden_recepcion(datos).subscribe(
+        this.srv.generar_pdf_orden_recepcion2(datos).subscribe(
           data => {
             
             this.espera_generar_pdf = false;

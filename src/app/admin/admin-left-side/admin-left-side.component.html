@@ -83,7 +83,7 @@
 	  </ul>
       </li>
 
-	  <li *ngIf="auth.getNotasCredito() != 'NO'" class="treeview">
+ 	  <li *ngIf="auth.getNotasCredito() != 'NO'" class="treeview">
         <a href="#">
             <i class="fa fa-file-text"></i> <span>NOTAS DE CREDITO</span>
             <span class="pull-right-container">
@@ -94,7 +94,7 @@
 		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="nota_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Agregar Nota de Crédito</a></li>
 		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="lista_notas_credito" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Notas de Crédito</a></li>
         </ul>
-      </li> 
+      </li>  
 	  
 	  <li *ngIf="auth.getModInventario() == 'SI' && (auth.getTipacc() == 'T' || (auth.getTipacc() == 'P' && auth.getConfPerfilParcial('pb_2')))"  class="treeview" style="height: auto;">
 		   <a href="#">
@@ -241,14 +241,14 @@
 
 	 <li *ngIf="auth.getClientes() != 'NO'" class="treeview">
         <a href="#">
-            <i class="fa fa-users"></i> <span>CLIENTES</span>
+            <i class="fa fa-users"></i> <span>CLIENTE/PROVEEDOR</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
         <ul class="treeview-menu">
-          <li class="active" (click)="ocultar_menu_moviles()"><a routerLink="crear_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Crear Cliente</a></li>
-		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="consulta_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Consultar/Modif Cliente</a></li>
+          <li class="active" (click)="ocultar_menu_moviles()"><a routerLink="crear_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Crear Cliente/Proveedor</a></li>
+		  <li class="active" (click)="ocultar_menu_moviles()" ><a routerLink="consulta_clientes" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Actualizar Cliente/Proveedor</a></li>
           <!-- <li><a routerLink="dashboard2"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
 		  <!-- <li><a routerLink="dashboard3"><i class="fa fa-circle-o"></i> Dashboard v3</a></li> -->
         </ul>
@@ -285,7 +285,7 @@
         </ul>
       </li> 
 	  	  <!--####################### MULTINIVEL PEDIDOS#######################################-->
-      <li *ngIf="auth.getPedidos() != 'NO'" class="treeview">
+     <li *ngIf="auth.getPedidos() != 'NO'" class="treeview">
         <a href="#">
 		<i class="fa fa-plus"></i> 
 		<span>PEDIDOS</span>
@@ -295,15 +295,14 @@
           </a>
         <ul class="treeview-menu">
 		
-			   <!-- <a [routerLink]="['/profile']" [queryParams]="{ruc: auth.getRUC()}" class="nav-link" >Comprobantes descargados</a> -->
+
 		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_pedidos" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Pedidos</a></li>
 		  <li (click)="ocultar_menu_moviles()"><a routerLink="crear_pedidos" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Agregar Pedido</a></li>
 		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="registrar_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Registrar visita cliente</a></li>
 		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="reporte_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte visita vendedores</a></li>
-		 <!-- <li><a href="#"><i class="fa fa-circle-o"></i>Lista de Pedidos</a></li> -->
-          <!-- <li><a href="#"><i class="fa fa-circle-o"></i>Agregar Pedido</a></li> -->
+
         </ul>
-      </li>
+      </li> 
 	  
 	 <!--####################### MULTINIVEL PEDIDOS#######################################-->
       <li *ngIf="auth.getConfPedidoMedico() != 'NO'" class="treeview">
@@ -357,7 +356,7 @@
       </li>
 	  
     <!-- TALLLERES 2 -->
-     <li *ngIf="auth.getTalleres() != 'NO'" class="treeview">
+     <li *ngIf="auth.getTallereEquipos() != 'NO'" class="treeview">
         <a href="#">
 		<i class="fa fa-fw fa-wrench"></i> 
 		<span>TALLER REPARACIÓN</span>
@@ -387,6 +386,21 @@
 		<!-- <li (click)="ocultar_menu_moviles()"><a  routerLink="taller_orden" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear mensaje masivo</a></li> -->
 		<!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/admin/taller_orden', tokenid]" ><i class="fa fa-fw fa-pencil-square-o"></i>Crear Orden de trabajo</a></li> -->
 		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_msg_whatsapp" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-fw fa-reorder"></i>Cola de mensajes</a></li>
+		</ul>
+      </li>
+
+  <li *ngIf="auth.getConfGeoloc() != 'NO'" class="treeview">
+        <a href="#">
+		<!-- <i class="fa fa-fw fa-whatsapp"></i>  -->
+		<i class="fa fa-fw fa-globe"></i>
+		<span>GEOLOCALIZACION</span>
+			<span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        <ul class="treeview-menu">
+		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="registrar_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Registrar visita cliente</a></li>
+		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="reporte_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte visita vendedores</a></li>
 		</ul>
       </li>
 

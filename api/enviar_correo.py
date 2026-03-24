@@ -16,6 +16,7 @@ import time
 class CORREO():
 
     def enviar(self, servidorsaliente, port, userid, password, emailresponsable, archivo, nombrepdf, asunto, mensaje ):
+        print ("############## ENVIANDO CORRREO  ###########")
 
         body = mensaje #"Estimado(a) Cliente. Adjunto sirvase encontrar su correspondiente COMPROBANTE ELECTRONICO autorizado por el SRI"+ '\n' + " Gracias por su confianza." + '\n' + "Desarrollado por SIACISOLUTIONS - www.siaci.com.ec - 026014727"
         subject = asunto #"FACTURACION ELECTRONICA"
@@ -76,6 +77,7 @@ class CORREO():
             s.quit()
             # return 'ENV'
             # return 'CORREO ENVIADO CON EXITO'
+            print ("############## CORREO ENVIADOOOO ###########")
             return {'status':'ENV','descripcion':'CORREO ENVIADO CON EXITO'}
             
         except Exception as e:

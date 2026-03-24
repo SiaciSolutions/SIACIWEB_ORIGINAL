@@ -60,6 +60,7 @@ export class AdminClienteConsultaComponent implements OnInit {
  exist_razon_social = false;
  patron_cliente = undefined;
  razon_social_lista
+ tipoCreacion = 'Cliente'
  
  public tipo_doc_lista = [
 			{"tipo": "C", "nom_doc": "CEDULA"},
@@ -223,9 +224,43 @@ export class AdminClienteConsultaComponent implements OnInit {
 			alert("Por favor llenar el campo Razon Social");
 		}
 	 }
+
+	busqueda_razon_social_proveedor() { 
+	console.log ("##### BUSCAR POR PATRON  ####")
+	if (this.patron_cliente){
+		const datos = {};
+		datos['codemp'] = this.empresa;
+		datos['patron_cliente'] = this.patron_cliente;
+			this.srv.busqueda_razon_social_prov(datos).subscribe(data => {
+				// console.log(data)
+				
+				
+				let longitud_data = data.length
+
+			if (longitud_data > 0 ) {
+				console.log(data)
+
+				this.razon_social_lista = data;
+				this.exist_razon_social = true;
+				// this.searching_articulo = false
+				
+		
+				
+			}else {
+				alert("Razon Social no encontrado con la palabra clave ingresada <<"+this.patron_cliente+">>");
+				// this.searching_articulo = false
+				this.exist_razon_social = false;
+			}
+				
+
+			}); 
+		}else  { 
+			alert("Por favor llenar el campo Razon Social");
+		}
+	 }
 	 
 	 select_razon_social(ident,ruc,rz,correo,codcli,dircli) {
-		 console.log ("Seleccion de cliente")
+		 
 		
 		// this.dato_cliente= {"nomcli":rz,"rucced":ruc,"email":correo,"codcli":codcli,"dircli":dircli}
 		 // // ['codemp', 'nomcli','rucced','codcli','email','dircli','ciucli','telcli','telcli2']
@@ -243,7 +278,15 @@ export class AdminClienteConsultaComponent implements OnInit {
 		// this.clientes = true;
 		this.rucced = ruc
 		this.tipo_doc = ident
-		this.busca_cliente()
+		if (this.tipoCreacion == 'Cliente'){
+			console.log ("Seleccion de cliente")
+			this.busca_cliente()
+		}
+		if (this.tipoCreacion == 'Proveedor'){
+			console.log ("Seleccion de Proveedor")
+			this.busca_proveedor()
+		}
+		
 		this.exist_razon_social = false;
 		this.patron_cliente = undefined;
 	 }
@@ -257,6 +300,55 @@ export class AdminClienteConsultaComponent implements OnInit {
 		datos['codemp'] = this.empresa;
 		datos['tpIdCliente'] = this.tipo_doc;
 			this.srv.clientes(datos).subscribe(data => {
+				// console.log(data)
+			// this.dato_cliente = data
+			if (data['rucced']) {
+				console.log(data)
+				// console.log(data['nomcli'])
+				this.nomcli = data['nomcli']
+				this.dircli = data['dircli']
+				this.email = data['email']
+				this.ciudad = data['ciucli']
+				this.telcli = data['telcli']
+				this.telcli2 = data['telcli2']
+				this.codcli = data['codcli']
+				if (data['tipo'] == null){
+					this.tipo_cliente = '01'
+				}else {
+				   this.tipo_cliente = data['tipo']
+				}
+				this.provincia = data['codprov']
+
+				
+				this.clientes = true;
+			}else {
+				let documento=''
+				if (this.tipo_doc == 'C'){
+					documento = 'CEDULA'
+				} else if (this.tipo_doc == 'R') {
+					documento = 'RUC'
+					
+				}else if (this.tipo_doc == 'P'){
+					documento = 'PASAPORTE'
+				}
+				alert("Cliente con "+documento+" "+this.rucced+" no encontrado");
+				// alert("Cliente no encontrado");
+			}
+			}); 
+		}else  { 
+			alert("Por favor ingrese TIPO DOC / IDENTIFICACION del cliente");
+		}
+	 
+	}
+
+	busca_proveedor() { 
+	if (this.rucced && this.tipo_doc){
+		console.log("#### BUSCO PROVEEDOR ###")
+		const datos = {};
+		datos['ruc'] = this.rucced;
+		datos['codemp'] = this.empresa;
+		datos['tpIdCliente'] = this.tipo_doc;
+			this.srv.proveedores(datos).subscribe(data => {
 				// console.log(data)
 			// this.dato_cliente = data
 			if (data['rucced']) {
@@ -384,6 +476,80 @@ export class AdminClienteConsultaComponent implements OnInit {
 				// }else{
 					// // this.success = true
 					alert("Cliente con identificación "+this.rucced+" actualizado con exito..!!");
+					// this.ngOnInit() 
+					this.router.navigate(['/admin/dashboard3', datos]);
+					
+					
+					// this.router.navigate(['/admin/crear_pedidos', datos]);
+					// // this.ngOnInit()
+				}
+		); //FIN ENVIO CLIENTE
+		}
+
+		
+	 }//FIN FUNCION CREAR CLIENTE
+
+
+	update_proveedor() {
+			
+		console.log("#######ACTUALIZO CLIENTE  ####")
+		console.log(this.nomcli)
+		console.log(this.rucced)
+		console.log(this.dircli)
+		console.log(this.telcli)
+		console.log(this.telcli2)
+		console.log(this.email)
+		console.log(this.ciudad)
+		console.log(this.fectra)
+		console.log(this.tipo_doc)
+
+
+		const datos = {};
+		datos['codus1'] = this.usuario.toUpperCase();
+		datos['codemp'] = this.empresa;
+		datos['codcli'] = this.codcli;
+		datos['nomcli'] = this.nomcli.toUpperCase();
+		datos['rucced'] = this.rucced.trim();  //validar que sea formato menos de 13 y numerico
+		datos['dircli'] = this.dircli.trim();
+		datos['telcli'] = this.telcli.trim();  //validar que sea formato de menos de 10 y numerico
+		if (this.telcli2 != null){
+			datos['telcli2'] = this.telcli2.trim(); //validar que sea formato de menos de 10 (OPCIONAL) y numerico
+		}else{
+			datos['telcli2'] = null
+		}
+		datos['email'] = this.email;  //validar formato
+		datos['fectra'] = this.fectra;
+		
+		if (this.ciudad == "*** OTRA CIUDAD ***"){
+			this.ciudad = 'OTRA CIUDAD'
+		}
+		datos['ciucli'] = this.ciudad;
+		datos['tipo'] = this.tipo_cliente;
+		datos['tpIdCliente'] = this.tipo_doc;
+		datos['codprov'] = this.provincia;
+		
+		
+		// // this.validar_campos_obligatorios(datos)
+		// // this.validar_formato_campos_numeros(datos)
+		
+		// console.log ("#### VALIDACION INICIO CAMPOS NUMERICOS ####")
+		// console.log (this.validar_formato_campos_numeros(datos))
+		
+		// if (this.validar_campos_obligatorios(datos) && this.validar_formato_campos_numeros(datos) && this.validateEmail(this.email) && this.validar_longitud_cedula_ruc(datos)){
+		if (this.validar_campos_obligatorios(datos) && this.validar_formato_campos_numeros(datos) && this.validar_longitud_cedula_ruc(datos)){
+		console.log("*** ACTUALIZO PROVEEDOR ***")
+		this.srv.actualizar_proveedor(datos).subscribe(data => {
+				console.log("RESPUESTA DE ENVIO PARA CREAR PROVEEDOR")
+				console.log(data)
+				// let datos = {};
+				// datos['usuario'] = this.usuario;
+				// datos['empresa'] = this.empresa;
+				// console.log (data["STATUS"])
+				// if (data["STATUS"] == 'DUPLICADO'){
+					// alert("Cliente con identificación "+this.rucced+" existe en esta empresa..!!");
+				// }else{
+					// // this.success = true
+					alert("Proveedor con identificación "+this.rucced+" actualizado con exito..!!");
 					// this.ngOnInit() 
 					this.router.navigate(['/admin/dashboard3', datos]);
 					

@@ -182,7 +182,26 @@
 						  <td>{{el.email}}</td>
 						  <td>{{el.total_iva}}</td>
 						  <td>{{el.observ}}</td>
-						  <td>{{el.status}}</td>
+
+
+						  <td class="text-center" *ngIf="el.status =='FACTURADO' || el.status =='SIN FACTURA'">
+							
+							<span style="color:green;font-weight:bold" >{{el.status}}</span>
+						</td>
+
+						<td class="text-center" *ngIf="el.status =='ANULADO' " >
+							<span style="color:red;font-weight:bold" >{{el.status}}</span>
+						</td>
+
+						<td class="text-center" *ngIf="el.status !='FACTURADO' && el.status !='SIN FACTURA' && el.status !='ANULADO' ">
+							
+							<span style="color:blue;font-weight:bold" >{{el.status}}</span>
+						</td>
+
+
+
+
+
 						  <!-- <td *ngIf="el.fecha_entrega">{{el.fecha_entrega}} / {{el.hora_entrega}}</td> -->
 						  <!-- <td *ngIf="!el.fecha_entrega" class="text-center" style="color:red">POR PLANIFICAR</td> -->
 						  <!-- <td>{{el.direccion_entrega}} -->
@@ -207,7 +226,7 @@
 									<!-- *ngIf="auth.getConfPV() != 'NO'"   getConfEditPedido-->
 									<!-- <a onclick="window.open('http://amort.lavisita360.com/purchases/view/6', 'pos_popup', 'width=900,height=600,menubar=yes,scrollbars=yes,status=no,resizable=yes,screenx=0,screeny=0'); return false;" href="#"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido" ></i></a>  -->
 									<!-- <a routerLink="/admin/taller_orden" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra}"  class="tip btn btn-primary btn-xs"><i class="fa fa-file-text-o" title="Ver pedido"></i></a>  -->
-									<a *ngIf="srv.getConfEditPedido() != 'NO'" routerLink="/admin/ordenes2" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra, tiptra: '7'}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar pedido"></i></a> 
+									<a *ngIf="srv.getConfEditPedido() != 'NO'" routerLink="/admin/ordenes2" [queryParams]="{usuario:usuario,empresa: empresa,numtra:el.numtra, tiptra: '7', status_consultado: el.status}" class="tip btn btn-warning btn-xs"><i class="fa fa-edit" title="Editar pedido"></i></a> 
 									<!-- <a href="http://amort.lavisita360.com/purchases/delete/6" onclick="return confirm('Usted va a eliminar la compra, por favor haga clic en Aceptar para eliminar.')" title="" class="tip btn btn-danger btn-xs" data-original-title="Eliminar Compra"><i class="fa fa-trash-o"></i></a> -->
 									<a *ngIf="srv.getConfCorreoFact() != 'NO'" (click)="correo_facturacion(el.numtra,el.nomcli)" class="tip btn btn-danger btn-xs" ><i class="fa fa-envelope" title="Enviar correo facturar pedido" ></i></a>
 									<!-- <a (click)="confirm_delete()"   class="tip btn btn-danger btn-xs" ><i class="fa fa-envelope" title="Enviar correo facturar pedido" ></i></a> -->
@@ -223,57 +242,7 @@
 					</tbody> 
 				</table>
 				
-					<!-- <table datatable [dtOptions]="dtOptions" class="row-border hover"> -->
-					<!-- <table datatable [dtOptions]="dtOptions" class="row-border hover"> -->
-					  <!-- <!-- <thead> --> 
-						<!-- <!-- <tr> --> 
-						  <!-- <!-- <th>ID</th> --> 
-						  <!-- <!-- <th>First name</th> --> 
-						  <!-- <!-- <th>Last name</th> -->
-						<!-- <!-- </tr> --> 
-					  <!-- <!-- </thead> --> 
-					  <!-- <!-- <tbody *ngIf="persons?.length != 0"> --> 
-						  <!-- <!-- <tr *ngFor="let person of persons"> --> 
-							  <!-- <!-- <td>{{ person.id }}</td> --> 
-							  <!-- <!-- <td>{{ person.firstName }}</td> --> 
-							  <!-- <!-- <td>{{ person.lastName }}</td> --> 
-						  <!-- <!-- </tr> --> 
-					  <!-- <!-- </tbody> --> 
-					  <!-- <!-- <tbody *ngIf="persons?.length == 0"> --> 
-						<!-- <!-- <tr> --> 
-						  <!-- <!-- <td colspan="3" class="no-data-available">No data!</td> --> 
-						<!-- <!-- </tr> --> 
-					  <!-- <!-- <tbody> --> 
-					  
-					  <!-- <thead> -->
-						<!-- <tr> -->
-						  <!-- <th>Fecha</th> -->
-						  <!-- <th>No. Doc</th> -->
-						  <!-- <th>Cod.Cli</th> -->
-						  <!-- <th>Cliente</th> -->
-						  <!-- <th>Total con IVA</th> -->
-						  <!-- <th>Observación</th> -->
-						  <!-- <th>Estado</th> -->
-						<!-- </tr> -->
-					  <!-- </thead> -->
-					  
-					<!-- <tbody *ngIf="(lista_pedidos?.length != 0) && (!loading) "> -->
-					  <!-- <tr *ngFor="let el of lista_pedidos;"> -->
-						  <!-- <td>{{el.fectra}}</td> -->
-						  <!-- <td>{{el.numtra}}</td> -->
-						  <!-- <td>{{el.codcli}}</td> -->
-						  <!-- <td>{{el.nomcli}}</td> -->
-						  <!-- <td>{{el.total_iva}}</td> -->
-						  <!-- <td>{{el.observ}}</td> -->
-						  <!-- <td>{{el.status}}</td> -->
-					  <!-- </tr> -->
-					<!-- </tbody>  -->
-					<!-- <tbody *ngIf="lista_pedidos?.length == 0"> -->
-						<!-- <tr> -->
-						  <!-- <td colspan="3" class="no-data-available">No data!</td> -->
-						<!-- </tr> -->
-					  <!-- <tbody> -->
-					<!-- </table> -->
+			
 	
 					</div>
 				</div>

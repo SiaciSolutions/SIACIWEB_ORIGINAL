@@ -166,7 +166,10 @@ export class Ordenes2Component implements OnInit {
   public tipo_orden_lista = [
       {"tipo": "P", "nom_orden": "PREVENTIVO"},
       {"tipo": "C", "nom_orden": "CORRECTIVO"},
-      {"tipo": "H", "nom_orden": "CHOQUE"}
+      {"tipo": "E", "nom_orden": "EMERGENCIA"},
+      {"tipo": "I", "nom_orden": "INSTALACION"},
+      {"tipo": "S", "nom_orden": "INSPECCION"},
+      {"tipo": "G", "nom_orden": "GENERALES"}
     ];
     
   tipo_orden = 'P'
@@ -191,9 +194,16 @@ export class Ordenes2Component implements OnInit {
  public status_lista = [
       {"status": "I", "status_nombre": "INICIADA"},
       {"status": "R", "status_nombre": "REGISTRADA"},
-      {"status": "P", "status_nombre": "POR EGRESAR"}
+      {"status": "P", "status_nombre": "POR ENTREGAR"},
+      {"status": "Y", "status_nombre": "EN REPARACION"},
+      {"status": "E", "status_nombre": "EN ESPERA"},
+      {"status": "S", "status_nombre": "EN INSPECCION"},
+      {"status": "F", "status_nombre": "FACTURADO"},
+      {"status": "A", "status_nombre": "ANULADA"},
+      {"status": "X", "status_nombre": "SIN FACTURA"}
     ];
   status = 'I'
+  status_consultado=null
 
   
   ///////VARIABLE PARA SUBIDA DE FOTOS ///////////
@@ -286,6 +296,7 @@ export class Ordenes2Component implements OnInit {
   //NUMERO DE ORDE DE RECEPCION:
   numOrdRecep
   
+  
   // location.reload()
   
   // const HOLA = 'Holamundo'
@@ -342,6 +353,7 @@ export class Ordenes2Component implements OnInit {
     this.empresa = params['empresa'] || this.route.snapshot.paramMap.get('empresa') || 0;
     this.numtra = params['numtra'] || this.route.snapshot.paramMap.get('numtra') || 0;
     this.tiptra = params['tiptra'] || this.route.snapshot.paramMap.get('tiptra') || 0;
+    this.status_consultado= params['status_consultado'] || this.route.snapshot.paramMap.get('status_consultado') || 0; 
     console.log("LUEGO DE ENTRADA")
     if (this.numtra == 0){
       this.reload_orden_nueva()
@@ -418,6 +430,7 @@ export class Ordenes2Component implements OnInit {
   }
 
   seleccionarRecepcion(numtra, tiptra){
+    alert ("Cargando orden de recepcion..!!!!")
   this.numtra = numtra;
   this.numtraRecepcion= numtra;
   this.tiptra = tiptra;
@@ -427,7 +440,7 @@ export class Ordenes2Component implements OnInit {
     this.numtra = undefined;
     this.tiptra = '7';
     this.fectra = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '-0500');
-  }, 3000);
+  }, 1500);
   $('#modalOrdenes').modal('hide');
   }
   
@@ -650,20 +663,20 @@ export class Ordenes2Component implements OnInit {
   datos['usuario'] = this.usuario;
   datos['estadoR'] = 'R'
   this.buscar_encabezado_orden(datos);
-
-  this.srv.actualizar_estado_orden(datos).subscribe(
+  //PORQUE SE SETEA R (REGISTRADA EL ESTADO DE LA ORDEN)??
+  /*this.srv.actualizar_estado_orden(datos).subscribe(
      data => {	
        console.log("ACTUALIZANDO ESTADO")
        console.log(data)
-     });
-  // this.buscar_renglones_orden(datos);
+     });*/
+
   setTimeout(() => {
     this.lista_imagenes();
     this.lista_audios();
     this.get_detalle_vehiculo();
     this.get_datos_vehiculo();
     this.tab_habilitar_datos_orden=true
-    }, 3000);
+    }, 1500);
     
   this.srv.paises(datos).subscribe(
      data => {
@@ -1993,7 +2006,19 @@ export class Ordenes2Component implements OnInit {
                       this.guardar_datos_vehiculo();
                       this.guardar_detalle_vehiculo();
                       this.importarImagenRecepcion(this.numtraRecepcion, this.numtra, this.empresa);
-                    }
+                      let datos_recp = {}
+                      datos_recp['numtra'] = this.numtraRecepcion;	
+                      datos_recp['usuario'] = this.usuario;
+                      datos_recp['estadoR'] = 'R'
+                      datos_recp['codemp'] = this.empresa
+                      datos_recp['tiptra'] = 'R'
+                      //PORQUE SE SETEA R (REGISTRADA EL ESTADO DE LA ORDEN)??
+                      this.srv.actualizar_estado_orden(datos_recp).subscribe(
+                        data => {	
+                          console.log("ACTUALIZANDO ESTADO")
+                          console.log(data)
+                        });
+                       }
 
                     this.importarRecepcion = false
                     this.router.navigate(['/admin/ordenes2', datos]);
@@ -2789,7 +2814,7 @@ export class Ordenes2Component implements OnInit {
           data["pasajeros"] != undefined ? this.num_pasajeros = data["pasajeros"] : this.num_pasajeros = undefined
         
         }else {
-            alert('PLACA NO REGISTRADA EN EL SISTEMA')
+            alert('SERIE NO REGISTRADA EN EL SISTEMA')
           // this.placa = un
         }
        

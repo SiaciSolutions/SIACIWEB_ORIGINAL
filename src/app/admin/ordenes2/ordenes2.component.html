@@ -187,8 +187,8 @@
 								  <div class="form-group">
 									  <label>VENDEDOR</label>
 									  <select name="vendedor" [(ngModel)]="vendedor" class="form-control select2 tip" style="width:100%;">
-									  <option [ngValue]="undefined" disabled  selected>Seleccione</option>
-									  <option *ngFor="let e of vendedores_lista; let i = index;" [selected] = "i==1" [value]="e.codven">{{e.nomven}}</option>
+									  <option [ngValue]="undefined" disabled>Seleccione</option>
+									  <option *ngFor="let e of vendedores_lista; let i = index;" [selected] = "i==0" [value]="e.codven">{{e.nomven}}</option>
 									  </select>
 								  </div>
 							  </div>
@@ -414,9 +414,9 @@
 													</td>
 													<td style="padding:2px;">
 														<div class="text-center">
-														 <!-- <input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"   -->
-														 <!-- value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)"> -->
-														 {{el.prec01}}
+														  <input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"
+														  value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)"> 
+														 <!-- {{el.prec01}} -->
 														</div>
 													</td>
 													<td style="padding:2px;">
@@ -473,9 +473,9 @@
 												  </td>
 												  <td style="padding:2px;">
 													  <div class="text-center">
-													   <!-- <input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"   -->
-													   <!-- value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)"> -->
-													   {{el.prec01}}
+													    <input #prec class="form-control input-sm kb-pad text-center rquantity" name="precio" type="text"
+													    value="{{el.prec01}}" (keypress)='validaNumericos($event,prec.value)' (keyup.enter)="update_precio(el.codart,el.index,prec.value)" (blur)="update_precio(el.codart,el.index,prec.value)">
+													   <!-- {{el.prec01}} -->
 													  </div>
 												  </td>
 												  <td style="padding:2px;">
@@ -750,130 +750,7 @@
 	  
   </div>
   
-  <!-- ############################################## INCIO RUTAS ################################################-->
-  <!-- <div class="form-group"> -->
-	  <!-- <label>DEFINIR LUGAR DE ENTREGA</label> -->
-	  <!-- <!-- <div class="form-group"> --> 
-						<!-- <div class="radio"> -->
-						  <!-- <label>  -->
-						  <!-- <!-- ;check_agencia_sucursal=false --> 
-							<!-- <input type="radio" name="optionsRadios" id="optionsRadios1" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('P')"  value="principal"> -->
-							<!-- Agencia Principal -->
-						  <!-- </label> -->
-						<!-- </div> -->
-						<!-- <div class="radio"> -->
-						  <!-- <label> -->
-						  <!-- <!-- ;check_agencia_ppal=false -->
-							<!-- <input type="radio" name="optionsRadios" id="optionsRadios2" [(ngModel)]="check_agencia" (change)="validar_exist_agencia('S');habilitar_crear_nueva_sucursal=false"  value="sucursal"> -->
-							<!-- Agencia Sucursal -->
-						  <!-- </label> -->
-						<!-- </div> -->
-	  <!-- <!-- </div> --> 
-  <!-- </div> -->
-  
-  <!-- <!-- ##########################  SECCION DEFICNICION RUTA DE LA SEDE PRINCIPAL  ####################################### --> 
-  <!-- <div *ngIf="check_agencia == 'principal'" class="form-group"> -->
-			   <!-- <label *ngIf="(check_agencia == 'principal' && !val_exist_ppal)" style="color:blue">RUTA Y DIRECCION DE AGENCIA PRINCIPAL NO DEFINIDA, POR FAVOR DEFINIRLA A CONTINUACION</label> -->
-			   
-			   <!-- <div  class="row"  *ngIf="(check_agencia == 'principal'  && !val_exist_ppal)"> -->
-				  <!-- <div class="col-md-3"> -->
-				   <!-- <label>Ruta de entrega</label> -->
-				   <!-- <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> --> 
-					  <!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas()" class="form-control select2 tip" style="width:100%;"> -->
-					  <!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
-					  <!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
-					  
-					  <!-- <!-- [value]="e.porret+'|'+e.codret" -->
-					  <!-- </select> -->
-  
-				  <!-- </div> -->
-				  <!-- <div class="col-md-5"> -->
-				  <!-- <label>Dirección definida en la ficha del cliente</label> -->
-				   <!-- <input  *ngIf="!edit_dir_agencia_ppal"  type="text"  name="Direccion" [(ngModel)]="dir_agencia"  disabled value=""  class="form-control tip "> -->
-				   <!-- <input  *ngIf="edit_dir_agencia_ppal"  type="text"  placeholder="Ingrese Dirección" name="Direccion" [(ngModel)]="dir_agencia"  value=""  class="form-control tip "> -->
-				  
-				  <!-- </div> -->
-				  <!-- <div class="col-md-1"> -->
-				  <!-- <br> -->
-				  <!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true; " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> -->
-				  <!-- </div> -->
-				  <!-- <div class="col-md-3"> -->
-				  <!-- <br> -->
-				  <!-- <!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true;dir_agencia='' " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> --> 
-				  <!-- <input  type="submit" (click)="guardar_nueva_agencia('P')"  name="guardar_nueva_agencia" value="Crear agencia" class="btn btn-success"> -->
-				  <!-- </div> -->
-			  <!-- </div> -->
-  
-			  <!-- <div class="row" *ngIf="(check_agencia == 'principal'   && val_exist_ppal)"> -->
-				  <!-- <div class="col-md-4"> -->
-				   <!-- <label>Ruta de entrega</label> -->
-				   <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> -->
-				  <!-- </div> -->
-				  <!-- <div class="col-md-8"> -->
-				   <!-- <label>Dirección de agencia principal</label> -->
-				   <!-- <input  type="text"  placeholder="Direccion" name="Direccion" [(ngModel)]="dir_agencia" disabled value=""  class="form-control tip "> -->
-				  <!-- </div> -->
-			  <!-- </div> -->
-  <!-- </div> -->
-  <!-- <!-- ##########################  SECCION DEFICNICION RUTA DE LA SEDE SUCURSAL  ####################################### --> 
-	  <!-- <div *ngIf="check_agencia == 'sucursal' " class="form-group"> -->
-	  <!-- <label *ngIf="(check_agencia == 'sucursal' && !val_exist_sucursal)" style="color:blue">NO EXISTE RUTA Y DIRECCION DE AGENCIA SUCURSAL PARA ESTE CLIENTE, POR FAVOR DEFINIRLA A CONTINUACION</label> -->
-			   <!-- <div  class="row"  *ngIf="(check_agencia == 'sucursal'  && !val_exist_sucursal) || (habilitar_crear_nueva_sucursal)"> -->
-				  <!-- <div class="col-md-3"> -->
-				   <!-- <label>Ruta de entrega</label> -->
-					  <!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas()" class="form-control select2 tip" style="width:100%;"> -->
-					  <!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
-					  <!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
-					  <!-- </select> -->
-  
-				  <!-- </div> -->
-				  <!-- <div class="col-md-5"> -->
-			  <!-- <label>Favor ingresar dirección de la nueva agencia sucursal</label> -->
-				   <!-- <input  type="text"  placeholder="Ingrese Dirección" name="Direccion" [(ngModel)]="dir_agencia"  value=""  class="form-control tip "> -->
-				  <!-- </div> -->
-				  <!-- <!-- <div class="col-md-1"> --> 
-				  <!-- <!-- <br> --> 
-				  <!-- <!-- <button type="button" id="cambio_direccion" (click)="edit_dir_agencia_ppal = true; " class="btn btn-warning" title="Cambiar dirección" ><i class="fa fa-edit"></i></button> -->
-				  <!-- <!-- </div> --> 
-				  <!-- <div class="col-md-3"> -->
-				  <!-- <br> -->
-				  <!-- <input  type="submit" (click)="habilitar_crear_nueva_sucursal=false;guardar_nueva_agencia('S')"  name="guardar_nueva_agencia" value="Crear agencia" class="btn btn-success"> -->
-				  <!-- </div> -->
-			  <!-- </div> -->
-  
-			  <!-- <div class="row" *ngIf="(check_agencia == 'sucursal'  && val_exist_sucursal) &&  (!habilitar_crear_nueva_sucursal)"> -->
-				  <!-- <div class="col-md-4"> -->
-				   <!-- <label>Ruta de entrega</label> -->
-				   <!-- <!-- <input  type="text"  placeholder="Ruta" name="nombre_ruta" [(ngModel)]="nombre_ruta" disabled value=""  class="form-control tip"> --> 
-				   
-				   
-				   <!-- <select name="ruta" [(ngModel)]="id_nombre_ruta_seleccionado" (change)="set_id_nombre_rutas('S')" class="form-control select2 tip" style="width:100%;"> -->
-					  <!-- <option [ngValue]="undefined" disabled  selected>Seleccione</option> -->
-					  <!-- <option *ngFor="let e of lista_rutas; let i = index;" [selected] = "i==0" [value]="e.idruta+'|'+e.nombre_ruta">{{e.nombre_ruta}}</option> -->
-				  <!-- </select> -->
-				  <!-- </div> -->
-				  <!-- <div class="col-md-6"> -->
-				   <!-- <label>Selecione sucursal</label> -->
-				   <!-- <!-- <input  type="text"  placeholder="Direccion" name="Direccion" [(ngModel)]="dir_agencia" disabled value=""  class="form-control tip "> --> 
-				  <!-- <select *ngIf="(lista_surcursales && lista_surcursales.length > 0)" -->
-				  <!-- name="sucursal" [(ngModel)]="id_direccion_sucursal_seleccionado" (change)="set_id_dir_sucursal();" class="form-control select2 tip" style="width:100%;"> -->
-					  <!-- <!-- <option [ngValue]="undefined" selected>Seleccione</option> --> 
-					  <!-- <option [ngValue]="undefined" disabled selected>Seleccione</option> -->
-					  <!-- <!-- <option *ngFor="let e of caja_lista; let i = index;" [value]="e.numcaj">{{e.nomcaj}}</option> --> 
-					  <!-- <option *ngFor="let e of lista_surcursales; let i = index;" [value]="e.id_agencia+'|'+e.dir_agencia">{{e.dir_agencia}}</option> -->
-				  <!-- </select> -->
-				  
-				  <!-- <input *ngIf="!lista_surcursales" type="text" value="POR FAVOR SELECCIONE LA RUTA...!!!"  class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
-				  <!-- <input *ngIf="(lista_surcursales && lista_surcursales.length == 0)" type="text" value="NO EXISTEN SUCURSALES EN ESTA RUTA...!!!"  class="form-control ui-autocomplete-input" autocomplete="off" disabled> -->
-				  <!-- <label style="color:blue" >Si no está la sucursal en la ruta seleccionada, la puede crear con el boton (+)</label> -->
-				  <!-- </div> -->
-				  <!-- <div class="col-md-2"> -->
-				  <!-- <br> -->
-					  <!-- <!-- <input  type="submit" (click)="habilitar_crear_nueva_sucursal=true;dir_agencia=''"  name="guardar_nueva_agencia" value="Crear nueva sucursal" class="btn btn-success"> --> 
-					  <!-- <button type="button" id="guardar_nueva_agencia" (click)="habilitar_crear_nueva_sucursal=true;dir_agencia=''" class="btn btn-warning" title="Agregar nueva sucursal" ><i class="fa fa-plus"></i></button> -->
-				  <!-- </div> -->
-			  <!-- </div> -->
-	  <!-- </div> -->
+ 
   
   <!-- ############################################## FIN RUTAS ################################################-->
   
@@ -888,13 +765,14 @@
 						  
 						  
 						  <!-- <button *ngIf="numtra && (status=='I')" class="btn btn-primary" id="generar_pedido" (click)="generar_pedido()">Guardar orden</button> -->
-						  <div *ngIf="numtra ">
+						  <div *ngIf="numtra">
 							  <!-- <input *ngIf="(articulos_pedido.length == 0)"  #generar_pe type="submit" disabled name="add_purchase" value="Actualizar orden" class="btn btn-primary"> -->
 							  <!-- <input *ngIf="(articulos_pedido.length > 0)" #generar_pe type="submit" (click)="actualizar_pedido()"  name="add_purchase" value="Actualizar orden" class="btn btn-primary"> -->
-							  
+							    <!-- (status == 'F' || status == 'X') -->
+							<div *ngIf="(status_consultado != 'FACTURADO' && status_consultado != 'SIN FACTURA')">
 							  <button *ngIf="(articulos_pedido.length == 0)" name="actualizar_pedido" class="btn btn-primary" id="actualizar_pedido" disabled >Actualizar orden</button>
 							  <button *ngIf="(articulos_pedido.length > 0)" name="actualizar_pedido" class="btn btn-primary" id="actualizar_pedido" (click)="actualizar_pedido()">Actualizar orden</button>
-						  
+						    </div>
 						  </div>
 						  </form>    
 					  </div>

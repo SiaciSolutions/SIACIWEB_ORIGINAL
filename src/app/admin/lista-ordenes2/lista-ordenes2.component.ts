@@ -117,7 +117,7 @@ export class ListaOrdenes2Component implements OnInit {
   datos['fecha_hasta'] = this.fecha_hasta
   
   
-  this.srv.lista_ordenes(datos).subscribe(
+  this.srv.lista_ordenes2(datos).subscribe(
      data => {
        // if (data){
          // this.loading = false;
@@ -232,7 +232,7 @@ export class ListaOrdenes2Component implements OnInit {
     datos['tipo'] = 'O'
   
   
-  this.srv.lista_ordenes(datos).subscribe(
+  this.srv.lista_ordenes2(datos).subscribe(
      data => {
        // if (data){
          // this.loading = false;
@@ -520,7 +520,7 @@ export class ListaOrdenes2Component implements OnInit {
         datos['usuario'] = this.usuario;
         datos['nomcli'] = nomcli
         datos['num_ped'] = numtra
-        datos['asunto'] = 'orden_trabajo'
+        datos['asunto'] = 'orden_trabajo2'
         datos['email'] = email
         
         this.espera_correo_pedido = true;
@@ -567,7 +567,7 @@ export class ListaOrdenes2Component implements OnInit {
         
         // this.espera_correo_pedido = true;
         // this.espera_exitoso_pedido = false;
-        this.srv.generar_pdf_orden(datos).subscribe(
+        this.srv.generar_pdf_orden2(datos).subscribe(
           data => {
             
             this.espera_generar_pdf = false;
