@@ -5357,10 +5357,10 @@ def clientes():
   print (datos)
   conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
   curs = conn.cursor()
-  campos = ['codemp', 'nomcli','rucced','codcli','email','dircli','ciucli','telcli','telcli2','tipo','codprov']
+  campos = ['codemp', 'nomcli','rucced','codcli','email','dircli','dircl1','ciucli','telcli','telcli2','tipo','codprov','latitud','longitud']
   # sql = "select codemp,nombres, rucced, codcli,email,dircli,ciucli,telcli,telcli2 from clientes where codemp='{}' and rucced like '%{}%'".format(datos['codemp'],datos['ruc'])
   # sql = "select codemp,nombres, rucced, codcli,email,dircli,ciucli,telcli,telcli2 from clientes where codemp='{}' and rucced = '{}' and tpIdCliente='{}'".format(datos['codemp'],datos['ruc'],datos['tpIdCliente'])
-  sql = "select codemp,nombres, rucced, codcli,email,dircli,ciucli,telcli,telcli2,tipocliente,codprov from clientes where codemp='{}' and rucced = '{}'".format(datos['codemp'],datos['ruc'],datos['tpIdCliente'])
+  sql = "select codemp,nombres, rucced, codcli,email,dircli,dircl1,ciucli,telcli,telcli2,tipocliente,codprov,latitud,longitud from clientes where codemp='{}' and rucced = '{}'".format(datos['codemp'],datos['ruc'],datos['tpIdCliente'])
   curs.execute(sql)
   print (sql)
   r = curs.fetchone()
@@ -5914,9 +5914,9 @@ def crear_cliente():
       print ("###### CREO CLIENTE  ####")
       sql = """
       insert into clientes 
-      (codemp,codcli,nomcli,rucced,dircli,telcli,telcli2,estatus,apliva,limcre,lispre,codusu,fecult,ciucli,codven,email,seccli,tipo,nombres,codcla,tpIdCliente,tipovendedor,parteRel,posfechados,rise_op,oblidado_op,pordes,numpag,plapag,saldo,forpag,precanterior,codsub,codprov,tipocliente)
-      values ('{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}')
-      """.format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'])
+      (codemp,codcli,nomcli,rucced,dircli,dircl1, telcli,telcli2,estatus,apliva,limcre,lispre,codusu,fecult,ciucli,codven,email,seccli,tipo,nombres,codcla,tpIdCliente,tipovendedor,parteRel,posfechados,rise_op,oblidado_op,pordes,numpag,plapag,saldo,forpag,precanterior,codsub,codprov,tipocliente, latitud, longitud)
+      values ('{}','{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}','{}','{}')
+      """.format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['dircl1'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'],datos['latitud'],datos['longitud'])
       print (sql) 
       curs.execute(sql)
       conn.commit()
@@ -6017,9 +6017,9 @@ def actualizar_cliente():
 	  
   print ("###### ACTUALIZO CLIENTE  ####")
   sql = """
-  update clientes set nomcli='{}',nombres='{}',dircli='{}', telcli='{}', telcli2={}, ciucli='{}', email='{}', rucced='{}', tpIdCliente='{}',tipo='{}', codprov={}
+  update clientes set nomcli='{}',nombres='{}',dircli='{}', dircl1='{}', telcli='{}', telcli2={}, ciucli='{}', email='{}', rucced='{}', tpIdCliente='{}',tipo='{}', codprov={}, latitud='{}',longitud='{}'
   where codemp='{}' and codcli='{}' 
-  """.format(datos['nomcli'],datos['nomcli'],datos['dircli'],datos['telcli'],datos['telcli2'],datos['ciucli'],datos['email'],datos['rucced'],datos['tpIdCliente'],datos['tipo'],datos['codprov'],datos['codemp'],datos['codcli'])
+  """.format(datos['nomcli'],datos['nomcli'],datos['dircli'],datos['dircl1'],datos['telcli'],datos['telcli2'],datos['ciucli'],datos['email'],datos['rucced'],datos['tpIdCliente'],datos['tipo'],datos['codprov'],datos['latitud'],datos['longitud'],datos['codemp'],datos['codcli'])
   print (sql) 
   curs.execute(sql)
   conn.commit()
@@ -6047,7 +6047,7 @@ def actualizar_proveedor():
 	  
   print ("###### ACTUALIZO PROVEEDOR  ####")
   sql = """
-  update proveedores set nompro='{}',dirpro='{}', telpro='{}', telalt={}, ciudad='{}', email='{}', rucced='{}', tipo_identifica='{}', codprov={}
+  update proveedores set nompro='{}',dirpro='{}',telpro='{}', telalt={}, ciudad='{}', email='{}', rucced='{}', tipo_identifica='{}', codprov={}
   where codemp='{}' and codpro='{}' 
   """.format(datos['nomcli'],datos['dircli'],datos['telcli'],datos['telcli2'],datos['ciucli'],datos['email'],datos['rucced'],datos['tpIdCliente'],datos['codprov'],datos['codemp'],datos['codcli'])
   print (sql) 

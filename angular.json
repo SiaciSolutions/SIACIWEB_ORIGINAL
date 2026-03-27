@@ -38,8 +38,13 @@
 				"./node_modules/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css",
 				"./node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
 				"./node_modules/select2/dist/css/select2.min.css",
+<<<<<<< HEAD
 				 "./node_modules/round-slider/dist/roundslider.min.css"
 
+=======
+				 "./node_modules/round-slider/dist/roundslider.min.css",
+				"./node_modules/leaflet/dist/leaflet.css"
+>>>>>>> 8d8df8a (Cambios Geolocalizacion)
             ],
             "scripts": [
 					"./node_modules/jquery/dist/jquery.js",
