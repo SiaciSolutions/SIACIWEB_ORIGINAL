@@ -163,9 +163,6 @@ mat-selection-list {
   width: 1px;
 }
 
-<<<<<<< HEAD
-
-=======
 /* =====================================================================
    ESTILOS COMPARTIDOS PARA MODAL DE MAPA
    Agregar en admin-cliente.component.css
@@ -283,7 +280,6 @@ mat-selection-list {
     width: 100%;
   }
 }
->>>>>>> 8d8df8a (Cambios Geolocalizacion)
 
 
 
@@ -340,9 +336,6 @@ mat-selection-list {
 
 /* tbody td:last-child, thead th:last-child { */
     /* border-right: none !important; */
-<<<<<<< HEAD
-/* } */
-=======
 /* } */
 /* =================================================================
    AGREGAR ESTOS ESTILOS AL FINAL DE admin-cliente.component.css
@@ -443,4 +436,3 @@ mat-selection-list {
   font-size: 12px;
 }
 .map-hint p { margin: 0; }
->>>>>>> 8d8df8a (Cambios Geolocalizacion)
