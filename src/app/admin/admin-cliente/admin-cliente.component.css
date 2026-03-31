@@ -163,7 +163,123 @@ mat-selection-list {
   width: 1px;
 }
 
+/* =====================================================================
+   ESTILOS COMPARTIDOS PARA MODAL DE MAPA
+   Agregar en admin-cliente.component.css
+   y admin-cliente-consulta.component.css
+   ===================================================================== */
 
+/* Overlay del modal */
+.map-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Caja del modal */
+.map-modal-box {
+  background: #fff;
+  border-radius: 4px;
+  width: 92%;
+  max-width: 580px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Header del modal */
+.map-modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.map-modal-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.map-modal-header .close {
+  font-size: 20px;
+  font-weight: bold;
+  color: #666;
+  opacity: 1;
+  padding: 0 4px;
+}
+
+.map-modal-header .close:hover {
+  color: #333;
+}
+
+/* Body del modal */
+.map-modal-body {
+  padding: 14px 16px;
+}
+
+/* Contenedor del mapa Leaflet */
+.map-leaflet-container {
+  height: 300px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+/* Footer del modal */
+.map-modal-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: #fafafa;
+}
+
+/* Indicador de carga */
+.map-loading-hint {
+  font-size: 13px;
+  color: #777;
+  margin-top: 6px;
+}
+
+/* Indicador de coords guardadas */
+.coords-saved-indicator {
+  font-size: 12px;
+  color: #27ae60;
+  margin-top: 4px;
+}
+
+/* Responsive: en móvil el modal ocupa más pantalla */
+@media (max-width: 576px) {
+  .map-modal-box {
+    width: 98%;
+    max-width: 100%;
+    margin: 0 4px;
+  }
+
+  .map-leaflet-container {
+    height: 240px;
+  }
+
+  .map-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .map-modal-footer .btn {
+    width: 100%;
+  }
+}
 
 
 
@@ -221,3 +337,102 @@ mat-selection-list {
 /* tbody td:last-child, thead th:last-child { */
     /* border-right: none !important; */
 /* } */
+/* =================================================================
+   AGREGAR ESTOS ESTILOS AL FINAL DE admin-cliente.component.css
+   y admin-cliente-consulta.component.css
+   ================================================================= */
+
+/* ── Fila de búsqueda + botones dentro del modal ── */
+.map-search-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Wrapper del input con botón "x" interno */
+.map-search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.map-search-input-wrap .form-control {
+  width: 100%;
+  padding-right: 30px; /* espacio para el botón limpiar */
+}
+
+/* Botón X para limpiar búsqueda, posicionado dentro del input */
+.map-search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+}
+.map-search-clear:hover { color: #555; }
+
+/* Botón de búsqueda (lupa) */
+.map-search-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Ocultar etiqueta "Mi ubicación" en pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .map-btn-label { display: none; }
+}
+
+/* ── Lista de resultados de búsqueda ── */
+.map-search-results {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.map-search-result-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.12s;
+  line-height: 1.4;
+}
+.map-search-result-item:last-child { border-bottom: none; }
+.map-search-result-item:hover { background: #f0f7ff; }
+.map-search-result-item span { word-break: break-word; }
+
+/* ── Sin resultados ── */
+.map-no-results {
+  font-size: 12px;
+  color: #e67e22;
+  padding: 6px 0;
+  margin-bottom: 6px;
+}
+
+/* ── Error de geolocalización ── */
+.map-geo-error {
+  padding: 6px 10px;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+/* ── Callout informativo ── */
+.map-hint {
+  padding: 6px 12px;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+.map-hint p { margin: 0; }
