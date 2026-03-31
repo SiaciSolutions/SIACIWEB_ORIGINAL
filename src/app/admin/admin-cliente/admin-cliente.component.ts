@@ -161,9 +161,9 @@ export class AdminClienteComponent implements OnInit, OnDestroy {
     this.destruirMapa();
     this.mapInstance = L.map('mapPickerCrear').setView([this.mapLat, this.mapLng], 16);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://carto.com">CARTO</a>',
-      subdomains: 'abcd',
+    // ✅ OpenStreetMap — más estable
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
       maxZoom: 19
     }).addTo(this.mapInstance);
 
@@ -194,19 +194,55 @@ export class AdminClienteComponent implements OnInit, OnDestroy {
     this.mapSearchResultados = [];
     this.mapSearchSinResultados = false;
 
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&accept-language=es&countrycodes=ec`;
+    // viewbox cubre todo Ecuador continental + Galápagos
+    // bounded=1 restringe resultados DENTRO del viewbox
+    // countrycodes=ec filtra por país
+    const viewbox = '-92.0,-5.5,-75.0,1.5'; // lon_min,lat_min,lon_max,lat_max
+    const url = `https://nominatim.openstreetmap.org/search`
+      + `?q=${encodeURIComponent(query)}`
+      + `&format=json&limit=6&accept-language=es`
+      + `&countrycodes=ec`
+      + `&viewbox=${viewbox}`
+      + `&bounded=1`;   // ← solo resultados dentro del viewbox
+
     this.http.get<any[]>(url).subscribe(
       resultados => {
         this.buscandoDireccion = false;
-        if (resultados && resultados.length > 0) { this.mapSearchResultados = resultados; }
-        else { this.buscarDireccionGlobal(query); }
+        if (resultados && resultados.length > 0) {
+          this.mapSearchResultados = resultados;
+        } else {
+          // Fallback: buscar en Ecuador sin bounded (más flexible)
+          this.buscarDireccionEcuadorSinBounds(query);
+        }
       },
       () => { this.buscandoDireccion = false; this.mapSearchSinResultados = true; }
     );
   }
 
+  private buscarDireccionEcuadorSinBounds(query: string) {
+    const url = `https://nominatim.openstreetmap.org/search`
+      + `?q=${encodeURIComponent(query)}`
+      + `&format=json&limit=6&accept-language=es`
+      + `&countrycodes=ec`;
+
+    this.http.get<any[]>(url).subscribe(
+      resultados => {
+        if (resultados && resultados.length > 0) {
+          this.mapSearchResultados = resultados;
+        } else {
+          // Último fallback: búsqueda global
+          this.buscarDireccionGlobal(query);
+        }
+      },
+      () => { this.mapSearchSinResultados = true; }
+    );
+  }
+
   private buscarDireccionGlobal(query: string) {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&accept-language=es`;
+    const url = `https://nominatim.openstreetmap.org/search`
+      + `?q=${encodeURIComponent(query)}`
+      + `&format=json&limit=5&accept-language=es`;
+
     this.http.get<any[]>(url).subscribe(
       resultados => {
         if (resultados && resultados.length > 0) { this.mapSearchResultados = resultados; }

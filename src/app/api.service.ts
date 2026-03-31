@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  // public apiUrl = 'http://192.168.0.55';
+  //public apiUrl = 'https://192.168.100.69';
   
   // public apiUrl = 'http://192.168.101.4';
   //public apiUrl = 'http://192.168.100.11';
@@ -19,8 +19,8 @@ export class ApiService {
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
 //	public apiUrl = 'https://26.109.37.213';
-  //public apiUrl = 'https://127.0.0.1';
-		 public apiUrl = 'https://192.168.0.193';
+  public apiUrl = 'https://127.0.0.1';
+		// public apiUrl = 'https://192.168.101.6';
 	
   // public apiUrl = 'https://192.168.0.13';
   // public apiUrl = 'https://192.168.101.7';

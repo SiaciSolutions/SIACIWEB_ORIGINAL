@@ -1,9 +1,9 @@
 {
-   "name": "SIACI_WEB",
+   "name": "SIACI WEB",
    "version": "0.0.0",
    "scripts": {
       "ng": "ng",
-      "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve --host 0.0.0.0 --port 4405 --ssl true",
+      "start": "ng serve --host 0.0.0.0 --port 4405 --ssl true",
       "build": "ng build",
       "test": "ng test",
       "lint": "ng lint",
