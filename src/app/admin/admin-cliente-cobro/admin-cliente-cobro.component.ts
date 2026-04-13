@@ -93,7 +93,9 @@ export class AdminClienteCobroComponent implements OnInit {
     if (this.patron_cliente) {
       const datos = {
         codemp: this.empresa,
-        patron_cliente: this.patron_cliente
+        patron_cliente: this.patron_cliente,
+        tipacc:this.srv.getTipacc(),
+        usuario:this.usuario
       };
       
       this.srv.busqueda_razon_social2(datos).subscribe(data => {

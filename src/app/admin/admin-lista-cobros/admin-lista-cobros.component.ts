@@ -70,6 +70,7 @@ export class AdminListaCobrosComponent implements OnInit {
       const datos = {};
       datos['codemp'] = this.empresa;	
       datos['usuario'] = this.usuario;
+      datos['tipacc'] = this.srv.getTipacc()
       
       var newdate = new Date();
       newdate.setDate(newdate.getDate() -30 ); 
@@ -128,6 +129,7 @@ export class AdminListaCobrosComponent implements OnInit {
     datos['fecha_desde'] = this.fecha_desde
     datos['fecha_hasta'] = this.fecha_hasta
     datos['codalm'] = this.srv.getCodAgencia();	
+    datos['tipacc'] = this.srv.getTipacc()
   
     this.srv.lista_cobros(datos).subscribe(
       data => {
@@ -207,6 +209,7 @@ export class AdminListaCobrosComponent implements OnInit {
       const datos = {};
       datos['codemp'] = this.empresa;	
       datos['usuario'] = this.usuario;
+      datos['tipacc'] = this.srv.getTipacc()
 
       this.srv.lista_pedidos(datos).subscribe(
         data => {

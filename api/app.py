@@ -2531,14 +2531,22 @@ def busqueda_razon_social():
   curs = conn.cursor()
   campos = ['nomcli', 'rucced','tpIdCliente','email','dircli','codcli']
   # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
-  
-  sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
-  curs.execute(sql)
-  regs = curs.fetchall()
-  arrresp = []
-  for r in regs:
-    d = dict(zip(campos, r))
-    arrresp.append(d)
+  if (datos['tipacc'] == 'T'):
+     sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
+     curs.execute(sql)
+     regs = curs.fetchall()
+     arrresp = []
+     for r in regs:
+       d = dict(zip(campos, r))
+       arrresp.append(d)
+  if (datos['tipacc'] == 'P'):
+     sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' and c.codven=(select vc.codven from vendedorescob vc where vc.codus1='{}' and vc.codemp=c.codemp) order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'],datos['usuario'])
+     curs.execute(sql)
+     regs = curs.fetchall()
+     arrresp = []
+     for r in regs:
+       d = dict(zip(campos, r))
+       arrresp.append(d)
 
   print("CERRANDO SESION SIACI")
   curs.close()
@@ -5912,11 +5920,18 @@ def crear_cliente():
       
   if (exist_cliente == 0):
       print ("###### CREO CLIENTE  ####")
+      #sql = """
+      #insert into clientes 
+      #(codemp,codcli,nomcli,rucced,dircli,dircl1, telcli,telcli2,estatus,apliva,limcre,lispre,codusu,fecult,ciucli,codven,email,seccli,tipo,nombres,codcla,tpIdCliente,tipovendedor,parteRel,posfechados,rise_op,oblidado_op,pordes,numpag,plapag,saldo,forpag,precanterior,codsub,codprov,tipocliente, latitud, longitud)
+      #values ('{}','{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}','{}','{}')
+      #""".format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['dircl1'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'],datos['latitud'],datos['longitud'])
+
       sql = """
       insert into clientes 
       (codemp,codcli,nomcli,rucced,dircli,dircl1, telcli,telcli2,estatus,apliva,limcre,lispre,codusu,fecult,ciucli,codven,email,seccli,tipo,nombres,codcla,tpIdCliente,tipovendedor,parteRel,posfechados,rise_op,oblidado_op,pordes,numpag,plapag,saldo,forpag,precanterior,codsub,codprov,tipocliente, latitud, longitud)
-      values ('{}','{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','01','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}','{}','{}')
-      """.format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['dircl1'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'],datos['latitud'],datos['longitud'])
+      values ('{}','{}','{}','{}','{}','{}','{}',{},'A',0,0,1,'{}',DATE('{}'),'{}','{}','{}','{}','{}','{}','01','{}','G','NO',0,'N','N',0.0,1,1,0.0,'E',0.0,'N',{},'{}','{}','{}')
+      """.format(datos['codemp'],codcli,datos['nomcli'],datos['rucced'],datos['dircli'],datos['dircl1'],datos['telcli'],datos['telcli2'],datos['codus1'],datos['fectra'],datos['ciucli'],codven,datos['email'],seccli,'C',datos['nomcli'],datos['tpIdCliente'],datos['codprov'],datos['tipo'],datos['latitud'],datos['longitud'])     
+      
       print (sql) 
       curs.execute(sql)
       conn.commit()
@@ -10145,13 +10160,22 @@ def lista_cobros():
   
   campos = ['codcli', 'nomcli','fecha','valor','numcco']
   
-  sql = """ SELECT DISTINCT codcli, f_nombre_cliente('{}',codcli), MAX(fecemi) as fecha,
+  if (datos['tipacc'] == 'T'):
+    sql = """ SELECT DISTINCT codcli, f_nombre_cliente('{}',codcli), MAX(fecemi) as fecha,
         SUM(valcob), numcco
         FROM cuentasporcobrar
         WHERE codemp = '{}' AND fecemi BETWEEN '{}' AND '{}' AND tipdoc = 'AB'
         GROUP BY codcli, numcco
         ORDER BY fecha
-  """.format(datos['codemp'], datos['codemp'], datos['fecha_desde'],datos['fecha_hasta'])
+    """.format(datos['codemp'], datos['codemp'], datos['fecha_desde'],datos['fecha_hasta'])
+  if (datos['tipacc'] == 'P'):
+    sql = """ SELECT DISTINCT codcli, f_nombre_cliente('{}',codcli), MAX(fecemi) as fecha,
+        SUM(valcob), numcco
+        FROM cuentasporcobrar
+        WHERE codemp = '{}' AND fecemi BETWEEN '{}' AND '{}' AND tipdoc = 'AB' AND CODUSU='{}'
+        GROUP BY codcli, numcco
+        ORDER BY fecha
+    """.format(datos['codemp'], datos['codemp'], datos['fecha_desde'],datos['fecha_hasta'],datos['codusu'])
    
   curs.execute(sql)
   print (sql)
@@ -10216,14 +10240,24 @@ def busqueda_razon_social2():
   campos = ['nomcli', 'rucced','tpIdCliente','email','dircli','codcli']
   # sql = "select codart, nomart, round(prec01, 2), (exiact-(select case when sum(cantid) is null then 0 else sum(cantid) end  as sum from v_exitencias_pedpro where codemp = '{}' and codart like '%{}%')) as exiact,coduni,punreo,codiva  from articulos where (nomart like '%{}%' or codart like '%{}%') and codemp = '{}' order by nomart asc".format(datos['codemp'],datos['nomart'],datos['nomart'],datos['nomart'],datos['codemp'])
   
-  sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' and c.forpag = 'R' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
-  curs.execute(sql)
-  regs = curs.fetchall()
-  print (sql)
-  arrresp = []
-  for r in regs:
-    d = dict(zip(campos, r))
-    arrresp.append(d)
+  if (datos['tipacc'] == 'T'):
+     sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' and c.forpag = 'R' order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'])
+     curs.execute(sql)
+     regs = curs.fetchall()
+     print (sql)
+     arrresp = []
+     for r in regs:
+       d = dict(zip(campos, r))
+       arrresp.append(d)
+  if (datos['tipacc'] == 'P'):
+     sql = "select c.nombres,c.rucced,tpIdCliente,email,dircli,codcli from clientes c where c.codemp = '{}' and c.nomcli like '%{}%' and c.forpag = 'R' and c.codven=(select vc.codven from vendedorescob vc where vc.codus1='{}' and vc.codemp=c.codemp) order by c.nomcli asc".format(datos['codemp'],datos['patron_cliente'],datos['usuario'])
+     curs.execute(sql)
+     regs = curs.fetchall()
+     print (sql)
+     arrresp = []
+     for r in regs:
+       d = dict(zip(campos, r))
+       arrresp.append(d)
 
   print("CERRANDO SESION SIACI")
   curs.close()

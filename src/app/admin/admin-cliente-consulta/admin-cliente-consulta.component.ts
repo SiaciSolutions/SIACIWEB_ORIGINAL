@@ -154,7 +154,7 @@ export class AdminClienteConsultaComponent implements OnInit, OnDestroy {
   // ── Búsqueda ─────────────────────────────────────────────────────────────────
   busqueda_razon_social() {
     if (!this.patron_cliente) { alert('Por favor llenar el campo Razón Social'); return; }
-    this.srv.busqueda_razon_social({ codemp: this.empresa, patron_cliente: this.patron_cliente }).subscribe(data => {
+    this.srv.busqueda_razon_social({ codemp: this.empresa, patron_cliente: this.patron_cliente, tipacc:this.srv.getTipacc() , usuario:this.usuario }).subscribe(data => {
       if (data.length > 0) { this.razon_social_lista = data; this.exist_razon_social = true; }
       else { alert('Razón Social no encontrada <<' + this.patron_cliente + '>>'); this.exist_razon_social = false; }
     });

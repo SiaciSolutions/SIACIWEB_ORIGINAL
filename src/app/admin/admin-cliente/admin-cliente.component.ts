@@ -352,6 +352,8 @@ export class AdminClienteComponent implements OnInit, OnDestroy {
     datos['fectra'] = this.fectra;
     datos['latitud'] = this.latitud;     // Coordenadas
     datos['longitud'] = this.longitud;
+    datos['usuario'] = this.usuario;
+    datos['tipacc'] = this.srv.getTipacc;
 
     if (this.ciudad === '*** OTRA CIUDAD ***') { this.ciudad = 'OTRA CIUDAD'; }
     datos['ciucli'] = this.ciudad;
@@ -398,6 +400,8 @@ export class AdminClienteComponent implements OnInit, OnDestroy {
     datos['codprov'] = this.provincia;
     datos['tipo'] = this.tipo_cliente;
     datos['tpIdCliente'] = this.tipo_doc;
+    datos['usuario'] = this.usuario;
+    datos['tipacc'] = this.srv.getTipacc;
 
     if (this.validar_campos_obligatorios(datos) &&
       this.validar_formato_campos_numeros(datos) &&
