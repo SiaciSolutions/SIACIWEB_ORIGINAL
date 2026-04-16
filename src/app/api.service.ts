@@ -484,26 +484,26 @@ public getConfCambioVendedorPed(): string {
 
 //#######   REPORTE 5002  
   reporte_lista_pedidos_ruta(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_pedidos_ruta', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_pedidos_ruta', param);
   }
   
   reporte_lista_articulos(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_articulos', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_articulos', param);
   }
   reporte_renglones_pedidos_ruta(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_renglones_pedidos_ruta', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_renglones_pedidos_ruta', param);
   }
   
   
   reporte_lista_articulos_todas_rutas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_articulos_todas_rutas', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_articulos_todas_rutas', param);
   }
   
   reporte_lista_pedidos_ruta_todas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_pedidos_ruta_todas', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_pedidos_ruta_todas', param);
   }
   reporte_renglones_pedidos_ruta_todas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_renglones_pedidos_ruta_todas', param);
+    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_renglones_pedidos_ruta_todas', param);
   }
   
   
