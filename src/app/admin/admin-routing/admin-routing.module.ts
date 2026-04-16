@@ -52,11 +52,10 @@ import { Recepciones2Component } from './../recepciones2/recepciones2.component'
 import { Ordenes2Component } from './../ordenes2/ordenes2.component';
 import { ListaRecepciones2Component } from './../lista-recepciones2/lista-recepciones2.component';
 import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.component';
-
-
-
-
-
+import { AdminListaDespachoPedidosComponent } from './../admin-lista-despacho-ped/admin-lista-despachos-ped.component';
+import { AdminRegistroDespachoPedidosComponent } from './../admin-registro-despacho/admin-registro-despacho.component';
+import {AdminListaPedidosLogComponent} from './../admin-lista-pedidos-log/admin-lista-pedidos-log.component';
+import { AdminPedidosLogComponent } from './../admin-pedidos-log/admin-pedidos-log.component';
 
 
 
@@ -98,6 +97,10 @@ import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.compo
 		  {
             path: 'crear_pedidos',
             component: AdminPedidosComponent
+          },
+      {
+            path: 'crear_pedidos_log',
+            component: AdminPedidosLogComponent
           },
 		  {
             path: 'crear_clientes',
@@ -152,6 +155,10 @@ import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.compo
 			
 			
 			// ]
+          },
+      {
+            path: 'lista_pedidos_log',
+            component: AdminListaPedidosLogComponent
           },
 		  {
             path: 'ver_pedidos',
@@ -269,6 +276,11 @@ import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.compo
             component: AdminPedidosMedicosComponent
           }
 		  ,
+      {
+            path: 'despachos_pedidos',
+            component: AdminListaDespachoPedidosComponent
+          }
+		  ,
 		  {
             path: 'lista_ped_medicos',
             component: AdminListaPedidosMedicosComponent
@@ -302,6 +314,10 @@ import { ListaOrdenes2Component } from './../lista-ordenes2/lista-ordenes2.compo
 		  {
             path: 'lista_ordenes2',
             component:  ListaOrdenes2Component 
+          },
+      {
+            path: 'registro_despachos',
+            component: AdminRegistroDespachoPedidosComponent
           }
 		  
         ]

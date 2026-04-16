@@ -322,20 +322,7 @@
         </ul>
       </li>
 	  
-	  
-	 <li *ngIf="auth.getCalendario() != 'NO'"  class="treeview">
-        <a href="#">
-		<i class="fa fa-calendar"></i> 
-		<span>Caledario</span>
-			<span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        <ul class="treeview-menu">
-		<li (click)="ocultar_menu_moviles()"><a routerLink="agenda_calendario" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Ver calendario</a></li>
-        <li (click)="ocultar_menu_moviles()" ><a routerLink="admin-reporte-pedidos" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte de rutas por fechas</a></li>
-		</ul>
-      </li>
+
 	  
 	  
 	  <li *ngIf="auth.getTalleres() != 'NO'" class="treeview">
@@ -389,19 +376,76 @@
 		</ul>
       </li>
 
-  <li *ngIf="auth.getConfGeoloc() != 'NO'" class="treeview">
+    <li *ngIf="auth.getConfGeoloc() != 'NO'" class="treeview">
+          <a href="#">
+      <!-- <i class="fa fa-fw fa-whatsapp"></i>  -->
+      <i class="fa fa-fw fa-globe"></i>
+      <span>GEOLOCALIZACION</span>
+        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+          <ul class="treeview-menu">
+      <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="registrar_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Registrar visita cliente</a></li>
+      <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="reporte_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte visita vendedores</a></li>
+      </ul>
+    </li>
+
+    <li class="treeview">
         <a href="#">
-		<!-- <i class="fa fa-fw fa-whatsapp"></i>  -->
-		<i class="fa fa-fw fa-globe"></i>
-		<span>GEOLOCALIZACION</span>
+            <i class="fa fa-fw fa-university"></i> <span>SUCURSAL CLIENTES</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+      <ul class="treeview-menu">
+		    <li class="active"><a routerLink="consulta_sucursales" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Consultar/Modif Sucursal</a></li>
+      </ul>
+    </li>
+
+     <li *ngIf="auth.getCalendario() != 'NO'"  class="treeview">
+        <a href="#">
+		<i class="fa fa-calendar"></i> 
+      <span>CALENDARIO</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+      </a>
+      <ul class="treeview-menu">
+		    <li (click)="ocultar_menu_moviles()"><a routerLink="agenda_calendario" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Ver calendario</a></li>
+        <li (click)="ocultar_menu_moviles()" ><a routerLink="admin-reporte-pedidos" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte de rutas por fechas</a></li>
+		  </ul>
+    </li>
+
+    <li  class="treeview">
+        <a href="#">
+      <i class="fa fa-truck"></i> 
+      <span>DESPACHOS</span>
+        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+          <ul class="treeview-menu">
+  <!-- 		<li (click)="ocultar_menu_moviles()"><a routerLink="agenda_calendario" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Ver calendario</a></li> -->
+          <li (click)="ocultar_menu_moviles()" ><a routerLink="despachos_pedidos" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Despachos</a></li>
+      </ul>
+    </li>
+	  
+    	  <!--####################### MULTINIVEL PEDIDOS LOGISTICA#######################################-->
+      <li *ngIf="auth.getPedidos() != 'NO'" class="treeview">
+        <a href="#">
+		<i class="fa fa-plus"></i> 
+		<span>PEDIDOS LOGISTICA</span>
 			<span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
         <ul class="treeview-menu">
+		<li (click)="ocultar_menu_moviles()"><a routerLink="lista_pedidos_log" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Lista de Pedidos</a></li>
+		  <li (click)="ocultar_menu_moviles()"><a routerLink="crear_pedidos_log" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Agregar Pedido</a></li>
 		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="registrar_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Registrar visita cliente</a></li>
 		 <li  *ngIf="auth.getConfGeoloc() != 'NO'" (click)="ocultar_menu_moviles()" ><a routerLink="reporte_visita" [queryParams]="{usuario: auth.getUsuario(),empresa: auth.getEmpresa()}" ><i class="fa fa-circle-o"></i>Reporte visita vendedores</a></li>
-		</ul>
+        </ul>
       </li>
 
     </ul>

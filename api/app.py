@@ -1210,6 +1210,46 @@ def lista_pedidos():
 
   return (jsonify(arrresp))
   
+@app.route('/lista_pedidos_log', methods=['POST'])
+def lista_pedidos_log():
+  datos = request.json
+  print ('ENTRADAAAAA')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  campos = ['numtra', 'codcli','nomusu','fectra','nomcli','observ','totnet','status','email','tiptra','fecha_entrega','status_entrega','fectra_vista']
+
+  sql = """ SELECT p.numtra,p.codcli,p.codusu,fectra,c.nomcli,
+  trim(p.soli_gra),round((p.totnet+p.iva_cantidad),2) as total_iva,
+  (CASE WHEN estado = 'P' THEN 'EMITIDO' 
+  WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' THEN 'PROCESADO' WHEN estado = 'F' 
+  THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA'  WHEN estado = 'I' THEN 'SOLICITADO'
+  ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
+  c.email , p.tiptra,
+  (SELECT fecha_entrega from pedido_ruta pr where pr.empresa=p.codemp and pr.numtra_pedido = p.numtra ) as fecha_entrega,
+  (SELECT status_entrega from pedido_ruta pr where pr.empresa=p.codemp and pr.numtra_pedido = p.numtra ) as status_entrega,
+  DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra_vista
+  FROM encabezadopedpro p, clientes c where p.tiptra in (1,2) and p.codemp='{}'
+  and p.fectra between '{}' and '{}' 
+  --and p.codusu='{}'
+  and p.codemp = c.codemp and p.codcli = c.codcli and codalm='01'  and estado in ('P','I') order by p.fectra desc""".format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'],datos['usuario'])
+  # and p.codemp = c.codemp and p.codcli = c.codcli and codalm='01' and estado='P' order by p.fectra desc""".format(datos['codemp'])
+
+  curs.execute(sql)
+  print (sql)
+  regs = curs.fetchall()
+  arrresp = []
+  for r in regs:
+    d = dict(zip(campos, r))
+ #   print(arrresp)
+    arrresp.append(d)
+
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+
+  return (jsonify(arrresp))
   
 # @app.route('/ticket/<ticketname>')
 # def ticket(ticketname):
@@ -4317,7 +4357,209 @@ def generar_pedido():
   return(response)
   
   
+@app.route('/generar_pedido_log', methods=['POST'])
+def generar_pedido_log():
+  datos = request.json
+  print ("##########  ENTRADA GENERAR PEDIDOS ######")
+  print (datos)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+ 
+  
+  codemp=datos['codemp']
+  print ("CODEMP")
+  print (codemp)
+  
+  codcli=datos['codcli']
+  print ("CODCLI")
+  print (codcli)
+  
+  ciucli=datos['ciucli']
+  print ("CIUCLI")
+  print (ciucli)
+  if (ciucli == '*** Seleccione ciudad ***'):
+    ciucli = 'NO DISPONIBLE'
+  if (ciucli == '*** OTRA CIUDAD ***'):
+    ciucli = 'OTRA CIUDAD'
+  
+  fectra='DATE(\''+datos['fectra']+'\')'
+  print ("FECTRA")
+  print (fectra)
+  
+  fecult='DATE(\''+datos['fectra']+'\')'
+  print ("FECULT")
+  print (fecult)
+  
+  totnet=datos['totnet']
+  print ("TOTNET")
+  print (totnet)
+  
+  iva_cantidad=datos['iva_cantidad']
+  print ("IVA_CANTIDAD")
+  print (iva_cantidad)
+  
+  iva_pctje=datos['iva_pctje']
+  print ("IVA_PCTJE")
+  print (iva_pctje)
+  
+  codven = datos['codven']
+  print ("COD VENDEDOR")
+  print (codven)
+  
+  codusu = datos['codus1']
+  print ("CODUSU")
+  print (codusu)
+  
+  print ("COD ALMACEN")
+  codalm = '01'
+  print (codalm)
+  
+  if (datos['tiptra']):
+      TIPTRA = datos['tiptra']
+      print ("TIPTRA")
+  else:
+      TIPTRA = '1'
+  print (TIPTRA)
+  
+  print ("lispre")
+  lispre=1
+  print (lispre)
+  
+  print ("codmon")
+  codmon='01'
+  print (codmon)
+  
+  print ("valcot")
+  valcot='01'
+  print (valcot)
+  
+  print ("externo")
+  externo='1'
+  print (externo)
+  
+  try:
+    print ("codcen")
+    codcen = datos['codagencia']+"."
+    print (codcen)
+  except Exception as e:
+    print ("codcen")
+    codcen='01.'
+    print (codcen)
+  
+  print ("ESTADO")
+  # ESTADO='I' 
+  ESTADO= datos['estado']
+  print (ESTADO)
+  
+  sql = "SELECT seccue FROM secuencias where codalm=\'01\' and codsec = '{}' and codemp='{}'".format(datos['cod_secuencia'],datos['codemp'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  NEXT_NUMTRA=r[0]
+  
+  print ("OBSERVACION entrada")
+  observ=datos['observ']
+  print (observ)
+  observ= 'null'  if datos['observ'] == None else "'"+datos['observ']+"'"
+  
+  
+  
+  try:
+     datos['ruta'] = 'null'  if datos['ruta'] == None else "'"+datos['ruta']+"'"
+  except Exception as e:
+     datos['ruta'] = 'null'
+     
+  dateTimeObj = datetime.now()
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  print (hora)
 
+  if (TIPTRA == '1'):
+  
+     print ("INFO ADICIONAL")
+     info_adicional=datos['info_adicional']
+     print (info_adicional)
+     info_adicional= 'null'  if datos['info_adicional'] == None else "'"+datos['info_adicional']+"'"
+
+     print ("CONDICIONES DE PAGO")
+     condiciones_pago=datos['condiciones_pago']
+     print (condiciones_pago)
+     condiciones_pago= 'null'  if datos['condiciones_pago'] == None else "'"+datos['condiciones_pago']+"'"
+  
+     print ("TIEMPO ENTREGA")
+     tiempo_entrega=datos['tiempo_entrega']
+     print (tiempo_entrega)
+     tiempo_entrega= 'null'  if datos['tiempo_entrega'] == None else "'"+datos['tiempo_entrega']+"'"
+     sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,soli_gra,ciucli,info_adicional,condiciones_pago,tiempo_entrega) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}',{},{},{})"\
+        .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,info_adicional,condiciones_pago,tiempo_entrega)
+     print (sql)
+     curs.execute(sql)
+     conn.commit()
+  if (TIPTRA == '2'):
+  
+     print ("INFO ADICIONAL")
+     info_adicional=datos['info_adicional']
+     print (info_adicional)
+     info_adicional= 'null'  if datos['info_adicional'] == None else "'"+datos['info_adicional']+"'"
+
+     print ("CONDICIONES DE PAGO")
+     condiciones_pago=datos['condiciones_pago']
+     print (condiciones_pago)
+     condiciones_pago= 'null'  if datos['condiciones_pago'] == None else "'"+datos['condiciones_pago']+"'"
+  
+     print ("TIEMPO ENTREGA")
+     tiempo_entrega=datos['tiempo_entrega']
+     print (tiempo_entrega)
+     tiempo_entrega= 'null'  if datos['tiempo_entrega'] == None else "'"+datos['tiempo_entrega']+"'"
+     
+     sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,soli_gra,ciucli,info_adicional,condiciones_pago,tiempo_entrega) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}',{},{},{})"\
+        .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,info_adicional,condiciones_pago,tiempo_entrega)
+     print (sql)
+     curs.execute(sql)
+     conn.commit()
+  if (TIPTRA == '7'):
+     codcen=datos['codagencia']+'.'
+     print (codcen)
+     sql = "INSERT INTO encabezadopedpro (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,hora_ingreso,tipo_odas,tiporg_ord) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{} )"\
+        .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'])
+     print (sql)
+     curs.execute(sql)
+     if (ESTADO == 'I'):
+        sql = "INSERT INTO encabezadopedpro_historica (codemp,tiptra,numtra,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,estado,descuento,iva_cantidad,iva_pctje,externo,observ,ciucli,horahistorica,tipo_odas,tiporg_ord,fechahistorica) values('{}',{},'{}','{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{},{},{},'{}','{}','{}',{},{})"\
+            .format(codemp,TIPTRA,NEXT_NUMTRA,codcli,codven,codalm,fectra,lispre,totnet,codmon,valcot,codusu,fecult,codcen,ESTADO,0,iva_cantidad,iva_pctje,1,observ,ciucli,hora,datos['tipo_orden'],datos['ruta'],fectra)
+        print (sql)
+        curs.execute(sql)
+     conn.commit()
+
+  # print (sql)
+  # curs.execute(sql)
+  # conn.commit()
+  
+  
+  print ("PARA OBTENER SECUENCIA  NUEVA DE PEDIDOS")
+  print (NEXT_NUMTRA)
+  print (len(NEXT_NUMTRA))
+  print (int(NEXT_NUMTRA)+1)
+  print (str((int(NEXT_NUMTRA)+1)).zfill(len(NEXT_NUMTRA)))
+  numfac_nueva = str((int(NEXT_NUMTRA)+1)).zfill(len(NEXT_NUMTRA))
+  
+  # sql = "update secuencias set seccue = seccue+1 where codalm=\'01\' and codsec = \'VC_PED\' and codemp='{}'".format(datos['codemp'])
+  sql = "update secuencias set seccue = '{}' where codalm=\'01\' and codsec = '{}' and codemp='{}'".format(numfac_nueva,datos['cod_secuencia'],datos['codemp'])
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  # if r:
+    # d = dict(zip(campos, r))
+  # else:
+    # d = {'rucced': False}
+  d = {'status': 'INSERTADO CON EXITO','numtra': NEXT_NUMTRA}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
   
 
 ##################################################### GENERAR PEDIDO GUADAPRODUCT 
@@ -4540,6 +4782,49 @@ def actualizar_encabezado_pedido():
   response.headers['content-type'] = 'application/json'
   return(response)
 
+@app.route('/actualizar_encabezado_pedido_log', methods=['POST'])
+def actualizar_encabezado_pedido_log():
+  datos = request.json
+  print ("##########  ENTRADA ACTULIZACION ENCABEZADO PEDIDOS ######")
+  print (datos)
+  
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  fecult='DATE(\''+datos['fecult']+'\')'
+  print ("FECULT")
+  print (fecult)
+  # observ = 'null' if datos['observ'] == None else "'"+datos['observ']+"'"
+  datos['observ'] = 'null' if datos['observ'] == None else "'"+datos['observ']+"'"
+  datos['info_adicional'] = 'null' if datos['info_adicional'] == None else "'"+datos['info_adicional']+"'"
+  datos['condiciones_pago'] = 'null' if datos['condiciones_pago'] == None else "'"+datos['condiciones_pago']+"'"
+  datos['tiempo_entrega'] = 'null' if datos['tiempo_entrega'] == None else "'"+datos['tiempo_entrega']+"'"
+
+
+
+  
+
+  sql = "update encabezadopedpro set codcli= '{}',soli_gra={},ciucli='{}',totnet={},iva_cantidad={}, fecult= '{}', fectra= '{}' , codven= '{}', iva_pctje='{}' , info_adicional={} ,condiciones_pago={} , tiempo_entrega={} where codemp='{}' and numtra='{}' and tiptra={} "\
+  .format(datos['codcli'],datos['observ'],datos['ciucli'],datos['totnet'],datos['iva_cantidad'],datos['fecult'],datos['fectra'],datos['codven'],datos['iva_pctje'],datos['info_adicional'],datos['condiciones_pago'],datos['tiempo_entrega'],datos['codemp'],datos['numtra'],datos['tiptra'])
+  print (sql)
+  curs.execute(sql)
+  conn.commit()
+  
+  # DELETE FROM renglonespedpro WHERE codemp='01' and numtra='10000236' and tiptra=1
+  sql = "DELETE FROM renglonespedpro WHERE codemp='{}' and numtra='{}' and tiptra={}"\
+  .format(datos['codemp'],datos['numtra'],datos['tiptra'])
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+
+  d = {'status': 'ACTUALIZADO CON EXITO'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+
 @app.route('/actualizar_estado_orden', methods=['POST'])
 def actualizar_estado_orden():
   datos = request.json
@@ -4751,7 +5036,102 @@ def generar_renglones_pedido():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+@app.route('/generar_renglones_pedido_log', methods=['POST'])
+def generar_renglones_pedido_log():
+  datos = request.json
+  print ("##########  ENTRADA GENERAR RENGLONES PEDIDOS ######")
+  print (datos)
   
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  
+  codemp=datos['codemp']  
+  print ("CODEMP " +codemp )  
+ 
+  if (datos['tiptra']):
+      TIPTRA = datos['tiptra']
+      print ("TIPTRA")
+  else:
+      TIPTRA = '1'
+  print (TIPTRA)
+
+  codcen='01.' 
+  print ("codcen" + codcen)
+  
+  NUMTRA=datos['numtra'] 
+  print ("NUMTRA "+str(NUMTRA) )
+
+  numren=datos['numren']
+  print ("NUMREN " +str(numren) )
+ 
+  codart=datos['codart']
+  print ("CODART "+ codart) 
+
+  nomart=datos['nomart']
+  nomart = nomart.replace("'","''")
+  print ("NOMART "+nomart )  
+
+  coduni=datos['coduni']
+  print ("CODUNI "+coduni) 
+
+  cantid=datos['cant']
+  # print ("CANTID "+cantid)  
+
+  preuni=datos['prec01']
+  print ("PREUNI "+ str(preuni))   
+ 
+  totren=datos['subtotal_art']
+  print ("TOTREN "+str(totren))    
+
+  codiva=datos['codiva']
+  print ("CODIVA "+codiva) 
+  
+  desren=datos['punreo']
+  print ("DESREN "+str(desren)) 
+  
+  acumula=1
+  print ("ACUMULA "+str(acumula))
+  
+  num_docs=datos['num_docs']
+  
+  num_docs= 'null'  if datos['num_docs'] == None else "'"+datos['num_docs']+"'"
+  # pattern_observ = re.compile(r'Puede agregar detalles del artículo')
+  
+  # if (pattern_observ.search(num_docs)):
+     # print ("SETEO OBSERVACION A NULL")
+     # num_docs= ""
+
+  # print ("DESCRIP_ART "+num_docs)
+
+# insert into renglonespedpro (codemp,tiptra,numtra,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,codcen,desren,acumula)
+# values ('01',1,'30000030',1,'75W-90','ACEITE CAJAC MEC GETRIEBEOL EP SYNTH','UNI',1,11.62,10.46,'S','01.',10,1)
+  
+  if (coduni != 'N/A'):
+     sql = "INSERT INTO renglonespedpro (codemp,tiptra,numtra,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs) values('{}','{}','{}',{},'{}','{}','{}','{}','{}',{},'{}','{}',{},{},{})"\
+        .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,coduni,cantid,preuni,totren,codiva,codcen,desren,acumula,num_docs)
+  else:
+     sql = "INSERT INTO renglonespedpro (codemp,tiptra,numtra,numren,codart,nomart,cantid,preuni,totren,numite,codiva,codcen,desren,acumula,num_docs) values('{}','{}','{}',{},'{}','{}','{}','{}',{},'{}','{}','{}',{},{},{})"\
+        .format(codemp,TIPTRA,NUMTRA,numren,codart,nomart,cantid,preuni,totren,datos['numite'],codiva,codcen,desren,acumula,num_docs)
+     
+
+  print (sql) 
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  # if r:
+    # d = dict(zip(campos, r))
+  # else:
+    # d = {'rucced': False}
+  d = {'status': 'INSERTADO RENGLON'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+
 @app.route('/generar_renglones_talleres', methods=['POST'])
 def generar_renglones_talleres():
   renglones = request.json
@@ -5300,7 +5680,92 @@ def generar_pedido_ruta():
   response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
   response.headers['content-type'] = 'application/json'
   return(response)
+
+@app.route('/actualizar_pedido_ruta', methods=['POST'])
+def actualizar_pedido_ruta():
+  datos = request.json
+  print ("##########  ENTRADA ACTUALIZAR PEDIDO RUTAAAA ######")
+  print (datos)
   
+  dateTimeObj = datetime.now()
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  print (hora)
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  sql = "select count(*) from pedido_ruta where numtra_pedido= '{}' and empresa='{}'"\
+         .format(datos['numtra_pedido'],datos['empresa'])
+  curs.execute(sql)
+  r = curs.fetchone()
+  
+  if (r[0] > 0):
+    if (datos['existe_fecha_entrega']=='SI'):
+      sql = "update pedido_ruta set fecha_entrega='{}',idruta='{}',id_agencia='{}', status_entrega ='{}' ,hora_entrega= '{}' where numtra_pedido= '{}' and empresa='{}'"\
+          .format(datos['fecha_entrega'],datos['idruta'],datos['id_agencia'],'PLANIFICADO',datos['hora_entrega'],datos['numtra_pedido'],datos['empresa'])
+
+    if (datos['existe_fecha_entrega']=='NO'):
+      sql = "update pedido_ruta  set idruta='{}',id_agencia='{}', status_entrega ='{}', fecha_entrega = null, hora_entrega=null where numtra_pedido= '{}' and empresa='{}'"\
+          .format(datos['idruta'],datos['id_agencia'],'POR PLANIFICAR',datos['numtra_pedido'],datos['empresa'])
+    print (sql) 
+    curs.execute(sql)
+    conn.commit()
+    print("CERRANDO SESION SIACI")
+    curs.close()
+  else :
+    if (datos['existe_fecha_entrega']=='SI'):
+       sql = "INSERT INTO pedido_ruta (empresa,numtra_pedido,fectra,hora,idruta,id_agencia,status_entrega,fecha_entrega,hora_entrega) values('{}','{}','{}','{}','{}','{}','{}','{}','{}')"\
+          .format(datos['empresa'] ,datos['numtra_pedido'],datos['fectra'],hora,datos['idruta'],datos['id_agencia'],'PLANIFICADO',datos['fecha_entrega'],datos['hora_entrega'])
+
+    if (datos['existe_fecha_entrega']=='NO'):
+       sql = "INSERT INTO pedido_ruta (empresa,numtra_pedido,fectra,hora,idruta,id_agencia,status_entrega) values('{}','{}','{}','{}','{}','{}','{}')"\
+          .format(datos['empresa'] ,datos['numtra_pedido'],datos['fectra'],hora,datos['idruta'],datos['id_agencia'],'POR PLANIFICAR')
+    print (sql) 
+    curs.execute(sql)
+    conn.commit()
+     
+  conn.close()
+  
+  d = {'status': 'RUTA PEDIDO GENERADA'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+
+@app.route('/generar_pedido_ruta_log', methods=['POST'])
+def generar_pedido_ruta_log():
+  datos = request.json
+  print ("##########  ENTRADA GENERAR PEDIDO RUTA ######")
+  print (datos)
+  
+  dateTimeObj = datetime.now()
+  hora= dateTimeObj.strftime("%H:%M:%S")
+  print (hora)
+
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+  sql = ''
+  
+  if (datos['existe_fecha_entrega']=='SI'):
+    sql = "INSERT INTO pedido_ruta (empresa,numtra_pedido,fectra,hora,idruta,id_agencia,status_entrega,fecha_entrega,hora_entrega) values('{}','{}','{}','{}','{}','{}','{}','{}','{}')"\
+          .format(datos['empresa'] ,datos['numtra_pedido'],datos['fectra'],hora,datos['idruta'],datos['id_agencia'],'PLANIFICADO',datos['fecha_entrega'],datos['hora_entrega'])
+
+  if (datos['existe_fecha_entrega']=='NO'):
+    sql = "INSERT INTO pedido_ruta (empresa,numtra_pedido,fectra,hora,idruta,id_agencia,status_entrega) values('{}','{}','{}','{}','{}','{}','{}')"\
+          .format(datos['empresa'] ,datos['numtra_pedido'],datos['fectra'],hora,datos['idruta'],datos['id_agencia'],'POR PLANIFICAR')
+   
+  print (sql) 
+  curs.execute(sql)
+  conn.commit()
+  
+  print("CERRANDO SESION SIACI")
+  curs.close()
+  conn.close()
+  
+  d = {'status': 'RUTA PEDIDO GENERADA'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+
 @app.route('/crear_nueva_agencia', methods=['POST'])
 def crear_nueva_agencia():
   datos = request.json
@@ -5519,6 +5984,7 @@ def get_sucursal_pedido():
           select idruta,id_agencia,
           (select r.descripcion from ruta r where trim(r.codruta) = pr.idruta and r.codemp = pr.empresa) as ruta,
           (select dir_agencia ac from agencia_cliente ac where ac.empresa = pr.empresa and ac.id_agencia = pr.id_agencia) as dir_agencia,
+          (select tipo_agencia ac from agencia_cliente ac where ac.empresa = pr.empresa and ac.id_agencia = pr.id_agencia) as tipo_agencia,
 		  DATEFORMAT(fecha_entrega, 'DD-MM-YYYY') as fecha_entrega_formateado,fecha_entrega,hora_entrega
           from pedido_ruta pr
           where pr.empresa = '{}'
@@ -5526,7 +5992,7 @@ def get_sucursal_pedido():
           """.format(datos['codemp'],datos['pedido'])
     curs = conn.cursor()
     curs.execute(sql)
-    campos = ['idruta','id_agencia','nombre_ruta','dir_agencia','fecha_entrega_formateado','fecha_entrega','hora_entrega']
+    campos = ['idruta','id_agencia','nombre_ruta','dir_agencia','tipo_agencia','fecha_entrega_formateado','fecha_entrega','hora_entrega']
     # regs = curs.fetchall()
     # arr_datos = [] 
     # for reg in regs:
@@ -5549,7 +6015,8 @@ def get_sucursal_pedido():
     response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
     response.headers['content-type'] = 'application/json'
     return(response)
-	
+
+
 @app.route('/update_sucursal_pedido', methods=['POST'])
 def update_sucursal_pedido():
     datos = request.json
@@ -5760,47 +6227,168 @@ def set_fecha_hora_pedido():
     response.headers['content-type'] = 'application/json'
     return(response)
 	
-
-	
 @app.route('/get_rutas', methods=['POST'])
 def get_rutas():
-    datos = request.json
-    print (datos)
-    try:
-        conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
-    except Exception as e:
-        print (str(e))
-    sql = """
-          SELECT trim(codruta),descripcion from ruta
-          where codemp='{}'
-          """.format(datos['codemp'])
-    curs = conn.cursor()
-    curs.execute(sql)
-    # campos = ['idruta','nombre_ruta']
-    regs = curs.fetchall()
-    arr_datos = [] 
-    for reg in regs:
-        datos_rutas = {}
-        datos_rutas['idruta'] = reg[0]
-        datos_rutas['nombre_ruta'] = reg[1]
-        arr_datos.append(datos_rutas)
-    # r = curs.fetchone()
-    # if r:
-       # d = dict(zip(campos, r))
-    # else:
-       # d = {'idruta': False,'id_agencia':False}
-    print("CERRANDO SESION SIACI")
+  datos = request.json
+  print (datos)
+  try:
+      conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  except Exception as e:
+      print (str(e))
+  sql = """
+        SELECT trim(codruta),descripcion from ruta
+        where codemp='{}'
+        """.format(datos['codemp'])
+  curs = conn.cursor()
+  curs.execute(sql)
+  # campos = ['idruta','nombre_ruta']
+  regs = curs.fetchall()
+  # arr_datos = ['%','TODAS LAS RUTAS'] 
+  arr_datos = [{'idruta':'%','nombre_ruta':'TODAS LAS RUTAS'}]
+  for reg in regs:
+      datos_rutas = {}
+      datos_rutas['idruta'] = reg[0]
+      datos_rutas['nombre_ruta'] = reg[1]
+      arr_datos.append(datos_rutas)
+  # r = curs.fetchone()
+  # if r:
+     # d = dict(zip(campos, r))
+  # else:
+     # d = {'idruta': False,'id_agencia':False}
+  print("CERRANDO SESION SIACI")
     
    
-    curs.close()
-    conn.close()
+  curs.close()
+  conn.close()
 
-    response = make_response(dumps(arr_datos, sort_keys=False, indent=2, default=json_util.default))
-    response.headers['content-type'] = 'application/json'
-    return(response)
+  response = make_response(dumps(arr_datos, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
 
+@app.route('/lista_despachos_pedidos', methods=['POST'])
+def lista_despachos_pedidos():
+  datos = request.json
+  print ('ENTRADAAAAA')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
 
+  campos = ['numtra', 'codcli','nomusu','fectra','nomcli','observ','total_iva','status','email','fecha_entrega','hora_entrega','direccion_entrega','ruta','idruta','id_agencia','status_entrega','tiptra','id_pedido_ruta','observacion_entrega']
+  
+  datos["tipacc"] = 'T'
+  print ('ENTRADA LUEGO TIPACC')
+  if (datos["tipacc"] == 'T'):
+      
+	  sql = """ SELECT top 500 p.numtra,p.codcli,p.codusu,
+			DATEFORMAT(p.fectra, 'DD-MM-YYYY') as fectra,c.nomcli,
+			p.soli_gra,round((p.totnet+p.iva_cantidad),2) as total_iva,
+			(CASE WHEN estado = 'P' THEN 'EMITIDO' WHEN estado = 'A' THEN 'ANULADO' WHEN estado = 'S' THEN 'PROCESADO' WHEN estado = 'F' THEN 'FACTURADO'WHEN estado = 'E' THEN 'EN ESPERA' WHEN estado = 'C' THEN 'COMPRADA' ELSE 'STATUS_NO_ENCONTRADO' END) AS status,
+			c.email, DATEFORMAT(pr.fecha_entrega, 'DD-MM-YYYY') as fecha_entrega_planificada,CONVERT(VARCHAR, pr.hora_entrega, 108),dir_agencia,r.descripcion,pr.idruta,a.id_agencia, pr.status_entrega, p.tiptra, pr.id_pedido_ruta, pr.observacion_entrega
+			FROM encabezadopedpro p, clientes c, pedido_ruta pr, agencia_cliente a, ruta r
+			where p.tiptra=1 and p.codemp='{}' 
+			and pr.idruta = trim(r.codruta)
+		--	and a.idruta = trim(r.codruta) 
+			and p.codemp=r.codemp
+			and p.codemp = c.codemp 
+			and p.codcli = c.codcli 
+			and codalm='01' 
+			and estado <>'A' 
+			and pr.numtra_pedido = p.numtra
+			and a.empresa = p.codemp
+			and a.codcli = p.codcli
+			and a.id_agencia = pr.id_agencia
+            and pr.status_entrega <> 'POR PLANIFICAR'
+            and fecha_entrega between '{}' and  '{}'
+            and pr.idruta like '{}'
+            and pr.status_entrega like '{}'
+			order by p.fectra desc
+        """.format(datos['codemp'],datos['fecha_desde'],datos['fecha_hasta'],datos['idruta'],datos['status_entrega']) 
+  print (sql)        
+  
+  curs.execute(sql)
 
+  regs = curs.fetchall()
+  arrresp = []
+  # arr_up = []
+  for r in regs:
+    # print (r)
+    reg = (r[0],r[1],r[2],r[3],r[4],r[5],convert_decimal(r[6]),r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],r[18])
+    d = dict(zip(campos, reg))
+    arrresp.append(d)
+    # arr_up.append(arrresp)
+
+  # arr_up = []
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+
+  return (jsonify(arrresp))
+  
+@app.route('/get_pedidos_ruta_despacho', methods=['POST'])
+def get_pedidos_ruta_despacho():
+
+  datos = request.json
+  print ('ENTRADAAAAA get_pedidos_ruta_despacho')
+  print (datos) 
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  campos = ['status_entrega','fecha_entrega','hora_entrega','observacion_entrega', 'fecha_entrega_efectiva','hora_entrega_efectiva','direccion_entrega']
+  
+  sql = """ select status_entrega,fecha_entrega,hora_entrega,observacion_entrega,fecha_entrega_efectiva,hora_entrega_efectiva, 
+  (select dir_agencia from agencia_cliente a where a.empresa = pr.empresa and a.id_agencia=pr.id_agencia) as direccion_entrega
+  from pedido_ruta pr where id_pedido_ruta={} and empresa ='{}'
+	""".format(datos['id_pedido_ruta'],datos['codemp'])
+  
+  print (sql)
+  curs.execute(sql)
+  reg = curs.fetchone()
+  print (reg)
+  d = dict(zip(campos, reg))
+  
+  
+  print("CERRANDO SESION SIACI")
+  # print(arrresp)
+  curs.close()
+  conn.close()
+
+  return (jsonify(d))
+  
+@app.route('/actualizar_despacho_pedido', methods=['POST'])
+def actualizar_despacho_pedido():
+  datos = request.json
+  print ("########## APLICAR ACTUALIZACION DESPACHO PEDIDO ######")
+  print (datos)
+  conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  curs = conn.cursor()
+
+  dateTimeObj = datetime.now()
+  hora_entrega_efectiva = dateTimeObj.strftime("%H:%M:%S")
+  print (hora_entrega_efectiva)
+
+  # timestampStr= dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+  fecha_entrega_efectiva = dateTimeObj.strftime("%Y-%m-%d")
+  print (fecha_entrega_efectiva)
+  
+  observ= 'null'  if datos['observacion_entrega'] == None else "'"+datos['observacion_entrega']+"'"
+
+  
+  sql = """update pedido_ruta p set 
+  p.status_entrega = '{}', p.fecha_entrega_efectiva= '{}' , p.hora_entrega_efectiva = '{}' , p.observacion_entrega = {}
+  where p.id_pedido_ruta = '{}' and p.empresa = '{}'""".format(datos['status_entrega'],fecha_entrega_efectiva,hora_entrega_efectiva,observ,datos['id_pedido_ruta'] ,datos['codemp'])
+  print (sql) 
+  curs.execute(sql)
+  conn.commit()
+
+  # curs.close()
+  conn.close()
+  sleep (0.5)  
+  d = {'status': 'EXITOSO'}
+  response = make_response(dumps(d, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+ 
 
 @app.route('/clientes_nombre', methods=['POST'])
 def clientes_nombre():
@@ -6928,7 +7516,104 @@ def uploader():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+@app.route("/uploadFile_despacho", methods=['POST'])
+def uploadFile_despacho():
+ if request.method == 'POST':
+  # obtenemos el archivo del input "archivo"
+  datos = request
+  # directorio = 'datos'
+  # datos['dir']
   
+  # dest = APP_PATH+'\\GENERADOS\\'+recv['NUMERO_AUTORIZACION']+'.pdf'
+				# print ('########  CONVERTIDOR PDF INSTANCIADO PARA CONVERTIR COMPROBANTE: '+recv['COMPROBANTE']+'########')
+				# exitoso = 0
+				# while True:
+					# try:
+						# if os.path.isdir(dest):
+  
+  
+  print (request)
+  print (request.form)
+  print (request.form["dir"])
+  id_pedido_ruta = request.form["dir"][3:]
+  codemp = request.form["dir"][:2]
+  print (id_pedido_ruta)
+  print (codemp)
+  print (request.files)
+  print (request.files['uploads'])
+  
+  f = request.files['uploads']
+  filename = secure_filename(f.filename)
+  directorio = request.form["dir"]
+  
+  
+  # Guardamos el archivo en el directorio "Archivos PDF"
+  
+  if not (os.path.isdir(app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio)):
+     os.mkdir(app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio)
+  f.save(os.path.join(app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio, filename))
+  
+  # conn = sqlanydb.connect(uid=coneccion.uid, pwd=coneccion.pwd, eng=coneccion.eng,host=coneccion.host)
+  
+  # sql = """
+  # select  cname
+  # from    SYS.SYSCOLUMNS
+  # where   tname = 'imagen_orden'
+  # and     cname like 'imagen%'
+   # """
+  # print (sql) 
+  # curs = conn.cursor()
+  # curs.execute(sql)
+  # regs = curs.fetchall()
+  # arrresp = []
+  # imagen_escoger = ''
+  # for r in regs:
+    # print (r)
+    # sql = """
+    # SELECT {} FROM "DBA"."imagen_despacho" where id_pedido_ruta='{}' and codemp='{}'
+    # """.format(r[0],id_pedido_ruta,codemp)
+    # curs = conn.cursor()
+    # curs.execute(sql)
+    # imagen = curs.fetchone()
+    # if imagen:
+        # if (imagen[0] == None):
+           # imagen_escoger = r[0]
+           # print (imagen_escoger) 
+           # break
+    # else:
+       # imagen_escoger = 'imagen1'
+
+  
+  # if (imagen_escoger):
+     # if (imagen_escoger == 'imagen1'):
+        # sql = """
+        # insert into imagen_despacho
+        # (codemp,id_pedido_ruta,{})values
+        # ('{}',{},'{}','{}')
+         # """.format(imagen_escoger,codemp,id_pedido_ruta,app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio+'\\'+filename)
+        # print (sql) 
+        # curs = conn.cursor()
+        # curs.execute(sql)
+        # conn.commit()
+     # else :
+        # sql = """
+        # update imagen_despacho set {} = '{}' where codemp = '{}' and id_pedido_ruta ='{}'
+        # """.format(imagen_escoger,app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio+'\\'+filename,codemp,id_pedido_ruta)
+        # print (sql) 
+        # curs = conn.cursor()
+        # curs.execute(sql)
+        # conn.commit()
+
+  # curs.close()
+  
+  
+  result = {'resultado': 'Archivo subido exitosamente'} 
+  response = make_response(dumps(result, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+  
+  
+
 #########  SERVICIOS PARA MANEJAR DETALLE VEHICULO #######################
 @app.route("/rotarRecepcionOrden", methods=['POST'])
 def rotarRecepcionOrden():
@@ -7035,7 +7720,34 @@ def lista_audios():
   response.headers['content-type'] = 'application/json'
   return(response)
   
+@app.route("/lista_img_despacho", methods=['POST'])
+def lista_img_despacho():
+  datos = request.json
+  directorio = datos['dir']
+  campos = ['nombre', 'src']
+  arr_img = []
+  print (app.config['UPLOAD_FOLDER_DESPACHOS'])
   
+          # if ((not recv) or (not (recv['result']['code'] in ['000.100.110', '000.100.112', '000.000.000']))):
+  extensions = ("*.png","*.jpg","*.jpeg",)
+  # for f in glob.glob(app.config['UPLOAD_FOLDER']+'\\'+directorio+'\\*'):
+  for extension in extensions:
+     for f in glob.glob(app.config['UPLOAD_FOLDER_DESPACHOS']+'\\'+directorio+'\\'+extension):
+         print (f)
+         arr_path_img = f.split('\\')
+         img_name = arr_path_img[-1]
+         img = (img_name,'assets/img_despachos/'+directorio+'/'+img_name)
+         # print (f)
+         # print (img_name)
+         a = dict(zip(campos, img))
+         arr_img.append(a)
+  # print (arr_img)
+	  
+  # result = {'resultado': 'imagenes'} 
+  response = make_response(dumps(arr_img, sort_keys=False, indent=2, default=json_util.default))
+  response.headers['content-type'] = 'application/json'
+  return(response)
+    
 
 @app.route("/eliminar_imagen", methods=['POST'])
 def eliminar_imagen():

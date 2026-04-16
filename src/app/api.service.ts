@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  public apiUrl = 'https://192.168.100.69';
+  //public apiUrl = 'https://192.168.100.69';
   
   // public apiUrl = 'http://192.168.101.4';
   //public apiUrl = 'http://192.168.100.11';
@@ -19,7 +19,7 @@ export class ApiService {
   // public apiUrl = 'https://192.168.101.2';
     // public apiUrl = 'https://192.168.0.24';
 //	public apiUrl = 'https://26.109.37.213';
-  //----spublic apiUrl = 'https://127.0.0.1';
+  public apiUrl = 'https://127.0.0.1';
 		// public apiUrl = 'https://192.168.101.6';
 	
   // public apiUrl = 'https://192.168.0.13';
@@ -463,6 +463,10 @@ public getConfCambioVendedorPed(): string {
   generar_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pedido', param);
   }
+
+  generar_pedido_log(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pedido_log', param);
+  }
   
   generar_renglones_pdv(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_pdv', param);
@@ -471,33 +475,35 @@ public getConfCambioVendedorPed(): string {
   generar_renglones_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_pedido', param);
   }
-  
+  generar_renglones_pedido_log(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_pedido_log', param);
+  }
   generar_renglones_talleres(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_renglones_talleres', param);
   }
 
 //#######   REPORTE 5002  
   reporte_lista_pedidos_ruta(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_pedidos_ruta', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_pedidos_ruta', param);
   }
   
   reporte_lista_articulos(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_articulos', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_articulos', param);
   }
   reporte_renglones_pedidos_ruta(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_renglones_pedidos_ruta', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_renglones_pedidos_ruta', param);
   }
   
   
   reporte_lista_articulos_todas_rutas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_articulos_todas_rutas', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_articulos_todas_rutas', param);
   }
   
   reporte_lista_pedidos_ruta_todas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_lista_pedidos_ruta_todas', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_lista_pedidos_ruta_todas', param);
   }
   reporte_renglones_pedidos_ruta_todas(param): Observable<any> {
-    return this.http.post(this.apiUrl + ':' + '5002' + '/reporte_renglones_pedidos_ruta_todas', param);
+    return this.http.post(this.apiUrl + ':' + this.port + '/reporte_renglones_pedidos_ruta_todas', param);
   }
   
   
@@ -538,7 +544,12 @@ public getConfCambioVendedorPed(): string {
   lista_pedidos(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_pedidos', param);
   }
-  
+  lista_pedidos_log(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_pedidos_log', param);
+  }
+  lista_despachos_pedidos(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_despachos_pedidos', param);
+  }
   lista_servicios(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/lista_servicios', param);
   }
@@ -565,6 +576,9 @@ public getConfCambioVendedorPed(): string {
   }
   generar_pedido_ruta(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/generar_pedido_ruta', param);
+  }
+  generar_pedido_ruta_log(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/generar_pedido_ruta_log', param);
   }
   get_rutas(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_rutas', param);
@@ -657,6 +671,12 @@ public getConfCambioVendedorPed(): string {
   
   actualizar_encabezado_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_pedido', param);
+  }
+  actualizar_encabezado_pedido_log(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_encabezado_pedido_log', param);
+  }
+  actualizar_pedido_ruta(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_pedido_ruta', param);
   }
   actualizar_renglones_pedido(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_renglones_pedido', param);
@@ -830,6 +850,18 @@ public getConfCambioVendedorPed(): string {
     )
   }
 
+  ////  ##### SERVICIOS DE SUBA DE ARCHIVO (FOTOS)   //////
+    uploadFile_despacho(formData) {
+      // let urlAPI = 'http://localhost:3000/api/upload';
+      // return this.http.post(urlAPI, formData);
+    return this.http.post(this.apiUrl + ':' + this.port + '/uploadFile_despacho', formData, {
+        reportProgress: true,
+        observe: 'events'
+      }).pipe(
+        catchError(this.errorMgmt)
+      )
+    }
+
     uploadFileR(formData) {
     // let urlAPI = 'http://localhost:3000/api/upload';
     // return this.http.post(urlAPI, formData);
@@ -869,6 +901,9 @@ public getConfCambioVendedorPed(): string {
     return this.http.post(this.apiUrl + ':' + this.port + '/rotarRecepcionOrden',param)
   }
 
+  lista_img_despacho(param) {
+    return this.http.post(this.apiUrl + ':' + this.port + '/lista_img_despacho',param)
+    }
   
   
    errorMgmt(error: HttpErrorResponse) {
@@ -974,8 +1009,12 @@ public getConfCambioVendedorPed(): string {
       get_renglones_egreso(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/get_renglones_egreso', param);
   }
-  
-  
+  actualizar_despacho_pedido(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/actualizar_despacho_pedido', param);
+  }
+  get_pedidos_ruta_despacho(param): Observable<any> {
+    return this.http.post(this.apiUrl + ':' + this.port + '/get_pedidos_ruta_despacho', param);
+  }
     
     valida_serie_articulo(param): Observable<any> {
     return this.http.post(this.apiUrl + ':' + this.port + '/valida_serie_articulo', param);

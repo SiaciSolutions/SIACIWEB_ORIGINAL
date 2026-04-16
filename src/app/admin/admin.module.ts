@@ -97,6 +97,10 @@ import { Recepciones2Component } from './recepciones2/recepciones2.component';
 import { Ordenes2Component } from './ordenes2/ordenes2.component';
 import { ListaRecepciones2Component } from './lista-recepciones2/lista-recepciones2.component';
 import { ListaOrdenes2Component } from './lista-ordenes2/lista-ordenes2.component';
+import { AdminListaDespachoPedidosComponent } from './admin-lista-despacho-ped/admin-lista-despachos-ped.component';
+import { AdminRegistroDespachoPedidosComponent } from './admin-registro-despacho/admin-registro-despacho.component';
+import { AdminListaPedidosLogComponent } from './admin-lista-pedidos-log/admin-lista-pedidos-log.component';
+import { AdminPedidosLogComponent } from './admin-pedidos-log/admin-pedidos-log.component';
 
 @NgModule({
   imports: [
@@ -184,7 +188,11 @@ import { ListaOrdenes2Component } from './lista-ordenes2/lista-ordenes2.componen
   Recepciones2Component,
   Ordenes2Component,
   ListaRecepciones2Component,
-  ListaOrdenes2Component  // Modal component
+  ListaOrdenes2Component,
+  AdminListaDespachoPedidosComponent,
+  AdminRegistroDespachoPedidosComponent,
+  AdminListaPedidosLogComponent,
+  AdminPedidosLogComponent
   ],
   entryComponents: [
     FormaPagoModalComponent  // AGREGAR ESTO PARA EL MODAL

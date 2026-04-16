@@ -126,7 +126,8 @@ export class AdminCalendarioAgendaComponent implements OnInit {
 	   data => {
 		   console.log("OBTENIENDO RUTAS")
 		   console.log(data)
-		   this.lista_rutas = data
+		   let  newData = data.filter(obj => obj.idruta !== '%');
+		   this.lista_rutas = newData
 		}); 
 		
 
